@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UnitiesActivityManager : MonoBehaviour
 {
@@ -38,7 +37,9 @@ public class UnitiesActivityManager : MonoBehaviour
         if (Physics.Raycast(direction, out RaycastHit hit, LayerMask.GetMask("Ground")))
         {
             foreach (var unit in _controlledUnits)
+            {
                 unit.MoveTo(hit.point);
+            }
         }
     }
 
@@ -62,7 +63,7 @@ public class UnitiesActivityManager : MonoBehaviour
 
     private void SelectUnitGroup()
     {
-        if (_startMousePos == _endMousePos) 
+        if (_startMousePos == _endMousePos)
             return;
         Vector3 v1 = Camera.main.ScreenToViewportPoint(_startMousePos);
         Vector3 v2 = Camera.main.ScreenToViewportPoint(_endMousePos);
