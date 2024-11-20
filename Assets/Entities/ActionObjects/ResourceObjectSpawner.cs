@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class ResourceObjectSpawner : ActionObject, BreakableObject
 {
+    [SerializeField]
+    private Mesh _restoredMesh;
+    [SerializeField]
+    private Mesh _restoringMesh;
+
     [SerializeField, Min(0f)]
     private float _timeToExtract;
 
@@ -9,12 +14,12 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     private float _timeToRestore;
 
     [SerializeField]
-    private Resource _dropdownResource;
+    private Resource _resorce;
 
     private bool _isRestored = true;
 
     private Collider _collider;
-    private MeshRenderer _renderer;
+    private MeshFilter _renderer;
 
     private float _baseTimeToExtract;
 
@@ -25,12 +30,10 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
         set
         {
             _timeToExtract = value;
-            if (value == 0)
+            if (value <= 0)
                 ToBreak();
         }
     }
-
-    public Resource DropResource => _dropdownResource;
 
     public bool IsRestored
     {
@@ -38,9 +41,13 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
 
         private set
         {
+            if (value)
+                _renderer.mesh = _restoredMesh;
+            else
+                _renderer.mesh = _restoringMesh;
+
             _isRestored = value;
             _collider.enabled = value;
-            _renderer.enabled = value;
             if (value)
                 _timeToExtract = _baseTimeToExtract;
         }
@@ -49,24 +56,26 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     private void Awake()
     {
         _collider = GetComponent<Collider>();
-        _renderer = GetComponent<MeshRenderer>();
+        _renderer = GetComponent<MeshFilter>();
+        _baseTimeToExtract = _timeToExtract;
     }
 
     public override void Interact(Unit unit)
     {
         if (!IsRestored)
             return;
+        unit.Inventory.TryToAdd(_resorce);
         TimeToExtract -= unit.Strength;
     }
 
     public void ToBreak()
     {
-        IsRestored = false;
         StartCoroutine(StartRestoring());
     }
 
     private System.Collections.IEnumerator StartRestoring()
     {
+        IsRestored = false;
         yield return new WaitForSeconds(_timeToRestore);
         IsRestored = true;
     }

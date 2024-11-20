@@ -16,7 +16,6 @@ public class UnitExtractionController : UnitBehaviour
             Unit.StartCoroutine(StartExtracting());
         }
     }
-    public override UnitStates UnitState => UnitStates.Extraction;
     public UnitExtractionController(Unit unit) : 
         base(unit) { }
 
