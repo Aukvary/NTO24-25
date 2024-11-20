@@ -15,10 +15,10 @@ public class InventoryHUD : MonoBehaviour
         {
             if (_unit != null)
             {
-                _unit.OnPickItem -= UpdateCells;
+                value.Inventory.OnInventoryChanged -= UpdateCells;
             }
 
-            value.OnPickItem += UpdateCells;
+            value.Inventory.OnInventoryChanged += UpdateCells;
 
 
             int i = 0;
@@ -35,10 +35,10 @@ public class InventoryHUD : MonoBehaviour
         inventoryCells = GetComponentsInChildren<InventoryCellUI>();
     }
 
-    private void UpdateCells(Unit unit)
+    private void UpdateCells(Inventory inventory)
     {
         int i = 0;
-        foreach (var cell in unit.Inventory.Resources)
+        foreach (var cell in inventory.Resources)
         {
             inventoryCells[i].Cell = cell;
             i++;

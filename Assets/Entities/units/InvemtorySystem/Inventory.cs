@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory
 {
     private Cell[] _resources = new Cell[6];
+
+    public event Action<Inventory> OnInventoryChanged;
 
     public Inventory()
     {
@@ -23,11 +26,13 @@ public class Inventory
             else if (cell.Resource == null)
             {
                 cell.Set(resource);
+                OnInventoryChanged?.Invoke(this);
                 return true;
             }
             else if (cell.Resource.ResourceName == resource.ResourceName)
             {
                 cell.Add();
+                OnInventoryChanged?.Invoke(this);
                 return true;
             }
         }

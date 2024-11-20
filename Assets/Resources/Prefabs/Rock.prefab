@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3676620241984132227
 Transform:
@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7101b4ba3b51d42891874284a285cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _restoredMesh: {fileID: 0}
+  _restoringMesh: {fileID: 0}
   _timeToExtract: 10
-  _timeToRestore: 10
-  _pickableItem: {fileID: 0}
+  _timeToRestore: 5
+  _resorce: {fileID: 0}

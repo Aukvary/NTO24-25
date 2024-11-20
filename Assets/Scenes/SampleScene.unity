@@ -1045,29 +1045,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1111068561409834914, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1225080562584615178, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: -2432090755550338912, guid: 62009dd7bb78fbe41a245c27affa42a2, type: 3}
-    - target: {fileID: 1326314386465157785, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 1607350441369418349, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: m_Name
       value: Rock
-      objectReference: {fileID: 0}
-    - target: {fileID: 1607350441369418349, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1607350441369418349, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3676620241984132227, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1110,17 +1090,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: _pickableItem
+      propertyPath: _resorce
       value: 
-      objectReference: {fileID: -6717927454481281587, guid: 99d8e3a68ae36f3409b64984b9c181c5, type: 3}
-    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: _timeToExtract
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
-      propertyPath: _timeToRestore
-      value: 5
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

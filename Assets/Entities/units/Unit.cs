@@ -58,10 +58,6 @@ public class Unit : MonoBehaviour
 
     private Vector3 _position => transform.position;
 
-
-    public event Action<Unit> OnPickItem;
-
-
     private void Awake()
     {
         Spawn(_unitList);
@@ -101,7 +97,6 @@ public class Unit : MonoBehaviour
         StartCoroutine(AwaitOfMove(() =>
         {
             item?.Interact(this);
-            OnPickItem?.Invoke(this);
         }));
 
     }
