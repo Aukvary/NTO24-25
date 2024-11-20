@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   _resourceName: Wood
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: de959e601aa47b643be2d13526a624a3, type: 3}
