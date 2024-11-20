@@ -1,20 +1,24 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Min(0f)]
     private float _strength;
 
-    [SerializeField]
+    [SerializeField, Min(0f)]
     private float _speed;
 
-    [SerializeField]
+    [SerializeField, Min(0f)]
     private float _damage;
 
-    private UnitMoveController _moveController;
+    [SerializeField, Min(0f)]
+    private float _attackDelay;
 
-    private Vector3 _position;
+    private UnitMovementController _moveController;
+    private UnitExtractionController _extractionController;
+
     private UnitBehaviour _behavior;
     public UnitList _unitList;
 
@@ -24,10 +28,10 @@ public class Unit : MonoBehaviour
         get => _behavior;
         set
         {
-            if (_behavior == value)
+            if (Behavior == value)
                 return;
             Behavior?.BehaviourExit();
-            value.BehaviourEnter();
+            value?.BehaviourEnter();
             _behavior = value;
         }
     }
@@ -38,6 +42,9 @@ public class Unit : MonoBehaviour
 
     public float Damage => _damage;
 
+    public float AttackDelay => _attackDelay;
+
+    private Vector3 _position => transform.position;
 
     public void Awake()
     {
@@ -49,20 +56,30 @@ public class Unit : MonoBehaviour
         list.Add(this);
         _behavior = _moveController;
         _moveController = new(this, _speed);
+        _extractionController = new(this);
     }
 
     public void MoveTo(Vector3 newPostion)
     {
         _moveController.TargetPosition = newPostion;
-        UnitState = UnitStates.Walk;
     }
 
     public async void Extract(ResourceObjectSpawner spawner)
     {
         MoveTo(spawner.transform.position);
-        while (Vector3.Distance(_position, spawner.transform.position) > 2)
+
+        while (!_moveController.HasPath)
             await Task.Delay(1);
-        UnitState = UnitStates.Extraction;
+
+        while (_moveController.HasPath)
+            await Task.Delay(1);
+
+        _extractionController.Resource = spawner;
+    }
+
+    public void Follow(Unit unit)
+    {
+        _moveController.FollowUnit = unit;
     }
 
     public async void Attack(Unit unit)
@@ -71,6 +88,6 @@ public class Unit : MonoBehaviour
         while (Vector3.Distance(_position, unit.transform.position) > 2)
             await Task.Delay(1);
 
-        UnitState = UnitStates.Fight;
+        
     }
 }

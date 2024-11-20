@@ -6,22 +6,36 @@ public class UnitExtractionController : UnitBehaviour
     public ResourceObjectSpawner Resource
     {
         get => _resource;
-        private set
+        set
         {
-
+            _resource = value;
+            Unit.StopCoroutine(StartExtracting());
+            Unit.Behavior = value == null ? null : this;
+            if (value == null)
+                return;
+            Unit.StartCoroutine(StartExtracting());
         }
     }
     public override UnitStates UnitState => UnitStates.Extraction;
     public UnitExtractionController(Unit unit) : 
         base(unit) { }
 
-    public override void BehaviourEnter()
+    private System.Collections.IEnumerator StartExtracting()
     {
-        base.BehaviourEnter();
+        while (Resource != null) 
+        {
+            Resource.Interact(Unit);
+            if (!Resource.IsRestored)
+                Resource = null;
+
+            yield return new WaitForSeconds(Unit.AttackDelay);
+        }
+        yield return null;
     }
 
     public override void BehaviourExit()
     {
-        
+        _resource = null;
+        Unit.StopCoroutine(StartExtracting());
     }
 }
