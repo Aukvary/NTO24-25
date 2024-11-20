@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0eb20fdf61b1124c846b59a43dba9e5, type: 3}
   m_Name: Honey
   m_EditorClassIdentifier: 
-  _resourceName: 
+  _resourceName: Honey
   _sprite: {fileID: 0}

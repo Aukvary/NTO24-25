@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class UnitiesActivityManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField]
     private InventoryHUD _inventoryHUD;
 
     [SerializeField]
+    private StorageHUD _storageHUD;
+    [SerializeField]
+    private Storage _storage;
+    
+    [Header("Unit Selection")]
+    [SerializeField]
     private Color _selectingAreaColor;
 
     private UnitList _unitList;
+
+    private Unit[] _playerUnits;
 
     private HashSet<Unit> _controlledUnits = new();
 
@@ -21,8 +30,16 @@ public class UnitiesActivityManager : MonoBehaviour
 
     private void Awake()
     {
-        _inventoryHUD.gameObject.SetActive(false);
         _unitList = GetComponent<UnitList>();
+    }
+
+    private void Start()
+    {
+        _inventoryHUD.gameObject.SetActive(false);
+        _storageHUD.UpdateHUD(_storage);
+        _storage.OnLayOut += _storageHUD.UpdateHUD;
+        _storageHUD.gameObject.SetActive(false);
+        _playerUnits = _unitList.AllUnits.Where(u => !u.IsBee).ToArray();
     }
 
     private void Update()
@@ -30,6 +47,9 @@ public class UnitiesActivityManager : MonoBehaviour
         SetUnitTask();
         SelectUnitGroup();
         SelectAloneUnit();
+        HotKeySelect();
+        if (Input.GetKeyDown(KeyCode.Tab))
+            _storageHUD.gameObject.SetActive(!_storageHUD.gameObject.activeSelf);
     }
     private void SetUnitTask()
     {
@@ -51,6 +71,10 @@ public class UnitiesActivityManager : MonoBehaviour
                 foreach (var unit in _controlledUnits)
                     unit.PickItem(obj as PickableItem);
                 break;
+            case Storage:
+                foreach (var unit in _controlledUnits)
+                    unit.LayOutItems(obj as Storage);
+                break;
         }
 
         if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
@@ -68,8 +92,8 @@ public class UnitiesActivityManager : MonoBehaviour
 
         if (!Physics.Raycast(direction, out RaycastHit hit))
             return;
-
-        _controlledUnits.Clear();
+        if (!Input.GetKey(KeyCode.LeftControl))
+            _controlledUnits.Clear();
 
         if (!hit.transform.TryGetComponent<Unit>(out var unit))
         {
@@ -105,6 +129,21 @@ public class UnitiesActivityManager : MonoBehaviour
                 continue;
             if(!unit.IsBee)
                 _controlledUnits.Add(unit);
+        }
+    }
+
+    private void HotKeySelect()
+    {
+        var hotkey = KeyCode.Alpha1;
+        for (int i = 0; i < _playerUnits.Length; i++)
+        {
+            if (Input.GetKeyDown(hotkey + i))
+            {
+                _controlledUnits.Clear();
+                _controlledUnits.Add(_playerUnits[i]);
+                _inventoryHUD.gameObject.SetActive(true);
+                _inventoryHUD.Unit = _playerUnits[i];
+            }
         }
     }
 

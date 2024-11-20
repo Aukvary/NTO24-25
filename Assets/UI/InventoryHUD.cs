@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class InventoryHUD : MonoBehaviour
 {
-    private InventoryCellUI[] inventoryCells;
+    private InventoryCellUI[] _inventoryCells = new InventoryCellUI[6];
 
     public Unit _unit;
 
@@ -24,7 +25,7 @@ public class InventoryHUD : MonoBehaviour
             int i = 0;
             foreach (var cell in value.Inventory.Resources)
             {
-                inventoryCells[i].Cell = cell;
+                _inventoryCells[i].Cell = cell;
                 i++;
             }
         }
@@ -32,7 +33,7 @@ public class InventoryHUD : MonoBehaviour
 
     private void Awake()
     {
-        inventoryCells = GetComponentsInChildren<InventoryCellUI>();
+        _inventoryCells = GetComponentsInChildren<InventoryCellUI>();
     }
 
     private void UpdateCells(Inventory inventory)
@@ -40,7 +41,7 @@ public class InventoryHUD : MonoBehaviour
         int i = 0;
         foreach (var cell in inventory.Resources)
         {
-            inventoryCells[i].Cell = cell;
+            _inventoryCells[i].Cell = cell;
             i++;
         }
     }

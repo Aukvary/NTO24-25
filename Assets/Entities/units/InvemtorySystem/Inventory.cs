@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class Inventory
 {
@@ -39,10 +41,20 @@ public class Inventory
         return false;
     }
 
-    public IEnumerable<Resource> Remove()
+    public Dictionary<Resource, uint> LayOutItems()
     {
-        var clone = _resources.Clone();
-        _resources.SetValue(null, 0, 1, 2, 3, 4);
-        return clone as IEnumerable<Resource>;
+        Dictionary<Resource, uint> resources = new();
+        foreach (Cell cell in _resources) 
+        {
+            if (cell.Resource == null)
+                continue;
+            var cond = resources.TryAdd(cell.Resource, cell.Count);
+            if (!cond)
+                resources[cell.Resource] += cell.Count;
+        }
+        for (int i = 0; i < _resources.Length; i++)
+            _resources[i].Reset();
+        OnInventoryChanged?.Invoke(this);
+        return resources;
     }
 }

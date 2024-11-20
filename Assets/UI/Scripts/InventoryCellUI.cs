@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,16 @@ public class InventoryCellUI : MonoBehaviour
             _itemImage.enabled = true;
             _itemImage.sprite = value.Resource.Sprite;
             _count.text = value.Count.ToString();
-            Back.enabled = true;
+        }
+    }
+
+    public KeyValuePair<Resource, uint> PairCell
+    {
+        set
+        {
+            _itemImage.enabled = true;
+            _itemImage.sprite = value.Key.Sprite;
+            _count.text = value.Value.ToString();
         }
     }
 

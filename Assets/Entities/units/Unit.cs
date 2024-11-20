@@ -114,9 +114,12 @@ public class Unit : MonoBehaviour
         
     }
 
-    public void PutInSorage(Storage storage)
+    public void LayOutItems(Storage storage)
     {
-
+        MoveTo(storage.transform.position);
+        StartCoroutine(AwaitOfMove(() => {
+            storage.Interact(this);
+        }));
     }
 
     private IEnumerator AwaitOfMove(Action afterAction)
