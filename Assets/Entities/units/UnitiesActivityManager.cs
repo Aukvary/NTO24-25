@@ -14,8 +14,6 @@ public class UnitiesActivityManager : MonoBehaviour
 
     private Vector3 _startMousePos;
     private Vector3 _endMousePos;
-
-    private Vector2 _zero = new(2000, 0);
     private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     private void Awake()
@@ -34,12 +32,20 @@ public class UnitiesActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
             return;
 
-        if (Physics.Raycast(direction, out RaycastHit hit, LayerMask.GetMask("Ground")))
+        if (!Physics.Raycast(direction, out var actionHit))
+            return;
+
+        if (actionHit.transform.TryGetComponent<ResourceObjectSpawner>(out var resource))
         {
             foreach (var unit in _controlledUnits)
-            {
-                unit.MoveTo(hit.point);
-            }
+                unit.Extract(resource);
+            return;
+        }
+
+        if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
+        {
+            foreach (var unit in _controlledUnits)
+                unit.MoveTo(groundHit.point);
         }
     }
 

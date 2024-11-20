@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ResourceObjectSpawner : ActionObject, BreakObject
+public class ResourceObjectSpawner : ActionObject, BreakableObject
 {
     [SerializeField, Min(0f)]
     private float _timeToExtract;
@@ -16,6 +16,8 @@ public class ResourceObjectSpawner : ActionObject, BreakObject
     private Collider _collider;
     private MeshRenderer _renderer;
 
+    private float _baseTimeToExtract;
+
     public float TimeToExtract
     {
         get => _timeToExtract;
@@ -24,7 +26,7 @@ public class ResourceObjectSpawner : ActionObject, BreakObject
         {
             _timeToExtract = value;
             if (value == 0)
-                Break();
+                ToBreak();
         }
     }
 
@@ -39,6 +41,8 @@ public class ResourceObjectSpawner : ActionObject, BreakObject
             _isRestored = value;
             _collider.enabled = value;
             _renderer.enabled = value;
+            if (value)
+                _timeToExtract = _baseTimeToExtract;
         }
     }
 
@@ -50,10 +54,12 @@ public class ResourceObjectSpawner : ActionObject, BreakObject
 
     public override void Interact(Unit unit)
     {
+        if (!IsRestored)
+            return;
         TimeToExtract -= unit.Strength;
     }
 
-    public void Break()
+    public void ToBreak()
     {
         IsRestored = false;
         StartCoroutine(StartRestoring());
