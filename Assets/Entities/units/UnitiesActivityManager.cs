@@ -5,6 +5,9 @@ using UnityEngine;
 public class UnitiesActivityManager : MonoBehaviour
 {
     [SerializeField]
+    private InventoryHUD _inventoryHUD;
+
+    [SerializeField]
     private Color _selectingAreaColor;
 
     private UnitList _unitList;
@@ -18,6 +21,7 @@ public class UnitiesActivityManager : MonoBehaviour
 
     private void Awake()
     {
+        _inventoryHUD.gameObject.SetActive(false);
         _unitList = GetComponent<UnitList>();
     }
 
@@ -35,11 +39,18 @@ public class UnitiesActivityManager : MonoBehaviour
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
-        if (actionHit.transform.TryGetComponent<ResourceObjectSpawner>(out var resource))
+        var obj = actionHit.transform.GetComponent<ActionObject>();
+
+        switch (obj)
         {
-            foreach (var unit in _controlledUnits)
-                unit.Extract(resource);
-            return;
+            case ResourceObjectSpawner:
+                foreach (var unit in _controlledUnits)
+                    unit.Extract(obj as ResourceObjectSpawner);
+                break;
+            case PickableItem:
+                foreach (var unit in _controlledUnits)
+                    unit.PickItem(obj as PickableItem);
+                break;
         }
 
         if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
@@ -61,10 +72,15 @@ public class UnitiesActivityManager : MonoBehaviour
         _controlledUnits.Clear();
 
         if (!hit.transform.TryGetComponent<Unit>(out var unit))
+        {
+            _inventoryHUD.gameObject.SetActive(false);
             return;
-
+        }
+        if (unit.IsBee)
+            return;
+        _inventoryHUD.Unit = unit;
+        _inventoryHUD.gameObject.SetActive(true);
         _controlledUnits.Add(unit);
-
     }
 
     private void SelectUnitGroup()
@@ -87,8 +103,8 @@ public class UnitiesActivityManager : MonoBehaviour
         {
             if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)))
                 continue;
-
-            _controlledUnits.Add(unit);
+            if(!unit.IsBee)
+                _controlledUnits.Add(unit);
         }
     }
 

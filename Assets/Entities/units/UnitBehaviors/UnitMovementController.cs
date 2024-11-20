@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class UnitMovementController : UnitBehaviour
@@ -9,7 +10,7 @@ public class UnitMovementController : UnitBehaviour
 
     private NavMeshAgent _navMeshAgent;
 
-    public override UnitStates UnitState => UnitStates.Walk;
+    private Vector3 _targetPosition;
 
     public UnitMovementController(Unit unit, float speed) : base(unit)
     {
@@ -17,9 +18,11 @@ public class UnitMovementController : UnitBehaviour
         _speed = speed;
     }
 
+    public Vector3 Position => Unit.transform.position;
+
     public Vector3 TargetPosition 
     {
-        get => _navMeshAgent.destination;
+        get => _targetPosition;
 
         set
         {
@@ -45,18 +48,13 @@ public class UnitMovementController : UnitBehaviour
     }
 
     public bool HasPath => _navMeshAgent.hasPath;
+
+    public override void BehaviourUpdate()
+    {
+    }
     public override void BehaviourExit()
     {
         _navMeshAgent.ResetPath();
         FollowUnit = null;
-    }
-
-    public System.Collections.IEnumerator StartFollow()
-    {
-        while (_followUnit != null)
-        {
-            TargetPosition = _followUnit.transform.position;
-            yield return null;
-        }
     }
 }

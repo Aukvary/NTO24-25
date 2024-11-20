@@ -9,7 +9,7 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     private float _timeToRestore;
 
     [SerializeField]
-    private Resource _dropdownResource;
+    private PickableItem _pickableItem;
 
     private bool _isRestored = true;
 
@@ -25,12 +25,10 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
         set
         {
             _timeToExtract = value;
-            if (value == 0)
+            if (value <= 0)
                 ToBreak();
         }
     }
-
-    public Resource DropResource => _dropdownResource;
 
     public bool IsRestored
     {
@@ -50,6 +48,7 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     {
         _collider = GetComponent<Collider>();
         _renderer = GetComponent<MeshRenderer>();
+        _baseTimeToExtract = _timeToExtract;
     }
 
     public override void Interact(Unit unit)
@@ -61,12 +60,13 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
 
     public void ToBreak()
     {
-        IsRestored = false;
         StartCoroutine(StartRestoring());
+        _pickableItem.Spawn(transform.position);
     }
 
     private System.Collections.IEnumerator StartRestoring()
     {
+        IsRestored = false;
         yield return new WaitForSeconds(_timeToRestore);
         IsRestored = true;
     }
