@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class UnitMovementController : UnitBehaviour
@@ -20,7 +19,7 @@ public class UnitMovementController : UnitBehaviour
 
     public Vector3 Position => Unit.transform.position;
 
-    public Vector3 TargetPosition 
+    public Vector3 TargetPosition
     {
         get => _targetPosition;
 
@@ -51,6 +50,7 @@ public class UnitMovementController : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
+
     }
     public override void BehaviourExit()
     {

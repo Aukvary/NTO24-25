@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
@@ -24,13 +22,15 @@ public class Unit : MonoBehaviour
     private UnitMovementController _moveController;
     private UnitExtractionController _extractionController;
 
+    private Animator _animator;
+
     private UnitBehaviour _behavior;
     private Inventory _inventory = new();
 
     public UnitList _unitList;
 
     public UnitStates UnitState { get; private set; }
-    public UnitBehaviour Behavior 
+    public UnitBehaviour Behavior
     {
         get => _behavior;
         set
@@ -61,11 +61,13 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         Spawn(_unitList);
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
         Behavior?.BehaviourUpdate();
+        SetAnimation();
     }
 
     public void Spawn(UnitList list)
@@ -84,12 +86,16 @@ public class Unit : MonoBehaviour
     public void Extract(ResourceObjectSpawner spawner)
     {
         MoveTo(spawner.transform.position);
-
         StartCoroutine(AwaitOfMove(() =>
         {
             _extractionController.Resource = spawner;
         }));
 
+    }
+
+    public void AnimationExtract()
+    {
+        _extractionController.ex
     }
     public void PickItem(PickableItem item)
     {
@@ -109,15 +115,16 @@ public class Unit : MonoBehaviour
     public void Attack(Unit unit)
     {
         MoveTo(unit.transform.position);
-        
 
-        
+
+
     }
 
     public void LayOutItems(Storage storage)
     {
         MoveTo(storage.transform.position);
-        StartCoroutine(AwaitOfMove(() => {
+        StartCoroutine(AwaitOfMove(() =>
+        {
             storage.Interact(this);
         }));
     }
@@ -129,6 +136,16 @@ public class Unit : MonoBehaviour
         while (_moveController.HasPath)
             yield return null;
         afterAction?.Invoke();
-
     }
+
+    private void SetAnimation()
+    {
+        if (_moveController.HasPath)
+            _animator.SetTrigger("move");
+        else if (Behavior is UnitExtractionController)
+            _animator.SetTrigger("punch");
+        else
+            _animator.SetTrigger("idle");
+    }
+
 }
