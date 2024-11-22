@@ -49,6 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraSpeed: 100
   _rotateSpeed: 5
+  _changeFOVSpeed: 1000
+  _minFOV: 10
+  _maxFOV: 60
 --- !u!114 &2393266611977523916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,7 +64,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220d0810263ca9844ad26e912f6f9ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventoryHUD: {fileID: 0}
+  _storageHUD: {fileID: 0}
+  _storage: {fileID: 0}
   _selectingAreaColor: {r: 0.35909972, g: 0.8679245, b: 0.27429688, a: 0}
+  _hotkeyChangeZCameraPosition: 6
 --- !u!114 &4080528780340139748
 MonoBehaviour:
   m_ObjectHideFlags: 0

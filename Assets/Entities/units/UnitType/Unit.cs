@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
     private UnitBehaviour _behavior;
     private Inventory _inventory = new();
 
-    public UnitList _unitList;
+    private Vector3 _spawnPosition;
 
     public UnitStates UnitState { get; private set; }
     public UnitBehaviour Behaviour
@@ -59,11 +59,13 @@ public class Unit : MonoBehaviour
 
     public bool IsBee => _isBee;
 
+    public Storage Storage { get; private set; }
+
     private Vector3 _position => transform.position;
+
 
     private void Awake()
     {
-        AddToUnitList(_unitList);
         _animator = GetComponentInChildren<Animator>();
         _behaviourAnimation = GetComponentInChildren<BehaviourAnimation>();
 
@@ -72,15 +74,19 @@ public class Unit : MonoBehaviour
         _extractionController = new(this);
     }
 
+    public Unit Spawn(Vector3 spawnPostion, Storage storage) 
+    {
+        var newUnit = Instantiate(this, spawnPostion, Quaternion.identity);
+        newUnit._spawnPosition = spawnPostion;
+        newUnit.Storage = storage;
+
+        return newUnit;
+    }
+
     private void Update()
     {
         Behaviour?.BehaviourUpdate();
         SetAnimation();
-    }
-
-    public void AddToUnitList(UnitList list)
-    {
-        list.Add(this);
     }
 
     public void MoveTo(Vector3 newPostion)

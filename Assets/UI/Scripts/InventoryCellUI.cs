@@ -8,6 +8,8 @@ public class InventoryCellUI : MonoBehaviour
     private Image _itemImage;
     private TextMeshProUGUI _count;
 
+    public RectTransform Transform { get; private set; } 
+
     public Image Back { get; private set; }
 
     public Cell Cell
@@ -38,6 +40,7 @@ public class InventoryCellUI : MonoBehaviour
 
     private void Awake()
     {
+        Transform = GetComponent<RectTransform>();
         for (int i = 0; i < transform.childCount; i++)
         {
             if (!transform.GetChild(i).TryGetComponent<Image>(out var image))

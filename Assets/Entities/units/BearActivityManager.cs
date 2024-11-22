@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UnitiesActivityManager : MonoBehaviour
+public class BearActivityManager : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField]
@@ -19,11 +19,11 @@ public class UnitiesActivityManager : MonoBehaviour
     [SerializeField]
     private float _hotkeyChangeZCameraPosition;
 
-    private UnitList _unitList;
+    private List<Unit> _allUnits = new();
 
     private Unit[] _playerUnits;
 
-    private HashSet<Unit> _controlledUnits = new();
+    private List<Unit> _controlledUnits = new();
 
 
     private Vector3 _startMousePos;
@@ -32,7 +32,7 @@ public class UnitiesActivityManager : MonoBehaviour
 
     private void Awake()
     {
-        _unitList = GetComponent<UnitList>();
+        
     }
 
     private void Start()
@@ -41,7 +41,13 @@ public class UnitiesActivityManager : MonoBehaviour
         _storageHUD.UpdateHUD(_storage);
         _storage.OnLayOut += _storageHUD.UpdateHUD;
         _storageHUD.gameObject.SetActive(false);
-        _playerUnits = _unitList.AllUnits.Where(u => !u.IsBee).ToArray();
+        _playerUnits = _allUnits.Where(u => !u.IsBee).ToArray();
+
+        transform.rotation = Quaternion.identity;
+        transform.position = new(
+            _playerUnits[0].transform.position.x,
+            transform.position.y,
+            _playerUnits[0].transform.position.z - _hotkeyChangeZCameraPosition);
     }
 
     private void Update()
@@ -53,6 +59,12 @@ public class UnitiesActivityManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
             _storageHUD.gameObject.SetActive(!_storageHUD.gameObject.activeSelf);
     }
+
+    public void AddUnit(Unit unit)
+        => _allUnits.Add(unit);
+
+    public bool RemoveUnit(Unit unit) 
+        => _allUnits.Remove(unit);
     private void SetUnitTask()
     {
         if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
@@ -125,11 +137,10 @@ public class UnitiesActivityManager : MonoBehaviour
         Bounds bounds = new Bounds();
         bounds.SetMinMax(minOffset, maxOffset);
 
-        foreach (var unit in _unitList.AllUnits)
+        foreach (var unit in _allUnits)
         {
-            if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)))
+            if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)) || unit.IsBee)
                 continue;
-            if(!unit.IsBee)
                 _controlledUnits.Add(unit);
         }
     }

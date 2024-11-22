@@ -65,6 +65,8 @@ public class ResourceObjectSpawner : ActionObject
         if (!IsRestored)
             return;
 
+
+
         if (Random.Range(0f, 1f) <= (_dropChance / 100))
             unit.Inventory.TryToAdd(_resorce);
 
