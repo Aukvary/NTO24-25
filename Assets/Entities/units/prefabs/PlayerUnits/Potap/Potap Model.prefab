@@ -976,11 +976,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4877898708474507716}
   - component: {fileID: 2076189833076703276}
-  - component: {fileID: 7175627350828778793}
-  - component: {fileID: 3038589969939565043}
-  - component: {fileID: 4906837221713989779}
   m_Layer: 0
-  m_Name: potap 1 1
+  m_Name: Potap Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1028,66 +1025,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!195 &7175627350828778793
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7863632433879937723}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 2.11
-  m_Speed: 3.5
-  m_Acceleration: 100
-  avoidancePriority: 50
-  m_AngularSpeed: 500
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 5.9
-  m_BaseOffset: 2.9
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!136 &3038589969939565043
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7863632433879937723}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.1200962
-  m_Height: 5.9945593
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.14516401, z: 0.0081653595}
---- !u!114 &4906837221713989779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7863632433879937723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef68adc3965eda41b88554258c2f3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _strength: 2
-  _speed: 5
-  _damage: 0
-  _attackDelay: 3
-  _isBee: 0
-  _unitList: {fileID: 0}

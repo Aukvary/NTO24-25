@@ -1,40 +1,57 @@
+using UnityEditor.AnimatedValues;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class UnitExtractionController : UnitBehaviour
 {
     private ResourceObjectSpawner _resource;
+
+    private NavMeshAgent _navMeshAgent;
     public ResourceObjectSpawner Resource
     {
         get => _resource;
         set
         {
             _resource = value;
-            Unit.StopCoroutine(StartExtracting());
-            Unit.Behavior = value == null ? null : this;
             if (value == null)
-                return;
-            Unit.StartCoroutine(StartExtracting());
+            {
+                Unit.BehaviourAnimation.OnPunchAnimationEvent -= Extract;
+                Unit.Behaviour = null;
+            }
+            else
+            {
+                Unit.Behaviour = this;
+                Unit.BehaviourAnimation.OnPunchAnimationEvent += Extract;
+            }
         }
     }
     public UnitExtractionController(Unit unit) : 
-        base(unit) { }
-
-    private System.Collections.IEnumerator StartExtracting()
-    {
-        while (Resource != null) 
-        {
-            Resource.Interact(Unit);
-            if (!Resource.IsRestored)
-                Resource = null;
-
-            yield return new WaitForSeconds(Unit.AttackDelay);
-        }
-        yield return null;
+        base(unit) 
+    { 
+        _navMeshAgent = unit.GetComponent<NavMeshAgent>();
     }
 
-    public override void BehaviourExit()
+    private void Extract()
     {
-        _resource = null;
-        Unit.StopCoroutine(StartExtracting());
+        if (Resource != null && Resource.IsRestored)
+            _resource.Interact(Unit);
+        else
+            Resource = null;
+    }
+
+    public override void BehaviourUpdate()
+    {
+        if (Resource == null)
+            return;
+
+        var direction = _resource.transform.position - Unit.transform.position;
+        direction.y = Unit.transform.position.y;
+
+        var angle = Quaternion.LookRotation(direction);
+        Unit.transform.rotation = Quaternion.RotateTowards(
+            Unit.transform.rotation,
+            angle,
+            Time.deltaTime * _navMeshAgent.angularSpeed
+            );
     }
 }

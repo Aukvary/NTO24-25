@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class ResourceObjectSpawner : ActionObject, BreakableObject
+public class ResourceObjectSpawner : ActionObject
 {
+    [Header("Restoring")]
     [SerializeField]
     private Mesh _restoredMesh;
     [SerializeField]
@@ -12,6 +13,13 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
 
     [SerializeField, Min(0f)]
     private float _timeToRestore;
+
+    [Header("Resorse")]
+    [SerializeField]
+    private uint _resourceCount;
+
+    [SerializeField, Range(0, 100)]
+    private float _dropChance;
 
     [SerializeField]
     private Resource _resorce;
@@ -27,12 +35,7 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     {
         get => _timeToExtract;
 
-        set
-        {
-            _timeToExtract = value;
-            if (value <= 0)
-                ToBreak();
-        }
+        set => _timeToExtract = value;
     }
 
     public bool IsRestored
@@ -41,10 +44,7 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
 
         private set
         {
-            if (value)
-                _renderer.mesh = _restoredMesh;
-            else
-                _renderer.mesh = _restoringMesh;
+            _renderer.mesh = value ? _restoredMesh : _restoringMesh;
 
             _isRestored = value;
             _collider.enabled = value;
@@ -64,12 +64,22 @@ public class ResourceObjectSpawner : ActionObject, BreakableObject
     {
         if (!IsRestored)
             return;
-        unit.Inventory.TryToAdd(_resorce);
+
+        if (Random.Range(0f, 1f) <= (_dropChance / 100))
+            unit.Inventory.TryToAdd(_resorce);
+
         TimeToExtract -= unit.Strength;
+        if (TimeToExtract < 0)
+            ToBreak(unit);
     }
 
-    public void ToBreak()
+    public void ToBreak(Unit unit)
     {
+        for (int i = 0; i < _resourceCount; i++)
+            unit.Inventory.TryToAdd(_resorce);
+
+        unit.Behaviour = null;
+
         StartCoroutine(StartRestoring());
     }
 

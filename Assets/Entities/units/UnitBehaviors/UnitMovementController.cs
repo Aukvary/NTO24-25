@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 public class UnitMovementController : UnitBehaviour
@@ -20,14 +19,14 @@ public class UnitMovementController : UnitBehaviour
 
     public Vector3 Position => Unit.transform.position;
 
-    public Vector3 TargetPosition 
+    public Vector3 TargetPosition
     {
         get => _targetPosition;
 
         set
         {
-            if (Unit.Behavior != this)
-                Unit.Behavior = this;
+            if (Unit.Behaviour != this)
+                Unit.Behaviour = this;
             _navMeshAgent.destination = value;
         }
     }
@@ -40,7 +39,7 @@ public class UnitMovementController : UnitBehaviour
         {
             if (value != null)
             {
-                Unit.Behavior = this;
+                Unit.Behaviour = this;
 
             }
             _followUnit = value;
@@ -51,6 +50,7 @@ public class UnitMovementController : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
+
     }
     public override void BehaviourExit()
     {
