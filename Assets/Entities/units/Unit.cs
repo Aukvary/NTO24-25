@@ -23,6 +23,7 @@ public class Unit : MonoBehaviour
     private UnitExtractionController _extractionController;
 
     private Animator _animator;
+    private BehaviourAnimation _behaviourAnimation;
 
     private UnitBehaviour _behavior;
     private Inventory _inventory = new();
@@ -30,15 +31,15 @@ public class Unit : MonoBehaviour
     public UnitList _unitList;
 
     public UnitStates UnitState { get; private set; }
-    public UnitBehaviour Behavior
+    public UnitBehaviour Behaviour
     {
         get => _behavior;
         set
         {
-            StopAllCoroutines();
-            if (Behavior == value)
+            if (Behaviour == value)
                 return;
-            Behavior?.BehaviourExit();
+            StopAllCoroutines();
+            Behaviour?.BehaviourExit();
             value?.BehaviourEnter();
             _behavior = value;
         }
@@ -54,28 +55,32 @@ public class Unit : MonoBehaviour
 
     public Inventory Inventory => _inventory;
 
+    public BehaviourAnimation BehaviourAnimation => _behaviourAnimation;
+
     public bool IsBee => _isBee;
 
     private Vector3 _position => transform.position;
 
     private void Awake()
     {
-        Spawn(_unitList);
+        AddToUnitList(_unitList);
         _animator = GetComponentInChildren<Animator>();
+        _behaviourAnimation = GetComponentInChildren<BehaviourAnimation>();
+
+        _behavior = _moveController;
+        _moveController = new(this, _speed);
+        _extractionController = new(this);
     }
 
     private void Update()
     {
-        Behavior?.BehaviourUpdate();
+        Behaviour?.BehaviourUpdate();
         SetAnimation();
     }
 
-    public void Spawn(UnitList list)
+    public void AddToUnitList(UnitList list)
     {
         list.Add(this);
-        _behavior = _moveController;
-        _moveController = new(this, _speed);
-        _extractionController = new(this);
     }
 
     public void MoveTo(Vector3 newPostion)
@@ -93,10 +98,6 @@ public class Unit : MonoBehaviour
 
     }
 
-    public void AnimationExtract()
-    {
-        _extractionController.ex
-    }
     public void PickItem(PickableItem item)
     {
         MoveTo(item.transform.position);
@@ -142,7 +143,7 @@ public class Unit : MonoBehaviour
     {
         if (_moveController.HasPath)
             _animator.SetTrigger("move");
-        else if (Behavior is UnitExtractionController)
+        else if (Behaviour is UnitExtractionController)
             _animator.SetTrigger("punch");
         else
             _animator.SetTrigger("idle");

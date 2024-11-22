@@ -25,8 +25,8 @@ public class UnitMovementController : UnitBehaviour
 
         set
         {
-            if (Unit.Behavior != this)
-                Unit.Behavior = this;
+            if (Unit.Behaviour != this)
+                Unit.Behaviour = this;
             _navMeshAgent.destination = value;
         }
     }
@@ -39,7 +39,7 @@ public class UnitMovementController : UnitBehaviour
         {
             if (value != null)
             {
-                Unit.Behavior = this;
+                Unit.Behaviour = this;
 
             }
             _followUnit = value;

@@ -16,6 +16,8 @@ public class UnitiesActivityManager : MonoBehaviour
     [Header("Unit Selection")]
     [SerializeField]
     private Color _selectingAreaColor;
+    [SerializeField]
+    private float _hotkeyChangeZCameraPosition;
 
     private UnitList _unitList;
 
@@ -143,6 +145,12 @@ public class UnitiesActivityManager : MonoBehaviour
                 _controlledUnits.Add(_playerUnits[i]);
                 _inventoryHUD.gameObject.SetActive(true);
                 _inventoryHUD.Unit = _playerUnits[i];
+
+                transform.rotation = Quaternion.identity;
+                transform.position = new(
+                    _playerUnits[i].transform.position.x, 
+                    transform.position.y,
+                    _playerUnits[i].transform.position.z - _hotkeyChangeZCameraPosition);
             }
         }
     }
