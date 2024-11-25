@@ -97,6 +97,7 @@ public class UnitUpgradeHUD : MonoBehaviour
             _unitSelectCells[i].HUD = this;
             i++;
         }
+        SelectedUnit = _unitSelectCells[0];
     }
 
     private void Update()
