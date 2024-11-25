@@ -14,6 +14,7 @@ public class UnitMovementController : UnitBehaviour
     public UnitMovementController(Unit unit, float speed) : base(unit)
     {
         _navMeshAgent = unit.GetComponent<NavMeshAgent>();
+        _navMeshAgent.speed = speed;
         _speed = speed;
     }
 

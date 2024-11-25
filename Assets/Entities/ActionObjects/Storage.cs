@@ -10,6 +10,17 @@ public class Storage : ActionObject
     public IEnumerable<KeyValuePair<Resource, uint>> SrorageResources 
         => _resources;
 
+    public uint this[Resource resource]
+    {
+        get => _resources[resource];
+
+        set
+        {
+            _resources[resource] = value;
+            OnLayOut?.Invoke(this);
+        }
+    }
+
     public event Action<Storage> OnLayOut;
 
 
@@ -20,6 +31,8 @@ public class Storage : ActionObject
         _resources = resourceType.ToDictionary(r => r, r => 0u);
 
     }
+
+    
     public override void Interact(Unit unit)
     {
         foreach (var cell in unit.Inventory.LayOutItems())

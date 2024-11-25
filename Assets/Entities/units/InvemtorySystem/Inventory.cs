@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.Collections;
-using UnityEngine;
-using System.Linq;
 
 public class Inventory
 {
     private Cell[] _resources = new Cell[6];
 
-    public event Action<Inventory> OnInventoryChanged;
+    private Unit _unit;
 
-    public Inventory()
+    public event Action<Unit> OnInventoryChanged;
+
+    public Inventory(Unit unit)
     {
         for (int i = 0; i < _resources.Length; i++)
             _resources[i] = new Cell();
+        _unit = unit;
     }
 
     public IEnumerable<Cell> Resources => _resources;
@@ -28,13 +28,13 @@ public class Inventory
             else if (cell.Resource == null)
             {
                 cell.Set(resource);
-                OnInventoryChanged?.Invoke(this);
+                OnInventoryChanged?.Invoke(_unit);
                 return true;
             }
             else if (cell.Resource.ResourceName == resource.ResourceName)
             {
                 cell.Add();
-                OnInventoryChanged?.Invoke(this);
+                OnInventoryChanged?.Invoke(_unit);
                 return true;
             }
         }
@@ -44,7 +44,7 @@ public class Inventory
     public Dictionary<Resource, uint> LayOutItems()
     {
         Dictionary<Resource, uint> resources = new();
-        foreach (Cell cell in _resources) 
+        foreach (Cell cell in _resources)
         {
             if (cell.Resource == null)
                 continue;
@@ -54,7 +54,7 @@ public class Inventory
         }
         for (int i = 0; i < _resources.Length; i++)
             _resources[i].Reset();
-        OnInventoryChanged?.Invoke(this);
+        OnInventoryChanged?.Invoke(_unit);
         return resources;
     }
 }
