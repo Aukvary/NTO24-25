@@ -222,6 +222,11 @@ public class Unit : MonoBehaviour
 
     }
 
+    public void Attack(BreakeableObject throne)
+    {
+
+    }
+
     public void Build(ConstructionObject obj)
     {
         MoveTo(obj.transform.position);
