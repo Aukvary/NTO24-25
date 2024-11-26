@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Storage : ActionObject
 {
-    private Dictionary<Resource, uint> _resources;
+    private Dictionary<Resource, int> _resources;
 
-    public IEnumerable<KeyValuePair<Resource, uint>> SrorageResources 
+    public IEnumerable<KeyValuePair<Resource, int>> SrorageResources 
         => _resources;
 
-    public uint this[Resource resource]
+    public int this[Resource resource]
     {
         get => _resources[resource];
 
@@ -28,7 +28,7 @@ public class Storage : ActionObject
     {
         Resource[] resourceType = Resources.LoadAll<Resource>("Prefabs");
 
-        _resources = resourceType.ToDictionary(r => r, r => 0u);
+        _resources = resourceType.ToDictionary(r => r, r => 100);
 
     }
 

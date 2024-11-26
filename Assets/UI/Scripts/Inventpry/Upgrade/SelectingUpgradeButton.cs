@@ -15,11 +15,25 @@ public class SelectingUpgradeButton : MonoBehaviour
 
         public Resource Resource => _resource;
         public int Count => _count;
+
+        public static implicit operator KeyValuePair<Resource, int>(ResourseCountPair pair)
+            => new(pair.Resource, pair.Count);
     }
 
+    [SerializeField]
+    private UpgradeType _upgradeType;
 
     [SerializeField]
-    private List<ResourseCountPair> _resources;
+    private List<ResourseCountPair> _resourcesLevel1;
+
+    [SerializeField]
+    private List<ResourseCountPair> _resourcesLevel2;
+
+    [SerializeField]
+    private List<ResourseCountPair> _resourcesLevel3;
+
+    [SerializeField]
+    private List<ResourseCountPair> _resourcesLevel4;
 
     [SerializeField]
     private Color _selectedColor;
@@ -32,6 +46,8 @@ public class SelectingUpgradeButton : MonoBehaviour
     [SerializeField, TextArea]
     private string _upgradeDescription;
 
+    private List<ResourseCountPair> _empty = new();
+
     private Image _hud;
     private Vector2 _minAnchor;
     private Vector2 _maxAnchor;
@@ -41,6 +57,8 @@ public class SelectingUpgradeButton : MonoBehaviour
     private bool _isSelected;
 
     public UnitUpgradeHUD HUD { get; set; }
+
+    public UpgradeType UpgradeType => _upgradeType;
 
     public string Title => _title;
     public string Description => _upgradeDescription;
@@ -59,7 +77,18 @@ public class SelectingUpgradeButton : MonoBehaviour
         }
     }
 
-    public IEnumerable<ResourseCountPair> ResourceCountPair => _resources;
+    public int Level { get; set; }
+
+    public List<ResourseCountPair> ResourceCountPair => Level switch
+    {
+        0 => _resourcesLevel1,
+        1 => _resourcesLevel2,
+        2 => _resourcesLevel3,
+        3 => _resourcesLevel4,
+        4 => _empty,
+        _ => throw new System.Exception("idi naxui")
+    };
+
 
     private void Awake()
     {
@@ -72,10 +101,6 @@ public class SelectingUpgradeButton : MonoBehaviour
         };
 
         IsSeleced = false;
-    }
-    private void Update()
-    {
-        
     }
     public void Select()
     {

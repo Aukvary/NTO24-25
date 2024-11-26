@@ -41,9 +41,9 @@ public class Inventory
         return false;
     }
 
-    public Dictionary<Resource, uint> LayOutItems()
+    public Dictionary<Resource, int> LayOutItems()
     {
-        Dictionary<Resource, uint> resources = new();
+        Dictionary<Resource, int> resources = new();
         foreach (Cell cell in _resources)
         {
             if (cell.Resource == null)

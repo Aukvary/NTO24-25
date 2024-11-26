@@ -81,15 +81,12 @@ public class Unit : MonoBehaviour
     }
 
     #region StatsProperty
-    public float Strength => _strength[_strenghtLevel];
+    public float Damage => _damage[AttackLevel];
+    public float Strength => _strength[StrenghtLevel];
+    public float MaxHealth => _maxHealth[HealthLevel];
+    public float Regeneration => _regeneration[_healthLevel];
 
     public float Speed => _speed;
-
-    public float Damage => _damage[_attackLevel];
-
-    public float MaxHealth => _maxHealth[_healthLevel];
-
-    public float Regeneration => _regeneration[_healthLevel];
     #endregion 
 
     public float Health
@@ -140,6 +137,25 @@ public class Unit : MonoBehaviour
     public Storage Storage { get; private set; }
 
     private Vector3 _position => transform.position;
+
+    public int AttackLevel 
+    {
+        get => _attackLevel;
+
+        set => _attackLevel = Math.Clamp(value, 0, 4);
+    }
+    public int StrenghtLevel
+    {
+        get => _strenghtLevel;
+        set => _strenghtLevel = Math.Clamp(value, 0, 4);
+    }
+    public int HealthLevel
+    {
+        get => _healthLevel;
+
+        set => _healthLevel = Math.Clamp(value, 0, 4);
+    }
+
 
     public event Action<Unit> OnHealthChangeEvent;
 
@@ -248,5 +264,31 @@ public class Unit : MonoBehaviour
         Alive = false;
         yield return new WaitForSeconds(_restoreTime);
         Alive = true;
+    }
+
+    public bool CanUpgrade(UpgradeType type) => type switch
+    {
+        UpgradeType.Damage => AttackLevel != 4,
+        UpgradeType.Strenght => StrenghtLevel != 4,
+        UpgradeType.Health => HealthLevel != 4,
+        _ => false,
+    };
+
+    public void Upgrade(UpgradeType type)
+    {
+        switch (type)
+        {
+            case UpgradeType.Damage:
+                AttackLevel += 1;
+                break;
+
+            case UpgradeType.Strenght:
+                StrenghtLevel += 1;
+                break;
+
+            case UpgradeType.Health:
+                HealthLevel += 1;
+                break;
+        }
     }
 }

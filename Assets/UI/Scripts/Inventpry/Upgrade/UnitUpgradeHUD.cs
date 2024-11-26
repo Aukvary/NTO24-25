@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +24,7 @@ public class UnitUpgradeHUD : MonoBehaviour
     private UnitSelectCell[] _unitSelectCells;
     private SelectingUpgradeButton[] _upgradePanels;
     private DescriptionArea _descriptionArea;
+    private LevelGradeBar _levelGradeBar;
 
     private Vector2 _minAnchor;
     private Vector2 _maxAnchor;
@@ -41,7 +41,10 @@ public class UnitUpgradeHUD : MonoBehaviour
                 _selectedUnit.IsSelected = false;
             _selectedUnit = value;
             if (value != null)
+            {
                 value.IsSelected = true;
+                SelectedPanel = SelectedPanel;
+            }
         }
     }
 
@@ -58,22 +61,33 @@ public class UnitUpgradeHUD : MonoBehaviour
             {
                 value.IsSeleced = true;
 
+                value.Level = value.UpgradeType switch
+                {
+                    UpgradeType.Damage => _selectedUnit.Unit.AttackLevel,
+                    UpgradeType.Strenght => _selectedUnit.Unit.StrenghtLevel,
+                    UpgradeType.Health => _selectedUnit.Unit.HealthLevel,
+
+                    _ => 0
+                };
+                _levelGradeBar.Level = value.Level;
+
                 _descriptionArea.Title = value.Title;
                 _descriptionArea.Description = value.Description;
+                _descriptionArea.Resourse = value.ResourceCountPair;
             }
         }
     }
 
-    private bool _canUpgrade => SelectedPanel.ResourceCountPair.All( needRes =>
-    {
-        return SelectedUnit == null? false : SelectedUnit.Unit.Storage[needRes.Resource] >= needRes.Count;
-    });
+    private bool _canUpgrade => SelectedPanel.ResourceCountPair.All(needRes => 
+        SelectedUnit.Unit.Storage[needRes.Resource] >= needRes.Count  
+    );
 
     private void Awake()
     {
         _unitSelectCells = GetComponentsInChildren<UnitSelectCell>();
         _upgradePanels = GetComponentsInChildren<SelectingUpgradeButton>();
         _descriptionArea = GetComponentInChildren<DescriptionArea>();
+        _levelGradeBar = GetComponentInChildren<LevelGradeBar>();
         _hud = GetComponent<Image>();
         _minAnchor = _hud.rectTransform.anchorMin;
         _maxAnchor = _hud.rectTransform.anchorMax;
@@ -81,10 +95,22 @@ public class UnitUpgradeHUD : MonoBehaviour
         _hud.rectTransform.anchorMin = new(1, _minAnchor.y);
 
         _upgradeButton = _upgradeButtonImage.GetComponent<Button>();
-        SelectedPanel = _upgradePanels[0];
 
         foreach (var button in _upgradePanels)
             button.HUD = this;
+
+
+
+        _upgradeButton.onClick.AddListener(() =>
+        {
+            if (!_canUpgrade)
+                return;
+            foreach (var res in SelectedPanel.ResourceCountPair)
+                SelectedUnit.Unit.Storage[res.Resource] -= res.Count;
+
+            SelectedUnit.Unit.Upgrade(SelectedPanel.UpgradeType);
+            SelectedPanel = SelectedPanel;
+        });
     }
 
     private void Start()
@@ -98,6 +124,7 @@ public class UnitUpgradeHUD : MonoBehaviour
             i++;
         }
         SelectedUnit = _unitSelectCells[0];
+        SelectedPanel = _upgradePanels[0];
     }
 
     private void Update()
@@ -113,7 +140,7 @@ public class UnitUpgradeHUD : MonoBehaviour
                 new(1, _minAnchor.y),
                 Time.deltaTime * _closedSpeed);
 
-        if (_canUpgrade)
+        if (_canUpgrade && SelectedUnit.Unit.CanUpgrade(SelectedPanel.UpgradeType))
         {
             _upgradeButtonImage.color = _canUpgradeColor;
         }

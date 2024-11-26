@@ -12,7 +12,7 @@ public class MaterialCell : MonoBehaviour
         _textMesh = GetComponentInChildren<TextMesh>();
     }
 
-    public void SetMaterial(Resource resource, uint count)
+    public void SetMaterial(Resource resource, int count)
     {
         _render.sprite = resource.Sprite;
         _textMesh.text = count.ToString();

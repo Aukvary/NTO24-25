@@ -16,6 +16,9 @@ public class InventoryHUD : MonoBehaviour
     private TextMeshProUGUI _healthText;
 
     [SerializeField]
+    private TextMeshProUGUI _regenerationText;
+
+    [SerializeField]
     private Image _bearHeadRenderer;
 
     private Image _hud;
@@ -92,5 +95,6 @@ public class InventoryHUD : MonoBehaviour
 
         _healthBar.rectTransform.anchorMax = new(Unit.Health / Unit.MaxHealth, 1);
         _healthText.text = $"{System.Math.Round(unit.Health, 1)} / {unit.MaxHealth}";
+        _regenerationText.text = $"+{unit.Regeneration}";
     }
 }

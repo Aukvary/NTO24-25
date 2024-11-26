@@ -28,7 +28,7 @@ public class InventoryCellUI : MonoBehaviour
         }
     }
 
-    public KeyValuePair<Resource, uint> PairCell
+    public KeyValuePair<Resource, int> PairCell
     {
         set
         {
@@ -49,5 +49,11 @@ public class InventoryCellUI : MonoBehaviour
         }
         _count = GetComponentInChildren<TextMeshProUGUI>();
         Back = GetComponent<Image>();
+    }
+
+    public void Clear()
+    {
+        _itemImage.enabled = false;
+        _count.text = "";
     }
 }

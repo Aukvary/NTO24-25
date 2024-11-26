@@ -11,8 +11,10 @@ public class ConstructionObject : ActionObject
     public class ResourseCountPair
     {
         public Resource Resource;
-        public uint Count;
-        public uint _stepCount;
+        [Min(0)]
+        public int Count;
+        [Min(0)]
+        public int _stepCount;
         public TextMesh _countText;
     }
 
@@ -43,7 +45,7 @@ public class ConstructionObject : ActionObject
 
         foreach (var pair in _materials)
         {
-            var step = (uint)Mathf.Min(unit.Storage[pair.Resource], pair._stepCount);
+            var step = Mathf.Min(unit.Storage[pair.Resource], pair._stepCount);
             pair.Count -= step;
             unit.Storage[pair.Resource] -= step;
 

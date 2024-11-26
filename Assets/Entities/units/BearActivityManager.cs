@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BearActivityManager : MonoBehaviour
 {
@@ -65,6 +66,9 @@ public class BearActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
             return;
 
+        if (Physics.Raycast(direction, out _, LayerMask.GetMask("UI")))
+            return;
+
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
@@ -103,7 +107,11 @@ public class BearActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(KeyCode.LeftShift))
             return;
 
-        if (!Physics.Raycast(direction, out RaycastHit hit))
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+
+                if (!Physics.Raycast(direction, out RaycastHit hit))
             return;
         if (!Input.GetKey(KeyCode.LeftControl))
             _controlledUnits.Clear();
