@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BearActivityManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class BearActivityManager : MonoBehaviour
 
     private List<Unit> _allUnits = new();
 
-    private Unit[] _playerUnits;
+    private Unit[] _bears;
 
     private List<Unit> _controlledUnits = new();
 
@@ -30,34 +31,29 @@ public class BearActivityManager : MonoBehaviour
     private Vector3 _endMousePos;
     private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
+    public IEnumerable<Unit> Bears => _bears;
+
     private void Awake()
     {
-        
+        _bears = _allUnits.Where(u => !u.IsBee).ToArray();
     }
-
     private void Start()
     {
-        _inventoryHUD.gameObject.SetActive(false);
         _storageHUD.UpdateHUD(_storage);
         _storage.OnLayOut += _storageHUD.UpdateHUD;
-        _storageHUD.gameObject.SetActive(false);
-        _playerUnits = _allUnits.Where(u => !u.IsBee).ToArray();
 
         transform.rotation = Quaternion.identity;
         transform.position = new(
-            _playerUnits[0].transform.position.x,
+            _bears[0].transform.position.x,
             transform.position.y,
-            _playerUnits[0].transform.position.z - _hotkeyChangeZCameraPosition);
+            _bears[0].transform.position.z - _hotkeyChangeZCameraPosition);
     }
-
     private void Update()
     {
         SetUnitTask();
         SelectUnitGroup();
         SelectAloneUnit();
         HotKeySelect();
-        if (Input.GetKeyDown(KeyCode.Tab))
-            _storageHUD.gameObject.SetActive(!_storageHUD.gameObject.activeSelf);
     }
 
     public void AddUnit(Unit unit)
@@ -70,26 +66,33 @@ public class BearActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
             return;
 
+        if (Physics.Raycast(direction, out _, LayerMask.GetMask("UI")))
+            return;
+
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
-        var obj = actionHit.transform.GetComponent<ActionObject>();
+        actionHit.transform.TryGetComponent<ActionObject>(out var obj);
 
         switch (obj)
         {
             case ResourceObjectSpawner:
                 foreach (var unit in _controlledUnits)
                     unit.Extract(obj as ResourceObjectSpawner);
-                break;
-            case PickableItem:
-                foreach (var unit in _controlledUnits)
-                    unit.PickItem(obj as PickableItem);
-                break;
+                return;
             case Storage:
                 foreach (var unit in _controlledUnits)
                     unit.LayOutItems(obj as Storage);
-                break;
+                return;
+            case ConstructionObject:
+                foreach (var unit in _controlledUnits)
+                    unit.Build(obj as ConstructionObject);
+                return;
         }
+
+        if (actionHit.transform.TryGetComponent<Unit>(out var enemy) && enemy.IsBee)
+            foreach (var unit in _controlledUnits)
+                unit.Attack(enemy);
 
         if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
         {
@@ -104,20 +107,23 @@ public class BearActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKey(KeyCode.LeftShift))
             return;
 
-        if (!Physics.Raycast(direction, out RaycastHit hit))
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+
+                if (!Physics.Raycast(direction, out RaycastHit hit))
             return;
         if (!Input.GetKey(KeyCode.LeftControl))
             _controlledUnits.Clear();
 
         if (!hit.transform.TryGetComponent<Unit>(out var unit))
         {
-            _inventoryHUD.gameObject.SetActive(false);
+            _inventoryHUD.Unit = null;
             return;
         }
         if (unit.IsBee)
             return;
         _inventoryHUD.Unit = unit;
-        _inventoryHUD.gameObject.SetActive(true);
         _controlledUnits.Add(unit);
     }
 
@@ -137,7 +143,7 @@ public class BearActivityManager : MonoBehaviour
         Bounds bounds = new Bounds();
         bounds.SetMinMax(minOffset, maxOffset);
 
-        foreach (var unit in _allUnits)
+        foreach (var unit in _bears)
         {
             if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)) || unit.IsBee)
                 continue;
@@ -148,20 +154,19 @@ public class BearActivityManager : MonoBehaviour
     private void HotKeySelect()
     {
         var hotkey = KeyCode.Alpha1;
-        for (int i = 0; i < _playerUnits.Length; i++)
+        for (int i = 0; i < _bears.Length; i++)
         {
             if (Input.GetKeyDown(hotkey + i))
             {
                 _controlledUnits.Clear();
-                _controlledUnits.Add(_playerUnits[i]);
-                _inventoryHUD.gameObject.SetActive(true);
-                _inventoryHUD.Unit = _playerUnits[i];
+                _controlledUnits.Add(_bears[i]);
+                _inventoryHUD.Unit = _bears[i];
 
                 transform.rotation = Quaternion.identity;
                 transform.position = new(
-                    _playerUnits[i].transform.position.x, 
+                    _bears[i].transform.position.x, 
                     transform.position.y,
-                    _playerUnits[i].transform.position.z - _hotkeyChangeZCameraPosition);
+                    _bears[i].transform.position.z - _hotkeyChangeZCameraPosition);
             }
         }
     }

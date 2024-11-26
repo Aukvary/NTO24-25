@@ -1,11 +1,11 @@
 public class Cell
 {
     private Resource _resource;
-    private uint _count = 0;
+    private int _count = 0;
 
     public Resource Resource => _resource;
 
-    public uint Count => _count;
+    public int Count => _count;
     public bool OverFlow => _count >= Ñonstants.MaxItemCount;
 
     public void Set(Resource resource)

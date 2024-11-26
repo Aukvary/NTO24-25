@@ -5,10 +5,21 @@ using UnityEngine;
 
 public class Storage : ActionObject
 {
-    private Dictionary<Resource, uint> _resources;
+    private Dictionary<Resource, int> _resources;
 
-    public IEnumerable<KeyValuePair<Resource, uint>> SrorageResources 
+    public IEnumerable<KeyValuePair<Resource, int>> SrorageResources 
         => _resources;
+
+    public int this[Resource resource]
+    {
+        get => _resources[resource];
+
+        set
+        {
+            _resources[resource] = value;
+            OnLayOut?.Invoke(this);
+        }
+    }
 
     public event Action<Storage> OnLayOut;
 
@@ -17,9 +28,11 @@ public class Storage : ActionObject
     {
         Resource[] resourceType = Resources.LoadAll<Resource>("Prefabs");
 
-        _resources = resourceType.ToDictionary(r => r, r => 0u);
+        _resources = resourceType.ToDictionary(r => r, r => 100);
 
     }
+
+    
     public override void Interact(Unit unit)
     {
         foreach (var cell in unit.Inventory.LayOutItems())
