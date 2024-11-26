@@ -32,7 +32,10 @@ public class BeeActivityController : MonoBehaviour
 
     private void Update()
     {
-        
+        SetTarget();
+
+        if (_bear != null)
+            _unit.Attack(_bear);
     }
 
     private void SetTarget()

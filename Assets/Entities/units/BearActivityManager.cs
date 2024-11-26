@@ -66,7 +66,7 @@ public class BearActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
             return;
 
-        if (Physics.Raycast(direction, out _, LayerMask.GetMask("UI")))
+        if (EventSystem.current.IsPointerOverGameObject())
             return;
 
         if (!Physics.Raycast(direction, out var actionHit))
