@@ -39,10 +39,23 @@ public class UnitExtractionController : UnitBehaviour
             Resource = null;
     }
 
+    public override void BehaviourEnter()
+    {
+        _navMeshAgent.destination = Resource.transform.position;
+        Unit.Animator.SetTrigger("move");
+    }
+
     public override void BehaviourUpdate()
     {
+        if (_navMeshAgent.hasPath)
+            return;
         if (Resource == null)
             return;
+
+        if (_navMeshAgent.hasPath)
+            Unit.Animator.SetTrigger("move");
+        else
+            Unit.Animator.SetTrigger("punch");
 
         var direction = _resource.transform.position - Unit.transform.position;
         direction.y = Unit.transform.position.y;
@@ -53,5 +66,10 @@ public class UnitExtractionController : UnitBehaviour
             angle,
             Time.deltaTime * _navMeshAgent.angularSpeed
             );
+    }
+
+    public override void BehaviourExit()
+    {
+        Unit.Animator.SetTrigger("idle");
     }
 }

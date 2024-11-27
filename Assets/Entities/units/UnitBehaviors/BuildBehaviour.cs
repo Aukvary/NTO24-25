@@ -42,8 +42,17 @@ public class BuildBehaviour : UnitBehaviour
 
     }
 
+    public override void BehaviourEnter()
+    {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent += ToBuild;
+
+        _navMeshAgent.destination = Build.transform.position;
+    }
+
     public override void BehaviourUpdate()
     {
+        if (_navMeshAgent.hasPath)
+            return;
         if (Build == null)
             return;
 
@@ -56,11 +65,6 @@ public class BuildBehaviour : UnitBehaviour
         angle,
             Time.deltaTime * _navMeshAgent.angularSpeed
             );
-    }
-
-    public override void BehaviourEnter()
-    {
-        Unit.BehaviourAnimation.OnPunchAnimationEvent += ToBuild;
     }
 
     public override void BehaviourExit()

@@ -72,6 +72,13 @@ public class BearActivityManager : MonoBehaviour
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
+        if (actionHit.transform.TryGetComponent<Unit>(out var bee) && bee.IsBee)
+        {
+            foreach (var bear in _controlledUnits)
+                bear.Attack(bee);
+            return;
+        }
+
         actionHit.transform.TryGetComponent<ActionObject>(out var obj);
 
         switch (obj)

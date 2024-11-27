@@ -32,30 +32,23 @@ public class UnitMovementController : UnitBehaviour
         }
     }
 
-    public Unit FollowUnit
-    {
-        get => _followUnit;
-
-        set
-        {
-            if (value != null)
-            {
-                Unit.Behaviour = this;
-
-            }
-            _followUnit = value;
-        }
-    }
-
     public bool HasPath => _navMeshAgent.hasPath;
+
+    public override void BehaviourEnter()
+    {
+        Unit.Animator.SetTrigger("move");
+    }
 
     public override void BehaviourUpdate()
     {
-
+        if (_navMeshAgent.hasPath)
+            Unit.Animator.SetTrigger("move");
+        else
+            Unit.Animator.SetTrigger("idle");
     }
     public override void BehaviourExit()
     {
         _navMeshAgent.ResetPath();
-        FollowUnit = null;
+        Unit.Animator.SetTrigger("idle");
     }
 }
