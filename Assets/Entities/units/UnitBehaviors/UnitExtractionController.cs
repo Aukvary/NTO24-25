@@ -48,17 +48,14 @@ public class UnitExtractionController : UnitBehaviour
     public override void BehaviourUpdate()
     {
         if (_navMeshAgent.hasPath)
-        {
-            Unit.Animator.SetTrigger("move");
             return;
-        }
-        else
-            Unit.Animator.SetTrigger("punch");
-
         if (Resource == null)
             return;
 
-        
+        if (_navMeshAgent.hasPath)
+            Unit.Animator.SetTrigger("move");
+        else
+            Unit.Animator.SetTrigger("punch");
 
         var direction = _resource.transform.position - Unit.transform.position;
         direction.y = Unit.transform.position.y;
@@ -73,6 +70,6 @@ public class UnitExtractionController : UnitBehaviour
 
     public override void BehaviourExit()
     {
-        _navMeshAgent.ResetPath();
+        Unit.Animator.SetTrigger("idle");
     }
 }

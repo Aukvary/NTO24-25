@@ -931,7 +931,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1739405807608629596, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.58
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2152176601619605877, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
       propertyPath: m_Height
@@ -941,18 +941,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: OsaUnit
       objectReference: {fileID: 0}
-    - target: {fileID: 5742682036973549675, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
-      propertyPath: _dropResources.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5742682036973549675, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
-      propertyPath: _dropResources.Array.data[0]._count
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5742682036973549675, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
-      propertyPath: _dropResources.Array.data[0]._resource
-      value: 
-      objectReference: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
     - target: {fileID: 8298230468964353042, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.7515287
