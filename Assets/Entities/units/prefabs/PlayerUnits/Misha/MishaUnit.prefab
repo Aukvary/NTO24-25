@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _attackRange: 0
-  _attackAngle: 0
+  _attackRange: 2
+  _attackAngle: 30
   _strength:
   - 2
   - 3
@@ -121,6 +121,7 @@ MonoBehaviour:
   - 0.5
   _restoreTime: 0
   _isBee: 0
+  _dropResources: []
   _headSprite: {fileID: 21300000, guid: 54a6398d037d02f40a42a4249b3be65b, type: 3}
 --- !u!1001 &5326029480661378314
 PrefabInstance:

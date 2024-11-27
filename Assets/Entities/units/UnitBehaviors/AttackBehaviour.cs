@@ -32,16 +32,7 @@ public class AttackBehaviour : UnitBehaviour
         {
             _attackedUnit = value;
 
-            if (value != null)
-            {
-                Unit.Behaviour = this;
-                Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
-            }
-            else
-            {
-                Unit.Behaviour = null;
-                Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
-            }
+            Unit.Behaviour = value == null ? null : this;
 
         }
     }
@@ -55,19 +46,7 @@ public class AttackBehaviour : UnitBehaviour
         {
             _breakeableObject = value;
 
-            if (value != null)
-            {
-                if (value != null)
-                {
-                    Unit.Behaviour = this;
-                    Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
-                }
-                else
-                {
-                    Unit.Behaviour = null;
-                    Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
-                }
-            }
+            Unit.Behaviour = value == null ? null : this;
         }
     }
 
@@ -105,19 +84,23 @@ public class AttackBehaviour : UnitBehaviour
             return;
 
 
-        unit.Health -= Unit.Damage;
+        if (unit.DamageUnit(Unit, out var res))
+            foreach (var item in res)
+                for (int i = 0; i < item.Count; i++)
+                    Unit.Inventory.TryToAdd(item.Resource);
     }
 
     public override void BehaviourEnter()
     {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
         _targetTransform = _attackedUnit == null ? _breakeableObject.transform : _attackedUnit.transform;
 
         _navMeshAgent.destination = _targetTransform.position;
-        Unit.Animator.SetTrigger("move");
     }
 
     public override void BehaviourUpdate()
     {
+        SetAnimation();
         if (_attackedUnit == null || !_attackedUnit.Alive)
         {
             _targetTransform = Unit.IsBee ? BreakeableObject.transform : null;
@@ -127,7 +110,6 @@ public class AttackBehaviour : UnitBehaviour
         {
             Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
             Unit.Behaviour = null;
-            Unit.Animator.SetTrigger("idle");
             return;
         }
 
@@ -137,8 +119,6 @@ public class AttackBehaviour : UnitBehaviour
                 _navMeshAgent.ResetPath();
             return;
         }
-
-        Unit.Animator.SetTrigger("punch");
 
 
         var direction = _targetTransform.position - Unit.transform.position;
@@ -152,9 +132,18 @@ public class AttackBehaviour : UnitBehaviour
             );
     }
 
+    private void SetAnimation()
+    {
+        if (_navMeshAgent.hasPath)
+            Unit.Animator.SetTrigger("move");
+        else
+            Unit.Animator.SetTrigger("punch");
+
+    }
+
     public override void BehaviourExit()
     {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
         _navMeshAgent.ResetPath();
-        Unit.Animator.SetTrigger("idle");
     }
 }

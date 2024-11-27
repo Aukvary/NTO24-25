@@ -105,6 +105,9 @@ MonoBehaviour:
   - 0
   _restoreTime: 0
   _isBee: 1
+  _dropResources:
+  - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
+    _count: 20
   _headSprite: {fileID: 0}
 --- !u!1001 &2717668153105798277
 PrefabInstance:

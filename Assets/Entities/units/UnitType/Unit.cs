@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class Unit : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private bool _isBee;
+
+    [SerializeField]
+    private List<SelectingUpgradeButton.ResourseCountPair> _dropResources;
     #endregion
 
     [SerializeField]
@@ -80,11 +84,14 @@ public class Unit : MonoBehaviour
             if (Behaviour == value)
                 return;
 
-            if (value == null)
-                Animator.SetTrigger("idle");
+            
             Behaviour?.BehaviourExit();
-            value?.BehaviourEnter();
-            _behavior = value;
+            if (value == null)
+                _moveController.BehaviourEnter();
+            else
+                value.BehaviourEnter();
+
+            _behavior = value == null ? _moveController : value;
         }
     }
 
@@ -233,6 +240,16 @@ public class Unit : MonoBehaviour
     public void LayOutItems(Storage storage)
     {
         storage.Interact(this);
+    }
+
+    public bool DamageUnit(Unit from, out List<SelectingUpgradeButton.ResourseCountPair> res)
+    {
+        res = null;
+
+        Health -= from.Damage;
+        if (Health <= 0)
+            res = _dropResources;
+        return Health <= 0;
     }
 
     private IEnumerator StartRestore()

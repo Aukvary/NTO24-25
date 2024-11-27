@@ -13,16 +13,7 @@ public class UnitExtractionController : UnitBehaviour
         set
         {
             _resource = value;
-            if (value == null)
-            {
-                Unit.BehaviourAnimation.OnPunchAnimationEvent -= Extract;
-                Unit.Behaviour = null;
-            }
-            else
-            {
-                Unit.Behaviour = this;
-                Unit.BehaviourAnimation.OnPunchAnimationEvent += Extract;
-            }
+            Unit.Behaviour = value == null ? null : this;
         }
     }
     public UnitExtractionController(Unit unit) : 
@@ -41,6 +32,7 @@ public class UnitExtractionController : UnitBehaviour
 
     public override void BehaviourEnter()
     {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent += Extract;
         _navMeshAgent.destination = Resource.transform.position;
         Unit.Animator.SetTrigger("move");
     }
@@ -48,14 +40,14 @@ public class UnitExtractionController : UnitBehaviour
     public override void BehaviourUpdate()
     {
         if (_navMeshAgent.hasPath)
-            return;
-        if (Resource == null)
-            return;
-
-        if (_navMeshAgent.hasPath)
             Unit.Animator.SetTrigger("move");
         else
             Unit.Animator.SetTrigger("punch");
+
+        if (_navMeshAgent.hasPath)
+            return;
+        if (Resource == null)
+            return;
 
         var direction = _resource.transform.position - Unit.transform.position;
         direction.y = Unit.transform.position.y;
@@ -70,6 +62,6 @@ public class UnitExtractionController : UnitBehaviour
 
     public override void BehaviourExit()
     {
-        Unit.Animator.SetTrigger("idle");
+        Unit.BehaviourAnimation.OnPunchAnimationEvent -= Extract;
     }
 }
