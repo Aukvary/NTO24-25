@@ -1,6 +1,6 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq;
 
 public class AttackBehaviour : UnitBehaviour
 {
@@ -20,10 +20,10 @@ public class AttackBehaviour : UnitBehaviour
         {
             Ray ray = new(Unit.transform.position, Vector3.up + _targetTransform.position - Unit.transform.position);
             var hit = Physics.RaycastAll(ray, _range).FirstOrDefault(hit => hit.transform == _targetTransform);
-            return hit; 
+            return hit;
         }
     }
-    
+
     public Unit AttackedUnit
     {
         get => _attackedUnit;
@@ -32,16 +32,7 @@ public class AttackBehaviour : UnitBehaviour
         {
             _attackedUnit = value;
 
-            if (value != null)
-            {
-                Unit.Behaviour = this;
-                Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
-            }
-            else
-            {
-                Unit.Behaviour = null;
-                Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
-            }
+            Unit.Behaviour = value == null ? null : this;
 
         }
     }
@@ -55,26 +46,14 @@ public class AttackBehaviour : UnitBehaviour
         {
             _breakeableObject = value;
 
-            if (value != null)
-            {
-                if (value != null)
-                {
-                    Unit.Behaviour = this;
-                    Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
-                }
-                else
-                {
-                    Unit.Behaviour = null;
-                    Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
-                }
-            }
+            Unit.Behaviour = value == null ? null : this;
         }
     }
 
     public AttackBehaviour(Unit unit, float range, float angle) : base(unit)
     {
         _navMeshAgent = unit.GetComponent<NavMeshAgent>();
-        _range = range; 
+        _range = range;
         _angle = angle;
     }
 
@@ -105,15 +84,23 @@ public class AttackBehaviour : UnitBehaviour
             return;
 
 
-        unit.Health -= Unit.Damage;
+        unit.DamageUnit(Unit, out var res);
+
+        if (res != null && res.Count != 0)
+        {
+            foreach (var item in res)
+                for (int i = 0; i < item.Count; i++)
+                    Unit.Inventory.TryToAdd(item.Resource);
+        }
+
     }
 
     public override void BehaviourEnter()
     {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
         _targetTransform = _attackedUnit == null ? _breakeableObject.transform : _attackedUnit.transform;
 
         _navMeshAgent.destination = _targetTransform.position;
-        Unit.Animator.SetTrigger("move");
     }
 
     public override void BehaviourUpdate()
@@ -127,18 +114,20 @@ public class AttackBehaviour : UnitBehaviour
         {
             Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
             Unit.Behaviour = null;
-            Unit.Animator.SetTrigger("idle");
             return;
         }
 
         if (_navMeshAgent.hasPath)
         {
+            Unit.Animator.SetTrigger("move");
             if (Vector3.Distance(_targetHit.point, Unit.transform.position) <= _range)
                 _navMeshAgent.ResetPath();
             return;
         }
+        else
+            Unit.Animator.SetTrigger("punch");
 
-        Unit.Animator.SetTrigger("punch");
+
 
 
         var direction = _targetTransform.position - Unit.transform.position;
@@ -154,7 +143,7 @@ public class AttackBehaviour : UnitBehaviour
 
     public override void BehaviourExit()
     {
+        Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
         _navMeshAgent.ResetPath();
-        Unit.Animator.SetTrigger("idle");
     }
 }

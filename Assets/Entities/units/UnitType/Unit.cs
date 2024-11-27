@@ -35,6 +35,9 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private bool _isBee;
+
+    [SerializeField]
+    private List<SelectingUpgradeButton.ResourseCountPair> _dropResources;
     #endregion
 
     [SerializeField]
@@ -80,11 +83,17 @@ public class Unit : MonoBehaviour
             if (Behaviour == value)
                 return;
 
-            if (value == null)
-                Animator.SetTrigger("idle");
             Behaviour?.BehaviourExit();
-            value?.BehaviourEnter();
-            _behavior = value;
+            if (value == null)
+            {
+                _behavior = _moveController;
+                _moveController.BehaviourEnter();
+            }
+            else
+            {
+                _behavior = value;
+                value?.BehaviourEnter();
+            }
         }
     }
 
@@ -233,6 +242,15 @@ public class Unit : MonoBehaviour
     public void LayOutItems(Storage storage)
     {
         storage.Interact(this);
+    }
+
+    public void DamageUnit(Unit from, out List<SelectingUpgradeButton.ResourseCountPair> resources)
+    {
+        resources = null;
+        Health -= from.Damage;
+        if (Health<= 0)
+            resources = _dropResources;
+        
     }
 
     private IEnumerator StartRestore()
