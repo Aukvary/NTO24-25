@@ -12,6 +12,12 @@ public class Unit : MonoBehaviour
     [SerializeField, Min(0f)]
     private float _speed;
 
+    [SerializeField, Min(0f)]
+    private float _attackRange;
+
+    [SerializeField, Min(0f)]
+    private float _attackAngle;
+
     [SerializeField]
     private List<float> _strength;
 
@@ -52,6 +58,7 @@ public class Unit : MonoBehaviour
     private BuildBehaviour _buildBehaviour;
     private UnitExtractionController _extractionController;
     private UnitMovementController _moveController;
+    private AttackBehaviour _attackBehaviour;
     private UnitBehaviour _behavior;
     private Inventory _inventory;
     #endregion
@@ -65,7 +72,6 @@ public class Unit : MonoBehaviour
     private int _healthLevel;
     #endregion
 
-    public UnitStates UnitState { get; private set; }
     public UnitBehaviour Behaviour
     {
         get => _behavior;
@@ -73,7 +79,9 @@ public class Unit : MonoBehaviour
         {
             if (Behaviour == value)
                 return;
-            StopAllCoroutines();
+
+            if (value == null)
+                Animator.SetTrigger("idle");
             Behaviour?.BehaviourExit();
             value?.BehaviourEnter();
             _behavior = value;
@@ -107,7 +115,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private bool Alive
+    public bool Alive
     {
         get => _alive;
 
@@ -156,6 +164,8 @@ public class Unit : MonoBehaviour
         set => _healthLevel = Math.Clamp(value, 0, 4);
     }
 
+    public Animator Animator => _animator;
+
 
     public event Action<Unit> OnHealthChangeEvent;
 
@@ -174,6 +184,8 @@ public class Unit : MonoBehaviour
         _moveController = new(this, _speed);
         _extractionController = new(this);
         _buildBehaviour = new(this);
+        _attackBehaviour = new(this, _attackRange, _attackAngle);
+
         _inventory = new(this);
     }
 
@@ -189,14 +201,8 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         Behaviour?.BehaviourUpdate();
-        SetAnimation();
         if (Alive)
             Health += Regeneration * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.G))
-            Health -= 10;
-        if (Input.GetKeyDown(KeyCode.H))
-            Health += 10;
     }
 
     public void MoveTo(Vector3 newPostion)
@@ -206,20 +212,12 @@ public class Unit : MonoBehaviour
 
     public void Extract(ResourceObjectSpawner spawner)
     {
-        MoveTo(spawner.transform.position);
-        StartCoroutine(AwaitOfMove(() =>
-        {
-            _extractionController.Resource = spawner;
-        }));
-
+        _extractionController.Resource = spawner;
     }
 
     public void Attack(Unit unit)
     {
-        MoveTo(unit.transform.position);
-
-
-
+        _attackBehaviour.AttackedUnit = unit;
     }
 
     public void Attack(BreakeableObject throne)
@@ -229,39 +227,12 @@ public class Unit : MonoBehaviour
 
     public void Build(ConstructionObject obj)
     {
-        MoveTo(obj.transform.position);
-        StartCoroutine(AwaitOfMove(() =>
-        {
-            _buildBehaviour.Build = obj;
-        }));
+        _buildBehaviour.Build = obj;
     }
 
     public void LayOutItems(Storage storage)
     {
-        MoveTo(storage.transform.position);
-        StartCoroutine(AwaitOfMove(() =>
-        {
-            storage.Interact(this);
-        }));
-    }
-
-    private IEnumerator AwaitOfMove(Action afterAction)
-    {
-        while (!_moveController.HasPath)
-            yield return null;
-        while (_moveController.HasPath)
-            yield return null;
-        afterAction?.Invoke();
-    }
-
-    private void SetAnimation()
-    {
-        if (_moveController.HasPath)
-            _animator.SetTrigger("move");
-        else if (Behaviour is UnitExtractionController || Behaviour is BuildBehaviour)
-            _animator.SetTrigger("punch");
-        else
-            _animator.SetTrigger("idle");
+        storage.Interact(this);
     }
 
     private IEnumerator StartRestore()
