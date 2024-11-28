@@ -11,9 +11,7 @@ public class BeeActivityController : MonoBehaviour
 
     private Unit[] _bears;
 
-    private Unit _bear;
-
-    private BreakeableObject _durovHome;
+    private BreakeableObject _durovHouse;
 
     private Vector3 _targetPosition;
 
@@ -21,8 +19,8 @@ public class BeeActivityController : MonoBehaviour
     {
         var bee = Instantiate(this, spawnPosition, Quaternion.identity);
 
-        bee._bears = bearActivityManager.Bears.ToArray(); 
-        bee._durovHome = durovHome;
+        bee._bears = bearActivityManager.Bears.ToArray();
+        bee._durovHouse = durovHome;
     }
 
     private void Awake()
@@ -33,24 +31,33 @@ public class BeeActivityController : MonoBehaviour
     private void Update()
     {
         SetTarget();
-
-        if (_bear != null)
-            _unit.Attack(_bear);
     }
 
     private void SetTarget()
     {
-        if (_bear == null)
+        if (_unit.AttackBehaviour.AttackedUnit != null)
+            return;
+
+        float min = float.MaxValue;
+        Unit bear = null;
+        
+        foreach (var b in _bears)
         {
-            float min = float.MaxValue;
-            foreach (var bear in _bears)
-                min = Mathf.Min(min, Vector3.Distance(bear.transform.position, transform.position));
-            _bear = min >= _agrRange ? _bear : null;
+            var bMin = Mathf.Min(min, Vector3.Distance(b.transform.position, transform.position));
+            if (bMin < min && b.Alive)
+            {
+                min = bMin;
+                bear = b;
+            }
         }
 
-        if (_bear == null)
-            _targetPosition = _durovHome.transform.position;
-        else
-            _targetPosition = _bear.transform.position;
+        if (min <= _agrRange)
+        {
+            _unit.Attack(bear);
+            print("penis");
+            return;
+        }
+        if (_unit.AttackBehaviour.BreakeableObject == null)
+            _unit.Attack(_durovHouse);
     }
 }

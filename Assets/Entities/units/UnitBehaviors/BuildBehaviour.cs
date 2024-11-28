@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildBehaviour : UnitBehaviour
@@ -12,17 +11,10 @@ public class BuildBehaviour : UnitBehaviour
     {
         get => _build;
 
-        set 
-        { 
+        set
+        {
             _build = value;
-            if (value == null)
-            {
-                Unit.Behaviour = null;
-            }
-            else
-            {
-                Unit.Behaviour = this;
-            }
+            Unit.Behaviour = value == null ? null : this;
         }
     }
 
@@ -36,10 +28,7 @@ public class BuildBehaviour : UnitBehaviour
         if (Build != null)
             Build.Interact(Unit);
         else
-        {
             Unit.Behaviour = null;
-        }
-
     }
 
     public override void BehaviourEnter()
@@ -51,6 +40,11 @@ public class BuildBehaviour : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
+        if (_navMeshAgent.hasPath)
+            Unit.Animator.SetTrigger("move");
+        else
+            Unit.Animator.SetTrigger("punch");
+
         if (_navMeshAgent.hasPath)
             return;
         if (Build == null)

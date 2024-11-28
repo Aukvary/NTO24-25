@@ -39,10 +39,7 @@ public class UnitExtractionController : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
-        if (_navMeshAgent.hasPath)
-            Unit.Animator.SetTrigger("move");
-        else
-            Unit.Animator.SetTrigger("punch");
+        Unit.Animator.SetTrigger(_navMeshAgent.hasPath ? "move" : "punch");
 
         if (_navMeshAgent.hasPath)
             return;

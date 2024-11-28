@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class Unit : MonoBehaviour
 {
@@ -44,7 +43,6 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Sprite _headSprite;
 
-    private bool _alive = true;
     private float _health;
 
     #region UnitComponentsAlive
@@ -84,7 +82,7 @@ public class Unit : MonoBehaviour
             if (Behaviour == value)
                 return;
 
-            
+
             Behaviour?.BehaviourExit();
             if (value == null)
                 _moveController.BehaviourEnter();
@@ -124,11 +122,10 @@ public class Unit : MonoBehaviour
 
     public bool Alive
     {
-        get => _alive;
+        get => Health > 0;
 
         set
         {
-            _alive = value;
             transform.position = _spawnPosition;
             if (value)
                 Health = MaxHealth;
@@ -137,6 +134,7 @@ public class Unit : MonoBehaviour
             {
                 item.enabled = value;
             }
+            _behavior = null;
             _navMeshAgent.enabled = value;
             _collider.enabled = value;
         }
@@ -153,7 +151,7 @@ public class Unit : MonoBehaviour
 
     private Vector3 _position => transform.position;
 
-    public int AttackLevel 
+    public int AttackLevel
     {
         get => _attackLevel;
 
@@ -172,6 +170,9 @@ public class Unit : MonoBehaviour
     }
 
     public Animator Animator => _animator;
+
+    public UnitMovementController MovementController => _moveController;
+    public AttackBehaviour AttackBehaviour => _attackBehaviour;
 
 
     public event Action<Unit> OnHealthChangeEvent;
@@ -227,9 +228,9 @@ public class Unit : MonoBehaviour
         _attackBehaviour.AttackedUnit = unit;
     }
 
-    public void Attack(BreakeableObject throne)
+    public void Attack(BreakeableObject obj)
     {
-
+        _attackBehaviour.BreakeableObject = obj;
     }
 
     public void Build(ConstructionObject obj)

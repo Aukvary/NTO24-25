@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6036367350138531294}
   - component: {fileID: 1413938536099451291}
   - component: {fileID: 3297247461607334311}
+  - component: {fileID: 6962681339942681886}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -52,9 +53,8 @@ MonoBehaviour:
   _restoringMesh: {fileID: 0}
   _timeToExtract: 10
   _timeToRestore: 10
-  _resourceCount: 0
+  _dropResourses: []
   _dropChance: 0
-  _resorce: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
 --- !u!33 &6036367350138531294
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -125,6 +125,28 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 5
   m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 7fd052a0d2cb62148a71c5a00052d051, type: 3}
+--- !u!64 &6962681339942681886
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610538126186804789}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 7fd052a0d2cb62148a71c5a00052d051, type: 3}
 --- !u!1 &3872485269200194512

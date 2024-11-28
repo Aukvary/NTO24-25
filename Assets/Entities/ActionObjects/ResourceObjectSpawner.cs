@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceObjectSpawner : ActionObject
@@ -16,13 +17,10 @@ public class ResourceObjectSpawner : ActionObject
 
     [Header("Resorse")]
     [SerializeField]
-    private uint _resourceCount;
+    private List<SelectingUpgradeButton.ResourseCountPair> _dropResourses;
 
     [SerializeField, Range(0, 100)]
     private float _dropChance;
-
-    [SerializeField]
-    private Resource _resorce;
 
     private bool _isRestored = true;
 
@@ -68,7 +66,7 @@ public class ResourceObjectSpawner : ActionObject
 
 
         if (Random.Range(0f, 1f) <= (_dropChance / 100))
-            unit.Inventory.TryToAdd(_resorce);
+            unit.Inventory.TryToAdd(_dropResourses[Random.Range(0, _dropResourses.Count - 1)].Resource);
 
         TimeToExtract -= unit.Strength;
         if (TimeToExtract < 0)
@@ -77,8 +75,9 @@ public class ResourceObjectSpawner : ActionObject
 
     public void ToBreak(Unit unit)
     {
-        for (int i = 0; i < _resourceCount; i++)
-            unit.Inventory.TryToAdd(_resorce);
+        foreach (var item in _dropResourses)
+            for (int i = 0; i < item.Count; i++)
+                unit.Inventory.TryToAdd(item.Resource);
 
         unit.Behaviour = null;
 

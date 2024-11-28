@@ -26,8 +26,7 @@ public class UnitMovementController : UnitBehaviour
 
         set
         {
-            if (Unit.Behaviour != this)
-                Unit.Behaviour = this;
+            Unit.Behaviour = this;
             _navMeshAgent.destination = value;
         }
     }
@@ -41,10 +40,7 @@ public class UnitMovementController : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
-        if (_navMeshAgent.hasPath)
-            Unit.Animator.SetTrigger("move");
-        else
-            Unit.Animator.SetTrigger("idle");
+        Unit.Animator.SetTrigger(_navMeshAgent.hasPath ? "move" : "idle");
     }
     public override void BehaviourExit()
     {

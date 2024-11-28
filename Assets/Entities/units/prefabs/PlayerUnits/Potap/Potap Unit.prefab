@@ -119,8 +119,9 @@ MonoBehaviour:
   - 0.3
   - 0.4
   - 5
-  _restoreTime: 0
+  _restoreTime: 30
   _isBee: 0
+  _dropResources: []
   _headSprite: {fileID: 21300000, guid: fbddc6fcd6bbb4d48b3348d86416ec5a, type: 3}
 --- !u!1001 &1020590213842320847
 PrefabInstance:

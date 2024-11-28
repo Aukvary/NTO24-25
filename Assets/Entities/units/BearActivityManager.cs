@@ -87,13 +87,20 @@ public class BearActivityManager : MonoBehaviour
                 foreach (var unit in _controlledUnits)
                     unit.Extract(obj as ResourceObjectSpawner);
                 return;
+
             case Storage:
                 foreach (var unit in _controlledUnits)
                     unit.LayOutItems(obj as Storage);
                 return;
+
             case ConstructionObject:
                 foreach (var unit in _controlledUnits)
                     unit.Build(obj as ConstructionObject);
+                return;
+
+            case BreakeableObject:
+                foreach (var unit in _controlledUnits)
+                    unit.Attack(obj as BreakeableObject);
                 return;
         }
 
