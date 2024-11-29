@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _attackRange: 2
-  _attackAngle: 30
+  _attackRange: 1
+  _attackAngle: 60
   _strength:
   - 0
   _damage:

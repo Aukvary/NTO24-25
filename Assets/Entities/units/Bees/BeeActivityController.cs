@@ -15,12 +15,14 @@ public class BeeActivityController : MonoBehaviour
 
     private Vector3 _targetPosition;
 
-    public void Spawn(Vector3 spawnPosition, BearActivityManager bearActivityManager, BreakeableObject durovHome)
+    public Unit Spawn(Vector3 spawnPosition, BearActivityManager bearActivityManager, BreakeableObject durovHome)
     {
         var bee = Instantiate(this, spawnPosition, Quaternion.identity);
 
         bee._bears = bearActivityManager.Bears.ToArray();
         bee._durovHouse = durovHome;
+
+        return bee.GetComponent<Unit>();
     }
 
     private void Awake()
@@ -54,7 +56,6 @@ public class BeeActivityController : MonoBehaviour
         if (min <= _agrRange)
         {
             _unit.Attack(bear);
-            print("penis");
             return;
         }
         if (_unit.AttackBehaviour.BreakeableObject == null)

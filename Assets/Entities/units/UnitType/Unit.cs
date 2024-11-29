@@ -285,4 +285,22 @@ public class Unit : MonoBehaviour
                 break;
         }
     }
+
+    public void Upgrade(UpgradeType type, int level)
+    {
+        switch (type)
+        {
+            case UpgradeType.Damage:
+                AttackLevel = level;
+                break;
+
+            case UpgradeType.Strenght:
+                StrenghtLevel = level;
+                break;
+
+            case UpgradeType.Health:
+                HealthLevel = level;
+                break;
+        }
+    }
 }
