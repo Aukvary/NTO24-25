@@ -42,6 +42,7 @@ public class UnitUpgradeHUD : MonoBehaviour
             _selectedUnit = value;
             if (value != null)
             {
+
                 value.IsSelected = true;
                 SelectedPanel = SelectedPanel;
             }
@@ -61,11 +62,12 @@ public class UnitUpgradeHUD : MonoBehaviour
             {
                 value.IsSeleced = true;
 
+
                 value.Level = value.UpgradeType switch
                 {
-                    UpgradeType.Damage => _selectedUnit.Unit.AttackLevel,
-                    UpgradeType.Strenght => _selectedUnit.Unit.StrenghtLevel,
-                    UpgradeType.Health => _selectedUnit.Unit.HealthLevel,
+                    UpgradeType.Damage => SelectedUnit.Unit.AttackLevel,
+                    UpgradeType.Strenght => SelectedUnit.Unit.StrenghtLevel,
+                    UpgradeType.Health => SelectedUnit.Unit.HealthLevel,
 
                     _ => 0
                 };
@@ -117,13 +119,16 @@ public class UnitUpgradeHUD : MonoBehaviour
     {
 
         int i = 0;
+
         foreach (var bear in _bearActivityManager.Bears)
         {
             _unitSelectCells[i].Unit = bear;
             _unitSelectCells[i].HUD = this;
             i++;
         }
+
         SelectedUnit = _unitSelectCells[0];
+
         SelectedPanel = _upgradePanels[0];
     }
 

@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6157305091765266476}
+  - component: {fileID: -6346417998601533953}
   m_Layer: 0
   m_Name: flowers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6157305091765266476
 Transform:
@@ -32,6 +33,28 @@ Transform:
   - {fileID: 5687495204129971898}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &-6346417998601533953
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918364424358792620}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
 --- !u!1001 &5288549483974162769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83,6 +106,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9bbf84f6eedbb6448b91e66c7973a7a5, type: 3}
       propertyPath: m_Name
       value: flower_plane
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9bbf84f6eedbb6448b91e66c7973a7a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 9bbf84f6eedbb6448b91e66c7973a7a5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
