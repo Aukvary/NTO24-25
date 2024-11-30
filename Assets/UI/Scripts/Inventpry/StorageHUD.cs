@@ -46,7 +46,6 @@ public class StorageHUD : MonoBehaviour
     public void UpdateHUD(Storage storage)
     {
         int i = 0;
-
         foreach (var item in storage.SrorageResources) 
         {
             _cells[i].PairCell = item;

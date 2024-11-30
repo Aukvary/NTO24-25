@@ -1,3 +1,4 @@
+using Palmmedia.ReportGenerator.Core.Reporting.Builders.Rendering;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,9 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private Sprite _headSprite;
+
+    [SerializeField]
+    private string _unitName;
 
     private float _health;
 

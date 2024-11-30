@@ -1187,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: _dropChance
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: _resourceCount
@@ -1201,6 +1201,18 @@ PrefabInstance:
       propertyPath: _timeToRestore
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _dropResourses.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _dropResourses.Array.data[0]._count
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _dropResourses.Array.data[0]._resource
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1305,9 +1317,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 705507995}
   - {fileID: 826693345}
-  - {fileID: 726507856}
   - {fileID: 1406838656}
   - {fileID: 1974589236}
+  - {fileID: 726507856}
   - {fileID: 898378813865876084}
   - {fileID: 764587155}
   - {fileID: 631596909}

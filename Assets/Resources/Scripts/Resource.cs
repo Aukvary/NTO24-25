@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [CreateAssetMenu(fileName = "NewResource", menuName = "Resources", order = 51)]
 public class Resource : ScriptableObject
@@ -9,4 +11,5 @@ public class Resource : ScriptableObject
 
     public string ResourceName => _resourceName;
     public Sprite Sprite => _sprite;
+
 }

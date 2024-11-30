@@ -1,11 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Storage : ActionObject
 {
     private Dictionary<Resource, int> _resources;
+
+    private readonly string _name = "storage";
+
+    private User _storageUser;
+
+    private Resource[] _allResources;
+    private string[] _allNames;
 
     public IEnumerable<KeyValuePair<Resource, int>> SrorageResources 
         => _resources;
@@ -14,11 +22,7 @@ public class Storage : ActionObject
     {
         get => _resources[resource];
 
-        set
-        {
-            _resources[resource] = value;
-            OnLayOut?.Invoke(this);
-        }
+        set => Set(resource, value);
     }
 
     public event Action<Storage> OnLayOut;
@@ -26,19 +30,48 @@ public class Storage : ActionObject
 
     private void Awake()
     {
-        Resource[] resourceType = Resources.LoadAll<Resource>("Prefabs");
+        var allResources = Resources.LoadAll<Resource>("Prefabs");
+        var allNames = allResources.Select(r => r.ResourceName).ToArray();
 
-        _resources = resourceType.ToDictionary(r => r, r => 100);
+        Initialize(allResources, allNames);
 
+        _resources = allResources.ToDictionary(r => r, r => 0);
+    }
+
+    private async void Initialize(Resource[] resources, string[] names)
+    {
+        _allResources = resources;
+        _allNames = names;
+        _storageUser = new(_name);
+        await _storageUser.InitializeUser(names);
+        for (int i = 0; i < resources.Length; i++) 
+        {
+            _resources[resources[i]] = _storageUser.Resources[names[i]];
+        }
+        OnLayOut?.Invoke(this);
     }
 
     
-    public override void Interact(Unit unit)
+    public async override void Interact(Unit unit)
     {
+        await Refresh();
         foreach (var cell in unit.Inventory.LayOutItems())
-        {
-            _resources[cell.Key] += cell.Value;
-        }
+            await Set(cell.Key, cell.Value + _resources[cell.Key]);
+    }
+
+    private async Task Set(Resource resource, int count, bool refresh = false)
+    {
+        if (refresh)
+            await Refresh();
+        _resources[resource] = count;
+        await _storageUser.UpdateUser(resource.ResourceName, _resources[resource]);
         OnLayOut?.Invoke(this);
+    }
+
+    private async Task Refresh()
+    {
+        _storageUser = await _storageUser.GetUser();
+        for (int i = 0; i < _allResources.Length; i++)
+            _resources[_allResources[i]] = _storageUser.Resources[_allNames[i]];
     }
 }
