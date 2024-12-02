@@ -1,5 +1,6 @@
 using UnityEngine;
-using UnityEngine.AI;
+using System.Linq;
+
 public class UnitMovementController : UnitBehaviour
 {
     private float _speed;
@@ -7,14 +8,11 @@ public class UnitMovementController : UnitBehaviour
     private Unit _unit;
     private Unit _followUnit;
 
-    private NavMeshAgent _navMeshAgent;
-
     private Vector3 _targetPosition;
 
-    public UnitMovementController(Unit unit, float speed) : base(unit)
+    public UnitMovementController(Unit unit, float speed, float range) : base(unit, range)
     {
-        _navMeshAgent = unit.GetComponent<NavMeshAgent>();
-        _navMeshAgent.speed = speed;
+        NavMeshAgent.speed = speed;
         _speed = speed;
     }
 
@@ -27,24 +25,29 @@ public class UnitMovementController : UnitBehaviour
         set
         {
             Unit.Behaviour = this;
-            _navMeshAgent.destination = value;
+            NavMeshAgent.destination = value;
         }
     }
 
-    public bool HasPath => _navMeshAgent.hasPath;
-
-    public override void BehaviourEnter()
+    private RaycastHit _targetHit
     {
-        Unit.Animator.SetTrigger("move");
+        get
+        {
+            Ray ray = new(Unit.transform.position, Vector3.up + TargetPosition - Unit.transform.position);
+            return Physics.RaycastAll(ray, Range).FirstOrDefault(hit => hit.transform.position == TargetPosition);
+        }
     }
+
+    private bool _hasPath 
+        => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
 
     public override void BehaviourUpdate()
     {
-        Unit.Animator.SetTrigger(_navMeshAgent.hasPath ? "move" : "idle");
+        Unit.Animator.SetTrigger(NavMeshAgent.hasPath ? "move" : "idle");
     }
     public override void BehaviourExit()
     {
-        _navMeshAgent.ResetPath();
+        NavMeshAgent.ResetPath();
         Unit.Animator.SetTrigger("idle");
     }
 }

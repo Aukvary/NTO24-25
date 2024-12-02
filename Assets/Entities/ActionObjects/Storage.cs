@@ -70,7 +70,7 @@ public class Storage : ActionObject
 
     private async Task Refresh()
     {
-        _storageUser = await _storageUser.GetUser();
+        await _storageUser.UpdateUser();
         for (int i = 0; i < _allResources.Length; i++)
             _resources[_allResources[i]] = _storageUser.Resources[_allNames[i]];
     }

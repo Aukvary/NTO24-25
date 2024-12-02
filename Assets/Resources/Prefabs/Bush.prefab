@@ -123,4 +123,7 @@ MonoBehaviour:
   _restoringMesh: {fileID: -2432090755550338912, guid: f61e3915db0cad943b3748397e3295de, type: 3}
   _timeToExtract: 2
   _timeToRestore: 10
-  _resorce: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
+  _dropResourses:
+  - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
+    _count: 10
+  _dropChance: 0

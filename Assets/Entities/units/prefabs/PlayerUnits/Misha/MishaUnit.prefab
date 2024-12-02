@@ -123,6 +123,7 @@ MonoBehaviour:
   _isBee: 0
   _dropResources: []
   _headSprite: {fileID: 21300000, guid: 54a6398d037d02f40a42a4249b3be65b, type: 3}
+  _unitName: misha
 --- !u!1001 &5326029480661378314
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -123,6 +123,7 @@ MonoBehaviour:
   _isBee: 0
   _dropResources: []
   _headSprite: {fileID: 21300000, guid: 876966f7d75f31d48b1a82afd2a6dc09, type: 3}
+  _unitName: maksim
 --- !u!1001 &583793388314841510
 PrefabInstance:
   m_ObjectHideFlags: 0

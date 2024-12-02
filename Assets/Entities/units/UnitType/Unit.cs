@@ -178,6 +178,8 @@ public class Unit : MonoBehaviour
     public UnitMovementController MovementController => _moveController;
     public AttackBehaviour AttackBehaviour => _attackBehaviour;
 
+    public string UnitName => _unitName;
+
 
     public event Action<Unit> OnHealthChangeEvent;
 
@@ -193,9 +195,9 @@ public class Unit : MonoBehaviour
 
         _health = MaxHealth;
         _behavior = _moveController;
-        _moveController = new(this, _speed);
-        _extractionController = new(this);
-        _buildBehaviour = new(this);
+        _moveController = new(this, _speed, _attackRange);
+        _extractionController = new(this, _attackRange);
+        _buildBehaviour = new(this, _attackRange);
         _attackBehaviour = new(this, _attackRange, _attackAngle);
 
         _inventory = new(this);

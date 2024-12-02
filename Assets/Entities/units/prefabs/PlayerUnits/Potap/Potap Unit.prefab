@@ -123,6 +123,7 @@ MonoBehaviour:
   _isBee: 0
   _dropResources: []
   _headSprite: {fileID: 21300000, guid: fbddc6fcd6bbb4d48b3348d86416ec5a, type: 3}
+  _unitName: potap
 --- !u!1001 &1020590213842320847
 PrefabInstance:
   m_ObjectHideFlags: 0

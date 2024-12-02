@@ -4,9 +4,6 @@ using UnityEngine.AI;
 
 public class AttackBehaviour : UnitBehaviour
 {
-    private NavMeshAgent _navMeshAgent;
-
-    private float _range;
     private float _angle;
 
     private Unit _attackedUnit;
@@ -17,7 +14,7 @@ public class AttackBehaviour : UnitBehaviour
         get
         {
             Ray ray = new(Unit.transform.position, Vector3.up + _targetTransform.position - Unit.transform.position);
-            var hit = Physics.RaycastAll(ray, _range).FirstOrDefault(hit => hit.transform == _targetTransform);
+            var hit = Physics.RaycastAll(ray, Range).FirstOrDefault(hit => hit.transform == _targetTransform);
             return hit;
         }
     }
@@ -50,12 +47,11 @@ public class AttackBehaviour : UnitBehaviour
 
     private Transform _targetTransform => _attackedUnit == null ? _breakeableObject?.transform : _attackedUnit.transform;
 
-    private bool _hasPath => Vector3.Distance(_targetHit.point, Unit.transform.position) > _range;
+    private bool _hasPath
+        => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
 
-    public AttackBehaviour(Unit unit, float range, float angle) : base(unit)
+    public AttackBehaviour(Unit unit, float range, float angle) : base(unit, range)
     {
-        _navMeshAgent = unit.GetComponent<NavMeshAgent>();
-        _range = range;
         _angle = angle;
     }
 
@@ -83,7 +79,7 @@ public class AttackBehaviour : UnitBehaviour
 
         if (_hasPath)
         {
-            _navMeshAgent.destination = _targetTransform.position;
+            NavMeshAgent.destination = _targetTransform.position;
             return;
         }
 
@@ -105,7 +101,7 @@ public class AttackBehaviour : UnitBehaviour
     {
         Unit.BehaviourAnimation.OnPunchAnimationEvent += Attack;
 
-        _navMeshAgent.destination = _targetTransform.position;
+        NavMeshAgent.destination = _targetTransform.position;
     }
 
     public override void BehaviourUpdate()
@@ -123,14 +119,12 @@ public class AttackBehaviour : UnitBehaviour
 
 
         if (!_hasPath)
-        {
-            _navMeshAgent.ResetPath();
-        }
-
+            NavMeshAgent.ResetPath();
 
 
         if (_hasPath)
             return;
+
         var direction = _targetTransform.position - Unit.transform.position;
         direction.y = Unit.transform.position.y;
 
@@ -138,13 +132,13 @@ public class AttackBehaviour : UnitBehaviour
         Unit.transform.rotation = Quaternion.RotateTowards(
             Unit.transform.rotation,
             angle,
-            Time.deltaTime * _navMeshAgent.angularSpeed
+            Time.deltaTime * NavMeshAgent.angularSpeed
             );
     }
 
     public override void BehaviourExit()
     {
         Unit.BehaviourAnimation.OnPunchAnimationEvent -= Attack;
-        _navMeshAgent.ResetPath();
+        NavMeshAgent.ResetPath();
     }
 }

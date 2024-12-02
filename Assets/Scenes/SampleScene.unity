@@ -1067,6 +1067,10 @@ PrefabInstance:
       propertyPath: _activityManager
       value: 
       objectReference: {fileID: 1740879708}
+    - target: {fileID: 8378721876495769090, guid: 748e2f90d6dea3d41b6e0f7df1eaf04d, type: 3}
+      propertyPath: _units.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1187,7 +1191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: _dropChance
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: _resourceCount

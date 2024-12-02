@@ -1,11 +1,9 @@
 using UnityEngine;
+using System.Linq;
 
 public class BuildBehaviour : UnitBehaviour
 {
     private ConstructionObject _build;
-
-
-    private UnityEngine.AI.NavMeshAgent _navMeshAgent;
 
     public ConstructionObject Build
     {
@@ -18,10 +16,22 @@ public class BuildBehaviour : UnitBehaviour
         }
     }
 
-    public BuildBehaviour(Unit unit) : base(unit)
+    private RaycastHit _targetHit
     {
-        _navMeshAgent = unit.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        get
+        {
+            Ray ray = new(Unit.transform.position, Vector3.up + Build.transform.position - Unit.transform.position);
+            var hit = Physics.RaycastAll(ray, Range).FirstOrDefault(hit => hit.transform == Build.transform);
+            return hit;
+        }
     }
+
+    private bool _hasPath
+        => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
+
+    public BuildBehaviour(Unit unit, float range) :
+        base(unit, range)
+    { }
 
     private void ToBuild()
     {
@@ -35,19 +45,27 @@ public class BuildBehaviour : UnitBehaviour
     {
         Unit.BehaviourAnimation.OnPunchAnimationEvent += ToBuild;
 
-        _navMeshAgent.destination = Build.transform.position;
+        NavMeshAgent.destination = Build.transform.position;
     }
 
     public override void BehaviourUpdate()
     {
-        if (_navMeshAgent.hasPath)
-            Unit.Animator.SetTrigger("move");
-        else
-            Unit.Animator.SetTrigger("punch");
+        Unit.Animator.SetTrigger(NavMeshAgent.hasPath ? "move" : "punch");
 
-        if (_navMeshAgent.hasPath)
-            return;
         if (Build == null)
+        {
+            Build = null;
+            return;
+        }
+
+        Unit.Animator.SetTrigger(_hasPath ? "move" : "punch");
+
+
+        if (!_hasPath)
+            NavMeshAgent.ResetPath();
+
+
+        if (_hasPath)
             return;
 
         var direction = Build.transform.position - Unit.transform.position;
@@ -56,8 +74,8 @@ public class BuildBehaviour : UnitBehaviour
         var angle = Quaternion.LookRotation(direction);
         Unit.transform.rotation = Quaternion.RotateTowards(
             Unit.transform.rotation,
-        angle,
-            Time.deltaTime * _navMeshAgent.angularSpeed
+            angle,
+            Time.deltaTime * NavMeshAgent.angularSpeed
             );
     }
 

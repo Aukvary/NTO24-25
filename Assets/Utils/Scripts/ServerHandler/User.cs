@@ -81,13 +81,15 @@ public class User
 
             return JsonToUser(await response.Content.ReadAsStringAsync());
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException)
         {
-            if (ex.Message.Contains("404"))
-                return null;
-            else
-                throw ex;
+            return null;
         }
+    }
+
+    public async Task UpdateUser()
+    {
+        Resources = (await GetUser()).Resources;
     }
 
     public async Task<string> UpdateUser(string resource, int count)
@@ -106,10 +108,10 @@ public class User
         _resorcesBuilder.Clear();
 
         var response = await _client.PutAsync(UserURL, content);
-        Debug.Log(Name);
         response.EnsureSuccessStatusCode();
 
-        await UserLog(
+
+        UserLog(
             $"Change {resource} count",
             $"\"new value\": \"{count}\"",
             $"\"old value\": \"{oldCount}\""
@@ -118,7 +120,19 @@ public class User
         return await response.Content.ReadAsStringAsync();
     }
 
-    public async Task<string> DeleteUser()
+    public async Task UpdateServerInfo()
+    {
+        foreach (var pair in Resources)
+            _resorcesBuilder.Append($"\"{pair.Key}\":{pair.Value},");
+        _resorcesBuilder.Length--;
+        _resorcesBuilder.Append("}}");
+
+        StringContent content = new(_resorcesBuilder.ToString(), Encoding.UTF8, "application/json");
+        _resorcesBuilder.Clear();
+        var response = await _client.PutAsync(UserURL, content);
+    }
+
+    public async Task DeleteUser()
     {
         var request = new HttpRequestMessage
         {
@@ -130,8 +144,6 @@ public class User
         HttpResponseMessage response = await _client.SendAsync(request);
 
         response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadAsStringAsync();
     }
 
     public async Task<string> UserLog(string comment, params string[] logs)
