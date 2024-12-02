@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class UnitMovementController : UnitBehaviour
 {
@@ -9,6 +10,8 @@ public class UnitMovementController : UnitBehaviour
     private Unit _followUnit;
 
     private Vector3 _targetPosition;
+
+    public event Action OnMoveEndEvent;
 
     public UnitMovementController(Unit unit, float speed, float range) : base(unit, range)
     {
@@ -24,8 +27,11 @@ public class UnitMovementController : UnitBehaviour
 
         set
         {
+            Unit.StopCoroutine(StartEvent());
+            OnMoveEndEvent = null;
             Unit.Behaviour = this;
             NavMeshAgent.destination = value;
+            Unit.StartCoroutine(StartEvent());
         }
     }
 
@@ -41,13 +47,31 @@ public class UnitMovementController : UnitBehaviour
     private bool _hasPath 
         => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
 
+    public override void BehaviourEnter()
+    {
+        Unit.Animator.SetTrigger("move");
+    }
+
     public override void BehaviourUpdate()
     {
         Unit.Animator.SetTrigger(NavMeshAgent.hasPath ? "move" : "idle");
+        if (NavMeshAgent.hasPath)
+            return;
     }
     public override void BehaviourExit()
     {
         NavMeshAgent.ResetPath();
         Unit.Animator.SetTrigger("idle");
+        OnMoveEndEvent = null;
+    }
+
+    private System.Collections.IEnumerator StartEvent()
+    {
+        while (!NavMeshAgent.hasPath)
+            yield return null;
+        while (NavMeshAgent.hasPath)
+            yield return null;
+        OnMoveEndEvent?.Invoke();
+        OnMoveEndEvent = null;
     }
 }

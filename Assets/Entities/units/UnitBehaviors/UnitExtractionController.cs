@@ -1,10 +1,9 @@
+using System.Linq;
 using UnityEngine;
 
 public class UnitExtractionController : UnitBehaviour
 {
     private ResourceObjectSpawner _resource;
-
-    private UnityEngine.AI.NavMeshAgent _navMeshAgent;
     public ResourceObjectSpawner Resource
     {
         get => _resource;
@@ -14,6 +13,19 @@ public class UnitExtractionController : UnitBehaviour
             Unit.Behaviour = value == null ? null : this;
         }
     }
+
+    private RaycastHit _targetHit
+    {
+        get
+        {
+            Ray ray = new(Unit.transform.position, Vector3.up + Resource.transform.position - Unit.transform.position);
+            var hit = Physics.RaycastAll(ray, Range).FirstOrDefault(hit => hit.transform == Resource.transform);
+            return hit;
+        }
+    }
+
+    private bool _hasPath
+        => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
     public UnitExtractionController(Unit unit, float range) :
         base(unit, range) { }
 
@@ -28,17 +40,26 @@ public class UnitExtractionController : UnitBehaviour
     public override void BehaviourEnter()
     {
         Unit.BehaviourAnimation.OnPunchAnimationEvent += Extract;
-        _navMeshAgent.destination = Resource.transform.position;
-        Unit.Animator.SetTrigger("move");
+        NavMeshAgent.destination = Resource.transform.position;
     }
 
     public override void BehaviourUpdate()
     {
-        Unit.Animator.SetTrigger(_navMeshAgent.hasPath ? "move" : "punch");
 
-        if (_navMeshAgent.hasPath)
-            return;
         if (Resource == null)
+        {
+            Resource = null;
+            return;
+        }
+
+        Unit.Animator.SetTrigger(_hasPath ? "move" : "punch");
+
+
+        if (!_hasPath)
+            NavMeshAgent.ResetPath();
+
+
+        if (_hasPath)
             return;
 
         var direction = _resource.transform.position - Unit.transform.position;
@@ -48,7 +69,7 @@ public class UnitExtractionController : UnitBehaviour
         Unit.transform.rotation = Quaternion.RotateTowards(
             Unit.transform.rotation,
             angle,
-            Time.deltaTime * _navMeshAgent.angularSpeed
+            Time.deltaTime * NavMeshAgent.angularSpeed
             );
     }
 

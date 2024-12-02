@@ -86,7 +86,6 @@ public class Unit : MonoBehaviour
             if (Behaviour == value)
                 return;
 
-
             Behaviour?.BehaviourExit();
             if (value == null)
                 _moveController.BehaviourEnter();
@@ -246,7 +245,8 @@ public class Unit : MonoBehaviour
 
     public void LayOutItems(Storage storage)
     {
-        storage.Interact(this);
+        _moveController.TargetPosition = storage.transform.position;
+        _moveController.OnMoveEndEvent += () => storage.Interact(this);
     }
 
     public bool DamageUnit(Unit from, out List<SelectingUpgradeButton.ResourseCountPair> res)

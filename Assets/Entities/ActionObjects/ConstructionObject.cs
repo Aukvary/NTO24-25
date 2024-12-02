@@ -15,7 +15,7 @@ public class ConstructionObject : ActionObject
         public int Count;
         [Min(0)]
         public int _stepCount;
-        public TextMesh _countText;
+        public TextMeshPro _countText;
     }
 
     [SerializeField]

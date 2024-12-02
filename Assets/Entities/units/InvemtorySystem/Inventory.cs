@@ -15,8 +15,6 @@ public class Inventory
 
     private Dictionary<Resource, int> _resources;
 
-    private Dictionary<string, List<int>> _countChanges = new();
-
     public IEnumerable<Cell> Resources => _cells;
 
     public event Action<Unit> OnInventoryChanged;
@@ -45,8 +43,6 @@ public class Inventory
         _resourcesNamePair = ress.ToDictionary(r => r.name, r => r);
 
         _resources = ress.ToDictionary(r => r, r => 0);
-
-        _countChanges = ress.ToDictionary(r => r.ResourceName, r => new List<int>());
 
         InitializeUser();
     }
@@ -93,7 +89,6 @@ public class Inventory
 
     public Dictionary<Resource, int> LayOutItems()
     {
-
         foreach (var name in _resourcesNamePair.Keys)
             _inventoryUser.UpdateUser(name, 0);
         Dictionary<Resource, int> resources = new();

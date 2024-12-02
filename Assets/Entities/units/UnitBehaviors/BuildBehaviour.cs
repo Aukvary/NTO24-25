@@ -50,8 +50,6 @@ public class BuildBehaviour : UnitBehaviour
 
     public override void BehaviourUpdate()
     {
-        Unit.Animator.SetTrigger(NavMeshAgent.hasPath ? "move" : "punch");
-
         if (Build == null)
         {
             Build = null;
