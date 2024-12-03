@@ -8,7 +8,7 @@ using System.Linq;
 public class ConstructionObject : ActionObject
 {
     [System.Serializable]
-    public class ResourseCountPair
+    public class RepairInfo
     {
         public Resource Resource;
         [Min(0)]
@@ -19,12 +19,19 @@ public class ConstructionObject : ActionObject
     }
 
     [SerializeField]
-    private List<ResourseCountPair> _materials;
+    private List<RepairInfo> _materials;
 
     [SerializeField]
     private UnityEvent _afterBuildEvent;
 
-    public IEnumerable<ResourseCountPair> Materials => _materials;
+    [SerializeField]
+    private string _name;
+
+    private readonly string _repair = "repair";
+
+    private User _repairUser;
+
+    public IEnumerable<RepairInfo> Materials => _materials;
 
 
     private void Awake()
@@ -33,6 +40,20 @@ public class ConstructionObject : ActionObject
         {
             pair._countText.text = pair.Count.ToString();
         }
+
+        _repairUser = new(_name);
+
+        Initialize();
+    }
+
+    private async void Initialize()
+    {
+        await _repairUser.InitializeUser(_repair);
+
+        if (_repairUser.Resources[_repair] == 0)
+            return;
+
+        Build();
     }
     public override void Interact(Unit unit)
     {
@@ -52,11 +73,17 @@ public class ConstructionObject : ActionObject
             pair._countText.text = pair.Count.ToString();
         }
 
-        
+
         if (_materials.All(p => p.Count == 0))
         {
-            _afterBuildEvent.Invoke();
-            Destroy(gameObject);
+            _repairUser.UpdateUser(_repair, 1);
+            Build();
         }
+    }
+
+    private void Build()
+    {
+        _afterBuildEvent?.Invoke();
+        Destroy(gameObject);
     }
 }

@@ -50,10 +50,8 @@ public class AttackBehaviour : UnitBehaviour
     private bool _hasPath
         => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
 
-    public AttackBehaviour(Unit unit, float range, float angle) : base(unit, range)
-    {
-        _angle = angle;
-    }
+    public AttackBehaviour(Unit unit, float range, float angle) : 
+        base(unit, range) => _angle = angle;
 
     private void Attack()
     {
@@ -117,6 +115,11 @@ public class AttackBehaviour : UnitBehaviour
 
         Unit.Animator.SetTrigger(_hasPath ? "move" : "punch");
 
+        if (_hasPath)
+        {
+            NavMeshAgent.destination = _targetTransform.position;
+            return;
+        }
 
         if (!_hasPath)
             NavMeshAgent.ResetPath();

@@ -11,15 +11,15 @@ public class UnitUpgradeHUD : MonoBehaviour
     private BearActivityManager _bearActivityManager;
 
     [SerializeField]
-    private Image _upgradeButtonImage;
     private Button _upgradeButton;
+    private Image[] _upgradeButtonImages;
 
     [SerializeField]
     private Color _canUpgradeColor;
     [SerializeField]
     private Color _cantUpgradeColor;
 
-    private Image _hud;
+    private RectTransform _hud;
 
     private UnitSelectCell[] _unitSelectCells;
     private SelectingUpgradeButton[] _upgradePanels;
@@ -90,13 +90,13 @@ public class UnitUpgradeHUD : MonoBehaviour
         _upgradePanels = GetComponentsInChildren<SelectingUpgradeButton>();
         _descriptionArea = GetComponentInChildren<DescriptionArea>();
         _levelGradeBar = GetComponentInChildren<LevelGradeBar>();
-        _hud = GetComponent<Image>();
-        _minAnchor = _hud.rectTransform.anchorMin;
-        _maxAnchor = _hud.rectTransform.anchorMax;
+        _hud = GetComponent<RectTransform>();
+        _minAnchor = _hud.anchorMin;
+        _maxAnchor = _hud.anchorMax;
 
-        _hud.rectTransform.anchorMin = new(1, _minAnchor.y);
+        _hud.anchorMin = new(1, _minAnchor.y);
 
-        _upgradeButton = _upgradeButtonImage.GetComponent<Button>();
+        _upgradeButtonImages = _upgradeButton.GetComponentsInChildren<Image>();
 
         foreach (var button in _upgradePanels)
             button.HUD = this;
@@ -135,23 +135,25 @@ public class UnitUpgradeHUD : MonoBehaviour
     private void Update()
     {
         if (Input.GetKey(KeyCode.Tab))
-            _hud.rectTransform.anchorMin = Vector2.Lerp(
-                _hud.rectTransform.anchorMin,
+            _hud.anchorMin = Vector2.Lerp(
+                _hud.anchorMin,
                 _minAnchor,
                 Time.deltaTime * _closedSpeed);
         else
-            _hud.rectTransform.anchorMin = Vector2.Lerp(
-                _hud.rectTransform.anchorMin,
+            _hud.anchorMin = Vector2.Lerp(
+                _hud.anchorMin,
                 new(1, _minAnchor.y),
                 Time.deltaTime * _closedSpeed);
 
         if (_canUpgrade && SelectedUnit.Unit.CanUpgrade(SelectedPanel.UpgradeType))
         {
-            _upgradeButtonImage.color = _canUpgradeColor;
+            foreach (Image image in _upgradeButtonImages)
+                image.color = _canUpgradeColor;
         }
         else
         {
-            _upgradeButtonImage.color = _cantUpgradeColor;
+            foreach (Image image in _upgradeButtonImages)
+                image.color = _cantUpgradeColor;
         }
     }
 }

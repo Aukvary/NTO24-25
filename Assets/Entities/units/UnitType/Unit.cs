@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public class Unit : MonoBehaviour
 {
@@ -223,31 +224,43 @@ public class Unit : MonoBehaviour
 
     public void MoveTo(Vector3 newPostion)
     {
+        if (!Alive)
+            return;
         _moveController.TargetPosition = newPostion;
     }
 
     public void Extract(ResourceObjectSpawner spawner)
     {
+        if (!Alive)
+            return;
         _extractionController.Resource = spawner;
     }
 
     public void Attack(Unit unit)
     {
+        if (!Alive)
+            return;
         _attackBehaviour.AttackedUnit = unit;
     }
 
     public void Attack(BreakeableObject obj)
     {
+        if (!Alive)
+            return;
         _attackBehaviour.BreakeableObject = obj;
     }
 
     public void Build(ConstructionObject obj)
     {
+        if (!Alive)
+            return;
         _buildBehaviour.Build = obj;
     }
 
     public void LayOutItems(Storage storage)
     {
+        if (!Alive)
+            return;
         _moveController.TargetPosition = storage.transform.position;
         _moveController.OnMoveEndEvent += () => storage.Interact(this);
     }
@@ -311,10 +324,5 @@ public class Unit : MonoBehaviour
                 HealthLevel = level;
                 break;
         }
-    }
-
-    private void OnDestroy()
-    {
-        _bearActivityManager.RemoveUnit(this);
     }
 }

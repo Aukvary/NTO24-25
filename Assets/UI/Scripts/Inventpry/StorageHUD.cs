@@ -7,11 +7,13 @@ public class StorageHUD : MonoBehaviour
     [SerializeField]
     private float _closedSpeed;
 
+    [SerializeField]
+    private RectTransform _hud;
+
     private InventoryCellUI[] _cells;
 
     private RectTransform _transform;
 
-    private Image _hud;
 
     private Vector2 _minAnchor;
     private Vector2 _maxAnchor;
@@ -21,23 +23,22 @@ public class StorageHUD : MonoBehaviour
         _cells = GetComponentsInChildren<InventoryCellUI>();
         _transform = GetComponentInChildren<RectTransform>();
 
-        _hud = GetComponent<Image>();
-        _minAnchor = _hud.rectTransform.anchorMin;
-        _maxAnchor = _hud.rectTransform.anchorMax;
+        _minAnchor = _hud.anchorMin;
+        _maxAnchor = _hud.anchorMax;
 
-        _hud.rectTransform.anchorMin = new(1, _minAnchor.y);
+        _hud.anchorMin = new(1, _minAnchor.y);
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Tab))
-            _hud.rectTransform.anchorMin = Vector2.Lerp(
-                _hud.rectTransform.anchorMin,
+            _hud.anchorMin = Vector2.Lerp(
+                _hud.anchorMin,
                 _minAnchor,
                 Time.deltaTime * _closedSpeed);
         else
-            _hud.rectTransform.anchorMin = Vector2.Lerp(
-                _hud.rectTransform.anchorMin,
+            _hud.anchorMin = Vector2.Lerp(
+                _hud.anchorMin,
                 new(1, _minAnchor.y),
                 Time.deltaTime * _closedSpeed);
 

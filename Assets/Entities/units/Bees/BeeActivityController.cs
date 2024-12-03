@@ -42,9 +42,6 @@ public class BeeActivityController : MonoBehaviour
 
     private void SetTarget()
     {
-        if (_unit.AttackBehaviour.AttackedUnit != null)
-            return;
-
         float min = float.MaxValue;
         Unit bear = null;
         
@@ -57,6 +54,8 @@ public class BeeActivityController : MonoBehaviour
                 bear = b;
             }
         }
+        if (bear == _unit.AttackBehaviour.AttackedUnit)
+            return;
 
         if (min <= _agrRange)
         {

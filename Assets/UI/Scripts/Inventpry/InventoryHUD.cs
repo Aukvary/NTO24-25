@@ -20,8 +20,9 @@ public class InventoryHUD : MonoBehaviour
 
     [SerializeField]
     private Image _bearHeadRenderer;
+    [SerializeField]
+    private RectTransform _hud;
 
-    private Image _hud;
     private Vector2 _minAnchor;
     private Vector2 _maxAnchor;
 
@@ -60,12 +61,11 @@ public class InventoryHUD : MonoBehaviour
     private void Awake()
     {
         _inventoryCells = GetComponentsInChildren<InventoryCellUI>();
-        _hud = GetComponent<Image>();
 
-        _minAnchor = _hud.rectTransform.anchorMin;
-        _maxAnchor = _hud.rectTransform.anchorMax;
+        _minAnchor = _hud.anchorMin;
+        _maxAnchor = _hud.anchorMax;
 
-        _hud.rectTransform.anchorMax = _minAnchor;
+        _hud.anchorMax = _minAnchor;
 
         Unit = null;
     }
@@ -73,13 +73,13 @@ public class InventoryHUD : MonoBehaviour
     private void Update()
     {
         if (Unit != null)
-            _hud.rectTransform.anchorMax = Vector2.Lerp(
-                _hud.rectTransform.anchorMax,
+            _hud.anchorMax = Vector2.Lerp(
+                _hud.anchorMax,
                 _maxAnchor,
                 Time.deltaTime * _closedSpeed);
         else
-            _hud.rectTransform.anchorMax = Vector2.Lerp(
-                _hud.rectTransform.anchorMax,
+            _hud.anchorMax = Vector2.Lerp(
+                _hud.anchorMax,
                 _minAnchor,
                 Time.deltaTime * _closedSpeed);
     }
