@@ -179,6 +179,8 @@ public class Unit : MonoBehaviour
 
     public string UnitName => _unitName;
 
+    private BearActivityManager _bearActivityManager { get; set; }
+
 
     public event Action<Unit> OnHealthChangeEvent;
 
@@ -202,11 +204,12 @@ public class Unit : MonoBehaviour
         _inventory = new(this);
     }
 
-    public Unit Spawn(Vector3 spawnPostion, Storage storage)
+    public Unit Spawn(Vector3 spawnPostion, Storage storage, BearActivityManager manager)
     {
         var newUnit = Instantiate(this, spawnPostion, Quaternion.identity);
         newUnit._spawnPosition = spawnPostion;
         newUnit.Storage = storage;
+        newUnit._bearActivityManager = manager;
 
         return newUnit;
     }
@@ -308,5 +311,10 @@ public class Unit : MonoBehaviour
                 HealthLevel = level;
                 break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        _bearActivityManager.RemoveUnit(this);
     }
 }

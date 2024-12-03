@@ -33,6 +33,8 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> Bears => _bears;
 
+    public IEnumerable<Unit> AllUnits => _allUnits;
+
     private void Awake()
     {
         _bears = _allUnits.Where(u => !u.IsBee).ToArray();

@@ -98,11 +98,23 @@ MonoBehaviour:
   _attackAngle: 60
   _strength:
   - 0
+  - 0
+  - 0
+  - 0
   _damage:
+  - 50
+  - 50
+  - 50
   - 50
   _maxHealth:
   - 1000
+  - 1000
+  - 1000
+  - 1000
   _regeneration:
+  - 0
+  - 0
+  - 0
   - 0
   _restoreTime: 0
   _isBee: 1
@@ -110,6 +122,7 @@ MonoBehaviour:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
     _count: 20
   _headSprite: {fileID: 0}
+  _unitName: 
 --- !u!114 &6866139536227337715
 MonoBehaviour:
   m_ObjectHideFlags: 0

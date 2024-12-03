@@ -21,8 +21,13 @@ public class BeeActivityController : MonoBehaviour
 
         bee._bears = bearActivityManager.Bears.ToArray();
         bee._durovHouse = durovHome;
+        bee._manager = bearActivityManager;
 
-        return bee.GetComponent<Unit>();
+        Unit unit = bee.GetComponent<Unit>();
+
+        bee._manager.AddUnit(unit);
+
+        return unit;
     }
 
     private void Awake()

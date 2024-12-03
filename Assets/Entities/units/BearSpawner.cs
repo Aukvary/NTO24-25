@@ -23,7 +23,7 @@ public class BearSpawner : MonoBehaviour
         _storage = GetComponent<Storage>();
         foreach (var bear in _units)
         {
-            var unit = bear.Unit.Spawn(bear.Position.position, _storage);
+            var unit = bear.Unit.Spawn(bear.Position.position, _storage, _activityManager);
             _activityManager.AddUnit(unit);
         }
     }
