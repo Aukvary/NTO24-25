@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.Events;
 using System.Linq;
 
-public class ConstructionObject : ActionObject
+public class ConstructionObject : ActionObject, ILoadable
 {
     [System.Serializable]
     public class RepairInfo
@@ -33,6 +33,7 @@ public class ConstructionObject : ActionObject
 
     public IEnumerable<RepairInfo> Materials => _materials;
 
+    public bool Loaded { get; set; }
 
     private void Awake()
     {
@@ -46,15 +47,6 @@ public class ConstructionObject : ActionObject
         Initialize();
     }
 
-    private async void Initialize()
-    {
-        await _repairUser.InitializeUser(_repair);
-
-        if (_repairUser.Resources[_repair] == 0)
-            return;
-
-        Build();
-    }
     public override void Interact(Unit unit)
     {
         if (_materials.All(material => unit.Storage[material.Resource] == 0))
@@ -85,5 +77,15 @@ public class ConstructionObject : ActionObject
     {
         _afterBuildEvent?.Invoke();
         Destroy(gameObject);
+    }
+
+    public async void Initialize()
+    {
+        await _repairUser.InitializeUser(_repair);
+
+        if (_repairUser.Resources[_repair] == 0)
+            return;
+
+        Build();
     }
 }
