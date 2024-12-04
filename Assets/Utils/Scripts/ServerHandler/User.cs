@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class User
 {
-    public static string PlayerID = "admin";
+    public static string PlayerID = null;
 
     public const string uuid = "652b951e-8899-4460-ae50-fa9a6c9a188c";
 
@@ -21,7 +21,7 @@ public class User
 
     private static string _users = $"https://2025.nti-gamedev.ru/api/games/{uuid}/players/";
 
-    public static string LogURL = $"https://2025.nti-gamedev.ru/api/games/{uuid}/logs/";
+    public static readonly string LogURL = $"https://2025.nti-gamedev.ru/api/games/{uuid}/logs/";
     public string UserURL => $"https://2025.nti-gamedev.ru/api/games/{uuid}/players/{Name}/";
 
 
