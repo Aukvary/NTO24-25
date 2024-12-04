@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Storage : ActionObject
+public class Storage : ActionObject, ILoadable
 {
     private Dictionary<Resource, int> _resources;
 
@@ -14,8 +14,12 @@ public class Storage : ActionObject
 
     private Dictionary<string, Resource> _resourcesNamePair;
 
+    private string[] _names;
+
     public IEnumerable<KeyValuePair<Resource, int>> SrorageResources 
         => _resources;
+
+    public bool Loaded { get; set; }
 
     public int this[Resource resource]
     {
@@ -30,11 +34,12 @@ public class Storage : ActionObject
     private void Awake()
     {
         var allResources = Resources.LoadAll<Resource>("Prefabs");
-        var allNames = allResources.Select(r => r.ResourceName).ToArray();
+        _names = allResources.Select(r => r.ResourceName).ToArray();
+        Loaded = false;
 
-        Initialize(allResources, allNames);
+        Initialize();
 
-        var ress = UnityEngine.Resources.LoadAll<Resource>("Prefabs");
+        var ress = Resources.LoadAll<Resource>("Prefabs");
         _resourcesNamePair = ress.ToDictionary(r => r.name, r => r);
 
         _resources = ress.ToDictionary(r => r, r => 0);
@@ -42,14 +47,15 @@ public class Storage : ActionObject
         _resources = allResources.ToDictionary(r => r, r => 0);
     }
 
-    private async void Initialize(Resource[] resources, string[] names)
+    public async void Initialize()
     {
         _storageUser = new(_name);
-        await _storageUser.InitializeUser(names);
+        await _storageUser.InitializeUser(_names);
 
         foreach (var res in _storageUser.Resources)
             _resources[_resourcesNamePair[res.Key]] = res.Value;
         OnLayOut?.Invoke(this);
+        Loaded = true;
     }
 
     

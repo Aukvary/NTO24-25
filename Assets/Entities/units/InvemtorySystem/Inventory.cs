@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Inventory
@@ -43,11 +44,9 @@ public class Inventory
         _resourcesNamePair = ress.ToDictionary(r => r.name, r => r);
 
         _resources = ress.ToDictionary(r => r, r => 0);
-
-        InitializeUser();
     }
 
-    private async void InitializeUser()
+    public async Task InitializeUser()
     {
         if (_unit.IsBee)
             return;

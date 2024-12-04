@@ -6,7 +6,6 @@ public class SoundSettings : MonoBehaviour
 {
     private enum SoundType
     {
-        Master,
         Music,
         Sound
     }
@@ -21,6 +20,12 @@ public class SoundSettings : MonoBehaviour
 
     private void Update()
     {
-        _audioMixer.audioMixer.SetFloat("MusicVolume", -80 * _scrollbar.value);
+        
+    }
+
+    public void Set()
+    {
+        _audioMixer.audioMixer.SetFloat(_soundType == SoundType.Music ? "MusicVolume" : "SoundVolume"
+            , -80 * _scrollbar.value);
     }
 }

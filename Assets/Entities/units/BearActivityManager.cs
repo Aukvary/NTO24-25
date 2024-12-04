@@ -44,7 +44,7 @@ public class BearActivityManager : MonoBehaviour
         _storageHUD.UpdateHUD(_storage);
         _storage.OnLayOut += _storageHUD.UpdateHUD;
 
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(0, 180, 0);
         transform.position = new(
             _bears[0].transform.position.x,
             transform.position.y,
