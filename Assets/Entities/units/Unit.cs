@@ -139,11 +139,11 @@ public class Unit : MonoBehaviour, ILoadable
             if (value)
                 Health = MaxHealth;
 
+            Behaviour = null;
             foreach (var item in _meshRenderers)
             {
                 item.enabled = value;
             }
-            Behaviour = null;
             _navMeshAgent.enabled = value;
             _collider.enabled = value;
         }

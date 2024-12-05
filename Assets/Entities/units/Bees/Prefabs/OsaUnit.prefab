@@ -102,15 +102,15 @@ MonoBehaviour:
   - 0
   - 0
   _damage:
-  - 50
-  - 50
-  - 50
-  - 50
+  - 10
+  - 10
+  - 10
+  - 10
   _maxHealth:
-  - 1000
-  - 1000
-  - 1000
-  - 1000
+  - 10
+  - 10
+  - 10
+  - 10
   _regeneration:
   - 0
   - 0
@@ -121,6 +121,8 @@ MonoBehaviour:
   _dropResources:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
     _count: 20
+  _storage: {fileID: 0}
+  _bearActivityManager: {fileID: 0}
   _headSprite: {fileID: 0}
   _unitName: 
 --- !u!114 &6866139536227337715
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e949fbff5be39744b9546d834f005ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agrRange: 100
+  _agrRange: 10
 --- !u!1001 &2717668153105798277
 PrefabInstance:
   m_ObjectHideFlags: 0

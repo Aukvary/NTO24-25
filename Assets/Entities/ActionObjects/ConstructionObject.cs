@@ -22,7 +22,7 @@ public class ConstructionObject : ActionObject, ILoadable
     private List<RepairInfo> _materials;
 
     [SerializeField]
-    private UnityEvent _afterBuildEvent;
+    public UnityEvent _afterBuildEvent;
 
     [SerializeField]
     private string _name;

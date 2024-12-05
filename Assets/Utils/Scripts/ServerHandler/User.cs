@@ -1,16 +1,20 @@
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class User
 {
     public static string PlayerID = null;
+
+    public static bool Tutorial = false;
+
+    public static string TutorialSeed;
 
     public const string uuid = "652b951e-8899-4460-ae50-fa9a6c9a188c";
 
@@ -33,11 +37,19 @@ public class User
 
     public async Task<bool> Uploaded()
         => (await GetUser()) != null;
-    
+
+
+    static User()
+    {
+        PlayerID = PlayerPrefs.GetString(nameof(User), null);
+    }
 
     public User(string name)
     {
-        Name = name.Contains($"{PlayerID}_") ? name : $"{PlayerID}_{name}";
+        if (Tutorial)
+            Name = name.Contains($"{TutorialSeed}_") ? name : $"{TutorialSeed}_{name}";
+        else
+            Name = name.Contains($"{PlayerID}_") ? name : $"{PlayerID}_{name}";
     }
 
     public static User JsonToUser(string jsonBody)

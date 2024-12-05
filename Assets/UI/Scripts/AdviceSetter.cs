@@ -11,19 +11,35 @@ public class AdviceSetter : MonoBehaviour
     [SerializeField]
     private BreakeableObject _apire;
 
+    [SerializeField]
+    private ConstructionObject _bridge;
+
+    [SerializeField]
+    private Storage _storage;
+
     Dictionary<Func<bool>, string> CondAdvicePairs;
 
     private AdviceField _advice;
 
+    private SceneChanger _sceneChanger = new();
+
     private Vector3 _basePosition;
     private float _baseRotation;
+
+    private bool _layOut;
+    private bool _attack;
+    private bool _broke;
+    private bool _build;
 
     private void Awake()
     {
         _basePosition = _bearManager.transform.position;
         _baseRotation = _bearManager.transform.rotation.y;
 
-        _apire._onHitEvent.AddListener(Attack);
+        _apire._onHitEvent.AddListener(AttackApire);
+        _apire._afterBreakEvents.AddListener(BrokeApire);
+        _bridge._afterBuildEvent.AddListener(BuildBridge);
+        _storage.OnLayOutItems.AddListener(LayOut);
 
         _advice = GetComponent<AdviceField>();
 
@@ -50,7 +66,7 @@ public class AdviceSetter : MonoBehaviour
                 "Как только в инвентаря медведя появятся ресурсы, вы сможете сложить их в склад, нажав по нему правой кнопкой мыши"
             },
             {
-                () => true, //lay out items
+                () => _layOut, //lay out items
                 "Зажмите на TAB, чтобы увидеть, какие ресурсы у вас есть"
             },
             {
@@ -58,20 +74,27 @@ public class AdviceSetter : MonoBehaviour
                 "Собирите достаточное количество ресурсов, чтобы построить мост, чтобы его построить положите ресурсы в склад и нажмите на коробку"
             },
             {
-                () => true, //build bridge
+                () => _build, //build bridge
                 "Атакуйте кибер-улей нажав на него"
             },
             {
-                () => true, //apire attack
+                () => _attack, //apire attack
                 "Осторожно, хоть ульи не особо прочный, но каждый удар спаснит кибер-осу"
             },
             {
-                () => true, //apire broke
+                () => _broke, //apire broke
                 "Чтобы легче рассправлятся со своими врагами, можно прокачивать медведей, для этого необходимо зажать TAB вырать медведя и характеристику, которую вы хотите ему прокачать и нажать \"прокачать\""
             },
             {
-                () => true, //unit upgrade
-                "..."
+                () => _bearManager.Bears.Any(b =>
+                {
+                    bool attack = b.AttackLevel > 0;
+                    bool strranght = b.StrenghtLevel > 0;
+                    bool health = b.HealthLevel > 0;
+
+                    return attack || strranght || health;
+                }), //unit upgrade
+                "Удачной игры!"
             }
 
         };
@@ -87,11 +110,19 @@ public class AdviceSetter : MonoBehaviour
                 yield return null;
             _advice.SetAdvice(pair.Value);
         }
-        gameObject.SetActive(false);
+        yield return new WaitForSeconds(10);
+        _sceneChanger.ExitToMenu();
     }
 
-    private void Attack()
-    {
+    private void LayOut(Storage _)
+        => _layOut = true;
 
-    }
+    private void AttackApire()
+        => _attack = true;
+
+    private void BrokeApire()
+        => _broke = true;
+
+    private void BuildBridge()
+        => _build = true;
 }

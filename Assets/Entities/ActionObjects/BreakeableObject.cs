@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
-using System;
 
 public class BreakeableObject : ActionObject
 {
@@ -12,7 +11,7 @@ public class BreakeableObject : ActionObject
     private List<SelectingUpgradeButton.ResourseCountPair> _dropItems;
 
     [SerializeField]
-    private UnityEvent _afterBreakEvents;
+    public UnityEvent _afterBreakEvents;
 
     [SerializeField]
     public UnityEvent _onHitEvent;
@@ -22,14 +21,16 @@ public class BreakeableObject : ActionObject
     public override void Interact(Unit unit)
     {
         _heath -= unit.Damage;
-        _onHitEvent?.Invoke();
 
+        _onHitEvent.Invoke();
         if (_heath > 0)
             return;
+
         _afterBreakEvents.Invoke();
 
         foreach (var item in _dropItems)
             for (int i = 0; i < item.Count; i++)
                 unit.Inventory.TryToAdd(item.Resource);
+        Destroy(gameObject);
     }
 }
