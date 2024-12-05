@@ -44,9 +44,6 @@ public class UnitMovementController : UnitBehaviour
         }
     }
 
-    private bool _hasPath 
-        => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
-
     public override void BehaviourEnter()
     {
         Unit.Animator.SetTrigger("move");
