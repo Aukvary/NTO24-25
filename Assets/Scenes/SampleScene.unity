@@ -127,6 +127,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4855728154807512892, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
   m_PrefabInstance: {fileID: 1790536487}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &206851734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 126202334651865112, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
+  m_PrefabInstance: {fileID: 1790536487}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &208076557 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9150802004734867524, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
@@ -166,6 +177,10 @@ PrefabInstance:
       propertyPath: _durovHome
       value: 
       objectReference: {fileID: 1886629335}
+    - target: {fileID: 100314965624797083, guid: 95316c43860b25944891146a72ecd8c6, type: 3}
+      propertyPath: _spawnCoolDown
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 100314965624797083, guid: 95316c43860b25944891146a72ecd8c6, type: 3}
       propertyPath: _bearActivityManager
       value: 
@@ -794,6 +809,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 3059032740191861816, guid: 026c2b61c03920b42b6a764a2c88f8dd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5775556601750209734, guid: 026c2b61c03920b42b6a764a2c88f8dd, type: 3}
       propertyPath: _loadingObject.Array.size
       value: 5
@@ -837,7 +856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1758998228868027563, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.28
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1758998228868027563, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1121,6 +1140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ApairConsctruction
       objectReference: {fileID: 0}
+    - target: {fileID: 7699845571422325035, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
+      propertyPath: _materials.Array.data[0]._countText
+      value: 
+      objectReference: {fileID: 206851734}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1128,7 +1151,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9150802004734867524, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 208076560}
-    - targetCorrespondingSourceObject: {fileID: 93214906262521464, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4012738354145307710, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 3d0fb8281c89eb84ca354c24a50da87f, type: 3}

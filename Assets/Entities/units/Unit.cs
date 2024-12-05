@@ -212,7 +212,7 @@ public class Unit : MonoBehaviour, ILoadable
 
         _spawnPosition = transform.position;
 
-        _bearActivityManager.AddUnit(this);
+        _bearActivityManager?.AddUnit(this);
 
         Initialize();
     }

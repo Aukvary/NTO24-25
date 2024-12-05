@@ -3640,18 +3640,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1055537427509476148, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.8660254
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055537427509476148, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1055537427509476148, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 1758998228868027563, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5621853
@@ -3704,10 +3692,6 @@ PrefabInstance:
       propertyPath: _inventoryHUD
       value: 
       objectReference: {fileID: 887166682}
-    - target: {fileID: 2393266611977523916, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
-      propertyPath: _hotkeyChangeZCameraPosition
-      value: -6
-      objectReference: {fileID: 0}
     - target: {fileID: 4487495759130449247, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
       propertyPath: m_Name
       value: CameraHolder

@@ -70,7 +70,7 @@ MonoBehaviour:
   _storageHUD: {fileID: 0}
   _storage: {fileID: 0}
   _selectingAreaColor: {r: 0.35909972, g: 0.8679245, b: 0.27429688, a: 0}
-  _hotkeyChangeZCameraPosition: 6
+  _hotkeyChangeZCameraPosition: -6
 --- !u!114 &4555589207157739603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,7 +96,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b57f342b70c8d0c4593fe92814ae0eea, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 294ddfbe071d63d42b56822b7efb3d7b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6a7e136ff46040049a3fc275de478009, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -305,13 +305,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5366019900066478683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1758998228868027563}
-  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!20 &5774559836234498734
 Camera:
   m_ObjectHideFlags: 0
