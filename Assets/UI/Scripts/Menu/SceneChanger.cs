@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,8 +7,8 @@ public class SceneChanger : MonoBehaviour
     private enum Scenes
     {
         MainMenu,
-        Tutorial,
         Map,
+        Tutorial,
 
     }
 
@@ -32,5 +33,11 @@ public class SceneChanger : MonoBehaviour
         User.PlayerID = field.text;
 
         SceneManager.LoadScene((int)Scenes.Map);
+    }
+
+    public void Tutorial()
+    {
+
+        SceneManager.LoadScene((int)Scenes.Tutorial);
     }
 }

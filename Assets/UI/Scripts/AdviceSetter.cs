@@ -8,6 +8,9 @@ public class AdviceSetter : MonoBehaviour
     [SerializeField]
     private BearActivityManager _bearManager;
 
+    [SerializeField]
+    private BreakeableObject _apire;
+
     Dictionary<Func<bool>, string> CondAdvicePairs;
 
     private AdviceField _advice;
@@ -19,6 +22,8 @@ public class AdviceSetter : MonoBehaviour
     {
         _basePosition = _bearManager.transform.position;
         _baseRotation = _bearManager.transform.rotation.y;
+
+        _apire._onHitEvent.AddListener(Attack);
 
         _advice = GetComponent<AdviceField>();
 
@@ -83,5 +88,10 @@ public class AdviceSetter : MonoBehaviour
             _advice.SetAdvice(pair.Value);
         }
         gameObject.SetActive(false);
+    }
+
+    private void Attack()
+    {
+
     }
 }
