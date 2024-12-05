@@ -40,7 +40,7 @@ public class BeesSpawner : MonoBehaviour
 
             Spawn();
 
-            if (_waspLevel < 4)
+            if (_waspLevel < 3)
                 _waspLevel++;
         }
     }

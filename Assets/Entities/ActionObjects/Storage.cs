@@ -9,6 +9,9 @@ public class Storage : ActionObject, ILoadable
     private Dictionary<Resource, int> _resources;
 
     [SerializeField]
+    public UnityEngine.Events.UnityEvent<Storage> OnLayOutItems;
+
+    [SerializeField]
     private string _name = "storage";
 
     private User _storageUser;
@@ -28,8 +31,6 @@ public class Storage : ActionObject, ILoadable
 
         set => Set(resource, value);
     }
-
-    public event Action<Storage> OnLayOut;
 
 
     private void Awake()
@@ -55,7 +56,7 @@ public class Storage : ActionObject, ILoadable
 
         foreach (var res in _storageUser.Resources)
             _resources[_resourcesNamePair[res.Key]] = res.Value;
-        OnLayOut?.Invoke(this);
+        OnLayOutItems?.Invoke(this);
         Loaded = true;
     }
 
@@ -70,6 +71,6 @@ public class Storage : ActionObject, ILoadable
     {
         _resources[resource] = count;
         await _storageUser.UpdateUser(resource.ResourceName, _resources[resource]);
-        OnLayOut?.Invoke(this);
+        OnLayOutItems?.Invoke(this);
     }
 }

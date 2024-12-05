@@ -1,5 +1,7 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class MusicController : MonoBehaviour
 {
@@ -12,6 +14,15 @@ public class MusicController : MonoBehaviour
     [SerializeField]
     private float _changeSpeed;
 
+    [SerializeField]
+    private AudioMixerGroup _soundMixer;
+
+    [SerializeField]
+    private AudioMixerGroup _musicMixer;
+
+    [SerializeField]
+    private bool _change;
+
     private BearActivityManager _activityManager;
 
     private bool _fightNow = false;
@@ -19,11 +30,21 @@ public class MusicController : MonoBehaviour
     private bool _fight => _activityManager.AllUnits.Any(u => u != null && u.IsBee);
 
     private void Awake()
-        => _activityManager = GetComponent<BearActivityManager>();
+    {
+        _activityManager = GetComponent<BearActivityManager>();
+    }
 
+    private void Start()
+    {
+        _soundMixer.audioMixer.SetFloat("SoundVolume", PlayerPrefs.GetFloat("SoundVolume"));
+        _musicMixer.audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
+    }
 
     private void Update()
     {
+        if (!_change)
+            return;
+
         if (_fight && !_fightNow)
         {
             StopCoroutine(Swap());

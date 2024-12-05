@@ -37,14 +37,11 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> SelectedUnits => _controlledUnits;
 
-    private void Awake()
-    {
-        _bears = _allUnits.Where(u => !u.IsBee).ToArray();
-    }
     private void Start()
     {
+        _bears = _allUnits.Where(u => !u.IsBee).ToArray();
         _storageHUD.UpdateHUD(_storage);
-        _storage.OnLayOut += _storageHUD.UpdateHUD;
+        _storage.OnLayOutItems.AddListener(_storageHUD.UpdateHUD);
 
         transform.rotation = Quaternion.Euler(0, 180, 0);
         transform.position = new(

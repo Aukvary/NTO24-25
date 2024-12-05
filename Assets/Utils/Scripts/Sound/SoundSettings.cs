@@ -18,14 +18,20 @@ public class SoundSettings : MonoBehaviour
     [SerializeField]
     private SoundType _soundType;
 
-    private void Update()
+    private void Awake()
     {
-        
+        var name = _soundType == SoundType.Music ? "MusicVolume" : "SoundVolume";
+        _audioMixer.audioMixer.SetFloat(name, PlayerPrefs.GetFloat(name, 0));
+        _scrollbar.value = PlayerPrefs.GetFloat(name) / -80;
     }
 
     public void Set()
     {
-        _audioMixer.audioMixer.SetFloat(_soundType == SoundType.Music ? "MusicVolume" : "SoundVolume"
-            , -80 * _scrollbar.value);
+        var name = _soundType == SoundType.Music ? "MusicVolume" : "SoundVolume";
+        _audioMixer.audioMixer.SetFloat(name , -80 * _scrollbar.value);
+
+        PlayerPrefs.SetFloat(name, -80 * _scrollbar.value);
+
+        PlayerPrefs.Save();
     }
 }

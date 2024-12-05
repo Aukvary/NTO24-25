@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6307672898092398313
 CanvasRenderer:
@@ -2835,7 +2835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitHead: {fileID: 3892274757474897175}
-  _selectedColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 0}
+  _selectedColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &2695414558722646489
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,7 +3570,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1515303906721369957
 CanvasRenderer:
@@ -7224,7 +7224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitHead: {fileID: 7836904962564957586}
-  _selectedColor: {r: 0.36078432, g: 0.36078432, b: 0.36078432, a: 0}
+  _selectedColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &5855016114553378704
 GameObject:
   m_ObjectHideFlags: 0
@@ -8584,7 +8584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitHead: {fileID: 5554034405257697951}
-  _selectedColor: {r: 0.36078432, g: 0.36078432, b: 0.36078432, a: 0}
+  _selectedColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
 --- !u!1 &6983282886142556307
 GameObject:
   m_ObjectHideFlags: 0
@@ -10221,7 +10221,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3035318297406849013
 CanvasRenderer:

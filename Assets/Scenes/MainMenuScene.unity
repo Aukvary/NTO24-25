@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 398396298}
   - component: {fileID: 398396297}
   - component: {fileID: 398396300}
+  - component: {fileID: 398396302}
   - component: {fileID: 398396301}
   m_Layer: 0
   m_Name: Main Camera
@@ -999,6 +1000,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &398396302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398396296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43cdfc8cba4eadc40990fd5f08ea7ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _calmMusic: {fileID: 398396301}
+  _fightMusic: {fileID: 0}
+  _changeSpeed: 0
+  _soundMixer: {fileID: 3306357198242963119, guid: b57f342b70c8d0c4593fe92814ae0eea, type: 2}
+  _musicMixer: {fileID: -5875887471069001347, guid: b57f342b70c8d0c4593fe92814ae0eea, type: 2}
+  _change: 0
 --- !u!1001 &488322408
 PrefabInstance:
   m_ObjectHideFlags: 0
