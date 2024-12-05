@@ -25,7 +25,7 @@ public class BeesSpawner : MonoBehaviour
     private void Awake()
     {
         _pairy = GetComponent<BreakeableObject>();
-        _pairy.OnHitEvent += Spawn;
+        _pairy._onHitEvent.AddListener(Spawn);
     }
 
     private void Start()
