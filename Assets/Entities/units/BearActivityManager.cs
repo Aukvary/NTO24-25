@@ -37,9 +37,13 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> SelectedUnits => _controlledUnits;
 
-    private void Start()
+    private void Awake()
     {
         _bears = _allUnits.Where(u => !u.IsBee).ToArray();
+    }
+
+    private void Start()
+    {
         _storageHUD.UpdateHUD(_storage);
         _storage.OnLayOutItems.AddListener(_storageHUD.UpdateHUD);
 
