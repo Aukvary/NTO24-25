@@ -159,8 +159,6 @@ public class Unit : MonoBehaviour, ILoadable
 
     public Storage Storage => _storage;
 
-    private Vector3 _position => transform.position;
-
     public int AttackLevel
     {
         get => _attackLevel;
@@ -184,10 +182,13 @@ public class Unit : MonoBehaviour, ILoadable
     public UnitMovementController MovementController => _moveController;
     public AttackBehaviour AttackBehaviour => _attackBehaviour;
 
+    public UnitExtractionController ExtractionController => _extractionController;
+
     public string UnitName => _unitName;
 
     public bool Loaded { get; set; }
 
+    public bool HasPath => _navMeshAgent.hasPath;
 
     public event Action<Unit> OnHealthChangeEvent;
 

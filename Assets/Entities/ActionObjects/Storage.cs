@@ -8,7 +8,8 @@ public class Storage : ActionObject, ILoadable
 {
     private Dictionary<Resource, int> _resources;
 
-    private readonly string _name = "storage";
+    [SerializeField]
+    private string _name = "storage";
 
     private User _storageUser;
 

@@ -26,6 +26,8 @@ public class UnitExtractionController : UnitBehaviour
 
     private bool _hasPath
         => _targetHit.collider == null ? true : Vector3.Distance(_targetHit.point, Unit.transform.position) > Range;
+
+    public bool Extracting => Resource != null && !NavMeshAgent.hasPath && !_hasPath;
     public UnitExtractionController(Unit unit, float range) :
         base(unit, range) { }
 

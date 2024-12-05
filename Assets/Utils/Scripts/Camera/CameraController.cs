@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
 
     private void Move()
     {
-        if (!Input.GetKey(KeyCode.Mouse2) || Input.GetKey(KeyCode.LeftAlt))
+        if (!Input.GetKey(KeyCode.Mouse2))
             return;
 
         var xOffset = transform.right * -Input.GetAxis(Ñonstants.MouseX);
@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
 
     private void Rotate()
     {
-        if (!Input.GetKey(KeyCode.LeftAlt) || !Input.GetKey(KeyCode.Mouse2))
+        if (!Input.GetKey(KeyCode.LeftAlt) || !Input.GetKey(KeyCode.Mouse1))
             return;
         transform
             .Rotate(0, Input.GetAxis(Ñonstants.MouseX) * _rotateSpeed, 0);

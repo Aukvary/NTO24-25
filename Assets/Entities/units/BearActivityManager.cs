@@ -35,6 +35,8 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> AllUnits => _allUnits;
 
+    public IEnumerable<Unit> SelectedUnits => _controlledUnits;
+
     private void Awake()
     {
         _bears = _allUnits.Where(u => !u.IsBee).ToArray();
@@ -65,7 +67,7 @@ public class BearActivityManager : MonoBehaviour
         => _allUnits.Remove(unit);
     private void SetUnitTask()
     {
-        if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any())
+        if (!Input.GetKeyDown(KeyCode.Mouse1) || !_controlledUnits.Any() || Input.GetKey(KeyCode.LeftAlt))
             return;
 
         if (EventSystem.current.IsPointerOverGameObject())
@@ -178,7 +180,7 @@ public class BearActivityManager : MonoBehaviour
                 _controlledUnits.Add(_bears[i]);
                 _inventoryHUD.Unit = _bears[i];
 
-                transform.rotation = Quaternion.identity;
+                transform.rotation = Quaternion.Euler(0, 180, 0);
                 transform.position = new(
                     _bears[i].transform.position.x, 
                     transform.position.y,

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 using System;
 
@@ -11,16 +12,17 @@ public class BreakeableObject : ActionObject
     private List<SelectingUpgradeButton.ResourseCountPair> _dropItems;
 
     [SerializeField]
-    private UnityEngine.Events.UnityEvent _afterBreakEvents;
+    private UnityEvent _afterBreakEvents;
+
+    [SerializeField]
+    public UnityEvent _onHitEvent;
 
     public float Health => _heath;
-
-    public event Action OnHitEvent;
 
     public override void Interact(Unit unit)
     {
         _heath -= unit.Damage;
-        OnHitEvent?.Invoke();
+        _onHitEvent?.Invoke();
 
         if (_heath > 0)
             return;
