@@ -14,16 +14,11 @@ public class SceneChanger : MonoBehaviour
 
     }
 
-    public async void Exit()
+    public void Exit()
     {
         PlayerPrefs.SetString(nameof(User), User.PlayerID);
         PlayerPrefs.Save();
-        if (User.Tutorial)
-        {
-            foreach (var user in (await User.GetUsers()).Where(u => u.Name.Contains(User.TutorialSeed)))
-                user.DeleteUser();
-
-        }
+        PlayerPrefs.DeleteAll();
         User.Tutorial = false;
         User.TutorialSeed = null;
         Application.Quit();
@@ -31,12 +26,14 @@ public class SceneChanger : MonoBehaviour
 
     public void ContinueGame()
     {
-
+        User.Tutorial = false;
+        User.PlayerID = PlayerPrefs.GetString(nameof(User), null);
         SceneManager.LoadScene((int)Scenes.Map);
     }
 
     public void NewGame(TMPro.TMP_InputField field)
     {
+        User.Tutorial = false;
         PlayerPrefs.SetString(nameof(User), field.text);
         PlayerPrefs.Save();
 

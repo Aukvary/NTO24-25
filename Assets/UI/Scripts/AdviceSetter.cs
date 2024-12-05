@@ -31,7 +31,7 @@ public class AdviceSetter : MonoBehaviour
     private bool _broke;
     private bool _build;
 
-    private void Awake()
+    private void Start()
     {
         _basePosition = _bearManager.transform.position;
         _baseRotation = _bearManager.transform.rotation.y;
@@ -54,7 +54,14 @@ public class AdviceSetter : MonoBehaviour
                 "Нажмите на колёсико мышки и двигайте мышь, чтобы перемещать камеру"
             },
             {
-                () => _basePosition != _bearManager.transform.position,
+                () =>
+                {
+                    bool cond = _basePosition != _bearManager.transform.position;
+                    print(_basePosition);
+                    print(_bearManager.transform.position);
+
+                    return cond;
+                },
                 "левый ALT + ПКМ, чтобы вращать камеру"
             },
             {
@@ -106,7 +113,7 @@ public class AdviceSetter : MonoBehaviour
     {
         foreach (var pair in CondAdvicePairs)
         {
-            while (!pair.Key.Invoke())
+            while (!pair.Key.Invoke())    
                 yield return null;
             _advice.SetAdvice(pair.Value);
         }

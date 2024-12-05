@@ -24,7 +24,8 @@ public class GameMenuController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (string.IsNullOrEmpty(User.PlayerID))
+        string name = PlayerPrefs.GetString(nameof(User), null);
+        if (string.IsNullOrEmpty(name))
         {
             foreach (var renderer in _continueButtonRenderers)
             {
@@ -37,7 +38,7 @@ public class GameMenuController : MonoBehaviour
             foreach (var renderer in _continueButtonRenderers)
             {
                 renderer.color = _canContinue;
-                _continueButton.enabled = false;
+                _continueButton.enabled = true;
             }
         }
     }
