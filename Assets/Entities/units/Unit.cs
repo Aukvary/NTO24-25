@@ -143,7 +143,7 @@ public class Unit : MonoBehaviour, ILoadable
             {
                 item.enabled = value;
             }
-            _behavior = null;
+            Behaviour = null;
             _navMeshAgent.enabled = value;
             _collider.enabled = value;
         }
