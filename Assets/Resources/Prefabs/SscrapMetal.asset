@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SscrapMetal
   m_EditorClassIdentifier: 
   _resourceName: SscrapMetal
-  _sprite: {fileID: 0}
+  _sprite: {fileID: 21300000, guid: 7cffed4e3ade05e4c8964bcfd290e21b, type: 3}
