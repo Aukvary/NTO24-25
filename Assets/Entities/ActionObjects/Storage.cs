@@ -56,7 +56,8 @@ public class Storage : ActionObject, ILoadable
 
         foreach (var res in _storageUser.Resources)
             _resources[_resourcesNamePair[res.Key]] = res.Value;
-        OnLayOutItems?.Invoke(this);
+        if (_resources.All(p => p.Value > 0))
+            OnLayOutItems?.Invoke(this);
         Loaded = true;
     }
 

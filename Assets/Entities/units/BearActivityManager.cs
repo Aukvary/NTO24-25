@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -29,6 +30,8 @@ public class BearActivityManager : MonoBehaviour
 
     private Vector3 _startMousePos;
     private Vector3 _endMousePos;
+
+    private Vector3 _startPos;
     private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public IEnumerable<Unit> Bears => _bears;
@@ -37,21 +40,23 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> SelectedUnits => _controlledUnits;
 
+    public event Action OnHotKeySelect;
+
     private void Awake()
     {
         _bears = _allUnits.Where(u => !u.IsBee).ToArray();
-    }
-
-    private void Start()
-    {
-        _storageHUD.UpdateHUD(_storage);
-        _storage.OnLayOutItems.AddListener(_storageHUD.UpdateHUD);
 
         transform.rotation = Quaternion.Euler(0, 180, 0);
         transform.position = new(
             _bears[0].transform.position.x,
             transform.position.y,
             _bears[0].transform.position.z - _hotkeyChangeZCameraPosition);
+    }
+
+    private void Start()
+    {
+        _storageHUD.UpdateHUD(_storage);
+        _storage.OnLayOutItems.AddListener(_storageHUD.UpdateHUD);
     }
     private void Update()
     {
@@ -186,6 +191,8 @@ public class BearActivityManager : MonoBehaviour
                     _bears[i].transform.position.x, 
                     transform.position.y,
                     _bears[i].transform.position.z - _hotkeyChangeZCameraPosition);
+
+                OnHotKeySelect?.Invoke();
             }
         }
     }

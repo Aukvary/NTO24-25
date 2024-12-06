@@ -36,12 +36,19 @@ public class AdviceSetter : MonoBehaviour
         _basePosition = _bearManager.transform.position;
         _baseRotation = _bearManager.transform.rotation.y;
 
+        _bearManager.OnHotKeySelect += () => _basePosition = _bearManager.transform.position;
+
         _apire._onHitEvent.AddListener(AttackApire);
         _apire._afterBreakEvents.AddListener(BrokeApire);
         _bridge._afterBuildEvent.AddListener(BuildBridge);
         _storage.OnLayOutItems.AddListener(LayOut);
 
         _advice = GetComponent<AdviceField>();
+
+        _layOut = false;
+        _attack = false;
+        _broke = false;
+        _build = false;
 
         CondAdvicePairs = new Dictionary<Func<bool>, string>()
         {
@@ -54,14 +61,7 @@ public class AdviceSetter : MonoBehaviour
                 "Нажмите на колёсико мышки и двигайте мышь, чтобы перемещать камеру"
             },
             {
-                () =>
-                {
-                    bool cond = _basePosition != _bearManager.transform.position;
-                    print(_basePosition);
-                    print(_bearManager.transform.position);
-
-                    return cond;
-                },
+                () => _basePosition != _bearManager.transform.position,
                 "левый ALT + ПКМ, чтобы вращать камеру"
             },
             {
@@ -73,7 +73,7 @@ public class AdviceSetter : MonoBehaviour
                 "Как только в инвентаря медведя появятся ресурсы, вы сможете сложить их в склад, нажав по нему правой кнопкой мыши"
             },
             {
-                () => _layOut, //lay out items
+                () => _layOut,
                 "Зажмите на TAB, чтобы увидеть, какие ресурсы у вас есть"
             },
             {
@@ -81,15 +81,15 @@ public class AdviceSetter : MonoBehaviour
                 "Собирите достаточное количество ресурсов, чтобы построить мост, чтобы его построить положите ресурсы в склад и нажмите на коробку"
             },
             {
-                () => _build, //build bridge
+                () => _build,
                 "Атакуйте кибер-улей нажав на него"
             },
             {
-                () => _attack, //apire attack
+                () => _attack,
                 "Осторожно, хоть ульи не особо прочный, но каждый удар спаснит кибер-осу"
             },
             {
-                () => _broke, //apire broke
+                () => _broke,
                 "Чтобы легче рассправлятся со своими врагами, можно прокачивать медведей, для этого необходимо зажать TAB вырать медведя и характеристику, которую вы хотите ему прокачать и нажать \"прокачать\""
             },
             {
@@ -100,7 +100,7 @@ public class AdviceSetter : MonoBehaviour
                     bool health = b.HealthLevel > 0;
 
                     return attack || strranght || health;
-                }), //unit upgrade
+                }),
                 "Удачной игры!"
             }
 
@@ -113,7 +113,7 @@ public class AdviceSetter : MonoBehaviour
     {
         foreach (var pair in CondAdvicePairs)
         {
-            while (!pair.Key.Invoke())    
+            while (!pair.Key.Invoke())
                 yield return null;
             _advice.SetAdvice(pair.Value);
         }

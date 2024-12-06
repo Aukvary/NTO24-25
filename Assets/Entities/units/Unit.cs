@@ -71,6 +71,7 @@ public class Unit : MonoBehaviour, ILoadable
     private UnitExtractionController _extractionController;
     private UnitMovementController _moveController;
     private AttackBehaviour _attackBehaviour;
+    private LayOutBehaviour _layerOutBehaviour;
     private UnitBehaviour _behavior;
     private Inventory _inventory;
     #endregion
@@ -207,6 +208,7 @@ public class Unit : MonoBehaviour, ILoadable
         _extractionController = new(this, _attackRange);
         _buildBehaviour = new(this, _attackRange);
         _attackBehaviour = new(this, _attackRange, _attackAngle);
+        _layerOutBehaviour = new(this, _attackRange);
 
         _inventory = new(this);
 
@@ -269,8 +271,7 @@ public class Unit : MonoBehaviour, ILoadable
     {
         if (!Alive)
             return;
-        _moveController.TargetPosition = storage.transform.position;
-        _moveController.OnMoveEndEvent += () => storage.Interact(this);
+        _layerOutBehaviour.Storage = storage;
     }
 
     public bool DamageUnit(Unit from, out List<SelectingUpgradeButton.ResourseCountPair> res)
