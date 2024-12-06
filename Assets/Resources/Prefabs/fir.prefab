@@ -204,12 +204,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restoredMesh: {fileID: -2432090755550338912, guid: bd6521de410a74941b0e1991476ddb56, type: 3}
   _restoringMesh: {fileID: 0}
-  _timeToExtract: 10
-  _timeToRestore: 15
+  _timeToExtract: 30
+  _timeToRestore: 240
   _dropResourses:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 7
-  _dropChance: 0
+    _count: 5
+  _dropChance: 5
 --- !u!4 &7660976514887950594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd6521de410a74941b0e1991476ddb56, type: 3}

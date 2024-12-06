@@ -8,6 +8,9 @@ public class BreakeableObject : ActionObject
     private float _heath;
 
     [SerializeField]
+    private float _regeneration;
+
+    [SerializeField]
     private List<SelectingUpgradeButton.ResourseCountPair> _dropItems;
 
     [SerializeField]
@@ -16,7 +19,24 @@ public class BreakeableObject : ActionObject
     [SerializeField]
     public UnityEvent _onHitEvent;
 
-    public float Health => _heath;
+    private float _maxHealth;
+
+    public float Health
+    {
+        get => _heath;
+
+        set => Mathf.Clamp(value, 0, _maxHealth);
+    }
+
+    private void Awake()
+    {
+        _maxHealth = _heath;
+    }
+
+    private void Update()
+    {
+        Health += _regeneration * Time.deltaTime;
+    }
 
     public override void Interact(Unit unit)
     {

@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restoredMesh: {fileID: -2432090755550338912, guid: 9bea6578a6c0e9b4a826835e68083037, type: 3}
   _restoringMesh: {fileID: -2432090755550338912, guid: 2e2057fe07c508a41a63bfe03655dcf1, type: 3}
-  _timeToExtract: 5
-  _timeToRestore: 10
+  _timeToExtract: 10
+  _timeToRestore: 60
   _dropResourses:
   - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
-    _count: 10
+    _count: 1
   _dropChance: 0

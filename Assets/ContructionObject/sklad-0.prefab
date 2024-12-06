@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 1581056178844430261, guid: 7aa0fa6998d9e464f8a69c40ffc63a43, type: 3}
+      propertyPath: m_text
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2558407602272738195, guid: 7aa0fa6998d9e464f8a69c40ffc63a43, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -67,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 4414325851032747219, guid: 7aa0fa6998d9e464f8a69c40ffc63a43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052879045128679547, guid: 7aa0fa6998d9e464f8a69c40ffc63a43, type: 3}
+      propertyPath: m_text
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7722148402170203172, guid: 7aa0fa6998d9e464f8a69c40ffc63a43, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -205,11 +213,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _materials:
   - Resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    Count: 20
+    Count: 30
     _stepCount: 1
     _countText: {fileID: 4556323644107636007}
   - Resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
-    Count: 20
+    Count: 16
     _stepCount: 1
     _countText: {fileID: 7842232296997528297}
   _afterBuildEvent:

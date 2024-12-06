@@ -420,7 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977fc11e7fe5d414b8deb15679c61cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heath: 1000
+  _heath: 500
+  _regeneration: 5
   _dropItems: []
   _afterBreakEvents:
     m_PersistentCalls:
@@ -437,6 +438,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _onHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!64 &2899134511506601095
 MeshCollider:
   m_ObjectHideFlags: 0

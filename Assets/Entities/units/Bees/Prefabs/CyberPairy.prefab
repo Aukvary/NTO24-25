@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977fc11e7fe5d414b8deb15679c61cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _heath: 100
+  _heath: 24
+  _regeneration: 0
   _dropItems: []
   _afterBreakEvents:
     m_PersistentCalls:

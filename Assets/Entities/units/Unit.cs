@@ -192,6 +192,8 @@ public class Unit : MonoBehaviour, ILoadable
 
     public event Action<Unit> OnHealthChangeEvent;
 
+    public event Action<Unit> OnLevelUpEvent;
+
 
     private void Awake()
     {
@@ -315,6 +317,7 @@ public class Unit : MonoBehaviour, ILoadable
                 HealthLevel += 1;
                 break;
         }
+        OnLevelUpEvent?.Invoke(this);
     }
 
     public void Upgrade(UpgradeType type, int level)
@@ -333,5 +336,6 @@ public class Unit : MonoBehaviour, ILoadable
                 HealthLevel = level;
                 break;
         }
+        OnLevelUpEvent?.Invoke(this);
     }
 }

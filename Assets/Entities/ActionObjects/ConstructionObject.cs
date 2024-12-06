@@ -13,8 +13,6 @@ public class ConstructionObject : ActionObject, ILoadable
         public Resource Resource;
         [Min(0)]
         public int Count;
-        [Min(0)]
-        public int _stepCount;
         public TextMeshPro _countText;
     }
 
@@ -58,9 +56,10 @@ public class ConstructionObject : ActionObject, ILoadable
 
         foreach (var pair in _materials)
         {
-            var step = Mathf.Min(unit.Storage[pair.Resource], pair._stepCount);
-            pair.Count -= step;
-            unit.Storage[pair.Resource] -= step;
+            if (pair.Count == 0)
+                continue;
+            pair.Count -= 1;
+            unit.Storage[pair.Resource] -= 1;
 
             pair._countText.text = pair.Count.ToString();
         }

@@ -19,6 +19,12 @@ public class InventoryHUD : MonoBehaviour
     private TextMeshProUGUI _regenerationText;
 
     [SerializeField]
+    private TextMeshProUGUI _damageText;
+
+    [SerializeField]
+    private TextMeshProUGUI _extractText;
+
+    [SerializeField]
     private Image _bearHeadRenderer;
     [SerializeField]
     private RectTransform _hud;
@@ -42,15 +48,16 @@ public class InventoryHUD : MonoBehaviour
                 _unit.OnHealthChangeEvent -= UpdateHUD;
             }
 
-            _unit = value;
             if (value == null)
             {
                 _healthBar.rectTransform.anchorMax = Vector2.right + Vector2.up;
                 _healthText.text = "";
                 return;
             }
+            _unit = value;
             value.Inventory.OnInventoryChanged += UpdateHUD;
             value.OnHealthChangeEvent += UpdateHUD;
+            value.OnLevelUpEvent += UpdateHUD;
 
             _bearHeadRenderer.sprite = value.HeadSprite;
 
@@ -96,5 +103,8 @@ public class InventoryHUD : MonoBehaviour
         _healthBar.rectTransform.anchorMax = new(Unit.Health / Unit.MaxHealth, 1);
         _healthText.text = $"{System.Math.Round(unit.Health, 1)} / {unit.MaxHealth}";
         _regenerationText.text = $"+{unit.Regeneration}";
+
+        _damageText.text = Unit.Damage.ToString();
+        _extractText.text = Unit.Strength.ToString();
     }
 }

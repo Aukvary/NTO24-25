@@ -96,29 +96,29 @@ MonoBehaviour:
   _attackRange: 2
   _attackAngle: 30
   _strength:
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  _damage:
+  - 1
   - 2
   - 3
   - 4
   - 5
-  - 6
-  _damage:
-  - 10
-  - 3
-  - 4
-  - 5
-  - 6
   _maxHealth:
-  - 100
-  - 120
-  - 130
-  - 140
-  - 150
+  - 25
+  - 30
+  - 35
+  - 40
+  - 45
   _regeneration:
-  - 0.1
-  - 0.2
-  - 0.3
-  - 0.4
   - 0.5
+  - 0.6
+  - 0.7
+  - 0.8
+  - 0.9
   _restoreTime: 30
   _isBee: 0
   _dropResources: []
