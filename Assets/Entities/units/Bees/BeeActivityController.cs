@@ -9,8 +9,6 @@ public class BeeActivityController : MonoBehaviour
     private Unit _unit;
     private BearActivityManager _manager;
 
-    private Unit[] _bears;
-
     private BreakeableObject _durovHouse;
 
     private Vector3 _targetPosition;
@@ -19,7 +17,6 @@ public class BeeActivityController : MonoBehaviour
     {
         var bee = Instantiate(this, spawnPosition, Quaternion.identity);
 
-        bee._bears = bearActivityManager.Bears.ToArray();
         bee._durovHouse = durovHome;
         bee._manager = bearActivityManager;
 
@@ -45,7 +42,7 @@ public class BeeActivityController : MonoBehaviour
         float min = float.MaxValue;
         Unit bear = null;
         
-        foreach (var b in _bears)
+        foreach (var b in _manager.Bears)
         {
             var bMin = Mathf.Min(min, Vector3.Distance(b.transform.position, transform.position));
             if (bMin < min && b.Alive)
@@ -62,7 +59,6 @@ public class BeeActivityController : MonoBehaviour
             _unit.Attack(bear);
             return;
         }
-        if (_unit.AttackBehaviour.BreakeableObject == null)
-            _unit.Attack(_durovHouse);
+        _unit.Attack(_durovHouse);
     }
 }

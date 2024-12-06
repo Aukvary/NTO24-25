@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnPositions:
   - {fileID: 4769862635863517165}
-  _spawnCoolDown: 10
+  _spawnCoolDown: 300
   _bearActivityManager: {fileID: 0}
   _unit: {fileID: 6866139536227337715, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
   _durovHome: {fileID: 0}
@@ -121,7 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _heath: 24
   _regeneration: 0
-  _dropItems: []
+  _dropItems:
+  - _resource: {fileID: 11400000, guid: 8bcc4318acd939845ae3dc1b2735cc01, type: 2}
+    _count: 1
   _afterBreakEvents:
     m_PersistentCalls:
       m_Calls: []
