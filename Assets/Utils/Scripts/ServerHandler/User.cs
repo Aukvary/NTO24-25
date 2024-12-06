@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 public class User
 {
-    public static string PlayerID = null;
+    public static string PlayerID = "penis";
 
     public static bool Tutorial = false;
 
@@ -65,6 +66,18 @@ public class User
         response.EnsureSuccessStatusCode();
 
         return JsonSerializer.Deserialize<List<User>>(await response.Content.ReadAsStringAsync()) ?? new List<User>();
+    }
+
+    public static async void Delete()
+    {
+        if (PlayerID == null)
+            return;
+        var users = await GetUsers();
+
+
+        foreach (var user in users.Where(u => u.Name.Contains(PlayerID)))
+            await user.DeleteUser();
+        PlayerID = null;
     }
 
     public async Task InitializeUser(params string[] names)
