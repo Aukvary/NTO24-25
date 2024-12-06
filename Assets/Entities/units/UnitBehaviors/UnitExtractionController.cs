@@ -9,6 +9,11 @@ public class UnitExtractionController : UnitBehaviour
         get => _resource;
         set
         {
+            if (Unit.Inventory.Resources.All(c => c.OverFlow || 
+            (c.Resource != Resource && c.Resource != null)) && 
+            value != null)
+                Resource = null;
+
             _resource = value;
             Unit.Behaviour = value == null ? null : this;
         }

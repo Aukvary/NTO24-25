@@ -50,12 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restoredMesh: {fileID: -2432090755550338912, guid: 7fd052a0d2cb62148a71c5a00052d051, type: 3}
   _restoringMesh: {fileID: 0}
-  _timeToExtract: 10
-  _timeToRestore: 10
+  _timeToExtract: 30
+  _timeToRestore: 240
   _dropResourses:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
     _count: 5
-  _dropChance: 0
+  _dropChance: 5
 --- !u!33 &6036367350138531294
 MeshFilter:
   m_ObjectHideFlags: 0

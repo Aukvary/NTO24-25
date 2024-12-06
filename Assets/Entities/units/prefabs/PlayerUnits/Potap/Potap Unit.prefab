@@ -97,31 +97,33 @@ MonoBehaviour:
   _attackAngle: 30
   _strength:
   - 2
+  - 2.5
   - 3
+  - 3.5
   - 4
-  - 5
-  - 6
   _damage:
-  - 2
-  - 3
   - 4
   - 5
   - 6
+  - 7
+  - 8
   _maxHealth:
-  - 100
-  - 120
-  - 110
-  - 130
-  - 140
+  - 35
+  - 43.5
+  - 52
+  - 60.5
+  - 70
   _regeneration:
-  - 0.1
-  - 0.2
-  - 0.3
-  - 0.4
-  - 5
+  - 1
+  - 1.25
+  - 1.5
+  - 1.75
+  - 2
   _restoreTime: 30
   _isBee: 0
   _dropResources: []
+  _storage: {fileID: 0}
+  _bearActivityManager: {fileID: 0}
   _headSprite: {fileID: 21300000, guid: fbddc6fcd6bbb4d48b3348d86416ec5a, type: 3}
   _unitName: potap
 --- !u!1001 &1020590213842320847
