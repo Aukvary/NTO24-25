@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -8,7 +9,7 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _rotateSpeed;
 
-    [SerializeField] 
+    [SerializeField]
     private float _changeFOVSpeed;
     [SerializeField]
     private float _minFOV;
@@ -16,11 +17,29 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _maxFOV;
 
+    [SerializeField]
+    private float _hotkeyChangeZCameraPosition;
+
+    private BearActivityManager _activityManager;
+
+    private void Start()
+    {
+        _activityManager = GetComponentInParent<BearActivityManager>();
+
+        var bear = _activityManager.Bears.First();
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+        transform.position = new(
+            bear.transform.position.x,
+            transform.position.y,
+            bear.transform.position.z - _hotkeyChangeZCameraPosition);
+    }
+
     private void Update()
     {
         Move();
         Rotate();
         Zooming();
+        HotKeySelect();
     }
 
     private void Move()
@@ -49,5 +68,31 @@ public class CameraController : MonoBehaviour
     {
         var newFow = Mathf.Clamp(Camera.main.fieldOfView - Input.mouseScrollDelta.y, _minFOV, _maxFOV);
         Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, newFow, Time.deltaTime * _changeFOVSpeed);
+    }
+
+    private void HotKeySelect()
+    {
+        var hotkey = KeyCode.Alpha1;
+        int count = _activityManager.Bears.Count();
+
+        for (int i = 0; i < count; i++)
+        {
+            if (!Input.GetKeyDown(hotkey + i))
+                continue;
+
+            var bear = _activityManager.Bears.ElementAt(i);
+
+            if (bear == _activityManager.InventoryUnit)
+            {
+
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                transform.position = new(
+                    bear.transform.position.x,
+                    transform.position.y,
+                    bear.transform.position.z - _hotkeyChangeZCameraPosition);
+            }
+
+            _activityManager.HotKeySelectBear(bear);
+        }
     }
 }

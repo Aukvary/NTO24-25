@@ -18,8 +18,6 @@ public class BearActivityManager : MonoBehaviour
     [Header("Unit Selection")]
     [SerializeField]
     private Color _selectingAreaColor;
-    [SerializeField]
-    private float _hotkeyChangeZCameraPosition;
 
     private List<Unit> _allUnits = new();
 
@@ -30,8 +28,6 @@ public class BearActivityManager : MonoBehaviour
 
     private Vector3 _startMousePos;
     private Vector3 _endMousePos;
-
-    private Vector3 _startPos;
     private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public IEnumerable<Unit> Bears => _bears;
@@ -40,17 +36,13 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> SelectedUnits => _controlledUnits;
 
+    public Unit InventoryUnit => _inventoryHUD.Unit;
+
     public event Action OnHotKeySelect;
 
     private void Awake()
     {
         _bears = _allUnits.Where(u => !u.IsBee).ToArray();
-
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-        transform.position = new(
-            _bears[0].transform.position.x,
-            transform.position.y,
-            _bears[0].transform.position.z - _hotkeyChangeZCameraPosition);
     }
 
     private void Start()
@@ -63,7 +55,6 @@ public class BearActivityManager : MonoBehaviour
         SetUnitTask();
         SelectUnitGroup();
         SelectAloneUnit();
-        HotKeySelect();
     }
 
     public void AddUnit(Unit unit)
@@ -175,26 +166,13 @@ public class BearActivityManager : MonoBehaviour
         }
     }
 
-    private void HotKeySelect()
+    public void HotKeySelectBear(Unit bear)
     {
-        var hotkey = KeyCode.Alpha1;
-        for (int i = 0; i < _bears.Length; i++)
-        {
-            if (Input.GetKeyDown(hotkey + i))
-            {
-                _controlledUnits.Clear();
-                _controlledUnits.Add(_bears[i]);
-                _inventoryHUD.Unit = _bears[i];
+        _controlledUnits.Clear();
+        _controlledUnits.Add(bear);
+        _inventoryHUD.Unit = bear;
 
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                transform.position = new(
-                    _bears[i].transform.position.x, 
-                    transform.position.y,
-                    _bears[i].transform.position.z - _hotkeyChangeZCameraPosition);
-
-                OnHotKeySelect?.Invoke();
-            }
-        }
+        OnHotKeySelect?.Invoke();
     }
 
     private void OnGUI()

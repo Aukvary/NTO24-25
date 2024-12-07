@@ -21,6 +21,10 @@ public class BreakeableObject : ActionObject
 
     private float _maxHealth;
 
+    public float MaxHealth => _maxHealth;
+
+    public float Regeneration => _regeneration;
+
     public float Health
     {
         get => _heath;

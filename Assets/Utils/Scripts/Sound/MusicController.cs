@@ -67,12 +67,10 @@ public class MusicController : MonoBehaviour
         if (calm > 0) _calmMusic.Play();
         else _fightMusic.Play();
 
-        while (_calmMusic.volume != calm || _fightMusic.volume != fight)
+        while (Mathf.Abs(_calmMusic.volume - calm) > 0.1 || Mathf.Abs(_fightMusic.volume - fight) > 0.1)
         {
             _calmMusic.volume = Mathf.Lerp(_calmMusic.volume, calm, Time.deltaTime * _changeSpeed);
             _fightMusic.volume = Mathf.Lerp(_fightMusic.volume, fight, Time.deltaTime * _changeSpeed);
-
-            
 
             yield return null;
         }
