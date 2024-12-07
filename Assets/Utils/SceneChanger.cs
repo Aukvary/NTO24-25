@@ -10,7 +10,8 @@ public class SceneChanger : MonoBehaviour
         MainMenu,
         Map,
         Tutorial,
-        End
+        End,
+        House
     }
 
     public void Exit()
@@ -52,6 +53,12 @@ public class SceneChanger : MonoBehaviour
     {
         User.Delete();
         SceneManager.LoadScene((int)Scenes.End);
+    }
+
+    public void BadEnd()
+    {
+        User.Delete();
+        SceneManager.LoadScene((int)Scenes.House);
     }
 
     public async void ExitToMenu()

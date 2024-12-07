@@ -1,4 +1,3 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -20,6 +19,7 @@ public class GameEnder : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartEnd());
+
         _text.color = new(_text.color.r, _text.color.g, _text.color.b, 0);
     }
 
