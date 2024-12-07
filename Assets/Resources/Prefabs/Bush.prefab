@@ -125,5 +125,5 @@ MonoBehaviour:
   _timeToRestore: 60
   _dropResourses:
   - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
-    _count: 10
+    _count: 1
   _dropChance: 0

@@ -4801,16 +4801,16 @@ MonoBehaviour:
   _upgradeType: 0
   _resourcesLevel1:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 2
+    _count: 4
   _resourcesLevel2:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 2
+    _count: 4
   _resourcesLevel3:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 4
+    _count: 6
   _resourcesLevel4:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 4
+    _count: 8
   _selectedColor: {r: 0.57254905, g: 0.57254905, b: 0.57254905, a: 1}
   _unselectedColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   _title: "\u0423\u0440\u043E\u043D"
