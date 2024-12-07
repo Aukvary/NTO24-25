@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
+#pragma warning disable CS4014
 public class Inventory
 {
     private Cell[] _cells = new Cell[6];
 
-    private Unit _unit;
+    private Bear _bear;
 
     private User _inventoryUser;
 
@@ -18,7 +19,7 @@ public class Inventory
 
     public IEnumerable<Cell> Resources => _cells;
 
-    public event Action<Unit> OnInventoryChanged;
+    public event Action<Bear> OnInventoryChanged;
 
     public int this[Resource res]
     {
@@ -34,11 +35,11 @@ public class Inventory
         }
     }
 
-    public Inventory(Unit unit)
+    public Inventory(Bear unit)
     {
         for (int i = 0; i < _cells.Length; i++)
             _cells[i] = new Cell();
-        _unit = unit;
+        _bear = unit;
 
         var ress = UnityEngine.Resources.LoadAll<Resource>("Prefabs");
         _resourcesNamePair = ress.ToDictionary(r => r.name, r => r);
@@ -48,10 +49,8 @@ public class Inventory
 
     public async Task InitializeUser()
     {
-        if (_unit.IsBee)
-            return;
 
-        _inventoryUser = new(_unit.UnitName);
+        _inventoryUser = new(_bear.UnitName);
         await _inventoryUser.InitializeUser(_resourcesNamePair.Keys.ToArray());
 
         foreach (var res in _inventoryUser.Resources)
@@ -71,7 +70,7 @@ public class Inventory
                 cell.Set(resource);
                 if (update)
                     _inventoryUser.UpdateUser(resource.ResourceName, this[resource]);
-                OnInventoryChanged?.Invoke(_unit);
+                OnInventoryChanged?.Invoke(_bear);
                 return;
             }
             else if (cell.Resource.ResourceName == resource.ResourceName)
@@ -80,7 +79,7 @@ public class Inventory
                 if (update)
                     _inventoryUser.UpdateUser(resource.ResourceName, this[resource]);
 
-                OnInventoryChanged?.Invoke(_unit);
+                OnInventoryChanged?.Invoke(_bear);
                 return;
             }
         }
@@ -101,7 +100,7 @@ public class Inventory
         }
         for (int i = 0; i < _cells.Length; i++)
             _cells[i].Reset();
-        OnInventoryChanged?.Invoke(_unit);
+        OnInventoryChanged?.Invoke(_bear);
         return resources;
     }
 }

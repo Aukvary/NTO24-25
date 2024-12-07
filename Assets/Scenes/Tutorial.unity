@@ -249,6 +249,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 242219502874251214, guid: 233115592a688a34f846dba3869dfb01, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 625534835820412746, guid: 233115592a688a34f846dba3869dfb01, type: 3}
       propertyPath: m_Name
       value: fir (3)
@@ -278,6 +282,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1174398894}
     m_Modifications:
+    - target: {fileID: 2113760895503697636, guid: 53c6c0369384f8d4ebc5d5c1522a1a0f, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 2212610910601144703, guid: 53c6c0369384f8d4ebc5d5c1522a1a0f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -574,6 +582,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 242219502874251214, guid: 233115592a688a34f846dba3869dfb01, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 625534835820412746, guid: 233115592a688a34f846dba3869dfb01, type: 3}
       propertyPath: m_Name
       value: fir (1)
@@ -850,6 +862,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MishaUnit
       objectReference: {fileID: 0}
+    - target: {fileID: 8616256823578944759, guid: cbc955740ff256d47a31294f693a3463, type: 3}
+      propertyPath: _storage
+      value: 
+      objectReference: {fileID: 842720886}
+    - target: {fileID: 8616256823578944759, guid: cbc955740ff256d47a31294f693a3463, type: 3}
+      propertyPath: _bearActivityManager
+      value: 
+      objectReference: {fileID: 1045707925}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1492,6 +1512,10 @@ PrefabInstance:
     - target: {fileID: 226909650587667870, guid: 233115592a688a34f846dba3869dfb01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 242219502874251214, guid: 233115592a688a34f846dba3869dfb01, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 625534835820412746, guid: 233115592a688a34f846dba3869dfb01, type: 3}
       propertyPath: m_Name
@@ -2299,6 +2323,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2905,6 +2933,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 400187405892131754, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+      propertyPath: _storage
+      value: 
+      objectReference: {fileID: 842720886}
+    - target: {fileID: 400187405892131754, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+      propertyPath: _bearActivityManager
+      value: 
+      objectReference: {fileID: 1045707925}
     - target: {fileID: 3640319866315405169, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
       propertyPath: _storage
       value: 
@@ -3288,6 +3324,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3467,6 +3507,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1726566674928530218, guid: 4bf1b32e1f6f69c4b889f69799bb9d24, type: 3}
+      propertyPath: _storage
+      value: 
+      objectReference: {fileID: 842720886}
+    - target: {fileID: 1726566674928530218, guid: 4bf1b32e1f6f69c4b889f69799bb9d24, type: 3}
+      propertyPath: _bearActivityManager
+      value: 
+      objectReference: {fileID: 1045707925}
     - target: {fileID: 3599669257870765065, guid: 4bf1b32e1f6f69c4b889f69799bb9d24, type: 3}
       propertyPath: _storage
       value: 
@@ -3742,6 +3790,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3314649553986179218, guid: 1735d93c85cd1bd43a8bfc8b8f86ebfb, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3810,6 +3862,10 @@ PrefabInstance:
     - target: {fileID: 2912102182614954146, guid: 1735d93c85cd1bd43a8bfc8b8f86ebfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314649553986179218, guid: 1735d93c85cd1bd43a8bfc8b8f86ebfb, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4074,6 +4130,10 @@ PrefabInstance:
     - target: {fileID: 3676620241984132227, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8745872380759138964, guid: 239b500d53e646f47bbfb32aad646598, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4489,6 +4549,10 @@ PrefabInstance:
     - target: {fileID: 2646799313523620686, guid: ed2cd80fdaaac6d4c82163709c5caf31, type: 3}
       propertyPath: _afterEndEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601770821400164138, guid: ed2cd80fdaaac6d4c82163709c5caf31, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5416047369350067546, guid: ed2cd80fdaaac6d4c82163709c5caf31, type: 3}
       propertyPath: m_Pivot.x
@@ -5693,6 +5757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1174398894}
     m_Modifications:
+    - target: {fileID: 2113760895503697636, guid: 53c6c0369384f8d4ebc5d5c1522a1a0f, type: 3}
+      propertyPath: _timeToRestore
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 2212610910601144703, guid: 53c6c0369384f8d4ebc5d5c1522a1a0f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647

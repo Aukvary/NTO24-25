@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using UnityEngine;
 
+#pragma warning disable CS4014
 public class User
 {
     public static string PlayerID = "penis";
@@ -134,7 +135,6 @@ public class User
 
         var response = await _client.PutAsync(UserURL, content);
         response.EnsureSuccessStatusCode();
-
 
         UserLog(
             $"Change {resource} count",

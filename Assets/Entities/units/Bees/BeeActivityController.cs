@@ -6,30 +6,27 @@ public class BeeActivityController : MonoBehaviour
     [SerializeField, Min(0)]
     private float _agrRange;
 
-    private Unit _unit;
+    private Bee _unit;
     private BearActivityManager _manager;
 
     private BreakeableObject _durovHouse;
 
     private Vector3 _targetPosition;
 
-    public Unit Spawn(Vector3 spawnPosition, BearActivityManager bearActivityManager, BreakeableObject durovHome)
+    public Bee Spawn(Vector3 spawnPosition, BearActivityManager bearActivityManager, BreakeableObject durovHome)
     {
         var bee = Instantiate(this, spawnPosition, Quaternion.identity);
 
         bee._durovHouse = durovHome;
         bee._manager = bearActivityManager;
 
-        Unit unit = bee.GetComponent<Unit>();
+        Bee unit = bee.GetComponent<Bee>();
+
+        bee._unit = unit;
 
         bee._manager.AddUnit(unit);
 
         return unit;
-    }
-
-    private void Awake()
-    {
-        _unit = GetComponent<Unit>();
     }
 
     private void Update()
@@ -40,7 +37,7 @@ public class BeeActivityController : MonoBehaviour
     private void SetTarget()
     {
         float min = float.MaxValue;
-        Unit bear = null;
+        Bear bear = null;
         
         foreach (var b in _manager.Bears)
         {
@@ -51,14 +48,13 @@ public class BeeActivityController : MonoBehaviour
                 bear = b;
             }
         }
-        if (bear == _unit.AttackBehaviour.AttackedUnit)
+        if (bear == _unit.Behaviour.Target is Bear)
             return;
 
         if (min <= _agrRange)
-        {
-            _unit.Attack(bear);
-            return;
-        }
-        _unit.Attack(_durovHouse);
+            _unit.InteractWith(bear);
+
+        if (_unit.Behaviour.Target == null)
+            _unit.InteractWith(_durovHouse);
     }
 }

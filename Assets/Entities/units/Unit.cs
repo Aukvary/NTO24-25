@@ -1,163 +1,70 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
-public class Unit : MonoBehaviour, ILoadable
+public abstract class Unit : MonoBehaviour, IInteractable
 {
-    #region SerializeStats
+
     [Header("Stats")]
 
-    [SerializeField, Min(0f)]
+    [SerializeField]
     private float _speed;
 
-    [SerializeField, Min(0f)]
+    [SerializeField]
     private float _attackRange;
 
-    [SerializeField, Min(0f)]
+    [SerializeField]
     private float _attackAngle;
+
+    [SerializeField]
+    private List<float> _damage;
 
     [SerializeField]
     private List<float> _strength;
 
-    [SerializeField, Min(0f)]
-    private List<float> _damage;
-
-    [SerializeField, Min(0f)]
+    [SerializeField]
     private List<float> _maxHealth;
 
-    [SerializeField, Min(0f)]
-    private List<float> _regeneration;
-
     [SerializeField]
-    private float _restoreTime;
-
-    [SerializeField]
-    private bool _isBee;
-
-    [SerializeField]
-    private List<SelectingUpgradeButton.ResourseCountPair> _dropResources;
-    #endregion
-
-    [SerializeField]
-    private Storage _storage;
-
-    [SerializeField]
-    private BearActivityManager _bearActivityManager;
-
-    [SerializeField]
-    private Sprite _headSprite;
-
-    [SerializeField]
-    private string _unitName;
+    private List<float> _regeneration;  
 
     private float _health;
 
-    #region UnitComponentsAlive
-    private Collider _collider;
-    private NavMeshAgent _navMeshAgent;
-    private MeshRenderer[] _meshRenderers;
-    #endregion
 
-    #region AnyComponents
     private Animator _animator;
     private BehaviourAnimation _behaviourAnimation;
-    #endregion
-
-    #region UnitBehaviour
-    private BuildBehaviour _buildBehaviour;
-    private UnitExtractionController _extractionController;
-    private UnitMovementController _moveController;
-    private AttackBehaviour _attackBehaviour;
-    private LayOutBehaviour _layerOutBehaviour;
-    private UnitBehaviour _behavior;
-    private Inventory _inventory;
-    #endregion
-
-    private Vector3 _spawnPosition;
-
-
-    #region Levels
+    private NavMeshAgent _navMeshAgent;
+    
+    
     private int _attackLevel;
     private int _strenghtLevel;
     private int _healthLevel;
-    #endregion
 
-    public UnitBehaviour Behaviour
-    {
-        get => _behavior;
-        set
-        {
-            if (Behaviour == value)
-                return;
+    private Transform _transform;
 
-            Behaviour?.BehaviourExit();
-            if (value == null)
-                _moveController.BehaviourEnter();
-            else
-                value.BehaviourEnter();
+    public UnitBehaviourController Behaviour { get; private set; }
 
-            _behavior = value == null ? _moveController : value;
-        }
-    }
-
-    #region StatsProperty
     public float Damage => _damage[AttackLevel];
     public float Strength => _strength[StrenghtLevel];
     public float MaxHealth => _maxHealth[HealthLevel];
     public float Regeneration => _regeneration[_healthLevel];
-
     public float Speed => _speed;
-    #endregion 
 
     public float Health
     {
         get => _health;
-
         set
         {
             _health = Mathf.Clamp(value, 0, MaxHealth);
             OnHealthChangeEvent?.Invoke(this);
-            if (_health == 0f)
-            {
-                if (IsBee)
-                    Destroy(gameObject);
-                else
-                    StartCoroutine(StartRestore());
-            }
         }
     }
-
-    public bool Alive
-    {
-        get => Health > 0;
-
-        set
-        {
-            transform.position = _spawnPosition;
-            if (value)
-                Health = MaxHealth;
-
-            Behaviour = null;
-            foreach (var item in _meshRenderers)
-            {
-                item.enabled = value;
-            }
-            _navMeshAgent.enabled = value;
-            _collider.enabled = value;
-        }
-    }
-
-    public Inventory Inventory => _inventory;
-    public Sprite HeadSprite => _headSprite;
 
     public BehaviourAnimation BehaviourAnimation => _behaviourAnimation;
-
-    public bool IsBee => _isBee;
-
-    public Storage Storage => _storage;
 
     public int AttackLevel
     {
@@ -179,118 +86,63 @@ public class Unit : MonoBehaviour, ILoadable
 
     public Animator Animator => _animator;
 
-    public UnitMovementController MovementController => _moveController;
-    public AttackBehaviour AttackBehaviour => _attackBehaviour;
+    public Transform Transform => _transform;
 
-    public UnitExtractionController ExtractionController => _extractionController;
-
-    public string UnitName => _unitName;
-
-    public bool Loaded { get; set; }
-
-    public bool HasPath => _navMeshAgent.hasPath;
+    public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
     public event Action<Unit> OnHealthChangeEvent;
 
     public event Action<Unit> OnLevelUpEvent;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _behaviourAnimation = GetComponentInChildren<BehaviourAnimation>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
-        _collider = GetComponent<Collider>();
-
-
+        Behaviour = new(this, _attackRange);
         _health = MaxHealth;
-        _behavior = _moveController;
-        _moveController = new(this, _speed, _attackRange);
-        _extractionController = new(this, _attackRange);
-        _buildBehaviour = new(this, _attackRange);
-        _attackBehaviour = new(this, _attackRange, _attackAngle);
-        _layerOutBehaviour = new(this, _attackRange);
-
-        _inventory = new(this);
-
-        _spawnPosition = transform.position;
-
-        _bearActivityManager?.AddUnit(this);
-
-        Initialize();
-    }
-
-    public async void Initialize()
-    {
-        await _inventory.InitializeUser();
-        Loaded = true;
+        _transform = transform;
     }
 
     private void Update()
     {
         Behaviour?.BehaviourUpdate();
-        if (Alive)
-            Health += Regeneration * Time.deltaTime;
+        Health += Regeneration * Time.deltaTime;
     }
 
     public void MoveTo(Vector3 newPostion)
     {
-        if (!Alive)
+        Behaviour.MoveTo(newPostion);
+    }
+
+    public void InteractWith(IInteractable obj)
+    {
+        Behaviour.Target = obj;
+    }
+
+    public virtual bool CanInteract(Unit unit)
+    {
+        var hit = unit.Behaviour.TargetHit;
+
+        if (hit.collider == null)
+            return false;
+
+
+        if (Vector3.Angle(unit.transform.forward, hit.point - unit.transform.position) > unit._attackAngle)
+            return false;
+
+        return true;
+    }
+
+    public void Interact(Unit unit)
+    {
+        Health -= unit.Damage;
+
+        if (_health > 0)
             return;
-        _moveController.TargetPosition = newPostion;
-    }
 
-    public void Extract(ResourceObjectSpawner spawner)
-    {
-        if (!Alive)
-            return;
-        _extractionController.Resource = spawner;
-    }
-
-    public void Attack(Unit unit)
-    {
-        if (!Alive)
-            return;
-        _attackBehaviour.AttackedUnit = unit;
-    }
-
-    public void Attack(BreakeableObject obj)
-    {
-        if (!Alive)
-            return;
-        _attackBehaviour.BreakeableObject = obj;
-    }
-
-    public void Build(ConstructionObject obj)
-    {
-        if (!Alive)
-            return;
-        _buildBehaviour.Build = obj;
-    }
-
-    public void LayOutItems(Storage storage)
-    {
-        if (!Alive)
-            return;
-        _layerOutBehaviour.Storage = storage;
-    }
-
-    public bool DamageUnit(Unit from, out List<SelectingUpgradeButton.ResourseCountPair> res)
-    {
-        res = null;
-
-        Health -= from.Damage;
-        if (Health <= 0)
-            res = _dropResources;
-        return Health <= 0;
-    }
-
-    private IEnumerator StartRestore()
-    {
-        Alive = false;
-        yield return new WaitForSeconds(_restoreTime);
-        Alive = true;
+        Die(unit);
     }
 
     public bool CanUpgrade(UpgradeType type) => type switch
@@ -338,4 +190,11 @@ public class Unit : MonoBehaviour, ILoadable
         }
         OnLevelUpEvent?.Invoke(this);
     }
+
+    private void OnDestroy()
+    {
+        _transform = null;
+    }
+
+    protected abstract void Die(Unit unit);
 }

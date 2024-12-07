@@ -62,12 +62,11 @@ public class UnitUpgradeHUD : MonoBehaviour
             {
                 value.IsSeleced = true;
 
-
                 value.Level = value.UpgradeType switch
                 {
-                    UpgradeType.Damage => SelectedUnit.Unit.AttackLevel,
-                    UpgradeType.Strenght => SelectedUnit.Unit.StrenghtLevel,
-                    UpgradeType.Health => SelectedUnit.Unit.HealthLevel,
+                    UpgradeType.Damage => SelectedUnit.Bear.AttackLevel,
+                    UpgradeType.Strenght => SelectedUnit.Bear.StrenghtLevel,
+                    UpgradeType.Health => SelectedUnit.Bear.HealthLevel,
 
                     _ => 0
                 };
@@ -81,7 +80,7 @@ public class UnitUpgradeHUD : MonoBehaviour
     }
 
     private bool _canUpgrade => SelectedPanel.ResourceCountPair.All(needRes => 
-        SelectedUnit.Unit.Storage[needRes.Resource] >= needRes.Count  
+        SelectedUnit.Bear.Storage[needRes.Resource] >= needRes.Count  
     );
 
     private void Awake()
@@ -108,21 +107,19 @@ public class UnitUpgradeHUD : MonoBehaviour
             if (!_canUpgrade)
                 return;
             foreach (var res in SelectedPanel.ResourceCountPair)
-                SelectedUnit.Unit.Storage[res.Resource] -= res.Count;
+                SelectedUnit.Bear.Storage[res.Resource] -= res.Count;
 
-            SelectedUnit.Unit.Upgrade(SelectedPanel.UpgradeType);
+            SelectedUnit.Bear.Upgrade(SelectedPanel.UpgradeType);
             SelectedPanel = SelectedPanel;
         });
     }
 
     private void Start()
     {
-
         int i = 0;
-
         foreach (var bear in _bearActivityManager.Bears)
         {
-            _unitSelectCells[i].Unit = bear;
+            _unitSelectCells[i].Bear = bear;
             _unitSelectCells[i].HUD = this;
             i++;
         }
@@ -145,7 +142,7 @@ public class UnitUpgradeHUD : MonoBehaviour
                 new(1, _minAnchor.y),
                 Time.deltaTime * _closedSpeed);
 
-        if (_canUpgrade && SelectedUnit.Unit.CanUpgrade(SelectedPanel.UpgradeType))
+        if (_canUpgrade && SelectedUnit.Bear.CanUpgrade(SelectedPanel.UpgradeType))
         {
             foreach (Image image in _upgradeButtonImages)
                 image.color = _canUpgradeColor;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +24,7 @@ public class InventoryHUD : MonoBehaviour
 
     [SerializeField]
     private Image _bearHeadRenderer;
+
     [SerializeField]
     private RectTransform _hud;
 
@@ -34,9 +33,9 @@ public class InventoryHUD : MonoBehaviour
 
     private InventoryCellUI[] _inventoryCells = new InventoryCellUI[6];
 
-    private Unit _unit;
+    private Bear _unit;
 
-    public Unit Unit
+    public Bear Unit
     {
         get => _unit;
 
@@ -93,8 +92,12 @@ public class InventoryHUD : MonoBehaviour
 
     private void UpdateHUD(Unit unit)
     {
+        if (unit is Bee)
+            return;
+
+
         int i = 0;
-        foreach (var cell in unit.Inventory.Resources)
+        foreach (var cell in (unit as Bear).Inventory.Resources)
         {
             _inventoryCells[i].Cell = cell;
             i++;

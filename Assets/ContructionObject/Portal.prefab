@@ -53,22 +53,19 @@ MonoBehaviour:
   _materials:
   - Resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     Count: 20
-    _stepCount: 1
     _countText: {fileID: 5882307505187458504}
   - Resource: {fileID: 11400000, guid: 8bcc4318acd939845ae3dc1b2735cc01, type: 2}
     Count: 6
-    _stepCount: 1
     _countText: {fileID: 165581010464772614}
   - Resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
     Count: 20
-    _stepCount: 1
     _countText: {fileID: 3003245991144629075}
-  _afterBuildEvent:
+  _onBuildEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3020448930381747353}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: Exit
+        m_MethodName: End
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

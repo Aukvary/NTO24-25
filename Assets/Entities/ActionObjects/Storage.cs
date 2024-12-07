@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class Storage : ActionObject, ILoadable
+public class Storage : MonoBehaviour, IInteractable, ILoadable
 {
     private Dictionary<Resource, int> _resources;
 
@@ -25,10 +25,13 @@ public class Storage : ActionObject, ILoadable
 
     public bool Loaded { get; set; }
 
+    public Transform Transform => transform;
+
     public int this[Resource resource]
     {
         get => _resources[resource];
 
+        #pragma warning disable
         set => Set(resource, value);
     }
 
@@ -56,15 +59,17 @@ public class Storage : ActionObject, ILoadable
 
         foreach (var res in _storageUser.Resources)
             _resources[_resourcesNamePair[res.Key]] = res.Value;
-        if (_resources.All(p => p.Value > 0))
+        if (_resources.Any(p => p.Value > 0))
             OnLayOutItems?.Invoke(this);
         Loaded = true;
     }
 
     
-    public async override void Interact(Unit unit)
+    public async void Interact(Unit unit)
     {
-        foreach (var cell in unit.Inventory.LayOutItems())
+        if (unit is Bee)
+            return;
+        foreach (var cell in (unit as Bear).Inventory.LayOutItems())
             await Set(cell.Key, cell.Value + _resources[cell.Key]);
     }
 
@@ -74,4 +79,7 @@ public class Storage : ActionObject, ILoadable
         await _storageUser.UpdateUser(resource.ResourceName, _resources[resource]);
         OnLayOutItems?.Invoke(this);
     }
+
+    public bool CanInteract(Unit unit)
+        => (unit as Bear).Inventory.Resources.Any(c => c.Count > 0);
 }

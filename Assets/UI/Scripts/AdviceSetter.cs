@@ -38,9 +38,9 @@ public class AdviceSetter : MonoBehaviour
 
         _bearManager.OnHotKeySelect += () => _basePosition = _bearManager.transform.position;
 
-        _apire._onHitEvent.AddListener(AttackApire);
-        _apire._afterBreakEvents.AddListener(BrokeApire);
-        _bridge._afterBuildEvent.AddListener(BuildBridge);
+        _apire.AddListerForHit(AttackApire);
+        _apire.AddListnerForDeath(BrokeApire);
+        _bridge.AddListnerToBuild(BuildBridge);
         _storage.OnLayOutItems.AddListener(LayOut);
 
         _advice = GetComponent<AdviceField>();
@@ -54,7 +54,7 @@ public class AdviceSetter : MonoBehaviour
         {
             {
                 () => _bearManager.SelectedUnits.Any(),
-                "Нажмите левой кнопкой мыши в любое место, чтобы медведь начал передвигаться"
+                "Нажмите ПКМ в любое место, чтобы медведь начал передвигаться"
             },
             {
                 () => _bearManager.Bears.Any(b => b.HasPath),
@@ -62,23 +62,23 @@ public class AdviceSetter : MonoBehaviour
             },
             {
                 () => _basePosition != _bearManager.transform.position,
-                "левый ALT + ПКМ, чтобы вращать камеру"
+                "Левый ALT + ПКМ, чтобы вращать камеру"
             },
             {
                 () => _baseRotation != _bearManager.transform.rotation.y,
-                "Выбрав медведя, нажмите на деверо или камень, чтобы начать его добывать"
+                "Выбрав медведя, нажмите на дерево или камень, чтобы начать его добывать"
             },
             {
-                () => _bearManager.Bears.Any(b => b.ExtractionController.Extracting),
-                "Как только в инвентаря медведя появятся ресурсы, вы сможете сложить их в склад, нажав по нему правой кнопкой мыши"
+                () => _bearManager.Bears.Any(b => !b.HasPath && b.Behaviour.Target is ResourceObjectSpawner),
+                "Как только в инвентаря медведя появятся ресурсы, вы сможете сложить их в склад(конструкция с коробками внутри), нажав по нему правой кнопкой мыши"
             },
             {
                 () => _layOut,
-                "Зажмите на TAB, чтобы увидеть, какие ресурсы у вас есть"
+                "Зажмите TAB, чтобы увидеть информацию о ресурсах на складе и прокачке медведей"
             },
             {
                 () => Input.GetKey(KeyCode.Tab),
-                "Собирите достаточное количество ресурсов, чтобы построить мост, чтобы его построить положите ресурсы в склад и нажмите на коробку"
+                "Чтобы построить мост, надо положить ресурсы на склад, а потом подойти к коробке, на которой изображены ресурсы для строительтва, и нажать по ней ПКМ"
             },
             {
                 () => _build,
@@ -86,11 +86,11 @@ public class AdviceSetter : MonoBehaviour
             },
             {
                 () => _attack,
-                "Осторожно, хоть ульи не особо прочный, но каждый удар спаснит кибер-осу"
+                "Осторожно, хоть ульи и не очень прочные, каждый удар спавнит кибер-осу!"
             },
             {
                 () => _broke,
-                "Чтобы легче рассправлятся со своими врагами, можно прокачивать медведей, для этого необходимо зажать TAB вырать медведя и характеристику, которую вы хотите ему прокачать и нажать \"прокачать\""
+                "Чтобы легче расправляться со своими врагами, можно прокачивать медведей. Для этого нужно зажать TAB, выбрать медведя и характеристику, а потом нажать \"прокачать\""
             },
             {
                 () => _bearManager.Bears.Any(b =>
@@ -132,4 +132,5 @@ public class AdviceSetter : MonoBehaviour
 
     private void BuildBridge()
         => _build = true;
+
 }

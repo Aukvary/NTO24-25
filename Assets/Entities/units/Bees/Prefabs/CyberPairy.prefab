@@ -120,16 +120,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heath: 24
-  _regeneration: 0
-  _dropItems:
-  - _resource: {fileID: 11400000, guid: 8bcc4318acd939845ae3dc1b2735cc01, type: 2}
+  _dropableResources:
+  - _resorce: {fileID: 11400000, guid: 8bcc4318acd939845ae3dc1b2735cc01, type: 2}
     _count: 1
-  _afterBreakEvents:
+  _onBreakEvents:
     m_PersistentCalls:
       m_Calls: []
-  _onHitEvent:
+  _onHitEvents:
     m_PersistentCalls:
       m_Calls: []
+  _regeneration: 0
 --- !u!1001 &825014518816689348
 PrefabInstance:
   m_ObjectHideFlags: 0

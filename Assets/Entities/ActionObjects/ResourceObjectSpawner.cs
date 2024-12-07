@@ -1,24 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ResourceObjectSpawner : ActionObject
+public class ResourceObjectSpawner : InteractBuild
 {
-    [Header("Restoring")]
-    [SerializeField]
-    private Mesh _restoredMesh;
-    [SerializeField]
-    private Mesh _restoringMesh;
-
-    [SerializeField, Min(0f)]
-    private float _timeToExtract;
-
-    [SerializeField, Min(0f)]
-    private float _timeToRestore;
-
-    [Header("Resorse")]
-    [SerializeField]
-    private List<SelectingUpgradeButton.ResourseCountPair> _dropResourses;
-
     [SerializeField, Range(0, 100)]
     private float _dropChance;
 
@@ -27,14 +12,14 @@ public class ResourceObjectSpawner : ActionObject
     private Collider _collider;
     private MeshFilter _renderer;
 
-    private float _baseTimeToExtract;
+    [Header("Restoring")]
+    [SerializeField]
+    private Mesh _restoredMesh;
+    [SerializeField]
+    private Mesh _restoringMesh;
 
-    public float TimeToExtract
-    {
-        get => _timeToExtract;
-
-        set => _timeToExtract = value;
-    }
+    [SerializeField, Min(0f)]
+    private float _timeToRestore;
 
     public bool IsRestored
     {
@@ -47,7 +32,7 @@ public class ResourceObjectSpawner : ActionObject
             _isRestored = value;
             _collider.enabled = value;
             if (value)
-                _timeToExtract = _baseTimeToExtract;
+                Health = MaxHealth;
         }
     }
 
@@ -55,32 +40,27 @@ public class ResourceObjectSpawner : ActionObject
     {
         _collider = GetComponent<Collider>();
         _renderer = GetComponent<MeshFilter>();
-        _baseTimeToExtract = _timeToExtract;
     }
+
+    protected override float GetDamage(Unit Unit)
+        => Unit.Strength;
 
     public override void Interact(Unit unit)
     {
-        if (!IsRestored)
+        if (unit is Bee)
             return;
-
-
+        var bear = unit as Bear;
 
         if (Random.Range(0f, 1f) <= (_dropChance / 100))
-            unit.Inventory.TryToAdd(_dropResourses[Random.Range(0, _dropResourses.Count - 1)].Resource);
+            bear.Inventory
+                .TryToAdd(DropableItems
+                .ElementAt(Random.Range(0, DropableItems.Count() - 1)).Resource);
 
-        TimeToExtract -= unit.Strength;
-        if (TimeToExtract < 0)
-            ToBreak(unit);
+        base.Interact(unit);
     }
 
-    public void ToBreak(Unit unit)
+    protected override void Break()
     {
-        foreach (var item in _dropResourses)
-            for (int i = 0; i < item.Count; i++)
-                unit.Inventory.TryToAdd(item.Resource);
-
-        unit.Behaviour = null;
-
         StartCoroutine(StartRestoring());
     }
 

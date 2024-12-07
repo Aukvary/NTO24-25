@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8298230468964353042}
   - component: {fileID: 2152176601619605877}
   - component: {fileID: 4226375127121822257}
-  - component: {fileID: 5742682036973549675}
   - component: {fileID: 6866139536227337715}
+  - component: {fileID: 1611824978310172847}
   m_Layer: 0
   m_Name: OsaUnit
   m_TagString: Untagged
@@ -81,54 +81,6 @@ CapsuleCollider:
   m_Height: 1.9813827
   m_Direction: 1
   m_Center: {x: 0, y: 0.99956304, z: 0}
---- !u!114 &5742682036973549675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2569323056179923504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef68adc3965eda41b88554258c2f3b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
-  _attackRange: 1
-  _attackAngle: 60
-  _strength:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _damage:
-  - 5
-  - 6.5
-  - 8.45
-  - 11
-  - 14.5
-  _maxHealth:
-  - 14
-  - 18
-  - 24
-  - 31
-  - 40
-  _regeneration:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  _restoreTime: 0
-  _isBee: 1
-  _dropResources:
-  - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 1
-  _storage: {fileID: 0}
-  _bearActivityManager: {fileID: 0}
-  _headSprite: {fileID: 0}
-  _unitName: 
 --- !u!114 &6866139536227337715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +94,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agrRange: 10
+--- !u!114 &1611824978310172847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569323056179923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2be6a4beacc4554586e66a6bcd78bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 5
+  _attackRange: 1.5
+  _attackAngle: 90
+  _damage:
+  - 5
+  - 6.5
+  - 8.45
+  - 11
+  - 15
+  _strength:
+  - 5
+  - 6.5
+  - 8.45
+  - 11
+  - 15
+  _maxHealth:
+  - 20
+  - 26
+  - 34
+  - 44
+  - 57
+  _regeneration:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _dropableItems: []
 --- !u!1001 &2717668153105798277
 PrefabInstance:
   m_ObjectHideFlags: 0

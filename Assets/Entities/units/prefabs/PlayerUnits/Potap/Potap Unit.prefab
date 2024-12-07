@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6397641575273439427}
   - component: {fileID: 7080714630953995675}
   - component: {fileID: 3223313066229768091}
-  - component: {fileID: 3599669257870765065}
+  - component: {fileID: 1726566674928530218}
   m_Layer: 0
   m_Name: Potap Unit
   m_TagString: Untagged
@@ -80,7 +80,7 @@ CapsuleCollider:
   m_Height: 2.17
   m_Direction: 1
   m_Center: {x: 0, y: 1.05, z: 0}
---- !u!114 &3599669257870765065
+--- !u!114 &1726566674928530218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,43 +89,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 4340510777035029506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef68adc3965eda41b88554258c2f3b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 2157cdb2417c59744abd318639e621fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
   _attackRange: 2
-  _attackAngle: 30
-  _strength:
-  - 2
-  - 2.5
-  - 3
-  - 3.5
-  - 4
+  _attackAngle: 60
   _damage:
   - 4
   - 5
   - 6
   - 7
   - 8
+  _strength:
+  - 2
+  - 2.5
+  - 3
+  - 3.5
+  - 4
   _maxHealth:
   - 35
-  - 43.5
+  - 44
   - 52
-  - 60.5
-  - 70
+  - 61
+  - 80
   _regeneration:
   - 1
   - 1.25
   - 1.5
   - 1.75
   - 2
-  _restoreTime: 30
-  _isBee: 0
-  _dropResources: []
+  _restoreTime: 60
   _storage: {fileID: 0}
   _bearActivityManager: {fileID: 0}
   _headSprite: {fileID: 21300000, guid: fbddc6fcd6bbb4d48b3348d86416ec5a, type: 3}
-  _unitName: potap
+  _unitName: Potap
 --- !u!1001 &1020590213842320847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -208,3 +206,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586883bbf4f52fc41adeffde164d7fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stepSound: {fileID: 0}

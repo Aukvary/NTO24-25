@@ -552,7 +552,7 @@ MonoBehaviour:
   - Resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
     Count: 6
     _countText: {fileID: 7730640637026353986}
-  _afterBuildEvent:
+  _onBuildEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4875307881629104124}

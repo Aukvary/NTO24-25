@@ -27,7 +27,7 @@ public class MusicController : MonoBehaviour
 
     private bool _fightNow = false;
 
-    private bool _fight => _activityManager.AllUnits.Any(u => u != null && u.IsBee);
+    private bool _fight => _activityManager.AllUnits.Any(u => u is Bee);
 
     private void Awake()
     {

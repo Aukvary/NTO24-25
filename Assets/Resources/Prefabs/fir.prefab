@@ -202,14 +202,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7101b4ba3b51d42891874284a285cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _heath: 30
+  _dropableResources:
+  - _resorce: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
+    _count: 5
+  _onBreakEvents:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHitEvents:
+    m_PersistentCalls:
+      m_Calls: []
+  _dropChance: 5
   _restoredMesh: {fileID: -2432090755550338912, guid: bd6521de410a74941b0e1991476ddb56, type: 3}
   _restoringMesh: {fileID: 0}
-  _timeToExtract: 30
   _timeToRestore: 240
-  _dropResourses:
-  - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 5
-  _dropChance: 5
 --- !u!4 &7660976514887950594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd6521de410a74941b0e1991476ddb56, type: 3}

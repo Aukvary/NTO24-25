@@ -10,6 +10,9 @@ public class HomeHealthUI : MonoBehaviour
     private TextMeshProUGUI _regeneration;
 
     [SerializeField]
+    private RectTransform _valueBar;
+
+    [SerializeField]
     private BreakeableObject _home;
 
     private GameObject[] _renderers;
@@ -30,8 +33,9 @@ public class HomeHealthUI : MonoBehaviour
         }
         _regeneration.text = _home.Regeneration.ToString();
         _health.text = $"{_home.Health} / {_home.MaxHealth}";
-        _home._onHitEvent.AddListener(() =>
+        _home.AddListerForHit(() =>
         {
+            _valueBar.anchorMax = new(_home.Health / _home.MaxHealth, 1f);
             _health.text = $"{_home.Health} / {_home.MaxHealth}";
         });
 

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
 using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
 
-public class ConstructionObject : ActionObject, ILoadable
+#pragma warning disable CS4014
+public class ConstructionObject : MonoBehaviour, IInteractable, ILoadable
 {
     [System.Serializable]
     public class RepairInfo
@@ -20,7 +20,7 @@ public class ConstructionObject : ActionObject, ILoadable
     private List<RepairInfo> _materials;
 
     [SerializeField]
-    public UnityEvent _afterBuildEvent;
+    private UnityEvent _onBuildEvent;
 
     [SerializeField]
     private string _name;
@@ -33,9 +33,11 @@ public class ConstructionObject : ActionObject, ILoadable
 
     public bool Loaded { get; set; }
 
+    public Transform Transform => transform;
+
     private void Awake()
     {
-        foreach (var pair in _materials) 
+        foreach (var pair in _materials)
         {
             pair._countText.text = pair.Count.ToString();
         }
@@ -44,22 +46,25 @@ public class ConstructionObject : ActionObject, ILoadable
 
         Initialize();
     }
+    public bool CanInteract(Unit unit)
+        => _materials.Any(material => (unit as Bear).Storage[material.Resource] > 0 && material.Count != 0);
 
-    public override void Interact(Unit unit)
+    public void Interact(Unit unit)
     {
-        if (_materials.All(material => unit.Storage[material.Resource] == 0))
-        {
-            unit.Behaviour = null;
+        if (unit is Bee)
             return;
-        }
 
-
+        var bear = unit as Bear;
         foreach (var pair in _materials)
         {
+            if (bear.Storage[pair.Resource] == 0)
+                continue;
+
             if (pair.Count == 0)
                 continue;
+
             pair.Count -= 1;
-            unit.Storage[pair.Resource] -= 1;
+            bear.Storage[pair.Resource] -= 1;
 
             pair._countText.text = pair.Count.ToString();
         }
@@ -74,7 +79,7 @@ public class ConstructionObject : ActionObject, ILoadable
 
     private void Build()
     {
-        _afterBuildEvent?.Invoke();
+        _onBuildEvent?.Invoke();
         Destroy(gameObject);
     }
 
@@ -86,5 +91,10 @@ public class ConstructionObject : ActionObject, ILoadable
             return;
 
         Build();
+    }
+
+    public void AddListnerToBuild(UnityAction action)
+    {
+        _onBuildEvent.AddListener(action);
     }
 }

@@ -6089,24 +6089,24 @@ MonoBehaviour:
   _upgradeType: 2
   _resourcesLevel1:
   - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
-    _count: 2
+    _count: 8
   - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
-    _count: 9
+    _count: 2
   _resourcesLevel2:
   - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
-    _count: 3
-  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
     _count: 12
+  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
+    _count: 3
   _resourcesLevel3:
   - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
-    _count: 4
-  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
     _count: 15
+  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
+    _count: 4
   _resourcesLevel4:
   - _resource: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
-    _count: 5
-  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
     _count: 20
+  - _resource: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
+    _count: 5
   _selectedColor: {r: 0.57254905, g: 0.57254905, b: 0.57254905, a: 1}
   _unselectedColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   _title: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"

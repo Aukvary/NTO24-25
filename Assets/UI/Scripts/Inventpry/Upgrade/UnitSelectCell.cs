@@ -11,13 +11,13 @@ public class UnitSelectCell : MonoBehaviour
 
     private Color _unselectedColor;
 
-    private Unit _unit;
+    private Bear _unit;
 
     private Image _cell;
 
     private bool _isSelected;
 
-    public Unit Unit 
+    public Bear Bear
     {
         get => _unit;
         set
