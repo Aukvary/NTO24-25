@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable CS4014
 public class BeesSpawner : MonoBehaviour
 {
     [SerializeField]
@@ -22,10 +23,23 @@ public class BeesSpawner : MonoBehaviour
 
     private BreakeableObject _pairy;
 
+    private User _cyberApireUser;
+
     private void Awake()
     {
         _pairy = GetComponent<BreakeableObject>();
         _pairy.AddListerForHit(Spawn);
+
+        _cyberApireUser = new(name);
+
+        Initialize();
+    }
+
+    private async void Initialize()
+    {
+        await _cyberApireUser.InitializeUser(nameof(_waspLevel));
+
+        _waspLevel = _cyberApireUser.Resources[nameof(_waspLevel)];
     }
 
     private void Start()
@@ -41,7 +55,10 @@ public class BeesSpawner : MonoBehaviour
             Spawn();
 
             if (_waspLevel < 4)
+            {
                 _waspLevel++;
+                _cyberApireUser.UpdateUser(nameof(_waspLevel), _waspLevel);
+            }
         }
     }
 

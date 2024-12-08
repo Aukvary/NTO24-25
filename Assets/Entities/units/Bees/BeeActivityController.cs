@@ -46,10 +46,6 @@ public class BeeActivityController : MonoBehaviour
                 bear = u;
             }
         }
-        if (_unit.Behaviour.Target is Bear b && b == bear)
-        {
-            return;
-        }
 
         if (min <= _agrRange && bear.Alive)
         {

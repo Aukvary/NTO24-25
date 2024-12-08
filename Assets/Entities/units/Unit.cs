@@ -95,6 +95,11 @@ public abstract class Unit : MonoBehaviour, IInteractable
     public event Action<Unit> OnLevelUpEvent;
 
 
+    public event Action<Unit> OnLevelUpDamageEvent;
+    public event Action<Unit> OnLevelUpStrenghtEvent;
+    public event Action<Unit> OnLevelUpHealthEvent;
+
+
     protected virtual void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
@@ -120,26 +125,34 @@ public abstract class Unit : MonoBehaviour, IInteractable
 
     public void InteractWith(IInteractable obj)
     {
-        if (Health > 0)
+        if (Health > 0 && obj != Behaviour.Target)
             Behaviour.Target = obj;
     }
 
     public virtual bool CanInteract(Unit unit)
     {
-        var hit = unit.Behaviour.TargetHit;
-
-        if (unit.Behaviour.HasPath)
+        try
         {
-            unit.NavMeshAgent.destination = transform.position;
+            var hit = unit.Behaviour.TargetHit;
+
+            if (unit.Behaviour.HasPath)
+            {
+                unit.NavMeshAgent.destination = transform.position;
+                return false;
+            }
+
+            if (hit.collider == null)
+                return false;
+
+
+            if (Vector3.Angle(unit.transform.forward, hit.point - unit.transform.position) > unit._attackAngle)
+                return false;
+        }
+        catch (MissingReferenceException)
+        {
+            unit.Behaviour.Target = null;
             return false;
         }
-
-        if (hit.collider == null)
-            return false;
-
-
-        if (Vector3.Angle(unit.transform.forward, hit.point - unit.transform.position) > unit._attackAngle)
-            return false;
 
         return true;
     }
@@ -168,14 +181,17 @@ public abstract class Unit : MonoBehaviour, IInteractable
         {
             case UpgradeType.Damage:
                 AttackLevel += 1;
+                OnLevelUpDamageEvent?.Invoke(this);
                 break;
 
             case UpgradeType.Strenght:
                 StrenghtLevel += 1;
+                OnLevelUpStrenghtEvent?.Invoke(this);
                 break;
 
             case UpgradeType.Health:
                 HealthLevel += 1;
+                OnLevelUpHealthEvent?.Invoke(this);
                 break;
         }
         OnLevelUpEvent?.Invoke(this);
@@ -187,14 +203,17 @@ public abstract class Unit : MonoBehaviour, IInteractable
         {
             case UpgradeType.Damage:
                 AttackLevel = level;
+                OnLevelUpDamageEvent?.Invoke(this);
                 break;
 
             case UpgradeType.Strenght:
                 StrenghtLevel = level;
+                OnLevelUpStrenghtEvent?.Invoke(this);
                 break;
 
             case UpgradeType.Health:
                 HealthLevel = level;
+                OnLevelUpHealthEvent?.Invoke(this);
                 break;
         }
         OnLevelUpEvent?.Invoke(this);

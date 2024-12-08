@@ -1,7 +1,7 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
-using System.Collections.Generic;
 
 public class Bear : Unit, ILoadable
 {
@@ -26,6 +26,8 @@ public class Bear : Unit, ILoadable
     private Inventory _inventory;
 
     private Vector3 _spawnPosition;
+
+    private User _levelUser;
 
     public bool Alive
     {
@@ -69,15 +71,28 @@ public class Bear : Unit, ILoadable
         _inventory = new(this);
         _bearActivityManager.AddUnit(this);
 
+        _levelUser = new(UnitName + "_level");
+
         _spawnPosition = transform.position;
 
-        Initialize();
+        OnLevelUpDamageEvent += async u => await _levelUser.UpdateUser(nameof(AttackLevel), AttackLevel);
 
+        OnLevelUpStrenghtEvent += async u => await _levelUser.UpdateUser(nameof(StrenghtLevel), StrenghtLevel);
+
+        OnLevelUpHealthEvent += async u => await _levelUser.UpdateUser(nameof(HealthLevel), HealthLevel);
+
+        Initialize();
     }
 
     public async void Initialize()
     {
         await _inventory.InitializeUser();
+            await _levelUser.InitializeUser(nameof(AttackLevel), nameof(StrenghtLevel), nameof(HealthLevel));
+
+        AttackLevel = _levelUser.Resources[nameof(AttackLevel)];
+        StrenghtLevel = _levelUser.Resources[nameof(StrenghtLevel)];
+        HealthLevel = _levelUser.Resources[nameof(HealthLevel)];
+
         Loaded = true;
     }
 

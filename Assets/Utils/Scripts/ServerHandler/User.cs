@@ -65,7 +65,7 @@ public class User
 
         response.EnsureSuccessStatusCode();
 
-        return JsonSerializer.Deserialize<List<User>>(await response.Content.ReadAsStringAsync()) ?? new List<User>();
+        return JsonSerializer.Deserialize<List<User>>(await response.Content.ReadAsStringAsync()) ?? new();
     }
 
     public static async void Delete()
@@ -94,6 +94,7 @@ public class User
         var response = await _client.PostAsync(_users, content);
 
         response.EnsureSuccessStatusCode();
+
     }
 
     public async Task<User> GetUser()
@@ -167,7 +168,14 @@ public class User
 
         HttpResponseMessage response = await _client.SendAsync(request);
 
-        response.EnsureSuccessStatusCode();
+        try
+        {
+            response.EnsureSuccessStatusCode();
+        }
+        catch (Exception)
+        {
+            Debug.Log(Name);
+        }
     }
 
     public async Task<string> UserLog(string comment, params string[] logs)

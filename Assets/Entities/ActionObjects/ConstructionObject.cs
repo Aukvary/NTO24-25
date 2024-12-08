@@ -80,7 +80,11 @@ public class ConstructionObject : MonoBehaviour, IInteractable, ILoadable
     private void Build()
     {
         _onBuildEvent?.Invoke();
-        Destroy(gameObject);
+        try
+        {
+            Destroy(gameObject);
+        }
+        catch(MissingReferenceException) { }
     }
 
     public async void Initialize()
