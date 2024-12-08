@@ -118,12 +118,19 @@ public abstract class Unit : MonoBehaviour, IInteractable
 
     public void InteractWith(IInteractable obj)
     {
-        Behaviour.Target = obj;
+        if (Health > 0)
+            Behaviour.Target = obj;
     }
 
     public virtual bool CanInteract(Unit unit)
     {
         var hit = unit.Behaviour.TargetHit;
+
+        if (unit.Behaviour.HasPath)
+        {
+            unit.NavMeshAgent.destination = transform.position;
+            return false;
+        }
 
         if (hit.collider == null)
             return false;

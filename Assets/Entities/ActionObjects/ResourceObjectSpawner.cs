@@ -36,8 +36,9 @@ public class ResourceObjectSpawner : InteractBuild
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _collider = GetComponent<Collider>();
         _renderer = GetComponent<MeshFilter>();
     }

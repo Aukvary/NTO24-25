@@ -79,7 +79,8 @@ public class UnitBehaviourController
     public void MoveTo(Vector3 pos)
     {
         Target = null;
-        NavMeshAgent.destination = pos;
+        if (NavMeshAgent.enabled)
+            NavMeshAgent.destination = pos;
     }
 
     public void BehaviourUpdate()

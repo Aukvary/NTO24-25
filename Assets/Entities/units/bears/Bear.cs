@@ -80,11 +80,7 @@ public class Bear : Unit, ILoadable
     }
 
     public override bool CanInteract(Unit unit)
-    {
-        if (!Alive)
-            return false;
-        return base.CanInteract(unit);
-    }
+        => base.CanInteract(unit) && Alive;
 
     protected override void Die(Unit by)
     {
