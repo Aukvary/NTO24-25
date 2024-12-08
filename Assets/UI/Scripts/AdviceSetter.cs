@@ -53,7 +53,7 @@ public class AdviceSetter : MonoBehaviour
             },
             {
                 () => _bearManager.Bears.Any(b => b.HasPath),
-                "Нажмите на колёсико мышки и двигайте мышь, чтобы перемещать камеру"
+                "Зажмите колёсико мыши и двигайте ей, чтобы перемещать камеру. Или дважды нажмите на 1,2 или 3, чтобы переместить камеру к медведю."
             },
             {
                 () => _basePosition != _bearManager.transform.position,
