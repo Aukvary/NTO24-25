@@ -36,7 +36,7 @@ public class HomeHealthUI : MonoBehaviour
         _home.OnHealthChangeEvent += () =>
         {
             _valueBar.anchorMax = new(_home.Health / _home.MaxHealth, 1f);
-            _health.text = $"{_home.Health} / {_home.MaxHealth}";
+            _health.text = $"{(int)_home.Health} / {_home.MaxHealth}";
         };
 
         foreach (var r in _renderers)

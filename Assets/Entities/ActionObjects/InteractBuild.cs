@@ -54,7 +54,7 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
         if (unit is Bear bear)
             Drop(bear);
 
-
+        _onBreakEvents.Invoke();
         Break();
     }
 

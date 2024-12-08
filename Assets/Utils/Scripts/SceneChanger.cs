@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 #pragma warning disable CS4014
 public class SceneChanger : MonoBehaviour
@@ -61,17 +62,21 @@ public class SceneChanger : MonoBehaviour
         SceneManager.LoadScene((int)Scenes.House);
     }
 
-    public async void ExitToMenu()
+    public void ExitToMenu()
     {
         if (User.Tutorial)
-        {
-            foreach (var user in (await User.GetUsers()).Where(u => u.Name.Contains(User.TutorialSeed)))
-                user.DeleteUser();
-
-        }
-        User.Tutorial = false;
-        User.TutorialSeed = null;
+            DeleteTutuorialInfo();
+        
 
         SceneManager.LoadScene((int)Scenes.MainMenu);
+    }
+
+    private async void DeleteTutuorialInfo()
+    {
+        User.Tutorial = false;
+        var seed = User.TutorialSeed;
+        User.TutorialSeed = null;
+        foreach (var user in (await User.GetUsers()).Where(u => u.Name.Contains(seed)))
+            user.DeleteUser();
     }
 }

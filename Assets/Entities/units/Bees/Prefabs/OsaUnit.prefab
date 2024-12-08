@@ -133,7 +133,9 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  _dropableItems: []
+  _dropableItems:
+  - _resorce: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
+    _count: 1
 --- !u!1001 &2717668153105798277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4437317306497949145, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4437317306497949145, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
       propertyPath: m_LocalPosition.z

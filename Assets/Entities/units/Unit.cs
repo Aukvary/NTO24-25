@@ -109,7 +109,8 @@ public abstract class Unit : MonoBehaviour, IInteractable
     {
         if (Health > 0) 
             Behaviour?.BehaviourUpdate();
-        Health += Regeneration * Time.deltaTime;
+        if (Health > 0)
+            Health += Regeneration * Time.deltaTime;
     }
 
     public void MoveTo(Vector3 newPostion)
