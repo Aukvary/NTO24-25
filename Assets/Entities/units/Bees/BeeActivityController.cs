@@ -11,8 +11,6 @@ public class BeeActivityController : MonoBehaviour
 
     private BreakeableObject _durovHouse;
 
-    private Vector3 _targetPosition;
-
     public Bee Spawn(Vector3 spawnPosition, BearActivityManager bearActivityManager, BreakeableObject durovHome)
     {
         var bee = Instantiate(this, spawnPosition, Quaternion.identity);
@@ -61,5 +59,10 @@ public class BeeActivityController : MonoBehaviour
 
         if (_unit.Behaviour.Target == null)
             _unit.InteractWith(_durovHouse);
+    }
+
+    private void OnDestroy()
+    {
+        _manager.RemoveUnit(_unit);
     }
 }
