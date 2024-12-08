@@ -51,7 +51,7 @@ MonoBehaviour:
   _heath: 30
   _dropableResources:
   - _resorce: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 5
+    _count: 2
   _onBreakEvents:
     m_PersistentCalls:
       m_Calls: []
