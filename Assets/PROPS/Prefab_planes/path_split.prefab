@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1493689033694908512}
   - component: {fileID: -7819169369357067409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: path_split
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,16 @@ PrefabInstance:
       value: pathsplit
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b4bba6a1635d4c24fa408e187f80f916, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b4bba6a1635d4c24fa408e187f80f916, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: b4bba6a1635d4c24fa408e187f80f916, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: b4bba6a1635d4c24fa408e187f80f916, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -69,6 +69,8 @@ public class Bear : Unit, ILoadable
         _inventory = new(this);
         _bearActivityManager.AddUnit(this);
 
+        _spawnPosition = transform.position;
+
         Initialize();
 
     }

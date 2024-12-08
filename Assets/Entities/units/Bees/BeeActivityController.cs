@@ -39,20 +39,25 @@ public class BeeActivityController : MonoBehaviour
         float min = float.MaxValue;
         Bear bear = null;
         
-        foreach (var b in _manager.Bears)
+        foreach (var u in _manager.Bears.Where(b => b.Alive))
         {
-            var bMin = Mathf.Min(min, Vector3.Distance(b.transform.position, transform.position));
-            if (bMin < min && b.Alive)
+            var bMin = Mathf.Min(min, Vector3.Distance(u.transform.position, transform.position));
+            if (bMin < min && u.Alive)
             {
                 min = bMin;
-                bear = b;
+                bear = u;
             }
         }
-        if (bear == _unit.Behaviour.Target as Bear)
+        if (_unit.Behaviour.Target is Bear b && b == bear)
+        {
             return;
+        }
 
-        if (min <= _agrRange)
+        if (min <= _agrRange && bear.Alive)
+        {
             _unit.InteractWith(bear);
+            return;
+        }
 
         if (_unit.Behaviour.Target == null)
             _unit.InteractWith(_durovHouse);

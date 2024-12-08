@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5775521991980580010}
   - component: {fileID: 625809028875629890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: flowers_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,16 @@ PrefabInstance:
       value: halfflower
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c8a8538485513fc4a95098d3fb3e90d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c8a8538485513fc4a95098d3fb3e90d4, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: c8a8538485513fc4a95098d3fb3e90d4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: c8a8538485513fc4a95098d3fb3e90d4, type: 3}
       propertyPath: m_StaticEditorFlags

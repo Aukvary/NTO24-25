@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BreakeableObject : InteractBuild
 {
@@ -9,6 +6,11 @@ public class BreakeableObject : InteractBuild
     private float _regeneration;
 
     public float Regeneration => _regeneration;
+
+    private void Update()
+    {
+        Health += _regeneration * Time.deltaTime;
+    }
 
     protected override void Break()
     {

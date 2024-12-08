@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#pragma warning disable CS4014
 public class SceneChanger : MonoBehaviour
 {
     private enum Scenes
@@ -18,7 +19,6 @@ public class SceneChanger : MonoBehaviour
     {
         PlayerPrefs.SetString(nameof(User), User.PlayerID);
         PlayerPrefs.Save();
-        PlayerPrefs.DeleteAll();
         User.Tutorial = false;
         User.TutorialSeed = null;
         Application.Quit();
@@ -65,7 +65,6 @@ public class SceneChanger : MonoBehaviour
     {
         if (User.Tutorial)
         {
-            #pragma warning disable
             foreach (var user in (await User.GetUsers()).Where(u => u.Name.Contains(User.TutorialSeed)))
                 user.DeleteUser();
 

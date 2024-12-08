@@ -45,11 +45,6 @@ public class AdviceSetter : MonoBehaviour
 
         _advice = GetComponent<AdviceField>();
 
-        _layOut = false;
-        _attack = false;
-        _broke = false;
-        _build = false;
-
         CondAdvicePairs = new Dictionary<Func<bool>, string>()
         {
             {

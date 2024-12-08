@@ -80,11 +80,13 @@ public class BearActivityManager : MonoBehaviour
         {
             if (obj is Bear)
                 return;
+
             if ((object)obj == _burovHome)
                 return;
 
             foreach (var bear in _controlledUnits)
                 bear?.InteractWith(obj);
+
             return;
         }
 
@@ -93,7 +95,13 @@ public class BearActivityManager : MonoBehaviour
         if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
         {
             foreach (var unit in _controlledUnits)
-                unit.MoveTo(groundHit.point);
+            {
+                try
+                {
+                    unit.MoveTo(groundHit.point);
+                }
+                catch { }
+            }
         }
     }
 
@@ -111,7 +119,7 @@ public class BearActivityManager : MonoBehaviour
 
         if (!hit.transform.TryGetComponent<Bear>(out var unit))
             return;
-        
+
         _controlledUnits.Clear();
 
         _inventoryHUD.Unit = unit;

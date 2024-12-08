@@ -46,6 +46,9 @@ public class ResourceObjectSpawner : InteractBuild
     protected override float GetDamage(Unit Unit)
         => Unit.Strength;
 
+    public override bool CanInteract(Unit unit)
+        => IsRestored;
+
     public override void Interact(Unit unit)
     {
         if (unit is Bee)

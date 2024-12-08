@@ -107,7 +107,8 @@ public abstract class Unit : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        Behaviour?.BehaviourUpdate();
+        if (Health > 0) 
+            Behaviour?.BehaviourUpdate();
         Health += Regeneration * Time.deltaTime;
     }
 
@@ -148,7 +149,7 @@ public abstract class Unit : MonoBehaviour, IInteractable
 
         if (_health > 0)
             return;
-
+        Behaviour.Target = null;
         Die(unit);
     }
 

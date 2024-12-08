@@ -52,12 +52,12 @@ NavMeshAgent:
   m_AngularSpeed: 500
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!136 &4226375127121822257
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _attackRange: 1.5
+  _attackRange: 2
   _attackAngle: 90
   _damage:
   - 5
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4437317306497949145, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4437317306497949145, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
       propertyPath: m_LocalPosition.z

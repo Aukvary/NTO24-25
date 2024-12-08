@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,9 +23,7 @@ public class UnitBehaviourController
         {
             _targetObject = value;
             if (value == null)
-            {
                 Unit.BehaviourAnimation.OnPunchAnimationEvent -= TryInteract;
-            }
             else
             {
                 Unit.BehaviourAnimation.OnPunchAnimationEvent += TryInteract;
@@ -35,7 +34,14 @@ public class UnitBehaviourController
 
     public Vector3 TargetPosition
     {
-        get => _targetPosition;
+        get
+        {
+            try
+            {
+                return Target.Transform.position;
+            }
+            catch (NullReferenceException) { return _targetPosition; }
+        }
 
         private set
         {
@@ -50,24 +56,24 @@ public class UnitBehaviourController
     {
         get
         {
-            Ray ray = new(Unit.transform.position, Vector3.up + _targetPosition - Unit.transform.position);
+            Vector3 start = Unit.transform.position;
+            Vector3 end = TargetPosition - Unit.transform.position;
+
+            if (Target is Unit)
+                end += Vector3.up;
+
+            Ray ray = new(start, end);
+            Debug.DrawRay(start, end, Color.red);
             RaycastHit hit;
-            try
-            {
-                hit = Physics.RaycastAll(ray)
-                .FirstOrDefault(hit => hit.transform.gameObject == TargetTransform?.gameObject);
-                return hit;
-            }
-            catch (MissingReferenceException)
-            {
-                return default;
-            }
+            hit = Physics.RaycastAll(ray)
+                .FirstOrDefault(hit => hit.transform == TargetTransform && hit.transform != null);
+            return hit;
 
         }
     }
 
     public bool HasPath
-        => TargetHit.collider == null ? true : Vector3.Distance(TargetHit.point, Unit.transform.position) > Range;
+        => TargetHit.transform == null ? true : Vector3.Distance(TargetHit.point, Unit.transform.position) > Range;
 
     public UnitBehaviourController(Unit unit, float range)
     {
@@ -79,21 +85,28 @@ public class UnitBehaviourController
     public void MoveTo(Vector3 pos)
     {
         Target = null;
-        if (NavMeshAgent.enabled)
-            NavMeshAgent.destination = pos;
+        TargetPosition = pos;
+        try
+        {
+            if (NavMeshAgent.enabled)
+                NavMeshAgent.destination = pos;
+        }
+        catch { }
     }
 
     public void BehaviourUpdate()
     {
         SetAnimation();
+
         if (!HasPath && NavMeshAgent.hasPath)
             NavMeshAgent.ResetPath();
+        else if (HasPath && Target != null && Target is Unit unit)
+            NavMeshAgent.destination = TargetPosition;
 
-        if (NavMeshAgent.hasPath)
+        if (NavMeshAgent.hasPath || Target == null)
             return;
 
-        if (Target == null)
-            return;
+
         var direction = TargetPosition - Unit.transform.position;
         direction.y = Unit.transform.position.y;
 
@@ -120,20 +133,17 @@ public class UnitBehaviourController
     {
         if (Target == null) 
             return;
+        if (!Target.CanInteract(Unit))
+            Target = null;
         if (HasPath)
         {
             if (TargetTransform != null)
                 NavMeshAgent.destination = TargetTransform.position;
             else
-            {
                 Target = null;
-                return;
-            }
+            return;
         }
-            
         if (Target.CanInteract(Unit))
             Target.Interact(Unit);
-        else
-            Target = null;
     }
 }

@@ -33,11 +33,11 @@ public class HomeHealthUI : MonoBehaviour
         }
         _regeneration.text = _home.Regeneration.ToString();
         _health.text = $"{_home.Health} / {_home.MaxHealth}";
-        _home.AddListerForHit(() =>
+        _home.OnHealthChangeEvent += () =>
         {
             _valueBar.anchorMax = new(_home.Health / _home.MaxHealth, 1f);
             _health.text = $"{_home.Health} / {_home.MaxHealth}";
-        });
+        };
 
         foreach (var r in _renderers)
             r.SetActive(false);

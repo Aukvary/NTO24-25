@@ -3033,7 +3033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6821767238049184819, guid: b3d3303685e61934fa9d6be89b76825b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6967522421600632620, guid: b3d3303685e61934fa9d6be89b76825b, type: 3}
       propertyPath: m_Color.a
@@ -6375,7 +6375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6821767238049184819, guid: b3d3303685e61934fa9d6be89b76825b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7197457219679126518, guid: b3d3303685e61934fa9d6be89b76825b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

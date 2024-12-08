@@ -16,6 +16,9 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
 
     [SerializeField]
     private UnityEvent _onHitEvents;
+
+    private Transform _transform;
+
     public IEnumerable<ResourceCountPair> DropableItems => _dropableResources;
 
     public float Health
@@ -24,8 +27,8 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
 
         protected set
         {
-            _heath = value;
-            _onHitEvents.Invoke();
+            OnHealthChangeEvent?.Invoke();
+            _heath = Mathf.Clamp(value, 0, MaxHealth);
         }
     }
 
@@ -33,20 +36,24 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
 
     public float MaxHealth => _maxHealth;
 
-    public Transform Transform => transform;
+    public Transform Transform => _transform;
 
-    public bool CanInteract(Unit unit)
+    public virtual bool CanInteract(Unit unit)
         => _heath > 0;
+
+    public event Action OnHealthChangeEvent;
 
     public virtual void Interact(Unit unit)
     {
         Health -= GetDamage(unit);
 
+        _onHitEvents.Invoke();
         if (_heath > 0)
             return;
 
         if (unit is Bear bear)
             Drop(bear);
+
 
         Break();
     }
@@ -54,6 +61,7 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
     protected virtual void Awake()
     {
         _maxHealth = _heath;
+        _transform = transform;
     }
 
     public void AddListerForHit(UnityAction action)
@@ -68,6 +76,11 @@ public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEnt
             for (int i = 0; i < item.Count; i++)
                 unit.Inventory.TryToAdd(item.Resource);
 
+    }
+
+    private void OnDestroy()
+    {
+        _transform = null;
     }
 
     protected abstract float GetDamage(Unit Unit);

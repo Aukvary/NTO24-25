@@ -65,12 +65,13 @@ public class Storage : MonoBehaviour, IInteractable, ILoadable
     }
 
     
-    public async void Interact(Unit unit)
+    public void Interact(Unit unit)
     {
         if (unit is Bee)
             return;
         foreach (var cell in (unit as Bear).Inventory.LayOutItems())
-            await Set(cell.Key, cell.Value + _resources[cell.Key]);
+            Set(cell.Key, cell.Value + _resources[cell.Key]);
+        OnLayOutItems.Invoke(this);
     }
 
     private async Task Set(Resource resource, int count)

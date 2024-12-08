@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 850791454079830644}
   - component: {fileID: -6168160418284522827}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: darkhakfgrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,16 @@ PrefabInstance:
       value: grassdarkhalf
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a186046995ef2e343aaef33208c3f2f0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a186046995ef2e343aaef33208c3f2f0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a186046995ef2e343aaef33208c3f2f0, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: a186046995ef2e343aaef33208c3f2f0, type: 3}
       propertyPath: m_StaticEditorFlags

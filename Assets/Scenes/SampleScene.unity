@@ -359,6 +359,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7080714630953995675, guid: 4bf1b32e1f6f69c4b889f69799bb9d24, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -939,6 +943,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 6357504945263145829, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
+      propertyPath: _hotkeyChangeZCameraPosition
+      value: -6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1094,6 +1102,10 @@ PrefabInstance:
       propertyPath: _bearActivityManager
       value: 
       objectReference: {fileID: 1740879708}
+    - target: {fileID: 9030193313903608457, guid: cbc955740ff256d47a31294f693a3463, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1470,6 +1482,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3799502703787593994, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194327175583886174, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

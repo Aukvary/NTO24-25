@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002256950094394101}
   - component: {fileID: -8201562529050530743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,16 @@ PrefabInstance:
       value: grass_plane
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2eef93275c37a8541a8d8bb2ee11c02c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2eef93275c37a8541a8d8bb2ee11c02c, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 2eef93275c37a8541a8d8bb2ee11c02c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 2eef93275c37a8541a8d8bb2ee11c02c, type: 3}
       propertyPath: m_StaticEditorFlags
