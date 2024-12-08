@@ -3485,6 +3485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: {fileID: 4020543091193126504}
   _regeneration: {fileID: 4220268509994531691}
+  _valueBar: {fileID: 0}
   _home: {fileID: 0}
 --- !u!1 &2220144099107680848
 GameObject:
@@ -4801,16 +4802,16 @@ MonoBehaviour:
   _upgradeType: 0
   _resourcesLevel1:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 4
+    _count: 6
   _resourcesLevel2:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 4
+    _count: 8
   _resourcesLevel3:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 6
+    _count: 10
   _resourcesLevel4:
   - _resource: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 8
+    _count: 14
   _selectedColor: {r: 0.57254905, g: 0.57254905, b: 0.57254905, a: 1}
   _unselectedColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   _title: "\u0423\u0440\u043E\u043D"
@@ -6111,8 +6112,8 @@ MonoBehaviour:
   _unselectedColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   _title: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
   _upgradeDescription: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
-    \u043C\u0430\u043A\u0441\u0438\u043B\u044C\u043C\u0430\u043D\u044B\u0439 \u0437\u0430\u043F\u0430\u0441
-    \u0437\u0432\u0434\u043E\u0440\u043E\u044C\u044F \u0438 \u0440\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u044E "
+    \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0439 \u0437\u0430\u043F\u0430\u0441
+    \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F \u0438 \u0440\u0435\u0433\u0435\u043D\u0435\u0440\u0430\u0446\u0438\u044E "
 --- !u!1 &4003787592596769694
 GameObject:
   m_ObjectHideFlags: 0
@@ -12045,24 +12046,24 @@ MonoBehaviour:
   _upgradeType: 1
   _resourcesLevel1:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 5
+    _count: 10
   - _resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     _count: 5
   _resourcesLevel2:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 10
+    _count: 15
   - _resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     _count: 10
   _resourcesLevel3:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 20
+    _count: 30
   - _resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
     _count: 20
   _resourcesLevel4:
   - _resource: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 40
+    _count: 50
   - _resource: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
-    _count: 40
+    _count: 30
   _selectedColor: {r: 0.57254905, g: 0.57254905, b: 0.57254905, a: 1}
   _unselectedColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
   _title: "\u0414\u043E\u0431\u044B\u0447\u0430"
