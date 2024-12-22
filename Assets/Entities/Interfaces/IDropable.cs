@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public interface IDropableEntity
+public interface IDropable : IEntity
 {
     IEnumerable<ResourceCountPair> DropableItems { get; }
 
-    public void Drop(Bear unit);
+    public void Drop(IInventoriable unit);
 }

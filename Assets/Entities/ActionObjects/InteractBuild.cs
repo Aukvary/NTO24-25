@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropableEntity
+public abstract class InteractBuild : MonoBehaviour, IInteractable, IDropable
 {
     [SerializeField]
     private float _heath;

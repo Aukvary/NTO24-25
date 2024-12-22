@@ -1,18 +1,21 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Events;
 
-public class Bear : Unit, ILoadable
+public class Bear : Unit, IInventoriable, ILoadable
 {
+    [SerializeField]
+    private UnityEvent _onUserInitializeEvent;
+
     [SerializeField]
     private float _restoreTime;
 
     [SerializeField]
     private Storage _storage;
-
-    [SerializeField]
-    private BearActivityManager _bearActivityManager;
 
     [SerializeField]
     private Sprite _headSprite;
@@ -21,94 +24,94 @@ public class Bear : Unit, ILoadable
     private string _unitName;
 
     private Collider _collider;
-    private MeshRenderer[] _meshRenderers;
+    private MeshRenderer[] _renderers;
 
     private Inventory _inventory;
 
     private Vector3 _spawnPosition;
 
-    private User _levelUser;
-
-    public bool Alive
-    {
-        get => Health > 0;
-
-        set
-        {
-            transform.position = _spawnPosition;
-            if (value)
-                Health = MaxHealth;
-
-            Behaviour.Target = null;
-            foreach (var item in _meshRenderers)
-            {
-                item.enabled = value;
-            }
-            NavMeshAgent.enabled = value;
-            _collider.enabled = value;
-        }
-    }
-
-    public Inventory Inventory => _inventory;
-
     public Sprite HeadSprite => _headSprite;
 
     public Storage Storage => _storage;
 
-    public string UnitName => _unitName;
+    public string Name => _unitName;
 
-    public bool HasPath => NavMeshAgent.hasPath;
 
-    public bool Loaded { get; set; }
+    public Inventory Inventory => _inventory;
 
+    public bool CanAppend => throw new NotImplementedException();
+    public int this[Resource resource] => throw new NotImplementedException();
+
+    public bool IsInitialized { get; set; }
+    public UnityEvent OnUserInitializeEvent => _onUserInitializeEvent;
+    public User User { get; private set; }
+    
+
+
+
+    public event UnityAction<IInventoriable, ResourceCountPair> OnFailedAddEvent;
+
+    public Bear Spawn(Vector3 position, Storage storage)
+    {
+        var bear = Instantiate(this, position, Quaternion.identity);
+
+        bear._storage = storage;
+        bear._spawnPosition = position;
+
+        return bear;
+    }
 
     protected override void Awake()
     {
         base.Awake();
-        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+        _renderers = GetComponentsInChildren<MeshRenderer>();
         _collider = GetComponent<Collider>();
 
-        _inventory = new(this);
-        _bearActivityManager.AddUnit(this);
-
-        _levelUser = new(UnitName + "_level");
-
-        _spawnPosition = transform.position;
-
-        OnLevelUpDamageEvent += async u => await _levelUser.UpdateUser(nameof(AttackLevel), AttackLevel);
-
-        OnLevelUpStrenghtEvent += async u => await _levelUser.UpdateUser(nameof(StrenghtLevel), StrenghtLevel);
-
-        OnLevelUpHealthEvent += async u => await _levelUser.UpdateUser(nameof(HealthLevel), HealthLevel);
-
-        Initialize();
     }
 
-    public async void Initialize()
+    public async Task Initialize()
     {
-        await _inventory.InitializeUser();
-            await _levelUser.InitializeUser(nameof(AttackLevel), nameof(StrenghtLevel), nameof(HealthLevel));
 
-        AttackLevel = _levelUser.Resources[nameof(AttackLevel)];
-        StrenghtLevel = _levelUser.Resources[nameof(StrenghtLevel)];
-        HealthLevel = _levelUser.Resources[nameof(HealthLevel)];
-
-        Loaded = true;
     }
 
-    public override bool CanInteract(Unit unit)
-        => base.CanInteract(unit) && Alive;
+    public IEnumerable<string> GetStringParametors()
+        => Stats.Select(s => s.Stat.ToString());
 
-    protected override void Die(Unit by)
+    protected override void InitializeHealth()
     {
-        Alive = false;
-        StartCoroutine(StartRestore());
+        base.InitializeHealth();
+        HealthComponent.AddOnDeathAction(entity =>
+        {
+            StartCoroutine(StartRestore());
+        });
+
+        HealthComponent.AddOnAliveChangeAction(alive =>
+        {
+            _collider.enabled = alive;
+
+            foreach (var renderer in _renderers)
+                renderer.enabled = alive;
+        });
+    }
+
+    public void AddToInventory(ResourceCountPair resources)
+    {
+
+    }
+
+    public void AddToInventory(IEnumerable<ResourceCountPair> resources)
+    {
+
+    }
+
+    public void UpdateUserInfo(string parametor, int value)
+    {
+
     }
 
     private IEnumerator StartRestore()
     {
-        Alive = false;
         yield return new WaitForSeconds(_restoreTime);
-        Alive = true;
+        HealthComponent.Alive = true;
     }
 }

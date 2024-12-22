@@ -49,7 +49,7 @@ public class BeeActivityController : MonoBehaviour
 
         if (min <= _agrRange && bear.Alive)
         {
-            _unit.InteractWith(bear);
+            _unit.InteractBy(bear);
             return;
         }
 

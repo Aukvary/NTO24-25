@@ -1,228 +1,92 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
 
-public abstract class Unit : MonoBehaviour, IInteractable
+public abstract class Unit : Entity, IHealthable, IStatsable
 {
-
-    [Header("Stats")]
-
     [SerializeField]
-    private float _speed;
-
-    [SerializeField]
-    private float _attackRange;
-
-    [SerializeField]
-    private float _attackAngle;
-
-    [SerializeField]
-    private List<float> _damage;
-
-    [SerializeField]
-    private List<float> _strength;
-
-    [SerializeField]
-    private List<float> _maxHealth;
-
-    [SerializeField]
-    private List<float> _regeneration;  
-
-    private float _health;
-
+    private List<EntityStat> _stats;
 
     private Animator _animator;
-    private BehaviourAnimation _behaviourAnimation;
-    private NavMeshAgent _navMeshAgent;
-    
-    
-    private int _attackLevel;
-    private int _strenghtLevel;
-    private int _healthLevel;
+    private Renderer[] _renderers;
 
-    private Transform _transform;
+    private MovementBehaviour _movementComponent;
 
-    public UnitBehaviourController Behaviour { get; private set; }
+    protected InteractingBehaviour Interactor { get; private set; }
+    public EntityHealth HealthComponent { get; private set; }
+    public BehaviourAnimation BehaviourAnimation { get; private set; }
 
-    public float Damage => _damage[AttackLevel];
-    public float Strength => _strength[StrenghtLevel];
-    public float MaxHealth => _maxHealth[HealthLevel];
-    public float Regeneration => _regeneration[_healthLevel];
-    public float Speed => _speed;
+    public override bool Interactable => HealthComponent.Alive;
+    public IEnumerable<EntityStat> Stats => _stats;
 
-    public float Health
+    public EntityStat this[EntityStatsType stat] => _stats.First(s => s.Stat == stat);
+
+    protected override void Awake()
     {
-        get => _health;
-        set
-        {
-            _health = Mathf.Clamp(value, 0, MaxHealth);
-            OnHealthChangeEvent?.Invoke(this);
-        }
-    }
-
-    public BehaviourAnimation BehaviourAnimation => _behaviourAnimation;
-
-    public int AttackLevel
-    {
-        get => _attackLevel;
-
-        set => _attackLevel = Math.Clamp(value, 0, 4);
-    }
-    public int StrenghtLevel
-    {
-        get => _strenghtLevel;
-        set => _strenghtLevel = Math.Clamp(value, 0, 4);
-    }
-    public int HealthLevel
-    {
-        get => _healthLevel;
-
-        set => _healthLevel = Math.Clamp(value, 0, 4);
-    }
-
-    public Animator Animator => _animator;
-
-    public Transform Transform => _transform;
-
-    public NavMeshAgent NavMeshAgent => _navMeshAgent;
-
-    public event Action<Unit> OnHealthChangeEvent;
-
-    public event Action<Unit> OnLevelUpEvent;
-
-
-    public event Action<Unit> OnLevelUpDamageEvent;
-    public event Action<Unit> OnLevelUpStrenghtEvent;
-    public event Action<Unit> OnLevelUpHealthEvent;
-
-
-    protected virtual void Awake()
-    {
+        base.Awake();
         _animator = GetComponentInChildren<Animator>();
-        _behaviourAnimation = GetComponentInChildren<BehaviourAnimation>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        Behaviour = new(this, _attackRange);
-        _health = MaxHealth;
-        _transform = transform;
+        BehaviourAnimation = GetComponentInChildren<BehaviourAnimation>();
+
+
+        InitializeHealth();
+        InitializeInteractor();
     }
 
-    private void Update()
+    protected virtual void InitializeHealth()
     {
-        if (Health > 0) 
-            Behaviour?.BehaviourUpdate();
-        if (Health > 0)
-            Health += Regeneration * Time.deltaTime;
-    }
+        HealthComponent = GetComponent<EntityHealth>();
 
-    public void MoveTo(Vector3 newPostion)
-    {
-        Behaviour.MoveTo(newPostion);
-    }
-
-    public void InteractWith(IInteractable obj)
-    {
-        if (Health > 0 && obj != Behaviour.Target)
-            Behaviour.Target = obj;
-    }
-
-    public virtual bool CanInteract(Unit unit)
-    {
-        try
+        HealthComponent.AddOnAliveChangeAction(alive =>
         {
-            var hit = unit.Behaviour.TargetHit;
+            _movementComponent.ResetPath();
+            foreach (var renderer in _renderers)
+                renderer.enabled = alive;
+        });
 
-            if (unit.Behaviour.HasPath)
-            {
-                unit.NavMeshAgent.destination = transform.position;
-                return false;
-            }
-
-            if (hit.collider == null)
-                return false;
-
-
-            if (Vector3.Angle(unit.transform.forward, hit.point - unit.transform.position) > unit._attackAngle)
-                return false;
-        }
-        catch (MissingReferenceException)
-        {
-            unit.Behaviour.Target = null;
-            return false;
-        }
-
-        return true;
     }
 
-    public void Interact(Unit unit)
+    protected virtual void InitializeInteractor()
     {
-        Health -= unit.Damage;
+        Interactor = GetComponent<InteractingBehaviour>();
 
-        if (_health > 0)
+        Interactor.AddOnTargetChangeAction(entity =>
+        {
+            if (entity != null)
+                _movementComponent.TargetPosition = Interactor.TargetPosition;
+        });
+
+        Interactor.AddnPossibilityInteractChangeAction(can =>
+        {
+            if (can)
+                _movementComponent.ResetPath();
+            else if (!can && Interactor.Target != null)
+                _movementComponent.TargetPosition = Interactor.TargetPosition;
+
+        });
+
+
+        Interactor.AddOnInteractFailedAction(() =>
+        {
+            _movementComponent.TargetPosition = Interactor.TargetPosition;
+        });
+    }
+
+    public void MoveTo(Vector3 newPos)
+    {
+        if (!HealthComponent.Alive)
             return;
-        Behaviour.Target = null;
-        Die(unit);
+        Interactor.Target = null;
+        _movementComponent.TargetPosition = newPos;
     }
 
-    public bool CanUpgrade(UpgradeType type) => type switch
+    protected override void Interact(Entity entity)
     {
-        UpgradeType.Damage => AttackLevel != 4,
-        UpgradeType.Strenght => StrenghtLevel != 4,
-        UpgradeType.Health => HealthLevel != 4,
-        _ => false,
-    };
+        if (!HealthComponent.Alive)
+            return;
 
-    public void Upgrade(UpgradeType type)
-    {
-        switch (type)
+        if (entity is Unit unit)
         {
-            case UpgradeType.Damage:
-                AttackLevel += 1;
-                OnLevelUpDamageEvent?.Invoke(this);
-                break;
 
-            case UpgradeType.Strenght:
-                StrenghtLevel += 1;
-                OnLevelUpStrenghtEvent?.Invoke(this);
-                break;
-
-            case UpgradeType.Health:
-                HealthLevel += 1;
-                OnLevelUpHealthEvent?.Invoke(this);
-                break;
         }
-        OnLevelUpEvent?.Invoke(this);
     }
-
-    public void Upgrade(UpgradeType type, int level)
-    {
-        switch (type)
-        {
-            case UpgradeType.Damage:
-                AttackLevel = level;
-                OnLevelUpDamageEvent?.Invoke(this);
-                break;
-
-            case UpgradeType.Strenght:
-                StrenghtLevel = level;
-                OnLevelUpStrenghtEvent?.Invoke(this);
-                break;
-
-            case UpgradeType.Health:
-                HealthLevel = level;
-                OnLevelUpHealthEvent?.Invoke(this);
-                break;
-        }
-        OnLevelUpEvent?.Invoke(this);
-    }
-
-    private void OnDestroy()
-    {
-        _transform = null;
-    }
-
-    protected abstract void Die(Unit unit);
 }

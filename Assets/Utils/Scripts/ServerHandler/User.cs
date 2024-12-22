@@ -80,7 +80,7 @@ public class User
         PlayerID = null;
     }
 
-    public async Task InitializeUser(params string[] names)
+    public async Task InitializeUser(IEnumerable<string> names)
     {
         if (await Uploaded())
         {

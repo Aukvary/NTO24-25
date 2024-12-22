@@ -47,8 +47,8 @@ public class CameraController : MonoBehaviour
         if (!Input.GetKey(KeyCode.Mouse2))
             return;
 
-        var xOffset = transform.right * -Input.GetAxis(Ñonstants.MouseX);
-        var zOffset = transform.forward * -Input.GetAxis(Ñonstants.MouseY);
+        var xOffset = transform.right * -Input.GetAxis(Stuff.MouseX);
+        var zOffset = transform.forward * -Input.GetAxis(Stuff.MouseY);
 
         transform.position = Vector3.Lerp(
             transform.position,
@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
         if (!Input.GetKey(KeyCode.LeftAlt) || !Input.GetKey(KeyCode.Mouse1))
             return;
         transform
-            .Rotate(0, Input.GetAxis(Ñonstants.MouseX) * _rotateSpeed, 0);
+            .Rotate(0, Input.GetAxis(Stuff.MouseX) * _rotateSpeed, 0);
     }
 
     private void Zooming()

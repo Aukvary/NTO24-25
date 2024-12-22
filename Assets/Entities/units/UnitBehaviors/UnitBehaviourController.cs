@@ -108,15 +108,7 @@ public class UnitBehaviourController
             return;
 
 
-        var direction = TargetPosition - Unit.transform.position;
-        direction.y = Unit.transform.position.y;
-
-        var angle = Quaternion.LookRotation(direction);
-        Unit.transform.rotation = Quaternion.RotateTowards(
-            Unit.transform.rotation,
-            angle,
-            Time.deltaTime * NavMeshAgent.angularSpeed
-            );
+        
 
     }
 

@@ -3,12 +3,20 @@ using UnityEngine;
 public struct ResourceCountPair
 {
     [SerializeField]
-    private Resource _resorce;
+    public Resource Resource { get; private set; }
 
-    [SerializeField, Min(0)]
-    private int _count;
+    [field: SerializeField, Min(0)]
+    public int Count { get; set; }
 
-    public Resource Resource => _resorce;
+    public ResourceCountPair(Resource resource, int count)
+    {
+        Resource = resource;
+        Count = count;
+    }
 
-    public int Count => _count; 
+    public void SetResource(Resource resource, int count = 0)
+    {
+        Resource = resource;
+        Count = count;
+    }
 }

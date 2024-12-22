@@ -1,106 +1,86 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Rendering;
 
-#pragma warning disable CS4014
-public class Inventory
+public struct Inventory
 {
-    private Cell[] _cells = new Cell[6];
+    private const string _name = "inventory";
 
-    private Bear _bear;
+    private InventoryCell[] _cells;
 
-    private User _inventoryUser;
+    private UnityEvent _onChangedEvent;
 
-    private Dictionary<string, Resource> _resourcesNamePair;
+    public string Name => _name;
 
-    private Dictionary<Resource, int> _resources;
+    public int this[Resource resource] => _cells.Sum(c => c.Resource == resource ? c.Count : 0);
 
-    public IEnumerable<Cell> Resources => _cells;
-
-    public event Action<Bear> OnInventoryChanged;
-
-    public int this[Resource res]
+    public Inventory(int cellCount = 6, int cellCapacity = int.MaxValue)
     {
-        get
+        _cells = new InventoryCell[cellCount];
+        _onChangedEvent = new();
+
+        for (int i = 0; i < cellCount; i++)
+            _cells[i] = new(cellCapacity);
+    }
+
+    public Inventory(InventoryCell[] cells)
+    {
+        _cells = cells;
+        _onChangedEvent = new();
+    }
+
+    public void Initialize()
+    {
+
+    }
+
+    public bool TryAdd(Resource resource, int count, out ResourceCountPair overflowStuff)
+    {
+        int remainingCount = count;
+
+        foreach (var cell in _cells)
         {
-            int sum = 0;
-
-            foreach (var cell in _cells)
-                if (cell.Resource == res)
-                    sum += cell.Count;
-
-            return sum;
-        }
-    }
-
-    public Inventory(Bear unit)
-    {
-        for (int i = 0; i < _cells.Length; i++)
-            _cells[i] = new Cell();
-        _bear = unit;
-
-        var ress = UnityEngine.Resources.LoadAll<Resource>("Prefabs");
-        _resourcesNamePair = ress.ToDictionary(r => r.name, r => r);
-
-        _resources = ress.ToDictionary(r => r, r => 0);
-    }
-
-    public async Task InitializeUser()
-    {
-
-        _inventoryUser = new(_bear.UnitName);
-        await _inventoryUser.InitializeUser(_resourcesNamePair.Keys.ToArray());
-
-        foreach (var res in _inventoryUser.Resources)
-            for (int i = 0; i < res.Value; i++)
-                TryToAdd(_resourcesNamePair[res.Key], false);
-    }
-
-    public void TryToAdd(Resource resource, bool update = true)
-    {
-        foreach (Cell cell in _cells)
-        {
-            if (cell.OverFlow)
+            if (cell.OverFlow || remainingCount == 0)
                 continue;
 
             else if (cell.Resource == null)
             {
-                cell.Set(resource);
-                if (update)
-                    _inventoryUser.UpdateUser(resource.ResourceName, this[resource]);
-                OnInventoryChanged?.Invoke(_bear);
-                return;
+                cell.SetResource(resource);
+                remainingCount = cell.Add(remainingCount);
             }
-            else if (cell.Resource.ResourceName == resource.ResourceName)
+            else
             {
-                cell.Add();
-                if (update)
-                    _inventoryUser.UpdateUser(resource.ResourceName, this[resource]);
-
-                OnInventoryChanged?.Invoke(_bear);
-                return;
+                remainingCount = cell.Add(remainingCount);
             }
         }
+
+        overflowStuff = new(resource, remainingCount);
+        
+        _onChangedEvent.Invoke();
+        return remainingCount == 0;
     }
 
-    public Dictionary<Resource, int> LayOutItems()
+    public IEnumerable<ResourceCountPair> GetResources(bool clear = true)
     {
-        foreach (var name in _resourcesNamePair.Keys)
-            _inventoryUser.UpdateUser(name, 0);
-        Dictionary<Resource, int> resources = new();
-        foreach (Cell cell in _cells)
+        Dictionary<Resource, int> resources = new(_cells.Length);
+
+        foreach (var cell in _cells)
         {
-            if (cell.Resource == null)
-                continue;
-            var cond = resources.TryAdd(cell.Resource, cell.Count);
-            if (!cond)
+            if (resources.ContainsKey(cell.Resource))
                 resources[cell.Resource] += cell.Count;
+            else
+                resources.Add(cell.Resource, cell.Count);
+
+            if (clear) cell.Clear();
         }
-        for (int i = 0; i < _cells.Length; i++)
-            _cells[i].Reset();
-        OnInventoryChanged?.Invoke(_bear);
-        return resources;
+
+        return resources.ToArray().Select(p => new ResourceCountPair(p.Key, p.Value));
     }
+
+    public void AddOnChangeAction(UnityAction action)
+        => _onChangedEvent.AddListener(action);
+
+    public void RemoveOnChangeAction(UnityAction action)
+        => _onChangedEvent.RemoveListener(action);
 }

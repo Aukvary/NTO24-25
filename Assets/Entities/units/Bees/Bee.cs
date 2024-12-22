@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bee : Unit, IDropableEntity
+public class Bee : Unit, IDropable
 {
     [SerializeField]
     private List<ResourceCountPair> _dropableItems;

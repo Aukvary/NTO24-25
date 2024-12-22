@@ -12,7 +12,7 @@ public class InventoryCellUI : MonoBehaviour
 
     public Image Back { get; private set; }
 
-    public Cell Cell
+    public InventoryCell Cell
     {
         set
         {
