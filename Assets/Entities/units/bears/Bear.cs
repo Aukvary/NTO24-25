@@ -13,10 +13,7 @@ public class Bear : Unit, IInventoriable, ILoadable
 
     [SerializeField]
     private float _restoreTime;
-
-    [SerializeField]
-    private Storage _storage;
-
+    
     [SerializeField]
     private Sprite _headSprite;
 
@@ -27,6 +24,7 @@ public class Bear : Unit, IInventoriable, ILoadable
     private MeshRenderer[] _renderers;
 
     private Inventory _inventory;
+    private Storage _storage;
 
     private Vector3 _spawnPosition;
 
