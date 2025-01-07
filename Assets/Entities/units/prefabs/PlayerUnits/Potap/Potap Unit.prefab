@@ -122,7 +122,7 @@ MonoBehaviour:
   _restoreTime: 60
   _storage: {fileID: 0}
   _bearActivityManager: {fileID: 0}
-  _headSprite: {fileID: 21300000, guid: fbddc6fcd6bbb4d48b3348d86416ec5a, type: 3}
+  _headSprite: {fileID: 21300000, guid: 559cb8714a551d74387a386da95d64e5, type: 3}
   _unitName: Potap
 --- !u!1001 &1020590213842320847
 PrefabInstance:

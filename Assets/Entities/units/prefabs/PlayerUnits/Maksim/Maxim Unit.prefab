@@ -122,7 +122,7 @@ MonoBehaviour:
   _restoreTime: 60
   _storage: {fileID: 0}
   _bearActivityManager: {fileID: 0}
-  _headSprite: {fileID: 21300000, guid: 876966f7d75f31d48b1a82afd2a6dc09, type: 3}
+  _headSprite: {fileID: 21300000, guid: 3a9627b76fa8a074fa002e43543f4edc, type: 3}
   _unitName: Maksim
 --- !u!1001 &583793388314841510
 PrefabInstance:
