@@ -119,17 +119,17 @@ Material:
     - _ZWrite: 1
     - _metallic: 0.43
     - _smoothness: 0
-    - _speed: 2.39
-    - _straigh: -0.2
+    - _speed: 1.99
+    - _straigh: -0.08
     - _waveSpeed: 0.05
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Offset: {r: 0, g: -21, b: 0, a: 0}
+    - _Offset: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TextureColor: {r: 0.48905307, g: 0.5139169, b: 0.6603774, a: 0}
-    - _Tiling: {r: 9.29, g: 5.74, b: 0, a: 0}
+    - _Tiling: {r: 100, g: 100, b: 0, a: 0}
     - _offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2431456011335358007
