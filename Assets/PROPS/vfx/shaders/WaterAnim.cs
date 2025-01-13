@@ -18,13 +18,13 @@ public class WaterAnim : MonoBehaviour
     void Update()
     {
         newOffset.y += speed * Time.deltaTime;
-        if (newOffset.y > 1f)
+        if (newOffset.x > 1f)
         {
-            newOffset.y -= 1f;
+            newOffset.x -= 1f;
         }
-        if (newOffset.y < 1f)
+        if (newOffset.x < 1f)
         {
-            newOffset.y += 1f;
+            newOffset.x += 1f;
         }
         MyMaterial.mainTextureOffset = newOffset;
     }
