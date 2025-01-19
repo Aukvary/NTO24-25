@@ -6,16 +6,8 @@ using UnityEngine.EventSystems;
 
 public class BearActivityManager : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField]
-    private InventoryHUD _inventoryHUD;
-
-    [SerializeField]
-    private StorageHUD _storageHUD;
     [SerializeField]
     private Storage _storage;
-    [SerializeField]
-    private BreakeableObject _burovHome;
 
     [Header("Unit Selection")]
     [SerializeField]
@@ -38,7 +30,6 @@ public class BearActivityManager : MonoBehaviour
 
     public IEnumerable<Bear> SelectedUnits => _controlledUnits;
 
-    public Unit InventoryUnit => _inventoryHUD.Unit;
 
     public event Action OnHotKeySelect;
 
@@ -47,11 +38,6 @@ public class BearActivityManager : MonoBehaviour
         _bears = _allUnits.Where(u => u is Bear).Cast<Bear>().ToArray();
     }
 
-    private void Start()
-    {
-        _storageHUD.UpdateHUD(_storage);
-        _storage.OnLayOutItems.AddListener(_storageHUD.UpdateHUD);
-    }
     private void Update()
     {
         SetUnitTask();
@@ -76,33 +62,7 @@ public class BearActivityManager : MonoBehaviour
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
-        if (actionHit.transform.TryGetComponent<IInteractable>(out var obj))
-        {
-            if (obj is Bear)
-                return;
-
-            if ((object)obj == _burovHome)
-                return;
-
-            foreach (var bear in _controlledUnits)
-                bear?.InteractWith(obj);
-
-            return;
-        }
-
-
-
-        if (Physics.Raycast(direction, out var groundHit, LayerMask.GetMask("Ground")))
-        {
-            foreach (var unit in _controlledUnits)
-            {
-                try
-                {
-                    unit.MoveTo(groundHit.point);
-                }
-                catch { }
-            }
-        }
+        
     }
 
 
@@ -122,7 +82,6 @@ public class BearActivityManager : MonoBehaviour
 
         _controlledUnits.Clear();
 
-        _inventoryHUD.Unit = unit;
         _controlledUnits.Add(unit);
     }
 
@@ -154,7 +113,6 @@ public class BearActivityManager : MonoBehaviour
     {
         _controlledUnits.Clear();
         _controlledUnits.Add(bear);
-        _inventoryHUD.Unit = bear;
 
         OnHotKeySelect?.Invoke();
     }

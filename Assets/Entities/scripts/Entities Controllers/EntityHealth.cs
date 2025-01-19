@@ -46,7 +46,12 @@ public class EntityHealth : EntityComponent
     protected override void Awake()
     {
         base.Awake();
-        _entityStats = Entity.GetComponent<IStatsable>();
+
+        if (Entity is not IStatsable stats)
+            throw new System.Exception("Stats component was missed");
+
+        _entityStats = stats;
+
         _maxHealth = _entityStats[EntityStatsType.MaxHealth];
         _maxHealth.AddOnLevelChangeAction(_ => MaxHealth = _maxHealth.StatValue);
 
@@ -63,7 +68,7 @@ public class EntityHealth : EntityComponent
 
     public void ChangeHealth(float deltaHealth, HealthChangeType type, Entity by = null)
     {
-        Health = Mathf.Clamp(Health + deltaHealth, 0, MaxHealth);
+        Health = Mathf.Clamp(Health + deltaHealth * (type == HealthChangeType.Heal ? 1 : -1), 0, MaxHealth);
 
         OnHealthChangeEvent.Invoke(by, type);
 
@@ -78,10 +83,12 @@ public class EntityHealth : EntityComponent
         => OnHealthChangeEvent.AddListener(action);
     public void RemoveOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
         => OnHealthChangeEvent.RemoveListener(action);
+
     public void AddOnDeathAction(UnityAction<Entity> action)
         => OnDeathEvent.AddListener(action);
     public void RemoveOnDeathAction(UnityAction<Entity> action)
         => OnDeathEvent.RemoveListener(action);
+
     public void AddOnAliveChangeAction(UnityAction<bool> action)
         => OnAliveChangeEvent.AddListener(action);
     public void RemoveOnAliveChangeAction(UnityAction<bool> action)

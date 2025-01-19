@@ -26,7 +26,9 @@ public class MovementBehaviour : EntityComponent
         base.Awake();
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
-        _speedStat = Entity.GetComponent<IStatsable>()[EntityStatsType.Speed];
+        if (Entity is not IStatsable stats)
+            throw new System.Exception("stats component was missed");
+        _speedStat = stats[EntityStatsType.Speed];
         _navMeshAgent.speed = _speedStat.StatValue;
 
         _speedStat.AddOnLevelChangeAction(_ => _navMeshAgent.speed = _speedStat.StatValue);

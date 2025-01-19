@@ -82,15 +82,14 @@ public class CameraController : MonoBehaviour
 
             var bear = _activityManager.Bears.ElementAt(i);
 
-            if (bear == _activityManager.InventoryUnit)
+            /*if (bear == _activityManager.InventoryUnit)
             {
-
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 transform.position = new(
                     bear.transform.position.x,
                     transform.position.y,
                     bear.transform.position.z - _hotkeyChangeZCameraPosition);
-            }
+            }*/
 
             _activityManager.HotKeySelectBear(bear);
         }

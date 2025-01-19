@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class InteractingBehaviour : EntityComponent
+public class InteractingBehaviour : EntityComponent
 {
     [SerializeField]
     private UnityEvent<Entity> _onChangeTargetEvent;
@@ -20,17 +20,9 @@ public abstract class InteractingBehaviour : EntityComponent
 
     private bool _canInteract;
 
-    public Entity Target
-    {
-        get => _target;
+    private UnityAction<Entity> _interactAction;
 
-        set
-        {
-            _target = value;
-
-            _onChangeTargetEvent.Invoke(value);
-        }
-    }
+    public Entity Target => _target;
 
     public Vector3 TargetPosition => Target.transform.position;
 
@@ -64,8 +56,7 @@ public abstract class InteractingBehaviour : EntityComponent
         }
     }
 
-    public float Range 
-        => Target is IHealthable ? _rangeStat.StatValue : _;
+    public float Range => _rangeStat.StatValue;
 
     protected override void Awake()
     {
@@ -77,24 +68,28 @@ public abstract class InteractingBehaviour : EntityComponent
         }
         else throw new System.Exception("stats component was missed");
 
-        if (Entity is IAnimationable entity)
-            entity.BehaviourAnimation.OnPunchAnimationEvent += TryInteract;
+       /* if (Entity is IAnimationable entity)
+            entity.BehaviourAnimation.OnPunchAnimationEvent += TryInteract;*/
+    }
+
+    public void SetTarget(Entity target, UnityAction<Entity> action)
+    {
+        _target = target;
+        _interactAction = action;
+    }
+
+    public void ResetTarget()
+    {
+        _target = null;
+        _interactAction = null;
     }
 
     public void TryInteract()
     {
-        if (!Target.Interactable)
-        {
-            Target = null;
-            return;
-        }
-        else if (!CanInteract)
-        {
-            Entity.InteractBy(Target);
+        if (CanInteract)
+            _interactAction?.Invoke(Target);
+        else
             _onInteractFailedEvent.Invoke();
-            return;
-        }
-        Target.InteractBy(Entity);
     }
 
     public void AddOnTargetChangeAction(UnityAction<Entity> action)

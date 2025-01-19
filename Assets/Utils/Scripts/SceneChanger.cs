@@ -52,13 +52,13 @@ public class SceneChanger : MonoBehaviour
 
     public void End()
     {
-        User.Delete();
+        User.DeleteAll();
         SceneManager.LoadScene((int)Scenes.End);
     }
 
     public void BadEnd()
     {
-        User.Delete();
+        User.DeleteAll();
         SceneManager.LoadScene((int)Scenes.House);
     }
 

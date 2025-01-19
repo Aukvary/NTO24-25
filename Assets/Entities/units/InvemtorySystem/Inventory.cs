@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 
 public struct Inventory
 {
@@ -47,7 +46,7 @@ public struct Inventory
         }
 
         overflowStuff = new(resource, remainingCount);
-        
+
         _onChangedEvent.Invoke();
         return remainingCount == 0;
     }
@@ -66,7 +65,7 @@ public struct Inventory
             if (clear) cell.Clear();
         }
 
-        return resources.ToArray().Select(p => new ResourceCountPair(p.Key, p.Value));
+        return resources.Select(p => new ResourceCountPair(p.Key, p.Value));
     }
 
     public void AddOnChangeAction(UnityAction action)

@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bear : Unit, IAnimationable, IInventoriable, ILoadable, IRestoreable, IIconable, IStatsable, IControllable
+public class Bear : Unit, /*IAnimationable,*/ IInventoriable, ILoadable, IRestoreable, IIconable, IControllable
 {
     private Collider _collider;
     private MeshRenderer[] _renderers;
@@ -17,7 +16,7 @@ public class Bear : Unit, IAnimationable, IInventoriable, ILoadable, IRestoreabl
 
     [field: SerializeField]
     public List<EntityStat> _stats;
-    
+
     [field: SerializeField]
     public float RestoreTime { get; private set; }
 
@@ -39,10 +38,6 @@ public class Bear : Unit, IAnimationable, IInventoriable, ILoadable, IRestoreabl
 
     public Animator Animator { get; private set; }
 
-
-
-    public IEnumerable<EntityStat> Stats => _stats;
-
     public int CellCount => 6;
 
     public Inventory Inventory { get; private set; }
@@ -50,16 +45,6 @@ public class Bear : Unit, IAnimationable, IInventoriable, ILoadable, IRestoreabl
     public bool IsInitialized { get; set; }
 
     public User User { get; private set; }
-
-
-    public Bear Spawn(Vector3 position)
-    {
-        var bear = Instantiate(this, position, Quaternion.identity);
-
-        bear._spawnPosition = position;
-
-        return bear;
-    }
 
     protected override void Awake()
     {

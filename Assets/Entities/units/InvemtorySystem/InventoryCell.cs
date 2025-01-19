@@ -1,5 +1,3 @@
-using UnityEditor.Experimental.GraphView;
-
 public struct InventoryCell
 {
     private ResourceCountPair _resources;
