@@ -34,10 +34,7 @@ public class User
     public string Name { get; set; }
 
     [JsonPropertyName("resources")]
-    public Dictionary<string, int> Resources { get; set; }
-
-    public async Task<bool> Uploaded()
-        => (await GetUser()) != null;
+    public Dictionary<string, object> Resources { get; set; }
 
 
     static User()
@@ -68,9 +65,9 @@ public class User
         return JsonSerializer.Deserialize<List<User>>(await response.Content.ReadAsStringAsync()) ?? new();
     }
 
-    public static async void Delete()
+    public static async void DeleteAll()
     {
-        if (PlayerID == null)
+        if (string.IsNullOrEmpty(PlayerID))
             return;
         var users = await GetUsers();
 
@@ -82,13 +79,15 @@ public class User
 
     public async Task InitializeUser(IEnumerable<string> names)
     {
-        if (await Uploaded())
+        User user = await GetUser();
+
+        if (user != null)
         {
-            Resources = (await GetUser()).Resources;
+            Resources = user.Resources;
             return;
         }
 
-        Resources = names.ToDictionary(s => s, s => 0);
+        Resources = names.ToDictionary<object, string>(s => null);
 
         StringContent content = new(UserToJson(this), Encoding.UTF8, "application/json");
         var response = await _client.PostAsync(_users, content);
@@ -118,10 +117,10 @@ public class User
         Resources = (await GetUser()).Resources;
     }
 
-    public async Task<string> UpdateUser(string resource, int count)
+    public async Task<string> UpdateUser(string resource, object obj)
     {
-        int oldCount = Resources[resource];
-        Resources[resource] = count;
+        string oldCount = Resources[resource].ToString();
+        Resources[resource] = obj;
 
         _resorcesBuilder.Append("{\"resources\":{");
 
@@ -137,12 +136,17 @@ public class User
         response.EnsureSuccessStatusCode();
 
         UserLog(
-            $"Change {resource} count",
-            $"\"new value\": \"{count}\"",
-            $"\"old value\": \"{oldCount}\""
+            $"Change {resource} value",
+            $"\"old value\": \"{oldCount}\"",
+            $"\"new value\": \"{Resources[resource]}\""
             );
 
         return await response.Content.ReadAsStringAsync();
+    }
+
+    public T GetValue<T>(string name) where T : class 
+    {
+        return Resources[name] as T;
     }
 
     public async Task UpdateServerInfo()
@@ -172,7 +176,7 @@ public class User
         {
             response.EnsureSuccessStatusCode();
         }
-        catch (Exception)
+        catch (HttpRequestException)
         {
             Debug.Log(Name);
         }

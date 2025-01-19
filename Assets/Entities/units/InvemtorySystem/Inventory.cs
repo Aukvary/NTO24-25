@@ -5,17 +5,13 @@ using UnityEngine.Rendering;
 
 public struct Inventory
 {
-    private const string _name = "inventory";
-
     private InventoryCell[] _cells;
 
     private UnityEvent _onChangedEvent;
 
-    public string Name => _name;
-
     public int this[Resource resource] => _cells.Sum(c => c.Resource == resource ? c.Count : 0);
 
-    public Inventory(int cellCount = 6, int cellCapacity = int.MaxValue)
+    public Inventory(int cellCount, int cellCapacity = int.MaxValue)
     {
         _cells = new InventoryCell[cellCount];
         _onChangedEvent = new();
@@ -24,15 +20,10 @@ public struct Inventory
             _cells[i] = new(cellCapacity);
     }
 
-    public Inventory(InventoryCell[] cells)
+    public Inventory(IEnumerable<InventoryCell> cells)
     {
-        _cells = cells;
+        _cells = cells.ToArray();
         _onChangedEvent = new();
-    }
-
-    public void Initialize()
-    {
-
     }
 
     public bool TryAdd(Resource resource, int count, out ResourceCountPair overflowStuff)
