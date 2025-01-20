@@ -15,7 +15,7 @@ public class ContollableActivityManager : MonoBehaviour
     [SerializeField]
     private float _areaBorderThickness;
 
-    private EnterPoint _enterPoint;
+    private EntryPoint _entryPoint;
 
 
     private List<Unit> _selectedUnits;
@@ -28,9 +28,9 @@ public class ContollableActivityManager : MonoBehaviour
     private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
     private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    public void Initialize(EnterPoint enterPoint)
+    public void Initialize(EntryPoint entryPoint)
     {
-        _enterPoint = enterPoint;
+        _entryPoint = entryPoint;
     }
 
     private void Update()
@@ -53,7 +53,7 @@ public class ContollableActivityManager : MonoBehaviour
             return;
 
         var units = Input.GetKey(KeyCode.LeftControl) ?
-            _enterPoint.Units.Where(u => u is IControllable) : SelectedUnits;
+            _entryPoint.Units.Where(u => u is IControllable) : SelectedUnits;
 
         if (Input.GetKey(KeyCode.LeftControl))
             foreach (var unit in units)
@@ -102,7 +102,7 @@ public class ContollableActivityManager : MonoBehaviour
         Bounds bounds = new Bounds();
         bounds.SetMinMax(minOffset, maxOffset);
 
-        foreach (var unit in _enterPoint.Units.Where(u => u is IControllable))
+        foreach (var unit in _entryPoint.Units.Where(u => u is IControllable))
         {
             if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)))
                 continue;

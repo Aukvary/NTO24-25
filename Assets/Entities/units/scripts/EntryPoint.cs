@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnterPoint : MonoBehaviour
+public class EntryPoint : MonoBehaviour
 {
     private List<Unit> _units = new();
 
@@ -19,6 +19,12 @@ public class EnterPoint : MonoBehaviour
     private List<BeesSpawner> _beesSpawners;
 
     [SerializeField]
+    private UnityEvent _preinitializeEvent;
+
+    [SerializeField]
+    private UnityEvent _postinitializeEvent;
+
+    [SerializeField]
     private UnityEvent<Unit> _onUnitsCountChangeEvent;
 
     public IEnumerable<Unit> Units => _units;
@@ -27,7 +33,9 @@ public class EnterPoint : MonoBehaviour
 
     private void Awake()
     {
+        _preinitializeEvent.Invoke();
         InitializeSpawners();
+        _postinitializeEvent.Invoke();
     }
 
     private void InitializeSpawners()

@@ -22,7 +22,7 @@ public class MusicController : MonoBehaviour
     [SerializeField]
     private bool _change;
 
-    private EnterPoint _enterPoint;
+    private EntryPoint _enterPoint;
 
     private bool _fightNow = false;
 
