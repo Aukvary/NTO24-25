@@ -1,4 +1,5 @@
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -25,30 +26,34 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         _activityManager = GetComponentInParent<ContollableActivityManager>();
-
-        var bear = _activityManager.Bears.First();
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-        transform.position = new(
-            bear.transform.position.x,
-            transform.position.y,
-            bear.transform.position.z - _hotkeyChangeZCameraPosition);
     }
 
     private void Update()
     {
-        Move();
+        MouseMove();
+        KeyboardMove();
         Rotate();
         Zooming();
-        HotKeySelect();
     }
 
-    private void Move()
+    private void KeyboardMove()
+    {
+        if (Input.GetKey(KeyCode.Mouse2))
+            return;
+        Move(Input.GetAxis(Stuff.HORIZONTAL), Input.GetAxis(Stuff.VERTICAL));
+    }
+
+    private void MouseMove()
     {
         if (!Input.GetKey(KeyCode.Mouse2))
             return;
+        Move(-Input.GetAxis(Stuff.MOUSEX), -Input.GetAxis(Stuff.MOUSEY));
+    }
 
-        var xOffset = transform.right * -Input.GetAxis(Stuff.MouseX);
-        var zOffset = transform.forward * -Input.GetAxis(Stuff.MouseY);
+    private void Move(float x, float z)
+    {
+        var xOffset = transform.right * x;
+        var zOffset = transform.forward * z;
 
         transform.position = Vector3.Lerp(
             transform.position,
@@ -61,37 +66,12 @@ public class CameraController : MonoBehaviour
         if (!Input.GetKey(KeyCode.LeftAlt) || !Input.GetKey(KeyCode.Mouse1))
             return;
         transform
-            .Rotate(0, Input.GetAxis(Stuff.MouseX) * _rotateSpeed, 0);
+            .Rotate(0, Input.GetAxis(Stuff.MOUSEX) * _rotateSpeed, 0);
     }
 
     private void Zooming()
     {
         var newFow = Mathf.Clamp(Camera.main.fieldOfView - Input.mouseScrollDelta.y, _minFOV, _maxFOV);
         Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, newFow, Time.deltaTime * _changeFOVSpeed);
-    }
-
-    private void HotKeySelect()
-    {
-        var hotkey = KeyCode.Alpha1;
-        int count = _activityManager.Bears.Count();
-
-        for (int i = 0; i < count; i++)
-        {
-            if (!Input.GetKeyDown(hotkey + i))
-                continue;
-
-            var bear = _activityManager.Bears.ElementAt(i);
-
-            /*if (bear == _activityManager.InventoryUnit)
-            {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                transform.position = new(
-                    bear.transform.position.x,
-                    transform.position.y,
-                    bear.transform.position.z - _hotkeyChangeZCameraPosition);
-            }*/
-
-            _activityManager.HotKeySelectBear(bear);
-        }
     }
 }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BearSpawnSettings : SpawnSettings
 {
-    public override void Spawn(Vector3 spawnPosition)
+    public override Unit Spawn(Vector3 spawnPosition)
     {
-        
+        return null;
     }
 }

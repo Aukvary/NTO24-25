@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 public class MusicController : MonoBehaviour
 {
@@ -23,16 +22,11 @@ public class MusicController : MonoBehaviour
     [SerializeField]
     private bool _change;
 
-    private ContollableActivityManager _activityManager;
+    private EnterPoint _enterPoint;
 
     private bool _fightNow = false;
 
-    private bool _fight => _activityManager.AllUnits.Any(u => u is Bee);
-
-    private void Awake()
-    {
-        _activityManager = GetComponent<ContollableActivityManager>();
-    }
+    private bool _fight => _enterPoint.Units.Any(u => u is Bee);
 
     private void Start()
     {
@@ -75,7 +69,7 @@ public class MusicController : MonoBehaviour
             yield return null;
         }
 
-        if (calm > 0) _fightMusic.Stop(); 
+        if (calm > 0) _fightMusic.Stop();
         else _calmMusic.Stop();
     }
 }
