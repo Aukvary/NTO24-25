@@ -20,11 +20,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _hotkeyChangeZCameraPosition;
 
-    private BearActivityManager _activityManager;
+    private ContollableActivityManager _activityManager;
 
     private void Start()
     {
-        _activityManager = GetComponentInParent<BearActivityManager>();
+        _activityManager = GetComponentInParent<ContollableActivityManager>();
 
         var bear = _activityManager.Bears.First();
         transform.rotation = Quaternion.Euler(0, 180, 0);

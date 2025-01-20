@@ -23,7 +23,7 @@ public class MusicController : MonoBehaviour
     [SerializeField]
     private bool _change;
 
-    private BearActivityManager _activityManager;
+    private ContollableActivityManager _activityManager;
 
     private bool _fightNow = false;
 
@@ -31,7 +31,7 @@ public class MusicController : MonoBehaviour
 
     private void Awake()
     {
-        _activityManager = GetComponent<BearActivityManager>();
+        _activityManager = GetComponent<ContollableActivityManager>();
     }
 
     private void Start()
