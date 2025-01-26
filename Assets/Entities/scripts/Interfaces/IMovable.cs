@@ -7,17 +7,14 @@ public interface IMovable : IEntity
 
     UnityEvent<Vector3> OnTargetPositionChangedEvent { get; }
 
-    new void Initialize()
-    {
-        if (EntityReference is IStatsable stats)
-            MovementController.Speed = stats[EntityStatsType.Speed].StatValue;
-        else
-            throw new System.Exception("stats component was missed");
-    }
+    public bool HasPath => MovementController.HasPath;
 
     void MoveTo(Vector3 newPosition)
     {
         MovementController.TargetPosition = newPosition;
         OnTargetPositionChangedEvent.Invoke(newPosition);
     }
+
+    void Stop()
+        => MovementController.ResetPath();
 }

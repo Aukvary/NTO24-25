@@ -4,8 +4,6 @@ using UnityEngine.Events;
 
 public class EntryPoint : MonoBehaviour
 {
-    private List<Unit> _units = new();
-
     [field: SerializeField]
     public  BearSpawner BearSpawner { get; private set; }
 
@@ -26,6 +24,8 @@ public class EntryPoint : MonoBehaviour
 
     [SerializeField]
     private UnityEvent<Unit> _onUnitsCountChangeEvent;
+
+    private List<Unit> _units = new();
 
     public IEnumerable<Unit> Units => _units;
     public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;

@@ -4,6 +4,7 @@ public interface IHealthable : IEntity
 
     public float Health => HealthComponent.Health;
     public float Regeneration => HealthComponent.Regeneration;
+    public bool Alive => HealthComponent.Alive;
 
     public void Damage(float damage, Entity by = null)
     {

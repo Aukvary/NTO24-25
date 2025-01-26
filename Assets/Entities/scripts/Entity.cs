@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
+    [field: SerializeField]
+    public EntityType EntityType { get; private set; }
+
     public Entity EntityReference => this;
 
     protected virtual void Awake()

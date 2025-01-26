@@ -57,12 +57,7 @@ public class ContollableActivityManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftControl))
             foreach (var unit in units)
-                SetUnitTask(unit, actionHit);
-    }
-
-    private void SetUnitTask(Unit unit, RaycastHit hit)
-    {
-
+                
     }
 
 

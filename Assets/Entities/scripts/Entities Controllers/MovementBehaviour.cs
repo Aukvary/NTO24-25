@@ -21,6 +21,8 @@ public class MovementBehaviour : EntityComponent
         set => _navMeshAgent.destination = value;
     }
 
+    public bool HasPath => _navMeshAgent.hasPath;
+
     protected override void Awake()
     {
         base.Awake();
