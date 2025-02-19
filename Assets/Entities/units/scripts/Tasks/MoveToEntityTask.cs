@@ -23,9 +23,9 @@ public struct MoveToEntityTask : IUnitTask
 
     private Vector3 _targetPosition => Target.transform.position;
 
-    public MoveToEntityTask(Unit unit, Entity target, float range)
+    public MoveToEntityTask(IMovable unit, Entity target, float range)
     {
-        Unit = unit;
+        Unit = unit as Unit;
         Target = target;
         _range = range;
     }

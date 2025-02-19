@@ -1,20 +1,20 @@
 public struct AttackTask : IUnitTask
 {
-    private IHealthable _target;
+    public IHealthable Target { get; private set; }
 
     public Unit Unit { get; private set; }
 
-    public bool IsComplete => !_target.Alive;
+    public bool IsComplete => !Target.Alive;
 
     public AttackTask(IAttacker unit, IHealthable target)
     {
         Unit = unit as Unit;
-        _target = target;
+        Target = target;
     }
 
     public void Enter()
     {
-        (Unit as IAttacker).Attack(_target);
+        (Unit as IAttacker).SetTarget(Target);
     }
 
     public void Exit()

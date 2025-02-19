@@ -1,6 +1,6 @@
 public interface IUnitTask
 {
-    public Unit Unit { get; }
+    Unit Unit { get; }
 
     bool IsComplete { get; }
 
