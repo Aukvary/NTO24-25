@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
+public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITaskSolver
 {
     [SerializeField]
     private List<EntityStat> _stats;
@@ -18,7 +19,7 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
 
     public IEnumerable<IUnitTask> Tasks { get; private set; }
 
-    protected IUnitTask CurrentTask { get; private set; }
+    public IUnitTask CurrentTask { get; private set; }
 
     private Queue<IUnitTask> _tasks => Tasks as Queue<IUnitTask>;
 
@@ -56,23 +57,37 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
     public void SetTask(IUnitTask task)
     {
         if (_tasks.TryPeek(out var t))
-            t.Exit(this);
+            t.Exit();
         _tasks.Clear();
         _tasks.Enqueue(task);
-        task.Enter(this);
+        task.Enter();
         CurrentTask = task;
+    }
+
+    public void SetTask(IEnumerable<IUnitTask> tasks)
+    {
+        SetTask(tasks.First());
+
+        foreach (var task in tasks.Skip(1))
+            _tasks.Enqueue(task);
     }
 
     public void AddTask(IUnitTask task)
         => _tasks.Enqueue(task);
 
+    public void AddTask(IEnumerable<IUnitTask> tasks)
+    {
+        foreach (var task in tasks)
+            _tasks.Enqueue(task);
+    }
+
     protected IUnitTask NextTask()
     {
         IUnitTask task = _tasks.Dequeue();
-        task.Exit(this);
+        task.Exit();
         if (_tasks.TryPeek(out var t))
         {
-            t.Enter(this);
+            t.Enter();
             CurrentTask = t;
         }
         else

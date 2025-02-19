@@ -6,13 +6,5 @@ public interface IAttacker : IEntity
 
     UnityEvent<IHealthable> OnSetTargetEvent { get; }
 
-    void SetTarget(IHealthable target)
-    {
-        OnSetTargetEvent.Invoke(target);
-    }
-
-    void Stop()
-    {
-        OnSetTargetEvent.Invoke(null);
-    }
+    void SetTarget(IHealthable target = null);
 }

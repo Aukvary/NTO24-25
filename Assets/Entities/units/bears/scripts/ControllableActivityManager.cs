@@ -17,7 +17,6 @@ public class ControllableActivityManager : MonoBehaviour
 
     private EntryPoint _entryPoint;
 
-
     private List<Unit> _selectedUnits;
 
     private Vector3 _startMousePosition;
@@ -45,16 +44,45 @@ public class ControllableActivityManager : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKey(KeyCode.LeftAlt) || UIRayCast)
             return;
 
-
         if (!Physics.Raycast(direction, out var actionHit))
             return;
 
         var units = Input.GetKey(KeyCode.LeftControl) ?
-            _entryPoint.Units.Where(u => u is IControllable) : SelectedUnits;
+            _entryPoint.Units.Where(u => u is ITaskSolver) : SelectedUnits;
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftShift))
             foreach (var unit in units)
-                
+                unit.AddTask(CreateTask(unit, actionHit));
+        else
+            foreach (var unit in units)
+                unit.SetTask(CreateTask(unit, actionHit));
+    }
+
+    private IEnumerable<IUnitTask> CreateTask(Unit unit, RaycastHit hit)
+    {
+        if (!hit.transform.TryGetComponent<Entity>(out var entity))
+            return new IUnitTask[] { new MoveToVectorTask(unit, hit.point) };
+
+        switch (entity)
+        {
+            case IInteractable:
+                return new IUnitTask[]
+                {
+                    new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.InteractRange].StatValue)
+                    //TODO: задача с взаимодействием
+                };
+            case IHealthable e when e.EntityReference.EntityType != unit.EntityType:
+                return new IUnitTask[]
+                {
+                    new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.AttackRange].StatValue),
+                    new AttackTask(unit as IAttacker, entity as IHealthable)
+                };
+            default:
+                return new IUnitTask[]
+                {
+                    new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.InteractRange].StatValue)
+                };
+        }
     }
 
 
@@ -71,7 +99,6 @@ public class ControllableActivityManager : MonoBehaviour
 
         _selectedUnits.Clear();
 
-        unit.Select();
         _selectedUnits.Add(unit as Unit);
     }
 

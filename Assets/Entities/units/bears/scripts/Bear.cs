@@ -1,18 +1,13 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bear : Unit, /*IAnimationable,*/ IInventoriable, ILoadable, IRestoreable, IIconable, IControllable
+public class Bear : Unit, IInventoriable, IRestoreable, IIconable, IControllable
 {
     private Collider _collider;
     private MeshRenderer[] _renderers;
 
     private Vector3 _spawnPosition;
-
-    private IEnumerable<string> _cellStrings;
-    private IEnumerable<string> _statsStrings;
 
     [field: SerializeField]
     public List<EntityStat> _stats;
@@ -57,18 +52,6 @@ public class Bear : Unit, /*IAnimationable,*/ IInventoriable, ILoadable, IRestor
 
     }
 
-    public IEnumerable<string> GetStringParametors()
-    {
-        _statsStrings = Stats.Select(s => s.ToString());
-
-        return _cellStrings.Append("cells");
-    }
-
-    public async Task Initialize()
-    {
-        if (User.Resources["cells"] != null)
-            return;
-    }
 
     protected override void HealthInitialize()
     {
