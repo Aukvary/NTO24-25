@@ -16,17 +16,17 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
 
     public IEnumerable<EntityStat> Stats => _stats;
 
-    public IEnumerable<UnitTask> Tasks { get; private set; }
+    public IEnumerable<IUnitTask> Tasks { get; private set; }
 
-    protected UnitTask CurrentTask { get; private set; }
+    protected IUnitTask CurrentTask { get; private set; }
 
-    private Queue<UnitTask> _tasks => Tasks as Queue<UnitTask>;
+    private Queue<IUnitTask> _tasks => Tasks as Queue<IUnitTask>;
 
     protected override void Awake()
     {
         base.Awake();
 
-        Tasks = new Queue<UnitTask>();
+        Tasks = new Queue<IUnitTask>();
 
         HealthInitialize();
         MovementInitialize();
@@ -53,7 +53,7 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
         CurrentTask?.FixedUpdate();
     }
 
-    public void SetTask(UnitTask task)
+    public void SetTask(IUnitTask task)
     {
         if (_tasks.TryPeek(out var t))
             t.Exit(this);
@@ -63,12 +63,12 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITasker
         CurrentTask = task;
     }
 
-    public void AddTask(UnitTask task)
+    public void AddTask(IUnitTask task)
         => _tasks.Enqueue(task);
 
-    protected UnitTask NextTask()
+    protected IUnitTask NextTask()
     {
-        UnitTask task = _tasks.Dequeue();
+        IUnitTask task = _tasks.Dequeue();
         task.Exit(this);
         if (_tasks.TryPeek(out var t))
         {

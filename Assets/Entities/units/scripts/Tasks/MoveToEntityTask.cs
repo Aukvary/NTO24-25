@@ -1,33 +1,32 @@
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public struct MoveToEntityTask : UnitTask
+public struct MoveToEntityTask : IUnitTask
 {
-    private Entity _target;
     private float _range;
 
+    public Entity Target { get; private set; }
     public Unit Unit { get; private set; }
 
     public bool IsComplete
     {
         get
         {
-            Ray ray = new(Unit.transform.position, _target.transform.position - Unit.transform.position);
+            Ray ray = new(Unit.transform.position, Target.transform.position - Unit.transform.position);
 
-            var target = _target.transform;
+            var target = Target.transform;
             RaycastHit hit = Physics.RaycastAll(ray, _range).First(h => h.transform == target);
 
             return hit.transform != null;
         }
     }
 
-    private Vector3 _targetPosition => _target.transform.position;
+    private Vector3 _targetPosition => Target.transform.position;
 
     public MoveToEntityTask(Unit unit, Entity target, float range)
     {
         Unit = unit;
-        _target = target;
+        Target = target;
         _range = range;
     }
 

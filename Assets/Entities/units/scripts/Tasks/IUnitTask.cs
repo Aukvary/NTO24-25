@@ -1,4 +1,4 @@
-public interface UnitTask
+public interface IUnitTask
 {
     public Unit Unit { get; }
 

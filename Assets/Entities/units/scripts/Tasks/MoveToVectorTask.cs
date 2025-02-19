@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public struct MoveToVectorTask : UnitTask
+public struct MoveToVectorTask : IUnitTask
 {
     private Vector3 _destination;
 

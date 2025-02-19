@@ -10,4 +10,9 @@ public interface IAttacker : IEntity
     {
         OnSetTargetEvent.Invoke(target);
     }
+
+    void Stop()
+    {
+        OnSetTargetEvent.Invoke(null);
+    }
 }

@@ -1,4 +1,17 @@
+using System.Collections.Generic;
+
 public interface IControllable : IEntity
 {
-    void Select() { }
+    IUnitTask CurrentTask { get; }
+    IEnumerable<IUnitTask> Tasks { get; }
+
+    void SetTask(IUnitTask task)
+    {
+
+    }
+
+    void AddTask(IUnitTask task)
+    {
+
+    }
 }

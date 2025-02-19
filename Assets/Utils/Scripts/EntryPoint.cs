@@ -11,7 +11,7 @@ public class EntryPoint : MonoBehaviour
     public Storage Storage { get; private set; }
 
     [field: SerializeField]
-    public  ContollableActivityManager BearActivityManager { get; private set; }
+    public  ControllableActivityManager BearActivityManager { get; private set; }
 
     [SerializeField]
     private List<BeesSpawner> _beesSpawners;

@@ -1,17 +1,14 @@
-public struct AttackTask : UnitTask
+public struct AttackTask : IUnitTask
 {
     private IHealthable _target;
 
     public Unit Unit { get; private set; }
 
-    public bool IsComplete => _target.Alive;
+    public bool IsComplete => !_target.Alive;
 
-    public AttackTask(Unit unit, IHealthable target)
+    public AttackTask(IAttacker unit, IHealthable target)
     {
-        if (unit is not IAttacker)
-            throw new System.Exception($"Unit {unit.GetType().Name} can't attack anything");
-
-        Unit = unit;
+        Unit = unit as Unit;
         _target = target;
     }
 
@@ -22,6 +19,6 @@ public struct AttackTask : UnitTask
 
     public void Exit()
     {
-        (Unit as IAttacker).Attack(null);
+        (Unit as IAttacker).Stop();
     }
 }

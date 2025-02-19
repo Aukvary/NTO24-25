@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ContollableActivityManager : MonoBehaviour
+public class ControllableActivityManager : MonoBehaviour
 {
     [Header("Unit Selection")]
     [SerializeField]
@@ -42,10 +42,7 @@ public class ContollableActivityManager : MonoBehaviour
 
     private void SetTask()
     {
-        if (!Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKey(KeyCode.LeftAlt))
-            return;
-
-        if (UIRayCast)
+        if (!Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKey(KeyCode.LeftAlt) || UIRayCast)
             return;
 
 
@@ -63,10 +60,7 @@ public class ContollableActivityManager : MonoBehaviour
 
     private void SelectAloneUnit()
     {
-        if (!Input.GetKeyDown(KeyCode.Mouse0))
-            return;
-
-        if (UIRayCast)
+        if (!Input.GetKeyDown(KeyCode.Mouse0) || UIRayCast)
             return;
 
         if (!Physics.Raycast(direction, out RaycastHit hit))

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public interface ITasker : IEntity
 {
-    IEnumerable<UnitTask> Tasks { get; }
+    IEnumerable<IUnitTask> Tasks { get; }
 
-    void AddTask(UnitTask task);
+    void AddTask(IUnitTask task);
 
-    void SetTask(UnitTask task);
+    void SetTask(IUnitTask task);
 }
