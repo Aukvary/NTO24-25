@@ -19,11 +19,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _hotkeyChangeZCameraPosition;
 
-    private ControllableActivityManager _activityManager;
+    private ControllableManager _activityManager;
 
     private void Start()
     {
-        _activityManager = GetComponentInParent<ControllableActivityManager>();
+        _activityManager = GetComponentInParent<ControllableManager>();
     }
 
     private void Update()

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public struct MoveToVectorTask : IUnitTask
+public class MoveToVectorTask : IUnitTask
 {
     private bool _startMove;
 
@@ -27,7 +27,6 @@ public struct MoveToVectorTask : IUnitTask
             yield return null;
         _startMove = true;
     }
-
 
     public void Enter()
     {

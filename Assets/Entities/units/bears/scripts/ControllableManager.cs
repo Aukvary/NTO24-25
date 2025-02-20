@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ControllableActivityManager : MonoBehaviour
+public class ControllableManager : MonoBehaviour
 {
     [Header("Unit Selection")]
     [SerializeField]
@@ -24,12 +24,13 @@ public class ControllableActivityManager : MonoBehaviour
 
     public IEnumerable<Unit> SelectedUnits => _selectedUnits;
 
-    private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
-    private Ray direction => Camera.main.ScreenPointToRay(Input.mousePosition);
+    //private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
+    private Ray _direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
     public void Initialize(EntryPoint entryPoint)
     {
         _entryPoint = entryPoint;
+        _selectedUnits = new();
     }
 
     private void Update()
@@ -41,10 +42,13 @@ public class ControllableActivityManager : MonoBehaviour
 
     private void SetTask()
     {
-        if (!Input.GetKeyDown(KeyCode.Mouse1) || Input.GetKey(KeyCode.LeftAlt) || UIRayCast)
+        if (!Input.GetKeyDown(KeyCode.Mouse1) || 
+            Input.GetKey(KeyCode.LeftAlt) ||
+            !SelectedUnits.Any()
+            /*|| UIRayCast*/)
             return;
 
-        if (!Physics.Raycast(direction, out var actionHit))
+        if (!Physics.Raycast(_direction, out var actionHit))
             return;
 
         var units = Input.GetKey(KeyCode.LeftControl) ?
@@ -52,33 +56,33 @@ public class ControllableActivityManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
             foreach (var unit in units)
-                unit.AddTask(CreateTask(unit, actionHit));
+                unit.AddTask(CreateTasks(unit, actionHit));
         else
             foreach (var unit in units)
-                unit.SetTask(CreateTask(unit, actionHit));
+                unit.SetTask(CreateTasks(unit, actionHit));
     }
 
-    private IEnumerable<IUnitTask> CreateTask(Unit unit, RaycastHit hit)
+    private IEnumerable<IUnitTask> CreateTasks(Unit unit, RaycastHit hit)
     {
         if (!hit.transform.TryGetComponent<Entity>(out var entity))
             return new IUnitTask[] { new MoveToVectorTask(unit, hit.point) };
 
         switch (entity)
         {
-            case IInteractable:
+            case IInteractable interactable:
                 return new IUnitTask[]
                 {
-                    new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.InteractRange].StatValue)
-                    //TODO: задача с взаимодействием
+                    new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.InteractRange].StatValue),
+                    new InteractTask(unit as IInteractor, interactable)
                 };
-            case IHealthable e when e.EntityReference.EntityType != unit.EntityType:
+            case IHealthable e when e.EntityReference.EntityType != unit.EntityType && e.EntityReference != unit:
                 return new IUnitTask[]
                 {
                     new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.AttackRange].StatValue),
                     new AttackTask(unit as IAttacker, entity as IHealthable)
                 };
             default:
-                return new IUnitTask[]
+                return entity == unit ? new IUnitTask[0] : new IUnitTask[]
                 {
                     new MoveToEntityTask(unit, entity, (unit as IStatsable)[EntityStatsType.InteractRange].StatValue)
                 };
@@ -88,10 +92,10 @@ public class ControllableActivityManager : MonoBehaviour
 
     private void SelectAloneUnit()
     {
-        if (!Input.GetKeyDown(KeyCode.Mouse0) || UIRayCast)
+        if (!Input.GetKeyDown(KeyCode.Mouse0) /*|| UIRayCast*/)
             return;
 
-        if (!Physics.Raycast(direction, out RaycastHit hit))
+        if (!Physics.Raycast(_direction, out RaycastHit hit))
             return;
 
         if (!hit.transform.TryGetComponent<IControllable>(out var unit))
@@ -101,7 +105,7 @@ public class ControllableActivityManager : MonoBehaviour
 
         _selectedUnits.Add(unit as Unit);
     }
-
+    
     private void SelectUnitGroup()
     {
         if (_startMousePosition == _endMousePosition)

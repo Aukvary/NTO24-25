@@ -5,7 +5,7 @@ using UnityEngine.Events;
 #pragma warning disable CS4014
 public interface ILoadable : IEntity
 {
-    public string Name { get; }
+/*    public string Name { get; }
 
     public bool IsInitialized { get; set; }
 
@@ -27,5 +27,5 @@ public interface ILoadable : IEntity
 
     public IEnumerable<string> GetStringParametors();
 
-    public new Task Initialize();
+    public new Task Initialize();*/
 }

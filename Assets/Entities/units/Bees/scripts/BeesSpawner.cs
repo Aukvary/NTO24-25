@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 #pragma warning disable CS4014
-public class BeesSpawner : UnitsSpawner
+public class BeesSpawner
 {
-    public override void Spawn()
+    public void Spawn()
     {
 
     }

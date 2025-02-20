@@ -9,8 +9,6 @@ public abstract class Entity : MonoBehaviour
 
     protected virtual void Awake()
     {
-        if (this is ILoadable loadable)
-            loadable.InitilizeUserInfo();
     }
 
     protected virtual void Start() { }

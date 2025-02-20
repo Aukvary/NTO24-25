@@ -47,6 +47,8 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITaskSol
     protected override void Update()
     {
         CurrentTask?.Update();
+        if (CurrentTask != null && CurrentTask.IsComplete)
+            NextTask();
     }
 
     protected override void FixedUpdate()
@@ -66,6 +68,9 @@ public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITaskSol
 
     public void SetTask(IEnumerable<IUnitTask> tasks)
     {
+        if (tasks.Count() == 0)
+            return;
+
         SetTask(tasks.First());
 
         foreach (var task in tasks.Skip(1))

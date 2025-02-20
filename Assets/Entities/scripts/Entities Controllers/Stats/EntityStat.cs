@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[Serializable]
 public class EntityStat
 {
     public static readonly Dictionary<string, EntityStatsType> StringStatPairs =
-        Enum.GetValues(typeof(EntityStat)).Cast<EntityStatsType>().ToDictionary(s => s.ToString(), s => s);
+        Enum.GetValues(typeof(EntityStatsType)).Cast<EntityStatsType>().ToDictionary(s => s.ToString(), s => s);
 
     [SerializeField]
     private EntityStatsType _stat;

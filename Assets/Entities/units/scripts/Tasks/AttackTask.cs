@@ -19,6 +19,6 @@ public struct AttackTask : IUnitTask
 
     public void Exit()
     {
-        (Unit as IAttacker).Stop();
+        (Unit as IAttacker).SetTarget();
     }
 }

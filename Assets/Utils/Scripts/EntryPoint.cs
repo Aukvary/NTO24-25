@@ -11,7 +11,7 @@ public class EntryPoint : MonoBehaviour
     public Storage Storage { get; private set; }
 
     [field: SerializeField]
-    public  ControllableActivityManager BearActivityManager { get; private set; }
+    public  ControllableManager BearActivityManager { get; private set; }
 
     [SerializeField]
     private List<BeesSpawner> _beesSpawners;
@@ -35,15 +35,14 @@ public class EntryPoint : MonoBehaviour
     {
         _preinitializeEvent.Invoke();
         InitializeSpawners();
+        BearActivityManager.Initialize(this);
         _postinitializeEvent.Invoke();
     }
 
     private void InitializeSpawners()
     {
-        BearSpawner.AddOnSpawnAction(u => Add(u));
-
-        foreach (BeesSpawner spawner in _beesSpawners)
-            spawner.AddOnSpawnAction(u => Add(u));
+        foreach (var bear in BearSpawner.Spawn())
+            Add(bear);
     }
 
 
