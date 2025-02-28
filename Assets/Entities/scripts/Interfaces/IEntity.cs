@@ -1,4 +1,7 @@
-public interface IEntity
+namespace NTO24
 {
-    Entity EntityReference { get; }
+    public interface IEntity
+    {
+        Entity EntityReference { get; }
+    }
 }

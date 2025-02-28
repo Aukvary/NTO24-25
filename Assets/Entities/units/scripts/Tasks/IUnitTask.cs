@@ -1,11 +1,13 @@
-public interface IUnitTask
+namespace NTO24
 {
-    Unit Unit { get; }
+    public interface IUnitTask
+    {
+        bool IsComplete { get; }
+        Entity Entity { get; }
 
-    bool IsComplete { get; }
-
-    void Enter() { }
-    void Update() { }
-    void FixedUpdate() { }
-    void Exit() { }
+        void Enter() { }
+        void Update() { }
+        void FixedUpdate() { }
+        void Exit() { }
+    }
 }

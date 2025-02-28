@@ -1,6 +1,9 @@
-public enum EntityType : byte
+namespace NTO24
 {
-    BeeType, 
-    BearType,
-    ÒeutralType
+    public enum EntityType : byte
+    {
+        BeeType,
+        BearType,
+        NeutralType
+    }
 }

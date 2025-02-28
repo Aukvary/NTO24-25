@@ -1,5 +1,8 @@
-public enum HealthChangeType : byte
+namespace NTO24
 {
-    Heal,
-    Damage
+    public enum HealthChangeType : byte
+    {
+        Heal,
+        Damage
+    }
 }

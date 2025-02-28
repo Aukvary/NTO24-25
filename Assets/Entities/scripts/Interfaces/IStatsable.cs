@@ -1,18 +1,16 @@
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
-public interface IStatsable : IEntity
+namespace NTO24
 {
-    public IEnumerable<EntityStat> Stats { get; }
-
-    public EntityStat this[EntityStatsType statsType]
+    public interface IStatsable : IEntity
     {
-        get
-        {
-            var stat = Stats.First(s => s.Stat == statsType);
+        public StatsController StatsController { get; }
 
-            return stat ?? throw new System.Exception($"Entity has no {statsType.ToString()}");
-        }
+        public IEnumerable<EntityStat> Stats => StatsController.Stats;
+
+        public EntityStat this[EntityStatsType statsType]
+            => StatsController[statsType];
+
     }
-
 }

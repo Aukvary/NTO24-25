@@ -2,42 +2,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class BreakableObject : Entity, IHealthable, IDropable
+namespace NTO24
 {
-    [SerializeField]
-    private List<ResourceCountPair> _dropableResources;
-
-    [SerializeField]
-    private UnityEvent<Entity, HealthChangeType> _onHealthChangeEvent;
-
-    [SerializeField]
-    UnityEvent<Entity> _onBrokeEvent;
-
-    public EntityHealth HealthComponent { get; private set; }
-
-    public IEnumerable<ResourceCountPair> DropableItems => _dropableResources;
-
-
-    protected override void Awake()
+    public class BreakableObject : Entity, IHealthable, IDropable, IStatsable, IRestoreable
     {
-        base.Awake();
-        InitializeHealth();
-    }
+        [SerializeField]
+        private List<Pair<Resource, int>> _dropableResources;
 
-    private void InitializeHealth()
-    {
-        HealthComponent = GetComponent<EntityHealth>();
+        [SerializeField]
+        private UnityEvent<Entity, HealthChangeType> _onHealthChangeEvent;
 
-        HealthComponent.AddOnHealthChangeAction(
-            (entity, type) => 
-                _onHealthChangeEvent.Invoke(entity, type)
-            );
+        [SerializeField]
+        private UnityEvent<Entity> _onBrokeEvent;
 
-        HealthComponent.AddOnDeathAction(entity => _onBrokeEvent.Invoke(entity));
-        HealthComponent.AddOnDeathAction(entity =>
+        public EntityHealth HealthController { get; private set; }
+
+        public StatsController StatsController { get; private set; }
+
+        public RestoreController RestoreController { get; private set; }
+
+        public IEnumerable<Pair<Resource, int>> DropableItems => _dropableResources;
+
+        protected override void Awake()
         {
-            if (entity is IInventoriable inventory)
-                (this as IDropable).Drop(inventory);
-        });
+            base.Awake();
+            InitializeHealth();
+            StatsController = GetComponent<StatsController>();
+            RestoreController = GetComponent<RestoreController>();
+        }
+
+        private void InitializeHealth()
+        {
+            HealthController = GetComponent<EntityHealth>();
+
+            HealthController.AddOnHealthChangeAction(_onHealthChangeEvent.Invoke);
+
+            HealthController.AddOnDeathAction(entity =>
+            {
+                _onBrokeEvent.Invoke(entity);
+
+                if (entity is IInventoriable inventory)
+                    (this as IDropable).Drop(inventory);
+
+                RestoreController?.StartRestoring();
+            });
+        }
     }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public interface IIconable
+namespace NTO24
 {
-    Sprite Icon { get; }
+    public interface IIconable
+    {
+        Sprite Icon { get; }
+    }
 }

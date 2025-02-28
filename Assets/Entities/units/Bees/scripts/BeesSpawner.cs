@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-#pragma warning disable CS4014
-public class BeesSpawner
+namespace NTO24
 {
-    public void Spawn()
+#pragma warning disable CS4014
+    public class BeesSpawner
     {
+        public void Spawn()
+        {
 
+        }
     }
 }

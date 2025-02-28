@@ -1,11 +1,16 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public interface IDropable : IEntity
+namespace NTO24
 {
-    IEnumerable<ResourceCountPair> DropableItems { get; }
-
-    public void Drop(IInventoriable inventory)
+    public interface IDropable : IEntity
     {
-        inventory.AddToInventory(DropableItems);
+        IEnumerable<Pair<Resource, int>> DropableItems { get; }
+
+        public void Drop(IInventoriable inventory)
+        {
+            foreach (var item in DropableItems) 
+                inventory.TryAddItems(item);
+        }
     }
 }

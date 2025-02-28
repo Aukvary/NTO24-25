@@ -2,30 +2,33 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine.Events;
 
-#pragma warning disable CS4014
-public interface ILoadable : IEntity
+namespace NTO24
 {
-/*    public string Name { get; }
-
-    public bool IsInitialized { get; set; }
-
-    public User User { get; }
-
-    public UnityEvent OnUserInitializeEvent { get; }
-
-    public async void InitilizeUserInfo()
+#pragma warning disable CS4014
+    public interface ILoadable : IEntity
     {
-        IEnumerable<string> parametors = GetStringParametors();
+    /*    public string Name { get; }
 
-        await User.InitializeUser(parametors);
+        public bool IsInitialized { get; set; }
 
-        await Initialize();
+        public User User { get; }
 
-        IsInitialized = true;
-        OnUserInitializeEvent.Invoke();
+        public UnityEvent OnUserInitializeEvent { get; }
+
+        public async void InitilizeUserInfo()
+        {
+            IEnumerable<string> parametors = GetStringParametors();
+
+            await User.InitializeUser(parametors);
+
+            await Initialize();
+
+            IsInitialized = true;
+            OnUserInitializeEvent.Invoke();
+        }
+
+        public IEnumerable<string> GetStringParametors();
+
+        public new Task Initialize();*/
     }
-
-    public IEnumerable<string> GetStringParametors();
-
-    public new Task Initialize();*/
 }

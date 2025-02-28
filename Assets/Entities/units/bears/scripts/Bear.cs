@@ -1,67 +1,36 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Bear : Unit, IInventoriable, IRestoreable, IIconable, IControllable
+namespace NTO24
 {
-    private Collider _collider;
-    private MeshRenderer[] _renderers;
-
-    private Vector3 _spawnPosition;
-
-    private Coroutine _restoreCoroutine;
-
-    [field: SerializeField]
-    public float RestoreTime { get; private set; }
-
-    [field: SerializeField]
-    public string Name { get; private set; }
-
-    [field: SerializeField]
-    public Sprite Icon { get; private set; }
-
-    [field: SerializeField]
-    public int CellCapacity { get; private set; }
-
-    [field: SerializeField]
-    public UnityEvent OnUserInitializeEvent { get; private set; }
-
-    [field: SerializeField]
-    public UnityEvent<ResourceCountPair> OnFailedAddEvent { get; private set; }
-
-    public Animator Animator { get; private set; }
-
-    public int CellCount => 6;
-
-    public Inventory Inventory { get; private set; }
-
-    protected override void Awake()
+    public class Bear : Unit, IRestoreable, IIconable, IControllable, IAttacker, IInventoriable
     {
-        base.Awake();
+        [field: SerializeField]
+        public string Name { get; private set; }
 
-        _renderers = GetComponentsInChildren<MeshRenderer>();
-        _collider = GetComponent<Collider>();
+        [field: SerializeField]
+        public Sprite Icon { get; private set; }
 
-    }
+        public AttackController AttackController { get; private set; }
+        public Inventory Inventory { get; private set; }
+        public RestoreController RestoreController { get; private set; }
 
 
-    protected override void HealthInitialize()
-    {
-        base.HealthInitialize();
-        HealthComponent.AddOnDeathAction(entity =>
+        protected override void Awake()
         {
-            _restoreCoroutine = (this as IRestoreable).StartRestoring();
-        });
+            base.Awake();
 
-        HealthComponent.AddOnAliveChangeAction(alive =>
+            AttackController = GetComponent<AttackController>();
+            Inventory = GetComponent<Inventory>();
+            RestoreController = GetComponent<RestoreController>();
+        }
+
+        protected override void HealthInitialize()
         {
-            if (alive) 
-                StopCoroutine(_restoreCoroutine);
-
-            _collider.enabled = alive;
-            transform.position = _spawnPosition;
-            foreach (var renderer in _renderers)
-                renderer.enabled = alive;
-        });
+            base.HealthInitialize();
+            HealthController.AddOnDeathAction(entity =>
+            {
+                RestoreController.StartRestoring();
+            });
+        }
     }
 }

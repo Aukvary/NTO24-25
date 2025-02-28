@@ -2,15 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ConstructionObject : Entity, IInteractable
+namespace NTO24
 {
-    [SerializeField]
-    private List<ResourceCountPair> _materials;
+    public class ConstructionObject : Entity, IInteractable
+    {
+        [SerializeField]
+        private List<Pair<Resource, int>> _materials;
 
-    [field: SerializeField]
-    public UnityEvent<Entity> OnInteracEvent { get; private set; }
+        [field: SerializeField]
+        public UnityEvent<IInteractor> OnInteracEvent { get; private set; }
 
-    public bool Interactable => throw new System.NotImplementedException();
+        public bool Interactable => throw new System.NotImplementedException();
 
-    public IEnumerable<ResourceCountPair> Materials => _materials;
+        public IEnumerable<Pair<Resource, int>> Materials => _materials;
+    }
 }

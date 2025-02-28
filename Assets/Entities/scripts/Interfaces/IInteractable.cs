@@ -1,16 +1,19 @@
 using UnityEngine.Events;
 
-public interface IInteractable
+namespace NTO24
 {
-    bool Interactable { get; }
-
-    UnityEvent<IInteractor> OnInteracEvent { get; }
-
-    void InteractBy(IInteractor entity)
+    public interface IInteractable : IEntity
     {
-        if (!Interactable)
-            return;
+        bool Interactable { get; }
 
-        OnInteracEvent.Invoke(entity);
+        UnityEvent<IInteractor> OnInteracEvent { get; }
+
+        void InteractBy(IInteractor entity)
+        {
+            if (!Interactable)
+                return;
+
+            OnInteracEvent.Invoke(entity);
+        }
     }
 }

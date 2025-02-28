@@ -1,22 +1,27 @@
-public struct InteractTask : IUnitTask
+namespace NTO24
 {
-    public IInteractable Target { get; private set; }
-
-    public Unit Unit { get; private set; }
-
-    public bool IsComplete => !Target.Interactable;
-
-    public InteractTask(IInteractor unit, IInteractable target)
+    public struct InteractTask : IUnitTask
     {
-        Unit = unit as Unit;
-        Target = target;
-    }
+        private IInteractor _unit;
 
-    public void Enter()
-    {
-    }
+        public IInteractable Target { get; private set; }
 
-    public void Exit()
-    {
+        public Entity Entity => _unit.EntityReference;
+
+        public bool IsComplete => !Target.Interactable;
+
+        public InteractTask(IInteractor unit, IInteractable target)
+        {
+            _unit = unit;
+            Target = target;
+        }
+
+        public void Enter()
+        {
+        }
+
+        public void Exit()
+        {
+        }
     }
 }

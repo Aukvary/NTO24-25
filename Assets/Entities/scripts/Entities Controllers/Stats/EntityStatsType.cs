@@ -1,9 +1,12 @@
-public enum EntityStatsType
+namespace NTO24
 {
-    Damage,
-    MaxHealth,
-    Regeneration,
-    Speed,
-    InteractRange,
-    AttackRange
+    public enum EntityStatsType
+    {
+        Damage,
+        MaxHealth,
+        Regeneration,
+        Speed,
+        InteractRange,
+        AttackRange
+    }
 }

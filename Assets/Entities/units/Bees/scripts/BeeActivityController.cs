@@ -1,7 +1,10 @@
 using System.Linq;
 using UnityEngine;
 
-public class BeeActivityController : MonoBehaviour
+namespace NTO24
 {
+    public class BeeActivityController : MonoBehaviour
+    {
 
+    }
 }

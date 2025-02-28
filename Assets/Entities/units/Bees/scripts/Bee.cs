@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bee : Unit, IDropable
+namespace NTO24
 {
-    [SerializeField]
-    private List<ResourceCountPair> _dropableItems;
-    public IEnumerable<ResourceCountPair> DropableItems => _dropableItems;
-
-    protected override void HealthInitialize()
+    public class Bee : Unit, IDropable
     {
-        base.HealthInitialize();
-        HealthComponent.AddOnDeathAction(entity =>
+        [SerializeField]
+        private List<Pair<Resource, int>> _dropableItems;
+        public IEnumerable<Pair<Resource, int>> DropableItems => _dropableItems;
+
+        protected override void HealthInitialize()
         {
-            if (entity is IInventoriable inventory)
-                (this as IDropable).Drop(inventory);
-        });
+            base.HealthInitialize();
+            HealthController.AddOnDeathAction(entity =>
+            {
+                if (entity is IInventoriable inventory)
+                    (this as IDropable).Drop(inventory);
+            });
+        }
     }
 }

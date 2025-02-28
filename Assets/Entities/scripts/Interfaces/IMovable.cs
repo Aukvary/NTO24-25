@@ -1,20 +1,30 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public interface IMovable : IEntity
+namespace NTO24
 {
-    MovementBehaviour MovementController { get; }
-
-    UnityEvent<Vector3> OnTargetPositionChangedEvent { get; }
-
-    public bool HasPath => MovementController.HasPath;
-
-    void MoveTo(Vector3 newPosition)
+    public interface IMovable : IEntity
     {
-        MovementController.TargetPosition = newPosition;
-        OnTargetPositionChangedEvent.Invoke(newPosition);
-    }
+        float StopDistance { get; }
 
-    void Stop()
-        => MovementController.ResetPath();
+        MovementController MovementController { get; }
+
+        bool HasPath => MovementController.HasPath;
+
+        float AngularSpeed => MovementController.AngularSpeed;
+
+        Vector3 Destination => MovementController.Destination;
+
+        void MoveTo(Vector3 newPosition)
+            => MovementController.Destination = newPosition;
+
+        void Stop()
+            => MovementController.ResetPath();
+
+        void AddOnDestinationChangeAction(UnityAction<Vector3> action)
+            => MovementController.AddOnDestinationChangeAction(action);
+
+        void RemoveOnDestinationChangeAction(UnityAction<Vector3> action)
+            => MovementController.RemoveOnDestinationChangeAction(action);
+    }
 }

@@ -1,25 +1,30 @@
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-public interface IInventoriable : IEntity
+namespace NTO24
 {
-    public Inventory Inventory { get; }
-
-    public int CellCount { get; }
-
-    public int CellCapacity => int.MaxValue;
-
-    public int this[Resource resource] => Inventory[resource];
-
-    public UnityEvent<ResourceCountPair> OnFailedAddEvent { get; }
-
-    public void AddToInventory(ResourceCountPair resources)
+    public interface IInventoriable : IEntity
     {
+        Inventory Inventory { get; }
 
-    }
+        int CellCount => Inventory.CellCount;
 
-    public void AddToInventory(IEnumerable<ResourceCountPair> resources)
-    {
+        int CellCapacity => Inventory.CellCapacity;
 
+        IEnumerable<Pair<Resource, int>> Items => Inventory.Items;
+
+        int this[Resource resource] => Inventory[resource];
+
+        void TryAddItems(Pair<Resource, int> resources)
+        {
+            if (Inventory.TryAddItems(resources, out var items))
+                return;
+        }
+
+        public void AddOnItemsChangeAction(UnityAction action)
+            => Inventory.AddOnItemsChangeAction(action);
+
+        public void RemoveOnItemsChangeAction(UnityAction action)
+            => Inventory.RemoveOnItemsChangeAction(action);
     }
 }

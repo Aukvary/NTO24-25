@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1758998228868027563}
   - component: {fileID: 6357504945263145829}
+  - component: {fileID: 5510439700086312377}
+  - component: {fileID: 6138309989425705496}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -50,7 +52,46 @@ MonoBehaviour:
   _changeFOVSpeed: 1000
   _minFOV: 10
   _maxFOV: 60
-  _hotkeyChangeZCameraPosition: 0
+  _hotkeyChangeZCameraPosition: -6
+--- !u!114 &5510439700086312377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487495759130449247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3721d09fdb155a48badc61040102f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BearSpawner>k__BackingField: {fileID: 0}
+  <Storage>k__BackingField: {fileID: 0}
+  <BearActivityManager>k__BackingField: {fileID: 6138309989425705496}
+  _preinitializeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _postinitializeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onUnitsCountChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6138309989425705496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487495759130449247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32443d85fe5a954d9d54740bddd5d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectingAreaColor: {r: 0.24227944, g: 0.8113208, b: 0.21048418, a: 1}
+  _areaAlpha: 128
+  _areaBorderThickness: 2
 --- !u!1 &5366019900066478683
 GameObject:
   m_ObjectHideFlags: 0

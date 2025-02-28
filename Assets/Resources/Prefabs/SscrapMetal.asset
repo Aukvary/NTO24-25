@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0eb20fdf61b1124c846b59a43dba9e5, type: 3}
   m_Name: SscrapMetal
   m_EditorClassIdentifier: 
-  _resourceName: SscrapMetal
-  _sprite: {fileID: 21300000, guid: 7cffed4e3ade05e4c8964bcfd290e21b, type: 3}
+  <ResourceName>k__BackingField: MetalScrap
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 7cffed4e3ade05e4c8964bcfd290e21b, type: 3}

@@ -1,96 +1,115 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EntityHealth : EntityComponent
+namespace NTO24
 {
-    [Header("Health Events")]
-    [SerializeField]
-    private UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent;
-
-    [SerializeField]
-    private UnityEvent<Entity> OnDeathEvent;
-
-    [SerializeField]
-    private UnityEvent<bool> OnAliveChangeEvent;
-
-    private float _currentHealth;
-
-    private IStatsable _entityStats;
-    private EntityStat _maxHealth;
-    private EntityStat _regeneration;
-
-    private bool _alive;
-
-    public float Health
+    public class EntityHealth : EntityComponent
     {
-        get => _currentHealth;
+        [SerializeField]
+        private UnityEvent<Entity, HealthChangeType> _onHealthChangeEvent;
 
-        private set => _currentHealth = value;
-    }
+        [SerializeField]
+        private UnityEvent<Entity> _onDeathEvent;
 
-    public float Regeneration { get; private set; }
+        [SerializeField]
+        private UnityEvent<bool> _onAliveChangeEvent;
 
-    public float MaxHealth { get; private set; }
+        [SerializeField]
+        private UnityEvent _onUpgadeEvent;
 
-    public bool Alive 
-    {
-        get => _alive;
+        private float _currentHealth;
 
-        set
+        private EntityStat _maxHealth;
+        private EntityStat _regeneration;
+
+        private bool _alive = true;
+
+        public float Health
         {
-            OnAliveChangeEvent.Invoke(value);
-            _alive = value;
+            get => _currentHealth;
+
+            private set => _currentHealth = value;
         }
+
+        public float Regeneration => _regeneration?.StatValue ?? 0;
+
+        public float MaxHealth => _maxHealth.StatValue;
+
+        public bool Alive 
+        {
+            get => _alive;
+
+            set
+            {
+                _alive = value;
+                _onAliveChangeEvent.Invoke(value);
+
+                if (value)
+                {
+                    Health = MaxHealth;
+                    _onHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
+                }
+            }
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        protected override void Start()
+        {
+            if (Entity is not IStatsable stats)
+                throw new System.Exception("Stats component was missed");
+
+            _maxHealth = stats[EntityStatsType.MaxHealth];
+            _regeneration = stats[EntityStatsType.Regeneration];
+
+            _maxHealth.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);
+            _regeneration?.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);
+
+            Health = _maxHealth.StatValue;
+        }
+
+        protected override void Update()
+        {
+            if (!Alive)
+                return;
+            ChangeHealth(Regeneration * Time.deltaTime, HealthChangeType.Heal);
+        }
+
+        public void ChangeHealth(float deltaHealth, HealthChangeType type, Entity by = null)
+        {
+            Health = Mathf.Clamp(Health + deltaHealth * (type == HealthChangeType.Heal ? 1 : -1), 0, MaxHealth);
+
+            _onHealthChangeEvent.Invoke(by, type);
+
+            if (Health > 0)
+                return;
+
+            Alive = false;
+
+            _onDeathEvent.Invoke(by);
+        }
+
+        public void AddOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
+            => _onHealthChangeEvent.AddListener(action);
+        public void RemoveOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
+            => _onHealthChangeEvent.RemoveListener(action);
+
+        public void AddOnDeathAction(UnityAction<Entity> action)
+            => _onDeathEvent.AddListener(action);
+        public void RemoveOnDeathAction(UnityAction<Entity> action)
+            => _onDeathEvent.RemoveListener(action);
+
+        public void AddOnAliveChangeAction(UnityAction<bool> action)
+            => _onAliveChangeEvent.AddListener(action);
+        public void RemoveOnAliveChangeAction(UnityAction<bool> action)
+            => _onAliveChangeEvent.RemoveListener(action);
+
+        public void AddOnUpgradeAction(UnityAction action)
+            => _onUpgadeEvent.AddListener(action);
+        public void RemoveOnUpgradeAction(UnityAction action)
+            => _onUpgadeEvent.RemoveListener(action);
     }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        if (Entity is not IStatsable stats)
-            throw new System.Exception("Stats component was missed");
-
-        _entityStats = stats;
-
-        _maxHealth = _entityStats[EntityStatsType.MaxHealth];
-        _maxHealth.AddOnLevelChangeAction(_ => MaxHealth = _maxHealth.StatValue);
-
-        _regeneration = _entityStats[EntityStatsType.Regeneration];
-        _regeneration.AddOnLevelChangeAction(_ => Regeneration = _regeneration.StatValue);
-    }
-
-    protected override void Update()
-    {
-        if (!Alive)
-            return;
-        ChangeHealth(Regeneration * Time.deltaTime, HealthChangeType.Heal);
-    }
-
-    public void ChangeHealth(float deltaHealth, HealthChangeType type, Entity by = null)
-    {
-        Health = Mathf.Clamp(Health + deltaHealth * (type == HealthChangeType.Heal ? 1 : -1), 0, MaxHealth);
-
-        OnHealthChangeEvent.Invoke(by, type);
-
-        if (Health > 0)
-            return;
-
-        Alive = false;
-        OnDeathEvent.Invoke(by);
-    }
-
-    public void AddOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
-        => OnHealthChangeEvent.AddListener(action);
-    public void RemoveOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
-        => OnHealthChangeEvent.RemoveListener(action);
-
-    public void AddOnDeathAction(UnityAction<Entity> action)
-        => OnDeathEvent.AddListener(action);
-    public void RemoveOnDeathAction(UnityAction<Entity> action)
-        => OnDeathEvent.RemoveListener(action);
-
-    public void AddOnAliveChangeAction(UnityAction<bool> action)
-        => OnAliveChangeEvent.AddListener(action);
-    public void RemoveOnAliveChangeAction(UnityAction<bool> action)
-        => OnAliveChangeEvent.RemoveListener(action);
 }

@@ -1,17 +1,12 @@
 using UnityEngine;
 
-public interface IRestoreable : IEntity
+namespace NTO24
 {
-    public float RestoreTime { get; }
-
-    public EntityHealth HealthComponent { get; }
-
-    Coroutine StartRestoring() => EntityReference.StartCoroutine(Restore());
-
-
-    private System.Collections.IEnumerator Restore()
+    public interface IRestoreable : IEntity
     {
-        yield return new WaitForSeconds(RestoreTime);
-        HealthComponent.Alive = true;
+        public RestoreController RestoreController { get; }
+
+        Coroutine StartRestoring() 
+            => RestoreController.StartRestoring();
     }
 }

@@ -1,7 +1,10 @@
-public class Stuff
+namespace NTO24
 {
-    public const string MOUSEX = "Mouse X";
-    public const string MOUSEY = "Mouse Y";
-    public const string HORIZONTAL = "Horizontal";
-    public const string VERTICAL = "Vertical";
+    public static class Stuff
+    {
+        public const string MOUSEX = "Mouse X";
+        public const string MOUSEY = "Mouse Y";
+        public const string HORIZONTAL = "Horizontal";
+        public const string VERTICAL = "Vertical";
+    }
 }

@@ -15,6 +15,10 @@ GameObject:
   - component: {fileID: 1376737574795890675}
   - component: {fileID: 1840193761287529852}
   - component: {fileID: 8230154016935912467}
+  - component: {fileID: -2708367388729607602}
+  - component: {fileID: -6555380329286658571}
+  - component: {fileID: 9166912512763495006}
+  - component: {fileID: -7046084443255109707}
   m_Layer: 0
   m_Name: Maxim Unit
   m_TagString: Untagged
@@ -96,56 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
-  _stats:
-  - _stat: 1
-    _statValues:
-    - 100
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - _stat: 2
-    _statValues:
-    - 100
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - _stat: 0
-    _statValues:
-    - 100
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - _stat: 5
-    _statValues:
-    - 100
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - _stat: 4
-    _statValues:
-    - 100
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - _stat: 3
-    _statValues:
-    - 5
-    _onLevelChangeEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  <OnTargetPositionChangedEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
   <RestoreTime>k__BackingField: 0
   <Name>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <CellCapacity>k__BackingField: 0
-  <OnUserInitializeEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
-  <OnFailedAddEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
+  <Icon>k__BackingField: {fileID: 21300000, guid: 876966f7d75f31d48b1a82afd2a6dc09, type: 3}
 --- !u!114 &1376737574795890675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,13 +115,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHealthChangeEvent:
+  _onHealthChangeEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnDeathEvent:
+  _onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
-  OnAliveChangeEvent:
+  _onAliveChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onUpgadeEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1840193761287529852
@@ -179,6 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4691841170c27d74a9c73ea2659eceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onDestinationChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8230154016935912467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +157,121 @@ MonoBehaviour:
   _onChangeTargetEvent:
     m_PersistentCalls:
       m_Calls: []
+  _onInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []
   _onInteractFailedEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onPossibilityInteractChangeEvent:
+  _onPossibilityChangeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-2708367388729607602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644976181439570019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19d4f8e4ccabe418069dc7e0f738bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stats:
+  - _stat: 0
+    _statValues:
+    - 10
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 3
+    _statValues:
+    - 3
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 4
+    _statValues: []
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 5
+    _statValues:
+    - 1.5
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 1
+    _statValues:
+    - 100
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 2
+    _statValues:
+    - 1
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &-6555380329286658571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644976181439570019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271ab02060d7c074e851e1a84135a5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onAddEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onSetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onEnterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &9166912512763495006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644976181439570019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b9cc35a3f37544bbc7aba574febd81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackAngle: 60
+  _onChangeTargetEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _onAttackEvent:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-7046084443255109707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3644976181439570019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2663f1faf88445458af6f18d233e17c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CellCapacity>k__BackingField: 15
+  <CellCount>k__BackingField: 6
+  _onItemsChangeEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &583793388314841510

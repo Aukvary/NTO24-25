@@ -1,5 +1,6 @@
-using System.Collections.Generic;
-
-public interface IControllable : IEntity
+namespace NTO24
 {
+    public interface IControllable : IEntity
+    {
+    }
 }
