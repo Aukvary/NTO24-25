@@ -63,7 +63,6 @@ namespace NTO24
         private void InitializeStorage()
         {
             Storage.Initialize();
-            _upgradeHUD.Initialize();
             _storageHUD.Initialize(Storage);
         }
 

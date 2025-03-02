@@ -25,6 +25,7 @@ namespace NTO24
             Inventory = GetComponent<Inventory>();
             Inventory.Initialize(6, (int)StatsController[EntityStatsType.CellCapacity].StatValue);
 
+
             RestoreController = GetComponent<RestoreController>();
             InteractingController = GetComponent<InteractingController>();
         }

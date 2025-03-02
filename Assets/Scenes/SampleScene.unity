@@ -122,6 +122,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 67168b166fde43e42a5f754e4cf4edd0, type: 2}
+--- !u!1 &4560613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4487495759130449247, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
+  m_PrefabInstance: {fileID: 1406838656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4560618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4560613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4efd2e33b8feffc4d949801c5ec80e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &280849757
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,11 +427,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bears:
-  - <Value1>k__BackingField: {fileID: 6003211779647662175, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+  - <Value1>k__BackingField: {fileID: 2848127831263049352, guid: 510f1460b832da8418b3f937bea2c55e, type: 3}
     <Value2>k__BackingField: {fileID: 902277964}
-  - <Value1>k__BackingField: {fileID: 6003211779647662175, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+  - <Value1>k__BackingField: {fileID: 2848127831263049352, guid: 510f1460b832da8418b3f937bea2c55e, type: 3}
     <Value2>k__BackingField: {fileID: 1901334857}
-  - <Value1>k__BackingField: {fileID: 6003211779647662175, guid: 144cd8e2f1456a345b9d2ebe3a519683, type: 3}
+  - <Value1>k__BackingField: {fileID: 2848127831263049352, guid: 510f1460b832da8418b3f937bea2c55e, type: 3}
     <Value2>k__BackingField: {fileID: 1080804182}
 --- !u!4 &852588719 stripped
 Transform:
@@ -658,7 +675,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4487495759130449247, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4560618}
   m_SourcePrefab: {fileID: 100100000, guid: c1993acbfa62e3b47ab64d837ef358b4, type: 3}
 --- !u!1001 &1423519336
 PrefabInstance:
@@ -671,6 +691,10 @@ PrefabInstance:
     - target: {fileID: 2329194673651300021, guid: 5acbe28fe490b7c4db1a50eefbd6b77b, type: 3}
       propertyPath: m_Name
       value: UpgradeHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 2329194673651300021, guid: 5acbe28fe490b7c4db1a50eefbd6b77b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2513169342669205791, guid: 5acbe28fe490b7c4db1a50eefbd6b77b, type: 3}
       propertyPath: m_LocalPosition.x

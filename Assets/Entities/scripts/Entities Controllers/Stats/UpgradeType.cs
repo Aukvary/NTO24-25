@@ -7,7 +7,13 @@ namespace NTO24
     public class UpgradeType : ScriptableObject
     {
         [field: SerializeField]
-        public Sprite Icon;
+        public Sprite Icon { get; private set; }
+
+        [field: SerializeField]
+        public string Name { get; private set; }
+
+        [field: SerializeField, TextArea]
+        public string Description { get; private set; }
 
         [SerializeField]
         private List<EntityStatsType> _statsType; 
