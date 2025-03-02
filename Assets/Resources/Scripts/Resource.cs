@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-[CreateAssetMenu(fileName = "NewResource", menuName = "Resources", order = 51)]
-public class Resource : ScriptableObject
+
+namespace NTO24
 {
-    [SerializeField]
-    private string _resourceName;
-    [SerializeField]
-    private Sprite _sprite;
+    [CreateAssetMenu(fileName = "NewResource", menuName = "Resources", order = 51)]
+    public class Resource : ScriptableObject
+    {
+        [field: SerializeField]
+        public string ResourceName { get; private set; }
 
-    public string ResourceName => _resourceName;
-    public Sprite Sprite => _sprite;
-
+        [field: SerializeField]
+        public Sprite Sprite { get; private set; }
+    }
 }

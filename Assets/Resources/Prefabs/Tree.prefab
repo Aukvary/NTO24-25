@@ -9,16 +9,19 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2912102182614954146}
-  - component: {fileID: 3314649553986179218}
   - component: {fileID: 6036367350138531294}
   - component: {fileID: 1413938536099451291}
   - component: {fileID: 3907513337642073053}
+  - component: {fileID: 1386468443281956719}
+  - component: {fileID: 7513813419890988848}
+  - component: {fileID: 6411844894316053021}
+  - component: {fileID: 2924753335075656768}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2912102182614954146
 Transform:
@@ -35,32 +38,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3314649553986179218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 610538126186804789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab7101b4ba3b51d42891874284a285cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _heath: 30
-  _dropableResources:
-  - _resorce: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    _count: 2
-  _onBreakEvents:
-    m_PersistentCalls:
-      m_Calls: []
-  _onHitEvents:
-    m_PersistentCalls:
-      m_Calls: []
-  _dropChance: 5
-  _restoredMesh: {fileID: -2432090755550338912, guid: 7fd052a0d2cb62148a71c5a00052d051, type: 3}
-  _restoringMesh: {fileID: 0}
-  _timeToRestore: 240
 --- !u!33 &6036367350138531294
 MeshFilter:
   m_ObjectHideFlags: 0
