@@ -36,17 +36,21 @@ namespace NTO24
 
         private List<Unit> _units = new();
 
+        private EntitySelector _entitySelector;
+
         public IEnumerable<Unit> Units => _units;
         public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;
 
 
         private void Awake()
         {
+            _entitySelector = GetComponent<EntitySelector>();
+
             _preinitializeEvent.Invoke();
             InitializeSpawners();
             InitializeStorage();
 
-            BearActivityManager.Initialize(this);
+            BearActivityManager.Initialize(this, _entitySelector);
             _postinitializeEvent.Invoke();
         }
 
@@ -59,7 +63,7 @@ namespace NTO24
         private void InitializeStorage()
         {
             Storage.Initialize();
-            _upgradeHUD.Initialize(Storage);
+            _upgradeHUD.Initialize();
             _storageHUD.Initialize(Storage);
         }
 
