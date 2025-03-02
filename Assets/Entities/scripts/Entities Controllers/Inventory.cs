@@ -7,11 +7,7 @@ namespace NTO24
 {
     public class Inventory : EntityComponent
     {
-        [field: SerializeField, Min(1)]
-        public int CellCapacity { get; private set; }
-
-        [field: SerializeField, Min(1)]
-        public int CellCount { get; private set; }
+        private int _cellCapacity;
 
         [SerializeField]
         private UnityEvent _onItemsChangeEvent;
@@ -20,12 +16,16 @@ namespace NTO24
 
         public IEnumerable<Pair<Resource, int>> Items => _items;
 
+        public bool HasItems => _items.Any(p => p.Value1 != null);
+
         public int this[Resource res]
             => _items.Sum(p => p.Value1 == res ? p.Value2 : 0);
 
-        protected override void Awake()
+
+        public void Initialize(int cellCount, int cellCapacity = int.MaxValue)
         {
-            _items = new Pair<Resource, int>[CellCount];
+            _items = new Pair<Resource, int>[cellCount];
+            _cellCapacity = cellCapacity;
         }
 
         public bool TryAddItems(Pair<Resource, int> items, out Pair<Resource, int> overflowItems)
@@ -34,15 +34,15 @@ namespace NTO24
 
             for (int i = 0; i < _items.Length; i++)
             {
-                if (_items[i].Value2 == CellCapacity)
+                if (_items[i].Value2 == _cellCapacity)
                     continue;
 
                 else if (_items[i].Value1 == null)
                 {
-                    _items[i] = new(items.Value1, Mathf.Min(count, CellCapacity));
-                    if (count > CellCapacity)
+                    _items[i] = new(items.Value1, Mathf.Min(count, _cellCapacity));
+                    if (count > _cellCapacity)
                     {
-                        count -= CellCapacity;
+                        count -= _cellCapacity;
                         continue;
                     }
                     else break;
@@ -50,7 +50,7 @@ namespace NTO24
 
                 else if (_items[i].Value1 == items.Value1)
                 {
-                    int cellCapacity = CellCapacity - _items[i].Value2;
+                    int cellCapacity = _cellCapacity - _items[i].Value2;
 
                     _items[i] = new(items.Value1, Mathf.Min(count, cellCapacity) + _items[i].Value2);
                     if (count > cellCapacity)
@@ -68,10 +68,46 @@ namespace NTO24
             return overflowItems.Value2 == 0;
         }
 
+        public IEnumerable<Pair<Resource, int>> GetItems()
+        {
+            IEnumerable<Pair<Resource, int>> items = _items.ToArray();
+            for (int i = 0; i < _items.Length; i++)
+                _items[i] = new(null, 0);
+            _onItemsChangeEvent.Invoke();
+            return items;
+        }
+
+        public void RemoveResources(Resource resource, int count)
+        {
+            int currentCount = count;
+
+            for (int i = _items.Length - 1; i >= 0; i--)
+            {
+                if (_items[i].Value1 != resource)
+                    return;
+
+                if (currentCount < _items[i].Value2)
+                {
+                    _items[i] = new(_items[i].Value1, _items[i].Value2 - currentCount);
+                }
+                else
+                {
+                    _items[i] = new(null, 0);
+                    currentCount -= _items[i].Value2;
+                }
+
+                if (currentCount <= 0)
+                    break;
+            }
+
+
+            _onItemsChangeEvent.Invoke();
+        }
+
         public void AddOnItemsChangeAction(UnityAction action)
             => _onItemsChangeEvent.AddListener(action);
 
-        public void RemoveOnItemsChangeAction( UnityAction action)
+        public void RemoveOnItemsChangeAction(UnityAction action)
             => _onItemsChangeEvent.RemoveListener(action);
     }
 }

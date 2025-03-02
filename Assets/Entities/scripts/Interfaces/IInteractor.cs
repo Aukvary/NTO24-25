@@ -5,39 +5,28 @@ namespace NTO24
 {
     public interface IInteractor : IEntity
     {
-        public InteractingBehaviour InteractingBehaviour { get; }
+        public InteractingController InteractingController { get; }
 
-        public IInteractable Target => InteractingBehaviour.Target;
+        public IInteractable Target
+        {
+            get => InteractingController.Target;
+            set => InteractingController.Target = value;
+        }
 
         public Vector3 TargetPosition => Target.EntityReference.transform.position;
 
-        public bool CanInteract => InteractingBehaviour.CanInteract;
-
-        public void TryInteract()
-            => InteractingBehaviour.TryInteract();
+        public bool CanInteract => InteractingController.CanInteract;
 
         public void AddOnChangeTargetAction(UnityAction<IInteractable> action)
-            => InteractingBehaviour.AddOnChangeTargetAction(action);
+            => InteractingController.AddOnChangeTargetAction(action);
 
         public void RemoveOnChangeTargetAction(UnityAction<IInteractable> action)
-            => InteractingBehaviour.RemoveOnChangeTargetAction(action);
+            => InteractingController.RemoveOnChangeTargetAction(action);
 
         public void AddOnInteractAction(UnityAction<IInteractable> action)
-            => InteractingBehaviour.AddOnInteractAction(action);
+            => InteractingController.AddOnInteractAction(action);
 
         public void RemoveOnInteractAction(UnityAction<IInteractable> action)
-            => InteractingBehaviour.RemoveOnInteractAction(action);
-
-        public void AddOnInteractFailedAction(UnityAction action)
-            => InteractingBehaviour.AddOnInteractFailedAction(action);
-
-        public void RemoveOnInteractFailedAction(UnityAction action)
-            => InteractingBehaviour.RemoveOnInteractFailedAction(action);
-
-        public void AddOnPossibilityChangeAction(UnityAction<bool> action)
-            => InteractingBehaviour.AddOnPossibilityChangeAction(action);
-
-        public void RemoveOnPossibilityChangeAction(UnityAction<bool> action)
-            => InteractingBehaviour.AddOnPossibilityChangeAction(action);
+            => InteractingController.RemoveOnInteractAction(action);
     }
 }

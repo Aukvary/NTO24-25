@@ -57,9 +57,12 @@ namespace NTO24.UI
 
         private void UpdateEntity()
         {
-            for (int i = 0; i < _itemCells.Length && i < Inventory.Items.Count(); i++)
+            for (int i = 0; i < _itemCells.Length; i++)
             {
-                _itemCells[i].Source = Inventory.Items.ElementAt(i);
+                if (i < Inventory.Items.Count())
+                    _itemCells[i].Source = Inventory.Items.ElementAt(i);
+                else
+                    _itemCells[i].Source = null;
             }
         }
     }

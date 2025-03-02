@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
-  <RestoreTime>k__BackingField: 0
   <Name>k__BackingField: 
   <Icon>k__BackingField: {fileID: 21300000, guid: 876966f7d75f31d48b1a82afd2a6dc09, type: 3}
 --- !u!114 &1376737574795890675
@@ -160,12 +159,6 @@ MonoBehaviour:
   _onInteractEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onInteractFailedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _onPossibilityChangeEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-2708367388729607602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +185,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - _stat: 4
-    _statValues: []
+    _statValues:
+    - 1.5
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -211,6 +205,12 @@ MonoBehaviour:
   - _stat: 2
     _statValues:
     - 1
+    _onLevelChangeEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - _stat: 6
+    _statValues:
+    - 15
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -269,8 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2663f1faf88445458af6f18d233e17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CellCapacity>k__BackingField: 15
-  <CellCount>k__BackingField: 6
   _onItemsChangeEvent:
     m_PersistentCalls:
       m_Calls: []

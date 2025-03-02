@@ -1,17 +1,37 @@
 using System.Linq;
-using UnityEngine;
-using UnityEngine.Events;
-
 
 namespace NTO24
 {
-    public class Storage : Entity, IInteractable, ILoadable
+    public class Storage : Entity, IInteractable, IInventoriable
     {
-        [field: SerializeField]
-        public UnityEvent<IInteractor> OnInteracEvent { get; private set; }
+        public Inventory Inventory { get; private set; }
+        public Interactable Interactable { get; private set; }
 
-        public bool Interactable => true;
+        public void Initialize()
+        {
+            base.Awake();
+            Inventory = GetComponent<Inventory>();
 
-        public int CellCount => Resources.ResourceNames.Count();
+            Inventory.Initialize(Resources.ResourceNames.Count());
+
+            Interactable = GetComponent<Interactable>();
+
+            Interactable.AddOnInteractAction(i =>
+            {
+                if (i.EntityReference is not IInventoriable inventory)
+                    throw new System.Exception($"entity {i.EntityReference.name} hasnt inventory");
+
+                foreach (var item in inventory.GetItems())
+                    Inventory.TryAddItems(item, out _);
+            });
+        }
+
+        public bool IsInteractable(IInteractor interactor)
+        {
+            if (interactor is not IInventoriable inventory)
+                throw new System.Exception($"entity {interactor.EntityReference.name} hasnt inventory");
+
+            return inventory.HasItems;
+        }
     }
 }

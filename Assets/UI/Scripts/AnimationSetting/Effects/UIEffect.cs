@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NTO24.UI
 {
-    public abstract class Effect : ScriptableObject
+    public abstract class UIEffect : ScriptableObject
     {
         public virtual RectTransform Transform { get; set; }
 

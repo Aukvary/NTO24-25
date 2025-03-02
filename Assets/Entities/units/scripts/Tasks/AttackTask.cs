@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace NTO24
 {
-    public struct AttackTask : IUnitTask
+    public class AttackTask : IUnitTask
     {
         private IAttacker _unit;
 
@@ -26,7 +26,7 @@ namespace NTO24
         {
             _unit.Target = Target;
             _animable?.SetAnimation(AnimationController.Animations.Punch);
-            _animable.AddOnAttackAction(Attack);
+            _animable?.AddOnAttackAction(Attack);
         }
 
         public void Update()
@@ -54,10 +54,7 @@ namespace NTO24
 
         public void Rotate()
         {
-            if (Entity is not IMovable movable)
-                return;
-
-            if (movable.HasPath)
+            if (Entity is not IMovable movable || movable.HasPath)
                 return;
 
             Vector3 direction = Target.EntityReference.transform.position - Entity.transform.position;
@@ -85,7 +82,9 @@ namespace NTO24
             if (Entity is IMovable movable)
                 movable.Stop();
 
-            _animable.RemoveOnAttackAction(Attack);
+            Target = null;
+
+            _animable?.RemoveOnAttackAction(Attack);
             _animable?.SetAnimation(AnimationController.Animations.Idle);
             _unit.Target = null;
         }

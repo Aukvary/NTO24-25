@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 
@@ -22,8 +21,10 @@ namespace NTO24.UI
             _uiAnimator = GetComponent<AnimatedUI>();
         }
 
-        protected override void Start()
+        public void Initialize(EntitySelector selector)
         {
+            selector.AddListner(SelectEntity);
+
             _inventoryHUD.SetEntity(null as IInventoriable);
             _iconHUD.Entity = null;
             _healthHUD.Entity = null;
@@ -32,26 +33,9 @@ namespace NTO24.UI
             _uiAnimator.Complete();
         }
 
-        protected override void Update()
+        private void SelectEntity(Entity entity)
         {
-            SelectEntity();
-
-            if (Input.GetKeyDown(KeyCode.F))
-                _healthHUD.Entity?.Damage(10);
-
-            if (Input.GetKeyDown(KeyCode.G))
-                _healthHUD.Entity?.Heal(10);
-        }
-
-        private void SelectEntity()
-        {
-            if (/*UIRayCast ||*/ !Input.GetKeyDown(KeyCode.Mouse0))
-                return;
-
-            
-
-            if (!Physics.Raycast(Direction, out var hit) ||
-                !hit.transform.TryGetComponent<Entity>(out var entity))
+            if (entity == null)
             {
                 _uiAnimator.Hide(onCompleteCallBack: () =>
                 {
@@ -65,7 +49,7 @@ namespace NTO24.UI
             _uiAnimator.Show();
             if (entity is IInventoriable inventory)
                 _inventoryHUD.SetEntity(inventory);
-            else 
+            else
                 _inventoryHUD.SetEntity(null as IInventoriable);
 
 

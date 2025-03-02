@@ -8,9 +8,11 @@ namespace NTO24.UI
     public class AnimatedUI : Drawable
     {
         [SerializeField]
-        private List<Effect> _effects;
+        private List<UIEffect> _effects;
 
         private Sequence _sequence;
+
+        private bool _visible = true;
 
         protected override void Awake()
         {
@@ -20,30 +22,42 @@ namespace NTO24.UI
 
         public void Hide(TweenCallback onPlayCallBack = null, TweenCallback onCompleteCallBack = null)
         {
+            if (!_visible)
+                return;
+
+            _visible = false;
+
             if (_sequence != null && _sequence.active)
-                _sequence.Complete();
+                _sequence.Kill();
 
-            _sequence = DOTween.Sequence().Append(_effects[0].Hide());
+            _sequence = DOTween.Sequence();
 
-            foreach (Effect effect in _effects.Skip(1))
-                _sequence = _sequence.Join(effect.Hide());
-            
+            foreach (UIEffect effect in _effects)
+                _sequence.Join(effect.Hide());
+
             _sequence.onPlay = onPlayCallBack;
             _sequence.onComplete = onCompleteCallBack;
+            _sequence.Play();
         }
 
         public void Show(TweenCallback onPlayCallBack = null, TweenCallback onCompleteCallBack = null)
         {
+            if (_visible)
+                return;
+
+            _visible = true;
+
             if (_sequence != null && _sequence.active)
-                _sequence.Complete();
+                _sequence.Kill();
 
-            _sequence = DOTween.Sequence().Append(_effects[0].Show());
+            _sequence = DOTween.Sequence();
 
-            foreach (Effect effect in _effects.Skip(1))
-                _sequence = _sequence.Join(effect.Show());
+            foreach (UIEffect effect in _effects)
+                _sequence.Join(effect.Show());
 
             _sequence.onPlay = onPlayCallBack;
             _sequence.onComplete = onCompleteCallBack;
+            _sequence.Play();
         }
 
         public void Complete()

@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class ConstructionObject : Entity, IInteractable
+    public class ConstructionObject : Entity
     {
         [SerializeField]
         private List<Pair<Resource, int>> _materials;
@@ -12,7 +12,7 @@ namespace NTO24
         [field: SerializeField]
         public UnityEvent<IInteractor> OnInteracEvent { get; private set; }
 
-        public bool Interactable => throw new System.NotImplementedException();
+        public bool IsInteractable => throw new System.NotImplementedException();
 
         public IEnumerable<Pair<Resource, int>> Materials => _materials;
     }

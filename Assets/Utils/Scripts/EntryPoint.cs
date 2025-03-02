@@ -1,3 +1,4 @@
+using NTO24.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,10 +8,16 @@ namespace NTO24
     public class EntryPoint : MonoBehaviour
     {
         [field: SerializeField]
-        public  BearSpawner BearSpawner { get; private set; }
+        public Storage Storage { get; private set; }
+
+        [SerializeField]
+        private StorageHUD _storageHUD;
+
+        [SerializeField]
+        private UpgradeHUD _upgradeHUD;
 
         [field: SerializeField]
-        public Storage Storage { get; private set; }
+        public  BearSpawner BearSpawner { get; private set; }
 
         [field: SerializeField]
         public  ControllableManager BearActivityManager { get; private set; }
@@ -37,6 +44,8 @@ namespace NTO24
         {
             _preinitializeEvent.Invoke();
             InitializeSpawners();
+            InitializeStorage();
+
             BearActivityManager.Initialize(this);
             _postinitializeEvent.Invoke();
         }
@@ -47,7 +56,12 @@ namespace NTO24
                 Add(bear);
         }
 
-
+        private void InitializeStorage()
+        {
+            Storage.Initialize();
+            _upgradeHUD.Initialize(Storage);
+            _storageHUD.Initialize(Storage);
+        }
 
         public void Add(Unit unit)
         {

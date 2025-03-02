@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace NTO24
 {
-    public class Bear : Unit, IRestoreable, IIconable, IControllable, IAttacker, IInventoriable
+    public class Bear : Unit, IRestoreable, IIconable, IControllable, IAttacker, IInventoriable, 
+        IInteractor
     {
         [field: SerializeField]
         public string Name { get; private set; }
@@ -13,6 +14,7 @@ namespace NTO24
         public AttackController AttackController { get; private set; }
         public Inventory Inventory { get; private set; }
         public RestoreController RestoreController { get; private set; }
+        public InteractingController InteractingController { get; private set; }
 
 
         protected override void Awake()
@@ -21,7 +23,10 @@ namespace NTO24
 
             AttackController = GetComponent<AttackController>();
             Inventory = GetComponent<Inventory>();
+            Inventory.Initialize(6, (int)StatsController[EntityStatsType.CellCapacity].StatValue);
+
             RestoreController = GetComponent<RestoreController>();
+            InteractingController = GetComponent<InteractingController>();
         }
 
         protected override void HealthInitialize()

@@ -45,7 +45,7 @@ namespace NTO24
 
 
                 Vector3 end = hit.point;
-                Debug.DrawRay(transform.position, end - transform.position, Color.red);
+
                 bool can = Vector3.Distance(transform.position, end) <= Range;
 
                 return can;

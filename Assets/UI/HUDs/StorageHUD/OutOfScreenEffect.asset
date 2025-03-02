@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa7a22a36cacce449e6ca55a07ee068, type: 3}
   m_Name: OutOfScreenEffect
   m_EditorClassIdentifier: 
-  _direction: 3
-  _appearDuration: 0.3
-  _disappearDuration: 0.3
+  _direction: 2
+  _appearDuration: 0.5
+  _disappearDuration: 1

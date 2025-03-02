@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class InteractingBehaviour : EntityComponent
+    public class InteractingController : EntityComponent
     {
         [SerializeField]
         private UnityEvent<IInteractable> _onChangeTargetEvent;
@@ -13,17 +13,9 @@ namespace NTO24
         [SerializeField]
         private UnityEvent<IInteractable> _onInteractEvent;
 
-        [SerializeField]
-        private UnityEvent _onInteractFailedEvent;
-
-        [field: SerializeField]
-        private UnityEvent<bool> _onPossibilityChangeEvent;
-
         private EntityStat _rangeStat;
 
         private IInteractable _target;
-
-        private bool _canInteract;
 
         public IInteractable Target
         {
@@ -48,12 +40,6 @@ namespace NTO24
 
                 bool can = Vector3.Distance(transform.position, hit.point) < Range;
 
-                if (can != _canInteract)
-                { 
-                    _canInteract = can; 
-                    _onPossibilityChangeEvent.Invoke(can); 
-                }
-
                 return can;
             }
         }
@@ -70,17 +56,6 @@ namespace NTO24
             else throw new System.Exception("stats component was missed");
         }
 
-        public void TryInteract()
-        {
-            if (CanInteract)
-            {
-                Target.InteractBy(Entity as IInteractor);
-                _onInteractEvent?.Invoke(Target);
-            }
-            else
-                _onInteractFailedEvent.Invoke();
-        }
-
         public void AddOnChangeTargetAction(UnityAction<IInteractable> action)
             => _onChangeTargetEvent.AddListener(action);
 
@@ -92,17 +67,5 @@ namespace NTO24
 
         public void RemoveOnInteractAction(UnityAction<IInteractable> action)
             => _onInteractEvent.RemoveListener(action);
-
-        public void AddOnInteractFailedAction(UnityAction action)
-            => _onInteractFailedEvent.AddListener(action);
-
-        public void RemoveOnInteractFailedAction(UnityAction action)
-            => _onInteractFailedEvent.RemoveListener(action);
-
-        public void AddOnPossibilityChangeAction(UnityAction<bool> action)
-            => _onPossibilityChangeEvent.AddListener(action);
-
-        public void RemoveOnPossibilityChangeAction(UnityAction<bool> action)
-            => _onPossibilityChangeEvent.RemoveListener(action);
     }
 }

@@ -7,6 +7,7 @@ namespace NTO24
         Regeneration,
         Speed,
         InteractRange,
-        AttackRange
+        AttackRange,
+        CellCapacity,
     }
 }

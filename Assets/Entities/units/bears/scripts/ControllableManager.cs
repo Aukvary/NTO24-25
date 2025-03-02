@@ -29,9 +29,12 @@ namespace NTO24
         private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
         private Ray _direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        public void Initialize(EntryPoint entryPoint)
+        public void Initialize(EntryPoint entryPoint, EntitySelector selector)
         {
             _entryPoint = entryPoint;
+
+            selector.AddListner(SelectAloneUnit);
+
             _selectedUnits = new();
         }
 
@@ -39,12 +42,10 @@ namespace NTO24
         {
             SetTask();
             SelectUnitGroup();
-            SelectAloneUnit();
         }
 
         private void SetTask()
         {
-
             if (!Input.GetKeyDown(KeyCode.Mouse1) || 
                 Input.GetKey(KeyCode.LeftAlt) ||
                 !SelectedUnits.Any()
@@ -56,9 +57,6 @@ namespace NTO24
 
             var units = Input.GetKey(KeyCode.LeftControl) ?
                 _entryPoint.Units.Where(u => u is ITaskSolver) : SelectedUnits;
-
-
-
 
             if (Input.GetKey(KeyCode.LeftShift))
                 foreach (var unit in units)
@@ -78,13 +76,12 @@ namespace NTO24
                 case IInteractable interactable:
                     return new IUnitTask[]
                     {
-                        new FollowEntityTask(unit, entity),
                         new InteractTask(unit as IInteractor, interactable)
                     };
                 case IHealthable e when e.EntityReference.EntityType != unit.EntityType && e.EntityReference != unit:
                     return new IUnitTask[]
                     {
-                        new AttackTask(unit as IAttacker, entity as IHealthable)
+                        new AttackTask(unit as IAttacker, e)
                     };
                 default:
                     return entity == unit ? new IUnitTask[0] : new IUnitTask[]
@@ -95,15 +92,9 @@ namespace NTO24
         }
 
 
-        private void SelectAloneUnit()
+        private void SelectAloneUnit(Entity entity)
         {
-            if (!Input.GetKeyDown(KeyCode.Mouse0) /*|| UIRayCast*/)
-                return;
-
-            if (!Physics.Raycast(_direction, out RaycastHit hit))
-                return;
-
-            if (!hit.transform.TryGetComponent<IControllable>(out var unit))
+            if (entity is not IControllable unit)
                 return;
 
             _selectedUnits.Clear();

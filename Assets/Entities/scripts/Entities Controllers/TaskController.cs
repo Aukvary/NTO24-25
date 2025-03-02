@@ -27,6 +27,7 @@ namespace NTO24
 
         protected override void Awake()
         {
+            base.Awake();
             _tasks = new Queue<IUnitTask>();
         }
 
@@ -82,6 +83,8 @@ namespace NTO24
             IUnitTask task = _tasks.Dequeue();
             task.Exit();
             _onExitEvent.Invoke(task);
+
+
             if (_tasks.TryPeek(out var t))
             {
                 t.Enter();

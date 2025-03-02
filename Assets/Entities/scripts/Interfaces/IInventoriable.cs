@@ -7,11 +7,9 @@ namespace NTO24
     {
         Inventory Inventory { get; }
 
-        int CellCount => Inventory.CellCount;
-
-        int CellCapacity => Inventory.CellCapacity;
-
         IEnumerable<Pair<Resource, int>> Items => Inventory.Items;
+
+        bool HasItems => Inventory.HasItems;
 
         int this[Resource resource] => Inventory[resource];
 
@@ -20,6 +18,9 @@ namespace NTO24
             if (Inventory.TryAddItems(resources, out var items))
                 return;
         }
+
+        IEnumerable<Pair<Resource, int>> GetItems()
+            => Inventory.GetItems();
 
         public void AddOnItemsChangeAction(UnityAction action)
             => Inventory.AddOnItemsChangeAction(action);

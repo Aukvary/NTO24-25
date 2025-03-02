@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: OutOfScreenEffect
   m_EditorClassIdentifier: 
   _direction: 3
-  _appearDuration: 0.3
-  _disappearDuration: 0.3
+  _appearDuration: 0.5
+  _disappearDuration: 1
