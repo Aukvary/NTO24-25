@@ -24,7 +24,7 @@ namespace NTO24
         private int _currentLevel;
 
         public float StatValue => _statValues[CurrentLevel];
-        public int MaxLevel => _statValues.Count;
+        public int MaxLevel => _statValues.Count - 1;
 
         public EntityStatsType Stat => _stat;
 

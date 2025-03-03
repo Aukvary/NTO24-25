@@ -48,8 +48,8 @@ namespace NTO24
         {
             if (!Input.GetKeyDown(KeyCode.Mouse1) || 
                 Input.GetKey(KeyCode.LeftAlt) ||
-                !SelectedUnits.Any()
-                /*|| UIRayCast*/)
+                !SelectedUnits.Any()|| 
+                UIRayCast)
                 return;
 
             if (!Physics.Raycast(_direction, out var actionHit))

@@ -19,6 +19,9 @@ namespace NTO24
                 return;
         }
 
+        void RemoveResources(Resource resource, int count)
+            => Inventory.RemoveResources(resource, count);
+
         IEnumerable<Pair<Resource, int>> GetItems()
             => Inventory.GetItems();
 

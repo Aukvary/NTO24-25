@@ -1,5 +1,6 @@
 using NTO24.UI;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,12 +10,6 @@ namespace NTO24
     {
         [field: SerializeField]
         public Storage Storage { get; private set; }
-
-        [SerializeField]
-        private StorageHUD _storageHUD;
-
-        [SerializeField]
-        private UpgradeHUD _upgradeHUD;
 
         [field: SerializeField]
         public  BearSpawner BearSpawner { get; private set; }
@@ -34,36 +29,69 @@ namespace NTO24
         [SerializeField]
         private UnityEvent<Unit> _onUnitsCountChangeEvent;
 
+        [Header("UI")]
+        [SerializeField]
+        private EntityHUD _entityHUD;
+
+        [SerializeField]
+        private StorageHUD _storageHUD;
+
+        [SerializeField]
+        private UpgradeHUD _upgradeHUD;
+
         private List<Unit> _units = new();
+
+        private List<Bear> _bears = new();
 
         private EntitySelector _entitySelector;
 
-        public IEnumerable<Unit> Units => _units;
-        public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;
+        private UpgradeController _upgradeController;
 
+        public IEnumerable<Unit> Units => _units;
+        public IEnumerable<Bear> Bears => _bears;
+        public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;
 
         private void Awake()
         {
             _entitySelector = GetComponent<EntitySelector>();
+            _upgradeController = GetComponent<UpgradeController>();
+        }
 
+        private void Start()
+        {
             _preinitializeEvent.Invoke();
+            Resources.Initialize();
+
             InitializeSpawners();
             InitializeStorage();
+            _upgradeController.Initialize(_entitySelector, Storage, Bears.First());
 
             BearActivityManager.Initialize(this, _entitySelector);
+
+
+            InitializeUI();
             _postinitializeEvent.Invoke();
         }
 
         private void InitializeSpawners()
         {
             foreach (var bear in BearSpawner.Spawn())
+            {
                 Add(bear);
+                _bears.Add(bear);
+            }
         }
 
         private void InitializeStorage()
         {
             Storage.Initialize();
+        }
+
+        public void InitializeUI()
+        {
+            _entityHUD.Initialize(_entitySelector);
             _storageHUD.Initialize(Storage);
+            _upgradeHUD.Initialize(_upgradeController);
         }
 
         public void Add(Unit unit)

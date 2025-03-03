@@ -9,5 +9,6 @@ namespace NTO24
         InteractRange,
         AttackRange,
         CellCapacity,
+        InteractPower
     }
 }

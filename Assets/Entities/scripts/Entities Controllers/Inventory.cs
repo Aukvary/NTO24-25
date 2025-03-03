@@ -84,16 +84,17 @@ namespace NTO24
             for (int i = _items.Length - 1; i >= 0; i--)
             {
                 if (_items[i].Value1 != resource)
-                    return;
+                    continue;
 
                 if (currentCount < _items[i].Value2)
                 {
                     _items[i] = new(_items[i].Value1, _items[i].Value2 - currentCount);
+                    currentCount = 0;
                 }
                 else
                 {
-                    _items[i] = new(null, 0);
                     currentCount -= _items[i].Value2;
+                    _items[i] = new(null, 0);
                 }
 
                 if (currentCount <= 0)

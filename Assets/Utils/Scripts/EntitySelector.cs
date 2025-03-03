@@ -13,7 +13,7 @@ namespace NTO24
 
         private void Update()
         {
-            if (/*UIRayCast ||*/ !Input.GetKeyDown(KeyCode.Mouse0))
+            if (UIRayCast || !Input.GetKeyDown(KeyCode.Mouse0))
                 return;
 
             if (!Physics.Raycast(Direction, out var hit))

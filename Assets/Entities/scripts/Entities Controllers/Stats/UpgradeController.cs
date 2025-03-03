@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,16 +7,17 @@ namespace NTO24
 {
     public class UpgradeController : MonoBehaviour
     {
-        [SerializeField]
-        private List<UpgradeType> _upgradeTypes;
+        private UpgradeType[] _upgradeTypes;
+
+        private UpgradeType _upgradeType;
 
         private UnityEvent _onEntityChangeEvent = new();
 
         private UnityEvent _onUpgradeEvent = new();
 
-        private int _upgradeTypeIndex;
+        private UnityEvent _onChangeType = new();
 
-        private IInventoriable _storage;
+        public IInventoriable Storage { get; private set; }
 
         private IStatsable _bear;
 
@@ -32,18 +32,43 @@ namespace NTO24
             }
         }
 
-        public UpgradeType UpgradeType => _upgradeTypes[_upgradeTypeIndex];
+        public int CurrentLevel => Bear[UpgradeType.StatsTypes.First()].CurrentLevel;
+        public int MaxLevel => Bear[UpgradeType.StatsTypes.First()].MaxLevel;
 
-        public bool CanUpgrade => UpgradeType.Materials.ElementAt(_upgradeTypeIndex).All(p =>
+        public IEnumerable<Pair<Resource, int>> Materials 
+            => UpgradeType.Materials.ElementAt(CurrentLevel).Materials;
+
+        public UpgradeType UpgradeType 
+        {
+            get => _upgradeType;
+
+            set
             {
-                return _storage[p.Value1] >= p.Value2;
+                _upgradeType = value;
+                _onChangeType.Invoke();
+            }
+        }
+
+        public IEnumerable<UpgradeType> UpgradeTypes => _upgradeTypes;
+
+        public bool CanUpgrade => CurrentLevel < MaxLevel && Materials.All(p =>
+            {
+                return Storage[p.Value1] >= p.Value2;
             });
 
-        public void Initialize(EntitySelector selector, Storage storage)
+        private void Awake()
         {
-            selector.AddListner(SelectBear);
+            _upgradeTypes = UnityEngine.Resources.LoadAll<UpgradeType>("UpgradeTypes");
+        }
 
-            _storage = storage;
+        public void Initialize(EntitySelector selector, Storage storage, Bear bear)
+        {
+            UpgradeType = _upgradeTypes.First();
+
+            selector.AddListner(SelectBear);
+            SelectBear(bear);
+
+            Storage = storage;
         }
 
         private void SelectBear(Entity entity)
@@ -59,7 +84,22 @@ namespace NTO24
             if (!CanUpgrade)
                 return;
 
+            foreach (var pair in Materials)
+                Storage.RemoveResources(pair.Value1, pair.Value2);
 
+            foreach (var stat in UpgradeType.StatsTypes)
+                Bear[stat].CurrentLevel++;
+
+            _onUpgradeEvent.Invoke();
         }
+
+        public void AddOnEntityChangeAction(UnityAction action)
+            => _onEntityChangeEvent.AddListener(action);
+
+        public void AddOnUpgradeAction(UnityAction action)
+            => _onUpgradeEvent.AddListener(action);
+
+        public void AddOnTypeChangeAction(UnityAction action)
+            => _onChangeType.AddListener(action);
     }
 }

@@ -5,14 +5,13 @@ namespace NTO24
 {
     public static class Resources
     {
-        private static readonly Dictionary<string, Resource> _stringResourcePairs;
+        private static Dictionary<string, Resource> _stringResourcePairs;
 
-
-        private static readonly IEnumerable<string> _names;
+        private static IEnumerable<string> _names;
 
         public static IEnumerable<string> ResourceNames => _names;
 
-        static Resources()
+        public static void Initialize()
         {
             _stringResourcePairs = UnityEngine.Resources
                 .LoadAll<Resource>("Prefabs").ToDictionary(r => r.ResourceName, r => r);

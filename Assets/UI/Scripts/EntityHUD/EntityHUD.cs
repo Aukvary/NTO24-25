@@ -1,6 +1,3 @@
-using UnityEngine;
-
-
 namespace NTO24.UI
 {
     public class EntityHUD : Drawable
