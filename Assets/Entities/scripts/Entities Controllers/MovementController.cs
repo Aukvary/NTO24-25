@@ -42,7 +42,7 @@ namespace NTO24
 
             if (Entity is not IStatsable stats)
                 throw new System.Exception("stats component was missed");
-            _speedStat = stats[EntityStatsType.Speed];
+            _speedStat = stats[StatsNames.Speed];
             _navMeshAgent.speed = _speedStat.StatValue;
 
             _speedStat.AddOnLevelChangeAction(()=> _navMeshAgent.speed = _speedStat.StatValue);

@@ -85,7 +85,9 @@ namespace NTO24
                 return;
 
             foreach (var pair in Materials)
+            {
                 Storage.RemoveResources(pair.Value1, pair.Value2);
+            }
 
             foreach (var stat in UpgradeType.StatsTypes)
                 Bear[stat].CurrentLevel++;

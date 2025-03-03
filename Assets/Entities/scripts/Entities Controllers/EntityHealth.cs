@@ -62,8 +62,8 @@ namespace NTO24
             if (Entity is not IStatsable stats)
                 throw new System.Exception("Stats component was missed");
 
-            _maxHealth = stats[EntityStatsType.MaxHealth];
-            _regeneration = stats[EntityStatsType.Regeneration];
+            _maxHealth = stats[StatsNames.MaxHealth];
+            _regeneration = stats[StatsNames.Regeneration];
 
             _maxHealth.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);
             _regeneration?.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);

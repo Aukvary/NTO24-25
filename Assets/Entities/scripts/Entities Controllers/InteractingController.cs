@@ -51,7 +51,7 @@ namespace NTO24
             base.Awake();
             if (Entity is IStatsable stats)
             {
-                _rangeStat = stats[EntityStatsType.InteractRange];
+                _rangeStat = stats[StatsNames.InteractRange];
             }
             else throw new System.Exception("stats component was missed");
         }

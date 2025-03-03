@@ -23,7 +23,7 @@ namespace NTO24
 
             AttackController = GetComponent<AttackController>();
             Inventory = GetComponent<Inventory>();
-            Inventory.Initialize(6, (int)StatsController[EntityStatsType.CellCapacity].StatValue);
+            Inventory.Initialize(6, (int)StatsController[StatsNames.CellCapacity].StatValue);
 
 
             RestoreController = GetComponent<RestoreController>();

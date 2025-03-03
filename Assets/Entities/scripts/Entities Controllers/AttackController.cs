@@ -63,8 +63,8 @@ namespace NTO24
             base.Awake();
             if (Entity is IStatsable stats)
             {
-                _rangeStat = stats[EntityStatsType.AttackRange];
-                _damageStat = stats[EntityStatsType.Damage];
+                _rangeStat = stats[StatsNames.AttackRange];
+                _damageStat = stats[StatsNames.Damage];
             }
             else throw new System.Exception("stats component was missed");
         }

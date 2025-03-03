@@ -26,12 +26,12 @@ namespace NTO24
         public Sprite Icon { get; private set; }
 
         [SerializeField]
-        private List<EntityStatsType> _statsType; 
+        private List<StatsNames> _statsType; 
 
         [SerializeField]
         private List<UpgradeMaterials> _materials;
 
-        public IEnumerable<EntityStatsType> StatsTypes => _statsType;
+        public IEnumerable<StatsNames> StatsTypes => _statsType;
 
         public IEnumerable<UpgradeMaterials> Materials => _materials;
     }

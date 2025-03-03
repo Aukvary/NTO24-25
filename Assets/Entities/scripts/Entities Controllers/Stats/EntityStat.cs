@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,13 +8,10 @@ namespace NTO24
     [Serializable]
     public class EntityStat
     {
-        public static readonly Dictionary<string, EntityStatsType> StringStatPairs =
-            Enum.GetValues(typeof(EntityStatsType)).Cast<EntityStatsType>().ToDictionary(s => s.ToString(), s => s);
+        [SerializeField]
+        private StatInfo _stat;
 
         [SerializeField]
-        private EntityStatsType _stat;
-
-        [SerializeField] 
         private List<float> _statValues;
 
         [SerializeField]
@@ -26,7 +22,7 @@ namespace NTO24
         public float StatValue => _statValues[CurrentLevel];
         public int MaxLevel => _statValues.Count - 1;
 
-        public EntityStatsType Stat => _stat;
+        public StatInfo StatInfo => _stat;
 
         public int CurrentLevel
         {
