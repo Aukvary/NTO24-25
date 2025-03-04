@@ -81,7 +81,6 @@ namespace NTO24
                 movable.Stop();
 
             _animable?.RemoveOnAttackAction(Interact);
-            _animable?.SetAnimation(AnimationController.Animations.Idle);
             _unit.Target = null;
         }
     }

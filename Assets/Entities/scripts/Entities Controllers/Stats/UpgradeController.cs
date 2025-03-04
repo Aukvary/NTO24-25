@@ -65,7 +65,7 @@ namespace NTO24
         {
             UpgradeType = _upgradeTypes.First();
 
-            selector.AddListner(SelectBear);
+            selector.AddSelectAction(SelectBear);
             SelectBear(bear);
 
             Storage = storage;

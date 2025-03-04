@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -6,12 +7,34 @@ namespace NTO24
 {
     public class EntitySelector : MonoBehaviour
     {
-        private UnityEvent<Entity> _onEntitySelect = new();
+        private UnityEvent<Entity> _onEntitySelecteEvent = new();
+        private UnityEvent<Entity> _onRepeatSelectEvent = new(); 
+
+        private EntryPoint _entryPoint;
+
+        private Entity _selectedEntity;
 
         private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
         private Ray Direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        private void Awake()
+        {
+            _entryPoint = GetComponent<EntryPoint>();
+            AddSelectAction(e => {
+                if (e == _selectedEntity)
+                    _onRepeatSelectEvent.Invoke(e);
+
+                _selectedEntity = e;
+            });
+        }
+
         private void Update()
+        {
+            MosueSelect();
+            HotKeySelect();
+        }
+
+        private void MosueSelect() 
         {
             if (UIRayCast || !Input.GetKeyDown(KeyCode.Mouse0))
                 return;
@@ -21,17 +44,32 @@ namespace NTO24
 
             if (!hit.transform.TryGetComponent<Entity>(out var entity))
             {
-                _onEntitySelect.Invoke(null);
+                _onEntitySelecteEvent.Invoke(null);
                 return;
             }
 
-                _onEntitySelect.Invoke(entity);
+                _onEntitySelecteEvent.Invoke(entity);
         }
 
-        public void AddListner(UnityAction<Entity> action)
-            => _onEntitySelect.AddListener(action);
+        private void HotKeySelect() 
+        {
+            KeyCode key = KeyCode.Alpha1;
 
-        public void RemoveListner(UnityAction<Entity> action)
-            => _onEntitySelect.RemoveListener(action);
+            for (int i = 0; i < _entryPoint.Bears.Count(); i++, key++)
+                if (Input.GetKeyDown(key))
+                    _onEntitySelecteEvent.Invoke(_entryPoint.Bears.ElementAt(i));
+        }
+
+        public void AddSelectAction(UnityAction<Entity> action)
+            => _onEntitySelecteEvent.AddListener(action);
+
+        public void RemoveSelectAction(UnityAction<Entity> action)
+            => _onEntitySelecteEvent.RemoveListener(action);
+
+        public void AddRepeatSelectAction(UnityAction<Entity> action)
+            => _onRepeatSelectEvent.AddListener(action);
+
+        public void RemoveRepeatSelectAction(UnityAction<Entity> action)
+            => _onRepeatSelectEvent.RemoveListener(action);
     }
 }

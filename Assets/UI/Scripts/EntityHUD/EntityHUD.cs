@@ -26,7 +26,7 @@ namespace NTO24.UI
 
         public void Initialize(EntitySelector selector)
         {
-            selector.AddListner(SelectEntity);
+            selector.AddSelectAction(SelectEntity);
 
             _inventoryHUD.SetEntity(null as IInventoriable);
             _iconHUD.Entity = null;

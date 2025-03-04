@@ -19,6 +19,8 @@ namespace NTO24
         [SerializeField]
         private UnityEvent<IUnitTask> _onExitEvent;
 
+        private IAnimationable _animable;
+
         private Queue<IUnitTask> _tasks;
 
         public IEnumerable<IUnitTask> Tasks => _tasks;
@@ -28,6 +30,7 @@ namespace NTO24
         protected override void Awake()
         {
             base.Awake();
+            _animable = Entity is IAnimationable anim ? anim : null;
             _tasks = new Queue<IUnitTask>();
         }
 
@@ -92,7 +95,10 @@ namespace NTO24
                 CurrentTask = t;
             }
             else
+            {
+                _animable?.SetAnimation(AnimationController.Animations.Idle);
                 CurrentTask = null;
+            }
 
             return task;
         }

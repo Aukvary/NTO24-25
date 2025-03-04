@@ -33,7 +33,7 @@ namespace NTO24
         {
             _entryPoint = entryPoint;
 
-            selector.AddListner(SelectAloneUnit);
+            selector.AddSelectAction(SelectAloneUnit);
 
             _selectedUnits = new();
         }

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace NTO24.UI
 {
@@ -28,6 +29,8 @@ namespace NTO24.UI
 
         private Vector2 _startPosition;
 
+        private Graphic[] _raycasters;
+
         public override RectTransform Transform
         {
             get => base.Transform;
@@ -35,6 +38,7 @@ namespace NTO24.UI
             set
             {
                 base.Transform = value;
+                _raycasters = value.GetComponentsInChildren<Graphic>();
                 _startPosition = value.position;
             }
         }
@@ -54,6 +58,9 @@ namespace NTO24.UI
                 Directions.Down => Transform.DOMoveY(0, _disappearDuration),
             };
 
+            foreach (var caster in _raycasters)
+                caster.raycastTarget = false;
+
             return _animation;
         }
 
@@ -68,6 +75,9 @@ namespace NTO24.UI
                 Directions.Up or Directions.Down
                     => Transform.DOMoveY(_startPosition.y, _appearDuration)
             };
+
+            foreach (var caster in _raycasters)
+                caster.raycastTarget = true;
 
             return _animation;
         }

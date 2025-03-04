@@ -47,6 +47,9 @@ namespace NTO24.UI
                 sequence.Join(text.DOFade(0, _fadeDuration));
 
             sequence.SetDelay(_fadeDelay);
+
+            foreach (Image iamge in _images)
+                iamge.raycastTarget = false;
             return sequence;
         }
 
@@ -59,6 +62,9 @@ namespace NTO24.UI
 
             foreach (TMPro.TextMeshProUGUI text in _text)
                 sequence.Join(text.DOFade(1, _appearDuration));
+
+            foreach (Image iamge in _images)
+                iamge.raycastTarget = false;
 
             sequence.SetDelay(_appearDelay);
             return sequence;

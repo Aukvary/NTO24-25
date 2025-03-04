@@ -47,8 +47,6 @@ namespace NTO24
             if (_startMoveAwaiter != null)
                 Entity.StopCoroutine(_startMoveAwaiter);
             _unit.Stop();
-            if (Entity is IAnimationable animationable)
-                animationable.SetAnimation(AnimationController.Animations.Idle);
         }
     }
 }

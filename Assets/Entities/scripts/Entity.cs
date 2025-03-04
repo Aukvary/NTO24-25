@@ -9,9 +9,7 @@ namespace NTO24
 
         public Entity EntityReference => this;
 
-        protected virtual void Awake()
-        {
-        }
+        protected virtual void Awake() { }
 
         protected virtual void Start() { }
 
