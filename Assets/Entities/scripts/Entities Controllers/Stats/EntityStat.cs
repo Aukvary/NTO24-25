@@ -20,6 +20,8 @@ namespace NTO24
         private int _currentLevel;
 
         public float StatValue => _statValues[CurrentLevel];
+        public float NextStatValue => _statValues[CurrentLevel + 1];
+
         public int MaxLevel => _statValues.Count - 1;
 
         public StatInfo StatInfo => _stat;

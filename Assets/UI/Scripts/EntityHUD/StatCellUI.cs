@@ -2,14 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace NTO24.UI
 {
     public class StatCellUI : Drawable, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]
-        private Image _discriptionField;
+        private AnimatedUI _discriptionField;
 
         [SerializeField]
         private TextMeshProUGUI _valueText;
@@ -39,7 +38,9 @@ namespace NTO24.UI
                 _stat = value;
 
                 _image.enabled = _stat != null;
-                _image.enabled = _stat != null;
+                _icon.enabled = _stat != null;
+                Active &= _stat != null;
+
                 if (_stat == null)
                     return;
 
@@ -58,7 +59,13 @@ namespace NTO24.UI
         {
             base.Awake();
             _image = GetComponent<Image>();
-            _discriptionField.gameObject.SetActive(false);
+        }
+
+        protected override void Start()
+        {
+            Active = false;
+            _discriptionField.Hide();
+            _discriptionField.Complete();
         }
 
         private void UpdateStats()
@@ -76,14 +83,15 @@ namespace NTO24.UI
             if (_stat == null)
                 return;
             Active = true;
+            //_discriptionField.Show();
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
             if (_stat == null)
                 return;
-
             Active = false;
+            //_discriptionField.Hide();
         }
     }
 }

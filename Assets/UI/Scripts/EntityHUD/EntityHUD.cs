@@ -1,3 +1,5 @@
+using System;
+
 namespace NTO24.UI
 {
     public class EntityHUD : Drawable
@@ -69,14 +71,15 @@ namespace NTO24.UI
 
             if (entity is IStatsable statsable)
             {
-                try
-                {
-                    _statCells[0].Stat = statsable[StatsNames.Speed];
-                    _statCells[1].Stat = statsable[StatsNames.Damage];
-                    _statCells[2].Stat = statsable[StatsNames.InteractPower];
-                    _statCells[3].Stat = statsable[StatsNames.CellCapacity];
-                }
-                catch(System.Exception ex) { print(ex.Message); }
+                _statCells[0].Stat = statsable[StatsNames.Speed];
+                _statCells[1].Stat = statsable[StatsNames.Damage];
+                _statCells[2].Stat = statsable[StatsNames.InteractPower];
+                _statCells[3].Stat = statsable[StatsNames.CellCapacity];
+            }
+            else
+            {
+                foreach (var cell in _statCells)
+                    cell.Stat = null;
             }
         }
     }

@@ -22,9 +22,15 @@ MonoBehaviour:
   - _materials:
     - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
       <Value2>k__BackingField: 1
+    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
+      <Value2>k__BackingField: 1
   - _materials:
     - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
       <Value2>k__BackingField: 2
+    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
+      <Value2>k__BackingField: 2
   - _materials:
     - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
+      <Value2>k__BackingField: 3
+    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
       <Value2>k__BackingField: 3

@@ -35,6 +35,8 @@ namespace NTO24.UI
 
         private ItemCellUI[] _materialCells;
 
+        private StatChangesField[] _changeFields;
+
         private IEnumerable<UpgradeType> UpgradeTypes => _upgradeController.UpgradeTypes;
 
         protected override void Awake()
@@ -44,6 +46,7 @@ namespace NTO24.UI
             _iconHUD = GetComponentInChildren<IconHUD>();
             _upgradeButtonImage = _upgradeButton.GetComponent<Image>();
             _materialCells = GetComponentsInChildren<ItemCellUI>();
+            _changeFields = GetComponentsInChildren<StatChangesField>();
         }
 
         public void Initialize(UpgradeController controller)
@@ -54,6 +57,7 @@ namespace NTO24.UI
             InitializeTypeButtons();
             InitializeUpgradeButton();
             InitializeMaterialCells();
+            InitializeChangeFields();
 
             _uiAnimator.Hide();
             _uiAnimator.Complete();
@@ -147,6 +151,30 @@ namespace NTO24.UI
             Color color = _upgradeButtonImage.color;
             color.a = a;
             _upgradeButtonImage.color = color;
+        }
+
+        private void InitializeChangeFields()
+        {
+            _upgradeController.AddOnEntityChangeAction(UpdateChangesFields);
+            _upgradeController.AddOnTypeChangeAction(UpdateChangesFields);
+            _upgradeController.AddOnUpgradeAction(UpdateChangesFields);
+
+            UpdateChangesFields();
+        }
+
+        private void UpdateChangesFields()
+        {
+            var stats = _upgradeController.Bear.Stats
+                .Where(s => _upgradeController.UpgradeType.StatsTypes.Contains(s.StatInfo.Type));
+
+            for (int i = 0; i < _changeFields.Length; i++)
+            {
+                int index = i;
+                if (i < stats.Count())
+                    _changeFields[index].EntityStat = stats.ElementAt(index);
+                else
+                    _changeFields[index].EntityStat = null;
+            }
         }
 
         protected override void Update()
