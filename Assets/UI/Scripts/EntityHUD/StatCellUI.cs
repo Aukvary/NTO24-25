@@ -8,7 +8,7 @@ namespace NTO24.UI
     public class StatCellUI : Drawable, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]
-        private AnimatedUI _discriptionField;
+        private Image _descriptionField;
 
         [SerializeField]
         private TextMeshProUGUI _valueText;
@@ -50,9 +50,9 @@ namespace NTO24.UI
 
         private bool Active
         {
-            get => _discriptionField.gameObject.activeSelf;
+            get => _descriptionField.gameObject.activeSelf;
 
-            set => _discriptionField.gameObject.SetActive(value);
+            set => _descriptionField.gameObject.SetActive(value);
         }
 
         protected override void Awake()
@@ -62,11 +62,7 @@ namespace NTO24.UI
         }
 
         protected override void Start()
-        {
-            Active = false;
-            _discriptionField.Hide();
-            _discriptionField.Complete();
-        }
+            => Active = false;
 
         private void UpdateStats()
         {

@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0300bbe01ff80be44aa8e0a970087993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discriptionField: {fileID: 8980923669842655987}
+  _descriptionField: {fileID: 6100759283820123326}
   _valueText: {fileID: 6117023810159976222}
   _titleText: {fileID: 3283393803725783339}
   _descriptionText: {fileID: 5658416285047290167}
