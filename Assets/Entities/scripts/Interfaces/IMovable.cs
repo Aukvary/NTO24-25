@@ -5,9 +5,12 @@ namespace NTO24
 {
     public interface IMovable : IEntity
     {
-        float StopDistance { get; }
-
         MovementController MovementController { get; }
+
+        UnityEvent<Vector3> OnDestinationChangedEvent 
+            => MovementController.OnDestinationChangedEvent;
+
+        float StopDistance { get; }
 
         bool HasPath => MovementController.HasPath;
 
@@ -20,11 +23,5 @@ namespace NTO24
 
         void Stop()
             => MovementController.ResetPath();
-
-        void AddOnDestinationChangeAction(UnityAction<Vector3> action)
-            => MovementController.AddOnDestinationChangeAction(action);
-
-        void RemoveOnDestinationChangeAction(UnityAction<Vector3> action)
-            => MovementController.RemoveOnDestinationChangeAction(action);
     }
 }

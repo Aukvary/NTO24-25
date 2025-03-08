@@ -7,17 +7,17 @@ namespace NTO24
 {
     public class TaskController : EntityComponent
     {
-        [SerializeField]
-        private UnityEvent<IUnitTask> _onAddEvent;
+        [field: SerializeField]
+        public UnityEvent<IUnitTask> OnAddEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<IUnitTask> _onSetEvent;
+        [field: SerializeField]
+        public UnityEvent<IUnitTask> OnSetEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<IUnitTask> _onEnterEvent;
+        [field: SerializeField]
+        public UnityEvent<IUnitTask> OnEnterEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<IUnitTask> _onExitEvent;
+        [field: SerializeField]
+        public UnityEvent<IUnitTask> OnExitEvent { get; private set; }
 
         private IAnimationable _animable;
 
@@ -55,7 +55,7 @@ namespace NTO24
             _tasks.Enqueue(task);
             task.Enter();
             CurrentTask = task;
-            _onSetEvent.Invoke(task);
+            OnSetEvent.Invoke(task);
         }
 
         public void SetTask(IEnumerable<IUnitTask> tasks)
@@ -72,7 +72,7 @@ namespace NTO24
         public void AddTask(IUnitTask task)
         {
             _tasks.Enqueue(task);
-            _onAddEvent.Invoke(task);
+            OnAddEvent.Invoke(task);
         }
 
         public void AddTask(IEnumerable<IUnitTask> tasks)
@@ -85,13 +85,13 @@ namespace NTO24
         {
             IUnitTask task = _tasks.Dequeue();
             task.Exit();
-            _onExitEvent.Invoke(task);
+            OnExitEvent.Invoke(task);
 
 
             if (_tasks.TryPeek(out var t))
             {
                 t.Enter();
-                _onEnterEvent.Invoke(task);
+                OnEnterEvent.Invoke(task);
                 CurrentTask = t;
             }
             else
@@ -102,29 +102,5 @@ namespace NTO24
 
             return task;
         }
-
-        public void AddOnAddAction(UnityAction<IUnitTask> action)
-            => _onAddEvent.AddListener(action);
-
-        public void RemoveOnAddAction(UnityAction<IUnitTask> action)
-            => _onAddEvent.RemoveListener(action);
-
-        public void AddOnSetAction(UnityAction<IUnitTask> action)
-            => _onSetEvent.AddListener(action);
-
-        public void RemoveOnSetAction(UnityAction<IUnitTask> action)
-            => _onSetEvent.RemoveListener(action);
-
-        public void AddOnEnterAction(UnityAction<IUnitTask> action)
-            => _onEnterEvent.AddListener(action);
-
-        public void RemoveEnterAction(UnityAction<IUnitTask> action)
-            => _onEnterEvent.RemoveListener(action);
-
-        public void AddOnExitAction(UnityAction<IUnitTask> action)
-            => _onExitEvent.AddListener(action);
-
-        public void RemoveOnExitAction(UnityAction<IUnitTask> action)
-            => _onExitEvent.RemoveListener(action);
     }
 }

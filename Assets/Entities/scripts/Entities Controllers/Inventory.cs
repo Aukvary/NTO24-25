@@ -9,8 +9,8 @@ namespace NTO24
     {
         private int _cellCapacity;
 
-        [SerializeField]
-        private UnityEvent _onItemsChangeEvent;
+        [field: SerializeField]
+        public UnityEvent OnItemsChangeEvent { get; private set; }
 
         private Pair<Resource, int>[] _items;
 
@@ -64,7 +64,7 @@ namespace NTO24
 
 
             overflowItems = new(items.Value1, count);
-            _onItemsChangeEvent.Invoke();
+            OnItemsChangeEvent.Invoke();
             return overflowItems.Value2 == 0;
         }
 
@@ -73,7 +73,7 @@ namespace NTO24
             IEnumerable<Pair<Resource, int>> items = _items.ToArray();
             for (int i = 0; i < _items.Length; i++)
                 _items[i] = new(null, 0);
-            _onItemsChangeEvent.Invoke();
+            OnItemsChangeEvent.Invoke();
             return items;
         }
 
@@ -102,13 +102,7 @@ namespace NTO24
             }
 
 
-            _onItemsChangeEvent.Invoke();
+            OnItemsChangeEvent.Invoke();
         }
-
-        public void AddOnItemsChangeAction(UnityAction action)
-            => _onItemsChangeEvent.AddListener(action);
-
-        public void RemoveOnItemsChangeAction(UnityAction action)
-            => _onItemsChangeEvent.RemoveListener(action);
     }
 }

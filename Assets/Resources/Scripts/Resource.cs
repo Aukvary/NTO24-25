@@ -10,5 +10,8 @@ namespace NTO24
 
         [field: SerializeField]
         public Sprite Sprite { get; private set; }
+
+        public override string ToString()
+            => ResourceName;
     }
 }

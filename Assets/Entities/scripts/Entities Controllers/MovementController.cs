@@ -6,8 +6,8 @@ namespace NTO24
 {
     public class MovementController : EntityComponent
     {
-        [SerializeField]
-        private UnityEvent<Vector3> _onDestinationChangedEvent;
+        [field: SerializeField]
+        public UnityEvent<Vector3> OnDestinationChangedEvent { get; private set; }
 
         private NavMeshAgent _navMeshAgent;
 
@@ -27,7 +27,7 @@ namespace NTO24
             set
             {
                 _navMeshAgent.destination = value;
-                _onDestinationChangedEvent?.Invoke(value);
+                OnDestinationChangedEvent?.Invoke(value);
             }
         }
 
@@ -51,11 +51,5 @@ namespace NTO24
 
         public void ResetPath()
             => _navMeshAgent.ResetPath();
-
-        public void AddOnDestinationChangeAction(UnityAction<Vector3> action)
-            => _onDestinationChangedEvent.AddListener(action);
-
-        public void RemoveOnDestinationChangeAction(UnityAction<Vector3> action)
-            => _onDestinationChangedEvent.RemoveListener(action);
     }
 }

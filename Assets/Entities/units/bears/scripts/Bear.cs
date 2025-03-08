@@ -33,7 +33,7 @@ namespace NTO24
         protected override void HealthInitialize()
         {
             base.HealthInitialize();
-            HealthController.AddOnDeathAction( entity =>
+            HealthController.OnDeathEvent.AddListener( entity =>
             {
                 RestoreController.StartRestoring();
             });

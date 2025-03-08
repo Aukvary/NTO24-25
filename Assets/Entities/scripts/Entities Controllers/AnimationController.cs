@@ -16,14 +16,14 @@ namespace NTO24
         public const string MOVE = "move";
         public const string PUNCH = "punch";
 
-        [SerializeField]
-        private UnityEvent<string> _onAnimationChangeEvent;
+        [field: SerializeField]
+        public UnityEvent<string> OnAnimationChangeEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent _onAttackEvent;
+        [field: SerializeField]
+        public UnityEvent OnAttackEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent _onStepEvent;
+        [field: SerializeField]
+        public UnityEvent OnStepEvent { get; private set; }
 
         private Animator _animator;
 
@@ -46,31 +46,13 @@ namespace NTO24
 
 
             _animator.SetTrigger(name);
-            _onAnimationChangeEvent.Invoke(name);
+            OnAnimationChangeEvent.Invoke(name);
         }
 
         public void InvokeOnAttackEvent()
-            => _onAttackEvent.Invoke();
+            => OnAttackEvent.Invoke();
 
         public void InvokeOnStepEvent()
-            => _onStepEvent.Invoke();
-
-        public void AddOnAnimationChangeAction(UnityAction<string> action)
-            => _onAnimationChangeEvent.AddListener(action);
-
-        public void RemoveAnimationChangeAction(UnityAction<string> action)
-            => _onAnimationChangeEvent.RemoveListener(action);
-
-        public void AddOnAttackAction(UnityAction action)
-            => _onAttackEvent.AddListener(action);
-
-        public void RemoveOnAttackAction(UnityAction action)
-            => _onAttackEvent.RemoveListener(action);
-
-        public void AddOnStepAction(UnityAction action)
-            => _onStepEvent.AddListener(action);
-
-        public void RemoveOnStepAction(UnityAction action)
-            => _onStepEvent.RemoveListener(action);
+            => OnStepEvent.Invoke();
     }
 }

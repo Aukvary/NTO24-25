@@ -55,9 +55,11 @@ namespace NTO24
         {
             KeyCode key = KeyCode.Alpha1;
 
-            for (int i = 0; i < _entryPoint.Bears.Count(); i++, key++)
+            var bears = Entity.Bears;
+
+            for (int i = 0; i < bears.Count(); i++, key++)
                 if (Input.GetKeyDown(key))
-                    _onEntitySelecteEvent.Invoke(_entryPoint.Bears.ElementAt(i));
+                    _onEntitySelecteEvent.Invoke(bears.ElementAt(i));
         }
 
         public void AddSelectAction(UnityAction<Entity> action)

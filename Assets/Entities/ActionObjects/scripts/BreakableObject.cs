@@ -35,9 +35,9 @@ namespace NTO24
         {
             HealthController = GetComponent<EntityHealth>();
 
-            HealthController.AddOnHealthChangeAction(_onHealthChangeEvent.Invoke);
+            HealthController.OnHealthChangeEvent.AddListener(_onHealthChangeEvent.Invoke);
 
-            HealthController.AddOnDeathAction(entity =>
+            HealthController.OnDeathEvent.AddListener(entity =>
             {
                 _onBrokeEvent.Invoke(entity);
 

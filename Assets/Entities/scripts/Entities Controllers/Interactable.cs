@@ -5,18 +5,12 @@ namespace NTO24
 {
     public class Interactable : EntityComponent
     {
-        [SerializeField]
-        private UnityEvent<IInteractor> _onInteractEvent;
+        [field: SerializeField]
+        public UnityEvent<IInteractor> OnInteractEvent { get; private set; }
 
         public void Interact(IInteractor interactor)
         {
-            _onInteractEvent.Invoke(interactor);
+            OnInteractEvent.Invoke(interactor);
         }
-
-        public void AddOnInteractAction(UnityAction<IInteractor> action)
-            => _onInteractEvent.AddListener(action);
-
-        public void RemoveOnInteractAction(UnityAction<IInteractor> action)
-            => _onInteractEvent.RemoveListener(action);
     }
 }

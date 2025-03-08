@@ -65,7 +65,7 @@ namespace NTO24.UI
 
         private void InitializeIcon()
         {
-            _upgradeController.AddOnEntityChangeAction(() => {
+            _upgradeController.OnEntityChangeEvent.AddListener(() => {
                 _iconHUD.Entity = _upgradeController.Bear as IIconable;
             });
             _iconHUD.Entity = _upgradeController.Bear as IIconable;
@@ -73,7 +73,7 @@ namespace NTO24.UI
 
         private void InitializeTypeButtons()
         {
-            _upgradeController.AddOnTypeChangeAction(() =>
+            _upgradeController.OnChangeTypeEvent.AddListener(() =>
             {
                 _title.text = _upgradeController.UpgradeType.Name;
                 _description.text = _upgradeController.UpgradeType.Description;
@@ -97,19 +97,19 @@ namespace NTO24.UI
 
         private void InitializeMaterialCells()
         {
-            _upgradeController.AddOnEntityChangeAction(() =>
+            _upgradeController.OnEntityChangeEvent.AddListener(() =>
             {
                 for (int i = 0; i < _materialCells.Length; i++)
                     UpdateMaterials(i);
             });
 
-            _upgradeController.AddOnTypeChangeAction(() =>
+            _upgradeController.OnChangeTypeEvent.AddListener(() =>
             {
                 for (int i = 0; i < _materialCells.Length; i++)
                     UpdateMaterials(i);
             });
 
-            _upgradeController.AddOnUpgradeAction(() =>
+            _upgradeController.OnEntityChangeEvent.AddListener(() =>
             {
                 for (int i = 0; i < _materialCells.Length; i++)
                     UpdateMaterials(i);
@@ -133,13 +133,13 @@ namespace NTO24.UI
             _upgradeButton.onClick.AddListener(_upgradeController.TryUpgrade);
 
 
-            _upgradeController.AddOnEntityChangeAction(UpdateColor);
+            _upgradeController.OnEntityChangeEvent.AddListener(UpdateColor);
 
-            _upgradeController.AddOnUpgradeAction(UpdateColor);
+            _upgradeController.OnUpgradeEvent.AddListener(UpdateColor);
 
-            _upgradeController.AddOnTypeChangeAction(UpdateColor);
+            _upgradeController.OnChangeTypeEvent.AddListener(UpdateColor);
 
-            _upgradeController.Storage.AddOnItemsChangeAction(UpdateColor);
+            _upgradeController.Storage.OnItemsChangeEvent.AddListener(UpdateColor);
 
             _upgradeButtonImage.color = _upgradeController.CanUpgrade ? _canColor : _cantColor;
         }
@@ -155,9 +155,9 @@ namespace NTO24.UI
 
         private void InitializeChangeFields()
         {
-            _upgradeController.AddOnEntityChangeAction(UpdateChangesFields);
-            _upgradeController.AddOnTypeChangeAction(UpdateChangesFields);
-            _upgradeController.AddOnUpgradeAction(UpdateChangesFields);
+            _upgradeController.OnEntityChangeEvent.AddListener(UpdateChangesFields);
+            _upgradeController.OnEntityChangeEvent.AddListener(UpdateChangesFields);
+            _upgradeController.OnUpgradeEvent.AddListener(UpdateChangesFields);
 
             UpdateChangesFields();
         }

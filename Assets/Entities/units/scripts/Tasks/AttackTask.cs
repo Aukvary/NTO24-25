@@ -26,7 +26,7 @@ namespace NTO24
         {
             _unit.Target = Target;
             _animable?.SetAnimation(AnimationController.Animations.Punch);
-            _animable?.AddOnAttackAction(Attack);
+            _animable?.OnAttackEvent.AddListener(Attack);
         }
 
         public void Update()
@@ -84,7 +84,7 @@ namespace NTO24
 
             Target = null;
 
-            _animable?.RemoveOnAttackAction(Attack);
+            _animable?.OnAttackEvent.RemoveListener(Attack);
             _unit.Target = null;
         }
     }

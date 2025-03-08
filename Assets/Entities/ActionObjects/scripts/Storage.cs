@@ -17,7 +17,7 @@ namespace NTO24
 
             Interactable = GetComponent<Interactable>();
 
-            Interactable.AddOnInteractAction(i =>
+            Interactable.OnInteractEvent.AddListener(i =>
             {
                 if (i.EntityReference is not IInventoriable inventory)
                     throw new System.Exception($"entity {i.EntityReference.name} hasnt inventory");
@@ -41,6 +41,7 @@ namespace NTO24
             {
                 (this as IInventoriable).TryAddItems(new(Resources.FromString("Wood"), 5));
                 (this as IInventoriable).TryAddItems(new(Resources.FromString("Stone"), 5));
+                (this as IInventoriable).TryAddItems(new(Resources.FromString("Iron"), 5));
             }
         }
     }

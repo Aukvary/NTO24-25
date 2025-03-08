@@ -11,11 +11,11 @@ namespace NTO24
 
         private UpgradeType _upgradeType;
 
-        private UnityEvent _onEntityChangeEvent = new();
+        public UnityEvent OnEntityChangeEvent { get; private set; } = new();
 
-        private UnityEvent _onUpgradeEvent = new();
+        public UnityEvent OnUpgradeEvent { get; private set; } = new();
 
-        private UnityEvent _onChangeType = new();
+        public UnityEvent OnChangeTypeEvent { get; private set; } = new();
 
         public IInventoriable Storage { get; private set; }
 
@@ -28,7 +28,7 @@ namespace NTO24
             set
             {
                 _bear = value;
-                _onEntityChangeEvent.Invoke();
+                OnEntityChangeEvent.Invoke();
             }
         }
 
@@ -45,7 +45,7 @@ namespace NTO24
             set
             {
                 _upgradeType = value;
-                _onChangeType.Invoke();
+                OnChangeTypeEvent.Invoke();
             }
         }
 
@@ -92,16 +92,7 @@ namespace NTO24
             foreach (var stat in UpgradeType.StatsTypes)
                 Bear[stat].CurrentLevel++;
 
-            _onUpgradeEvent.Invoke();
+            OnUpgradeEvent.Invoke();
         }
-
-        public void AddOnEntityChangeAction(UnityAction action)
-            => _onEntityChangeEvent.AddListener(action);
-
-        public void AddOnUpgradeAction(UnityAction action)
-            => _onUpgradeEvent.AddListener(action);
-
-        public void AddOnTypeChangeAction(UnityAction action)
-            => _onChangeType.AddListener(action);
     }
 }

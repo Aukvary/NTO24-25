@@ -9,11 +9,11 @@ namespace NTO24
         [SerializeField]
         private float _attackAngle;
 
-        [SerializeField]
-        private UnityEvent<IHealthable> _onChangeTargetEvent;
+        [field: SerializeField]
+        public UnityEvent<IHealthable> OnChangeTargetEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<IHealthable> _onAttackEvent;
+        [field: SerializeField]
+        public UnityEvent<IHealthable> OnAttackEvent { get; private set; }
 
         private IHealthable _target;
 
@@ -27,7 +27,7 @@ namespace NTO24
             set
             {
                 _target = value;
-                _onChangeTargetEvent.Invoke(value);
+                OnChangeTargetEvent.Invoke(value);
             }
         }
 
@@ -68,17 +68,5 @@ namespace NTO24
             }
             else throw new System.Exception("stats component was missed");
         }
-
-        public void AddOnTargetChaneAction(UnityAction<IHealthable> action)
-            => _onChangeTargetEvent.AddListener(action);
-
-        public void RemoveOnTargetChaneAction(UnityAction<IHealthable> action)
-            => _onChangeTargetEvent.RemoveListener(action);
-
-        public void AddOnAttackAction(UnityAction<IHealthable> action)
-            => _onAttackEvent.AddListener(action);
-
-        public void RemoveOnAttackAction(UnityAction<IHealthable> action)
-            => _onAttackEvent.RemoveListener(action);
     }
 }

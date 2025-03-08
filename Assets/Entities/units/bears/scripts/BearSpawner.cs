@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NTO24
 {
-    public class BearSpawner : MonoBehaviour
+    public class BearSpawner : UnitSpawner
     {
         [SerializeField]
         private List<Pair<Bear, Transform>> _bears;

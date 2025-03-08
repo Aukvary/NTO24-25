@@ -30,7 +30,7 @@ namespace NTO24
         public void Enter()
         {
             _unit.Target = Target;
-            _animable?.AddOnAttackAction(Interact);
+            _animable?.OnAttackEvent.AddListener(Interact);
         }
 
         private void Move()
@@ -80,7 +80,7 @@ namespace NTO24
             if (Entity is IMovable movable)
                 movable.Stop();
 
-            _animable?.RemoveOnAttackAction(Interact);
+            _animable?.OnAttackEvent.RemoveListener(Interact);
             _unit.Target = null;
         }
     }

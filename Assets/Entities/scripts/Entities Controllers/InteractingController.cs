@@ -7,11 +7,11 @@ namespace NTO24
 {
     public class InteractingController : EntityComponent
     {
-        [SerializeField]
-        private UnityEvent<IInteractable> _onChangeTargetEvent;
+        [field: SerializeField]
+        public UnityEvent<IInteractable> OnChangeTargetEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<IInteractable> _onInteractEvent;
+        [field: SerializeField]
+        public UnityEvent<IInteractable> OnInteractEvent { get; private set; }
 
         private EntityStat _rangeStat;
 
@@ -24,7 +24,7 @@ namespace NTO24
             set
             {
                 _target = value;
-                _onChangeTargetEvent.Invoke(value);
+                OnChangeTargetEvent.Invoke(value);
             }
         }
 
@@ -55,17 +55,5 @@ namespace NTO24
             }
             else throw new System.Exception("stats component was missed");
         }
-
-        public void AddOnChangeTargetAction(UnityAction<IInteractable> action)
-            => _onChangeTargetEvent.AddListener(action);
-
-        public void RemoveOnChangeTargetAction(UnityAction<IInteractable> action)
-            => _onChangeTargetEvent.RemoveListener(action);
-
-        public void AddOnInteractAction(UnityAction<IInteractable> action)
-            => _onInteractEvent.AddListener(action);
-
-        public void RemoveOnInteractAction(UnityAction<IInteractable> action)
-            => _onInteractEvent.RemoveListener(action);
     }
 }

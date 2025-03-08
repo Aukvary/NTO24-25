@@ -8,14 +8,14 @@ namespace NTO24
 {
     public class EntryPoint : MonoBehaviour
     {
-        [field: SerializeField]
-        public Storage Storage { get; private set; }
+        [SerializeField]
+        private Storage Storage;
 
-        [field: SerializeField]
-        public  BearSpawner BearSpawner { get; private set; }
+        [SerializeField]
+        private BearSpawner _bearSpawner;
 
-        [field: SerializeField]
-        public  ControllableManager BearActivityManager { get; private set; }
+        [SerializeField]
+        private ControllableManager BearActivityManager;
 
         [SerializeField]
         private List<BeesSpawner> _beesSpawners;
@@ -39,16 +39,10 @@ namespace NTO24
         [SerializeField]
         private UpgradeHUD _upgradeHUD;
 
-        private List<Unit> _units = new();
-
-        private List<Bear> _bears = new();
-
         private EntitySelector _entitySelector;
 
         private UpgradeController _upgradeController;
 
-        public IEnumerable<Unit> Units => _units;
-        public IEnumerable<Bear> Bears => _bears;
         public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;
 
         private void Awake()
@@ -64,7 +58,7 @@ namespace NTO24
 
             InitializeSpawners();
             InitializeStorage();
-            _upgradeController.Initialize(_entitySelector, Storage, Bears.First());
+            _upgradeController.Initialize(_entitySelector, Storage, Entity.Bears.First());
 
             BearActivityManager.Initialize(this, _entitySelector);
 
@@ -75,11 +69,10 @@ namespace NTO24
 
         private void InitializeSpawners()
         {
-            foreach (var bear in BearSpawner.Spawn())
-            {
-                Add(bear);
-                _bears.Add(bear);
-            }
+            _bearSpawner.OnSpawnEvent.AddListener(Entity.Add);
+            _bearSpawner.Spawn();
+
+            _beesSpawners.ForEach(s => s.OnSpawnEvent.AddListener(Entity.Add));
         }
 
         private void InitializeStorage()
@@ -94,16 +87,9 @@ namespace NTO24
             _upgradeHUD.Initialize(_upgradeController);
         }
 
-        public void Add(Unit unit)
+        private void OnDestroy()
         {
-            if (unit == null)
-                return;
-
-            _units.Add(unit);
-
-
-            if (unit is not IRestoreable)
-                unit.HealthController.AddOnDeathAction(e => _units.Remove(unit));
+            Entity.Clear();
         }
     }
 }

@@ -6,6 +6,8 @@ namespace NTO24
     {
         Interactable Interactable { get; }
 
+        UnityEvent<IInteractor> OnInteractEvent => Interactable.OnInteractEvent;
+
         bool IsInteractable(IInteractor interactor);
 
         void Interact(IInteractor interactor)

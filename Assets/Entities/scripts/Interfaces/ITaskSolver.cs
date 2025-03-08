@@ -7,6 +7,14 @@ namespace NTO24
     {
         TaskController TaskController { get; }
 
+        public UnityEvent<IUnitTask> OnAddEvent => TaskController.OnAddEvent;
+
+        public UnityEvent<IUnitTask> OnSetEvent => TaskController.OnSetEvent;
+
+        public UnityEvent<IUnitTask> OnEnterEvent => TaskController.OnEnterEvent;
+
+        public UnityEvent<IUnitTask> OnExitEvent => TaskController.OnExitEvent;
+
         void AddTask(IUnitTask task) 
             => TaskController.AddTask(task);
 
@@ -18,29 +26,5 @@ namespace NTO24
 
         void SetTask(IEnumerable<IUnitTask> tasks)
             => TaskController.SetTask(tasks);
-
-        void AddOnAddAction(UnityAction<IUnitTask> action)
-            => TaskController.AddOnAddAction(action);
-
-        void RemoveOnAddAction(UnityAction<IUnitTask> action)
-            => TaskController.RemoveOnAddAction(action);
-
-        void AddOnSetAction(UnityAction<IUnitTask> action)
-            => TaskController.AddOnSetAction(action);
-
-        void RemoveOnSetAction(UnityAction<IUnitTask> action)
-            => TaskController.RemoveOnSetAction(action);
-
-        void AddOnEnterAction(UnityAction<IUnitTask> action)
-            => TaskController.AddOnEnterAction(action);
-
-        void RemoveEnterAction(UnityAction<IUnitTask> action)
-            => TaskController.RemoveEnterAction(action);
-
-        void AddOnExitAction(UnityAction<IUnitTask> action)
-            => TaskController.AddOnExitAction(action);
-
-        void RemoveOnExitAction(UnityAction<IUnitTask> action)
-            => TaskController.RemoveOnExitAction(action);
     }
 }

@@ -7,6 +7,8 @@ namespace NTO24
     {
         Inventory Inventory { get; }
 
+        UnityEvent OnItemsChangeEvent => Inventory.OnItemsChangeEvent;
+
         IEnumerable<Pair<Resource, int>> Items => Inventory.Items;
 
         bool HasItems => Inventory.HasItems;
@@ -24,11 +26,5 @@ namespace NTO24
 
         IEnumerable<Pair<Resource, int>> GetItems()
             => Inventory.GetItems();
-
-        public void AddOnItemsChangeAction(UnityAction action)
-            => Inventory.AddOnItemsChangeAction(action);
-
-        public void RemoveOnItemsChangeAction(UnityAction action)
-            => Inventory.RemoveOnItemsChangeAction(action);
     }
 }

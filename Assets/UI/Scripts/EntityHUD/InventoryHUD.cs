@@ -25,8 +25,8 @@ namespace NTO24.UI
         {
             _dropable = null;
 
-            _inventory?.RemoveOnItemsChangeAction(UpdateEntity);
-            inventory?.AddOnItemsChangeAction(UpdateEntity);
+            _inventory?.OnItemsChangeEvent.RemoveListener(UpdateEntity);
+            inventory?.OnItemsChangeEvent.AddListener(UpdateEntity);
 
             _inventory = inventory;
 
@@ -39,7 +39,7 @@ namespace NTO24.UI
 
         public void SetEntity(IDropable dropable)
         {
-            _inventory?.RemoveOnItemsChangeAction(UpdateEntity);
+            _inventory?.OnItemsChangeEvent.RemoveListener(UpdateEntity);
             _inventory = null;
 
             _dropable = dropable;

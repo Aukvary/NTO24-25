@@ -35,11 +35,11 @@ namespace NTO24.UI
 
             set
             {
-                _entity?.RemoveOnUpgradeAction(UpdateEntity);
-                _entity?.RemoveOnHealthChangeAction(_updateEntity);
+                _entity?.OnUpgadeEvent.RemoveListener(UpdateEntity);
+                _entity?.OnHealthChangeEvent.RemoveListener(_updateEntity);
 
-                value?.AddOnUpgradeAction(UpdateEntity);
-                value?.AddOnHealthChangeAction(_updateEntity);
+                value?.OnUpgadeEvent.AddListener(UpdateEntity);
+                value?.OnHealthChangeEvent.AddListener(_updateEntity);
 
                 _entity = value;
 

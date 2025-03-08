@@ -9,28 +9,19 @@ namespace NTO24
         IHealthable Target
         {
             get => AttackController.Target;
-            set
-            {
-                AttackController.Target = value;
-            }
+            set => AttackController.Target = value;
         }
+
+        UnityEvent<IHealthable> OnChangeTargetEvent 
+            => AttackController.OnChangeTargetEvent;
+
+        UnityEvent<IHealthable> OnAttackEvent
+            => AttackController.OnAttackEvent;
 
         bool CanAttack => AttackController.CanAttack;
 
         float AttackRange => AttackController.Range;
 
         float Damage => AttackController.Damage;
-
-        public void AddOnTargetChaneAction(UnityAction<IHealthable> action)
-            => AttackController.AddOnTargetChaneAction(action);
-
-        public void RemoveOnTargetChaneAction(UnityAction<IHealthable> action)
-            => AttackController.RemoveOnTargetChaneAction(action);
-
-        public void AddOnAttackAction(UnityAction<IHealthable> action)
-            => AttackController.AddOnAttackAction(action);
-
-        public void RemoveOnAttackAction(UnityAction<IHealthable> action)
-            => AttackController.RemoveOnAttackAction(action);
     }
 }

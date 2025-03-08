@@ -5,17 +5,17 @@ namespace NTO24
 {
     public class EntityHealth : EntityComponent
     {
-        [SerializeField]
-        private UnityEvent<Entity, HealthChangeType> _onHealthChangeEvent;
+        [field: SerializeField]
+        public  UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<Entity> _onDeathEvent;
+        [field: SerializeField]
+        public UnityEvent<Entity> OnDeathEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent<bool> _onAliveChangeEvent;
+        [field: SerializeField]
+        public UnityEvent<bool> OnAliveChangeEvent { get; private set; }
 
-        [SerializeField]
-        private UnityEvent _onUpgadeEvent;
+        [field: SerializeField]
+        public UnityEvent OnUpgadeEvent { get; private set; }
 
         private float _currentHealth;
 
@@ -42,12 +42,12 @@ namespace NTO24
             set
             {
                 _alive = value;
-                _onAliveChangeEvent.Invoke(value);
+                OnAliveChangeEvent.Invoke(value);
 
                 if (value)
                 {
                     Health = MaxHealth;
-                    _onHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
+                    OnHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
                 }
             }
         }
@@ -65,8 +65,8 @@ namespace NTO24
             _maxHealth = stats[StatsNames.MaxHealth];
             _regeneration = stats[StatsNames.Regeneration];
 
-            _maxHealth.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);
-            _regeneration?.AddOnLevelChangeAction(_onUpgadeEvent.Invoke);
+            _maxHealth.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);
+            _regeneration?.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);
 
             Health = _maxHealth.StatValue;
         }
@@ -82,34 +82,14 @@ namespace NTO24
         {
             Health = Mathf.Clamp(Health + deltaHealth * (type == HealthChangeType.Heal ? 1 : -1), 0, MaxHealth);
 
-            _onHealthChangeEvent.Invoke(by, type);
+            OnHealthChangeEvent.Invoke(by, type);
 
             if (Health > 0)
                 return;
 
             Alive = false;
 
-            _onDeathEvent.Invoke(by);
+            OnDeathEvent.Invoke(by);
         }
-
-        public void AddOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
-            => _onHealthChangeEvent.AddListener(action);
-        public void RemoveOnHealthChangeAction(UnityAction<Entity, HealthChangeType> action)
-            => _onHealthChangeEvent.RemoveListener(action);
-
-        public void AddOnDeathAction(UnityAction<Entity> action)
-            => _onDeathEvent.AddListener(action);
-        public void RemoveOnDeathAction(UnityAction<Entity> action)
-            => _onDeathEvent.RemoveListener(action);
-
-        public void AddOnAliveChangeAction(UnityAction<bool> action)
-            => _onAliveChangeEvent.AddListener(action);
-        public void RemoveOnAliveChangeAction(UnityAction<bool> action)
-            => _onAliveChangeEvent.RemoveListener(action);
-
-        public void AddOnUpgradeAction(UnityAction action)
-            => _onUpgadeEvent.AddListener(action);
-        public void RemoveOnUpgradeAction(UnityAction action)
-            => _onUpgadeEvent.RemoveListener(action);
     }
 }
