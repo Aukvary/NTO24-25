@@ -21,14 +21,8 @@ namespace NTO24
         public static IEnumerable<Entity> Entities
             => _entities;
 
-        public static IEnumerable<Unit> Units
-            => _entities.Where(e => e is Unit).Cast<Unit>();
-
-        public static IEnumerable<Bear> Bears
-            => _entities.Where(e => e is Bear).Cast<Bear>();
-
-        public static IEnumerable<Bee> Bees
-            => _entities.Where(e => e is Bee).Cast<Bee>();
+        public static IEnumerable<T> GetEntites<T>()
+            => _entities.Where(e => e is T).Cast<T>();
 
         public static void Add(Entity entity)
         {

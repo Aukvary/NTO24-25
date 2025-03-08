@@ -56,7 +56,7 @@ namespace NTO24
                 return;
 
             var units = Input.GetKey(KeyCode.LeftControl) ?
-                Entity.Units.Where(u => u is ITaskSolver) : SelectedUnits;
+                Entity.GetEntites<Unit>().Where(u => u is ITaskSolver) : SelectedUnits;
 
             if (Input.GetKey(KeyCode.LeftShift))
                 foreach (var unit in units)
@@ -118,11 +118,11 @@ namespace NTO24
             Bounds bounds = new Bounds();
             bounds.SetMinMax(minOffset, maxOffset);
 
-            foreach (var unit in Entity.Units.Where(u => u is IControllable))
+            foreach (var unit in Entity.GetEntites<IControllable>())
             {
-                if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.transform.position)))
+                if (!bounds.Contains(Camera.main.WorldToViewportPoint(unit.EntityReference.transform.position)))
                     continue;
-                _selectedUnits.Add(unit);
+                _selectedUnits.Add(unit.EntityReference as Unit);
             }
         }
 

@@ -58,7 +58,7 @@ namespace NTO24
 
             InitializeSpawners();
             InitializeStorage();
-            _upgradeController.Initialize(_entitySelector, Storage, Entity.Bears.First());
+            _upgradeController.Initialize(_entitySelector, Storage, Entity.GetEntites<Bear>().First());
 
             BearActivityManager.Initialize(this, _entitySelector);
 

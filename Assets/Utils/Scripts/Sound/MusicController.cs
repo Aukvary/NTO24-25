@@ -28,7 +28,7 @@ namespace NTO24
 
         private bool _fightNow = false;
 
-        private bool _fight => Entity.Bees.Any();
+        private bool _fight => Entity.GetEntites<Bee>().Any();
 
         private void Start()
         {
