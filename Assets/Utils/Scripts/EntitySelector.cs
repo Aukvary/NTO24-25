@@ -55,7 +55,7 @@ namespace NTO24
         {
             KeyCode key = KeyCode.Alpha1;
 
-            var bears = Entity.Bears;
+            var bears = Entity.GetEntites<Bear>();
 
             for (int i = 0; i < bears.Count(); i++, key++)
                 if (Input.GetKeyDown(key))
