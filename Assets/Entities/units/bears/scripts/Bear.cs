@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace NTO24
@@ -9,7 +10,7 @@ namespace NTO24
         public string Name { get; private set; }
 
         [field: SerializeField]
-        public Sprite Icon { get; private set; }
+        public Sprite[] Icon { get; private set; }
 
         public AttackController AttackController { get; private set; }
         public Inventory Inventory { get; private set; }

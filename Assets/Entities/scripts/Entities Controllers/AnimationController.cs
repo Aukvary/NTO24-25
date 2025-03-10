@@ -16,6 +16,12 @@ namespace NTO24
         public const string MOVE = "move";
         public const string PUNCH = "punch";
 
+        public readonly string[] NAMES = new string[]{
+            IDLE,
+            MOVE,
+            PUNCH
+        };
+
         [field: SerializeField]
         public UnityEvent<string> OnAnimationChangeEvent { get; private set; }
 
@@ -43,7 +49,6 @@ namespace NTO24
 
                 _ => null
             };
-
 
             _animator.SetTrigger(name);
             OnAnimationChangeEvent.Invoke(name);

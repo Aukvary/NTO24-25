@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,13 @@ namespace NTO24.UI
         [SerializeField]
         private Image _icon;
 
+        [SerializeField]
+        private float _animationSpeed;
+
+        private Sprite[] _frames;
+
+        private Coroutine _frameChanger;
+
         private IIconable _entity;
 
         public IIconable Entity
@@ -16,11 +25,33 @@ namespace NTO24.UI
 
             set
             {
+                _entity = value;
                 _icon.enabled = value != null;
-                _icon.sprite = value?.Icon;
+                if (_frameChanger != null)
+                    StopCoroutine(_frameChanger);
+                if (value == null)
+                    return;
+                _frames = value.Icon;
+                _frameChanger = StartCoroutine(Change());
             }
         }
 
-        public Sprite Icon => _entity?.Icon;
+        public Sprite[] Icon => _entity?.Icon;
+
+        private IEnumerator Change()
+        {
+            if (_animationSpeed == 0)
+            {
+                _icon.sprite = _frames[0];
+                yield break;
+            }
+            int i = 0;
+            while (true)
+            {
+                _icon.sprite = _frames[i];
+                yield return new WaitForSeconds(_animationSpeed);
+                i = (i + 1) % _frames.Length;
+            }
+        }
     }
 }

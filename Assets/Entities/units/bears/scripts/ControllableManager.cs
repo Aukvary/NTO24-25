@@ -17,8 +17,6 @@ namespace NTO24
         [SerializeField]
         private float _areaBorderThickness;
 
-        private EntryPoint _entryPoint;
-
         private List<Unit> _selectedUnits;
 
         private Vector3 _startMousePosition;
@@ -29,11 +27,9 @@ namespace NTO24
         private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
         private Ray _direction => Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        public void Initialize(EntryPoint entryPoint, EntitySelector selector)
+        public void Initialize(EntitySelector selector)
         {
-            _entryPoint = entryPoint;
-
-            selector.AddSelectAction(SelectAloneUnit);
+            selector.OnEntitySelecteEvent.AddListener(SelectAloneUnit);
 
             _selectedUnits = new();
         }
@@ -42,6 +38,12 @@ namespace NTO24
         {
             SetTask();
             SelectUnitGroup();
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                foreach (var unit in SelectedUnits)
+                    (unit as IHealthable).Damage(10);
+            }
         }
 
         private void SetTask()
@@ -84,10 +86,7 @@ namespace NTO24
                         new AttackTask(unit as IAttacker, e)
                     };
                 default:
-                    return entity == unit ? new IUnitTask[0] : new IUnitTask[]
-                    {
-                        new FollowEntityTask(unit, entity)
-                    };
+                    return new IUnitTask[0];
             }
         }
 

@@ -48,6 +48,7 @@ namespace NTO24
                 _animable?.SetAnimation(AnimationController.Animations.Move);
                 movable.MoveTo(Target.EntityReference.transform.position);
             }
+
         }
 
         public void Rotate()

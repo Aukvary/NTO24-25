@@ -37,6 +37,7 @@ namespace NTO24
         protected override void Update()
         {
             CurrentTask?.Update();
+
             if (CurrentTask != null && CurrentTask.IsComplete)
                 NextTask();
         }
@@ -87,7 +88,6 @@ namespace NTO24
             task.Exit();
             OnExitEvent.Invoke(task);
 
-
             if (_tasks.TryPeek(out var t))
             {
                 t.Enter();
@@ -96,8 +96,8 @@ namespace NTO24
             }
             else
             {
-                _animable?.SetAnimation(AnimationController.Animations.Idle);
                 CurrentTask = null;
+                _animable?.SetAnimation(AnimationController.Animations.Idle);
             }
 
             return task;

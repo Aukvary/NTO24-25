@@ -58,14 +58,14 @@ namespace NTO24
 
         private void Awake()
         {
-            _upgradeTypes = UnityEngine.Resources.LoadAll<UpgradeType>("UpgradeTypes");
+            _upgradeTypes = Resources.LoadAll<UpgradeType>("UpgradeTypes");
         }
 
         public void Initialize(EntitySelector selector, Storage storage, Bear bear)
         {
             UpgradeType = _upgradeTypes.First();
 
-            selector.AddSelectAction(SelectBear);
+            selector.OnEntitySelecteEvent.AddListener(SelectBear);
             SelectBear(bear);
 
             Storage = storage;

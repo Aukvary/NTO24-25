@@ -33,7 +33,7 @@ namespace NTO24
         {
             _selector = GetComponent<EntitySelector>();
 
-            _selector.AddRepeatSelectAction(e => 
+            _selector.OnRepeatSelectEvent.AddListener(e => 
             {
                 if (e == null)
                     return;

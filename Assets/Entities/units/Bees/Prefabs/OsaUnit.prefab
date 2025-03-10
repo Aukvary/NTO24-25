@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 8298230468964353042}
   - component: {fileID: 2152176601619605877}
   - component: {fileID: 4226375127121822257}
-  - component: {fileID: 6866139536227337715}
-  - component: {fileID: 1611824978310172847}
+  - component: {fileID: 2437496792457511268}
+  - component: {fileID: 110090099756755036}
+  - component: {fileID: 8463693049079280279}
+  - component: {fileID: 8582929603177332040}
+  - component: {fileID: 3181435200121725420}
   m_Layer: 0
   m_Name: OsaUnit
   m_TagString: Untagged
@@ -81,7 +84,7 @@ CapsuleCollider:
   m_Height: 1.9813827
   m_Direction: 1
   m_Center: {x: 0, y: 0.99956304, z: 0}
---- !u!114 &6866139536227337715
+--- !u!114 &2437496792457511268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,11 +93,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2569323056179923504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e949fbff5be39744b9546d834f005ff, type: 3}
+  m_Script: {fileID: 11500000, guid: e81bca20d2bcef9418685844007fa172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agrRange: 10
---- !u!114 &1611824978310172847
+  <EntityType>k__BackingField: 0
+  _dropableItems: []
+--- !u!114 &110090099756755036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,39 +107,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 2569323056179923504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2be6a4beacc4554586e66a6bcd78bdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4691841170c27d74a9c73ea2659eceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _attackRange: 2
-  _attackAngle: 90
-  _damage:
-  - 5
-  - 6.5
-  - 8.45
-  - 11
-  - 15
-  _strength:
-  - 5
-  - 6.5
-  - 8.45
-  - 11
-  - 15
-  _maxHealth:
-  - 20
-  - 26
-  - 34
-  - 44
-  - 57
-  _regeneration:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _dropableItems:
-  - _resorce: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
-    _count: 1
+  <OnDestinationChangedEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8463693049079280279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569323056179923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b9cc35a3f37544bbc7aba574febd81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackAngle: 0
+  <OnChangeTargetEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnAttackEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8582929603177332040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569323056179923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <OnHealthChangeEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnDeathEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnRevivalEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnAliveChangeEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnUpgadeEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &3181435200121725420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569323056179923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f19d4f8e4ccabe418069dc7e0f738bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stats: []
 --- !u!1001 &2717668153105798277
 PrefabInstance:
   m_ObjectHideFlags: 0

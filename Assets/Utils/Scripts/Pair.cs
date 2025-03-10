@@ -26,6 +26,11 @@ namespace NTO24
         }
 
         public override string ToString()
-            => $"{Value1} : {Value2}";
+        {
+            if (typeof(T1) == typeof(Resource) && typeof(T2) == typeof(int))
+                return $"{(Value1 as Resource).ResourceName}:{Value2}";
+
+            return $"{Value1}:{Value2}";
+        }
     }
 }

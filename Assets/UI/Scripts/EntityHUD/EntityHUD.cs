@@ -1,9 +1,14 @@
 using System;
+using TMPro;
+using UnityEngine;
 
 namespace NTO24.UI
 {
     public class EntityHUD : Drawable
     {
+        [SerializeField]
+        private TextMeshProUGUI _restoreTimer;
+
         private InventoryHUD _inventoryHUD;
         private HealthHUD _healthHUD;
         private IconHUD _iconHUD;
@@ -11,6 +16,8 @@ namespace NTO24.UI
         private StatCellUI[] _statCells;
 
         private AnimatedUI _uiAnimator;
+
+        private IRestoreable _restoreable;
 
         protected override void Awake()
         {
@@ -26,7 +33,7 @@ namespace NTO24.UI
 
         public void Initialize(EntitySelector selector)
         {
-            selector.AddSelectAction(SelectEntity);
+            selector.OnEntitySelecteEvent.AddListener(SelectEntity);
 
             _inventoryHUD.SetEntity(null as IInventoriable);
             _iconHUD.Entity = null;
@@ -50,24 +57,13 @@ namespace NTO24.UI
             }
 
             _uiAnimator.Show();
-            if (entity is IInventoriable inventory)
-                _inventoryHUD.SetEntity(inventory);
-            else
-                _inventoryHUD.SetEntity(null as IInventoriable);
 
+            _inventoryHUD.SetEntity(entity is IInventoriable inventory ? inventory : null);
+            _inventoryHUD.SetEntity(entity is IDropable dropable ? dropable : null);
 
-            if (entity is IIconable icon)
-                _iconHUD.Entity = icon;
-            else
-                _iconHUD.Entity = null;
+            _iconHUD.Entity = entity is IIconable icon ? icon : null;
 
-            if (entity is IHealthable health)
-                _healthHUD.Entity = health;
-            else
-                _healthHUD.Entity = null;
-
-            if (entity is IDropable dropable)
-                _inventoryHUD.SetEntity(dropable);
+            _healthHUD.Entity = entity is IHealthable health ? health : null;
 
             if (entity is IStatsable statsable)
             {
@@ -81,6 +77,22 @@ namespace NTO24.UI
                 foreach (var cell in _statCells)
                     cell.Stat = null;
             }
+
+            if (entity is IRestoreable resotorable)
+            {
+                _restoreable?.OnTimeChange.RemoveListener(UpdateTimer);
+                resotorable.OnTimeChange.AddListener(UpdateTimer);
+                _restoreable = resotorable;
+                UpdateTimer();
+            }
+            else
+            {
+                _restoreable?.OnTimeChange.RemoveListener(UpdateTimer);
+                _restoreTimer.text = "";
+            }
         }
+
+        private void UpdateTimer()
+            => _restoreTimer.text = _restoreable.Time == 0 ? "" : _restoreable.Time.ToString();
     }
 }

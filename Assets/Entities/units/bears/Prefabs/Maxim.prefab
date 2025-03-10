@@ -102,7 +102,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
   <Name>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: 3a9627b76fa8a074fa002e43543f4edc, type: 3}
+  <Icon>k__BackingField:
+  - {fileID: 1989429718, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: 1414308501, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -1575376684, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: 758395986, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -1386199599, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -359600120, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: 1338134735, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -1522278255, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -575759067, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: -1916539584, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
+  - {fileID: 194565439, guid: 169f35d536b367c4697f17df72d9841b, type: 3}
 --- !u!114 &8453652941889021800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,13 +126,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onHealthChangeEvent:
+  <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onDeathEvent:
+  <OnDeathEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onAliveChangeEvent:
+  <OnRevivalEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnAliveChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2704258199033670777}
@@ -136,7 +150,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _onUpgadeEvent:
+      - m_Target: {fileID: 7167928672129059008}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <OnUpgadeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5757058588797027897
@@ -151,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4691841170c27d74a9c73ea2659eceef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onDestinationChangedEvent:
+  <OnDestinationChangedEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1102591113374047503
@@ -166,10 +192,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f84956ea16681488ee075af86fa5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onChangeTargetEvent:
+  <OnChangeTargetEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onInteractEvent:
+  <OnInteractEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6162033493679277687
@@ -196,7 +222,7 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 0bd243dfe5ddb8742880513aac5b6f2c, type: 2}
     _statValues:
-    - 3
+    - 5
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -260,16 +286,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271ab02060d7c074e851e1a84135a5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAddEvent:
+  <OnAddEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onSetEvent:
+  <OnSetEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onEnterEvent:
+  <OnEnterEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onExitEvent:
+  <OnExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &1555449351005846758
@@ -285,10 +311,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackAngle: 60
-  _onChangeTargetEvent:
+  <OnChangeTargetEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onAttackEvent:
+  <OnAttackEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6368533381114197342
@@ -316,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2663f1faf88445458af6f18d233e17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onItemsChangeEvent:
+  <OnItemsChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1001 &2974096837425484072
@@ -472,13 +498,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb49433cb59feb4799660bdb774717b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onAnimationChangeEvent:
+  <OnAnimationChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onAttackEvent:
+  <OnAttackEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _onStepEvent:
+  <OnStepEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &3372250736538072771 stripped

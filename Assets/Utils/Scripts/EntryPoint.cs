@@ -8,26 +8,18 @@ namespace NTO24
 {
     public class EntryPoint : MonoBehaviour
     {
-        [SerializeField]
-        private Storage Storage;
-
+        [Header("General")]
         [SerializeField]
         private BearSpawner _bearSpawner;
 
         [SerializeField]
-        private ControllableManager BearActivityManager;
+        private List<BeeSpawner> _beeSpawners;
 
         [SerializeField]
-        private List<BeesSpawner> _beesSpawners;
+        private Storage Storage;
 
         [SerializeField]
-        private UnityEvent _preinitializeEvent;
-
-        [SerializeField]
-        private UnityEvent _postinitializeEvent;
-
-        [SerializeField]
-        private UnityEvent<Unit> _onUnitsCountChangeEvent;
+        private Entity _burov;
 
         [Header("UI")]
         [SerializeField]
@@ -39,14 +31,24 @@ namespace NTO24
         [SerializeField]
         private UpgradeHUD _upgradeHUD;
 
+        [Header("Events")]
+        [SerializeField]
+        private UnityEvent _preinitializeEvent;
+
+        [SerializeField]
+        private UnityEvent _postinitializeEvent;
+
+        private ControllableManager _bearActivityManager;
+
         private EntitySelector _entitySelector;
 
         private UpgradeController _upgradeController;
 
-        public IEnumerable<BeesSpawner> BeesSpawners => _beesSpawners;
+        public IEnumerable<BeeSpawner> BeeSpawners => _beeSpawners;
 
         private void Awake()
         {
+            _bearActivityManager = GetComponent<ControllableManager>();
             _entitySelector = GetComponent<EntitySelector>();
             _upgradeController = GetComponent<UpgradeController>();
         }
@@ -54,13 +56,12 @@ namespace NTO24
         private void Start()
         {
             _preinitializeEvent.Invoke();
-            Resources.Initialize();
 
             InitializeSpawners();
             InitializeStorage();
             _upgradeController.Initialize(_entitySelector, Storage, Entity.GetEntites<Bear>().First());
 
-            BearActivityManager.Initialize(this, _entitySelector);
+            _bearActivityManager.Initialize(_entitySelector);
 
 
             InitializeUI();
@@ -72,7 +73,11 @@ namespace NTO24
             _bearSpawner.OnSpawnEvent.AddListener(Entity.Add);
             _bearSpawner.Spawn();
 
-            _beesSpawners.ForEach(s => s.OnSpawnEvent.AddListener(Entity.Add));
+            _beeSpawners.ForEach(s =>
+            {
+                s.OnSpawnEvent.AddListener(Entity.Add);
+                s.Spawn(_burov as IHealthable);
+            });
         }
 
         private void InitializeStorage()

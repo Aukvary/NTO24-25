@@ -31,7 +31,6 @@ namespace NTO24
         public bool TryAddItems(Pair<Resource, int> items, out Pair<Resource, int> overflowItems)
         {
             int count = items.Value2;
-
             for (int i = 0; i < _items.Length; i++)
             {
                 if (_items[i].Value2 == _cellCapacity)

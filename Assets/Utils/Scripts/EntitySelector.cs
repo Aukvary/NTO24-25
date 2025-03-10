@@ -7,8 +7,8 @@ namespace NTO24
 {
     public class EntitySelector : MonoBehaviour
     {
-        private UnityEvent<Entity> _onEntitySelecteEvent = new();
-        private UnityEvent<Entity> _onRepeatSelectEvent = new(); 
+        public UnityEvent<Entity> OnEntitySelecteEvent { get; private set; } = new();
+        public UnityEvent<Entity> OnRepeatSelectEvent { get; private set; } = new(); 
 
         private EntryPoint _entryPoint;
 
@@ -20,9 +20,9 @@ namespace NTO24
         private void Awake()
         {
             _entryPoint = GetComponent<EntryPoint>();
-            AddSelectAction(e => {
+            OnEntitySelecteEvent.AddListener(e => {
                 if (e == _selectedEntity)
-                    _onRepeatSelectEvent.Invoke(e);
+                    OnRepeatSelectEvent.Invoke(e);
 
                 _selectedEntity = e;
             });
@@ -44,11 +44,11 @@ namespace NTO24
 
             if (!hit.transform.TryGetComponent<Entity>(out var entity))
             {
-                _onEntitySelecteEvent.Invoke(null);
+                OnEntitySelecteEvent.Invoke(null);
                 return;
             }
 
-                _onEntitySelecteEvent.Invoke(entity);
+                OnEntitySelecteEvent.Invoke(entity);
         }
 
         private void HotKeySelect() 
@@ -59,19 +59,7 @@ namespace NTO24
 
             for (int i = 0; i < bears.Count(); i++, key++)
                 if (Input.GetKeyDown(key))
-                    _onEntitySelecteEvent.Invoke(bears.ElementAt(i));
+                    OnEntitySelecteEvent.Invoke(bears.ElementAt(i));
         }
-
-        public void AddSelectAction(UnityAction<Entity> action)
-            => _onEntitySelecteEvent.AddListener(action);
-
-        public void RemoveSelectAction(UnityAction<Entity> action)
-            => _onEntitySelecteEvent.RemoveListener(action);
-
-        public void AddRepeatSelectAction(UnityAction<Entity> action)
-            => _onRepeatSelectEvent.AddListener(action);
-
-        public void RemoveRepeatSelectAction(UnityAction<Entity> action)
-            => _onRepeatSelectEvent.RemoveListener(action);
     }
 }

@@ -68,22 +68,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3721d09fdb155a48badc61040102f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Storage: {fileID: 0}
   _bearSpawner: {fileID: 0}
-  BearActivityManager: {fileID: 6138309989425705496}
-  _beesSpawners: []
+  _beeSpawners: []
+  Storage: {fileID: 0}
+  _burov: {fileID: 0}
+  _entityHUD: {fileID: 0}
+  _storageHUD: {fileID: 0}
+  _upgradeHUD: {fileID: 0}
   _preinitializeEvent:
     m_PersistentCalls:
       m_Calls: []
   _postinitializeEvent:
     m_PersistentCalls:
       m_Calls: []
-  _onUnitsCountChangeEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  _entityHUD: {fileID: 0}
-  _storageHUD: {fileID: 0}
-  _upgradeHUD: {fileID: 0}
 --- !u!114 &6138309989425705496
 MonoBehaviour:
   m_ObjectHideFlags: 0

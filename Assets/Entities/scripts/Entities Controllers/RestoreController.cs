@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NTO24
 {
@@ -7,16 +8,18 @@ namespace NTO24
         [SerializeField]
         private float _restoreTime;
 
+        [HideInInspector]
+        public UnityEvent OnTimeChange { get; private set; } = new();
+
         private EntityHealth _healthController;
 
-        private Collider _collider;
         private Vector3 _spawnPosition;
+
+        public int Time { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-
-            _collider = GetComponent<Collider>();
 
             _spawnPosition = transform.position;
 
@@ -24,7 +27,6 @@ namespace NTO24
 
             _healthController.OnDeathEvent.AddListener(alive =>
             {
-                _collider.enabled = alive;
                 transform.position = _spawnPosition;
             });
         }
@@ -34,8 +36,21 @@ namespace NTO24
         
         private System.Collections.IEnumerator Restore()
         {
+            StartCoroutine(StartTimer());
             yield return new WaitForSeconds(_restoreTime);
             _healthController.Alive = true;
+        }
+
+        private System.Collections.IEnumerator StartTimer()
+        {
+            Time = (int)_restoreTime;
+            while(Time > 0)
+            {
+                OnTimeChange.Invoke();
+                Time -= 1;
+                yield return new WaitForSeconds(1);
+            }
+            OnTimeChange.Invoke();
         }
     }
 }

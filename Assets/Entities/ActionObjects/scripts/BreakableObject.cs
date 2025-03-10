@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace NTO24
 {
@@ -8,12 +7,6 @@ namespace NTO24
     {
         [SerializeField]
         private List<Pair<Resource, int>> _dropableResources;
-
-        [SerializeField]
-        private UnityEvent<Entity, HealthChangeType> _onHealthChangeEvent;
-
-        [SerializeField]
-        private UnityEvent<Entity> _onBrokeEvent;
 
         public EntityHealth HealthController { get; private set; }
 
@@ -35,12 +28,8 @@ namespace NTO24
         {
             HealthController = GetComponent<EntityHealth>();
 
-            HealthController.OnHealthChangeEvent.AddListener(_onHealthChangeEvent.Invoke);
-
             HealthController.OnDeathEvent.AddListener(entity =>
             {
-                _onBrokeEvent.Invoke(entity);
-
                 if (entity is IInventoriable inventory)
                     (this as IDropable).Drop(inventory);
 

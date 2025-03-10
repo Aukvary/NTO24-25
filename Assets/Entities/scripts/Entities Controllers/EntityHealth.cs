@@ -12,6 +12,9 @@ namespace NTO24
         public UnityEvent<Entity> OnDeathEvent { get; private set; }
 
         [field: SerializeField]
+        public UnityEvent OnRevivalEvent { get; private set; }
+
+        [field: SerializeField]
         public UnityEvent<bool> OnAliveChangeEvent { get; private set; }
 
         [field: SerializeField]
@@ -48,6 +51,7 @@ namespace NTO24
                 {
                     Health = MaxHealth;
                     OnHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
+                    OnRevivalEvent.Invoke();
                 }
             }
         }

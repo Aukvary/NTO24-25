@@ -8,12 +8,14 @@ namespace NTO24
         public Inventory Inventory { get; private set; }
         public Interactable Interactable { get; private set; }
 
+        public static IInventoriable Resources { get; private set; }
+
         public void Initialize()
         {
             base.Awake();
             Inventory = GetComponent<Inventory>();
 
-            Inventory.Initialize(Resources.ResourceNames.Count());
+            Inventory.Initialize(StringParser.ResourceNames.Count());
 
             Interactable = GetComponent<Interactable>();
 
@@ -25,6 +27,7 @@ namespace NTO24
                 foreach (var item in inventory.GetItems())
                     Inventory.TryAddItems(item, out _);
             });
+            Resources = this;
         }
 
         public bool IsInteractable(IInteractor interactor)
@@ -39,9 +42,9 @@ namespace NTO24
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                (this as IInventoriable).TryAddItems(new(Resources.FromString("Wood"), 5));
-                (this as IInventoriable).TryAddItems(new(Resources.FromString("Stone"), 5));
-                (this as IInventoriable).TryAddItems(new(Resources.FromString("Iron"), 5));
+                Inventory.TryAddItems("Wood:5".ToResources(), out _);
+                Inventory.TryAddItems("Stone:5".ToResources(), out _);
+                Inventory.TryAddItems("Iron:5".ToResources(), out _);
             }
         }
     }

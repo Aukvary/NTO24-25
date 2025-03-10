@@ -22,6 +22,14 @@ namespace NTO24.UI
         [SerializeField]
         private Color _maxHealthColor;
 
+        [SerializeField]
+        private Color _minBackColor;
+
+        [SerializeField]
+        private Color _maxBackColor;
+
+        private Image _back;
+
         private UnityAction<Entity, HealthChangeType> _updateEntity;
 
         private IHealthable _entity;
@@ -54,6 +62,8 @@ namespace NTO24.UI
 
         protected override void Awake()
         {
+            _back = GetComponent<Image>();
+
             _updateEntity = (a, b) => UpdateEntity();
             _minAnchor = _healthBar.rectTransform.anchorMin;
             _maxAnchor = _healthBar.rectTransform.anchorMax;
@@ -68,6 +78,7 @@ namespace NTO24.UI
                     _maxAnchor.y
             );
             _healthBar.color = Color.Lerp(_minHealthColor, _maxHealthColor, Entity.Health / Entity.MaxHealth);
+            _back.color = Color.Lerp(_minBackColor, _maxBackColor, Entity.Health / Entity.MaxHealth);
         }
     }
 }

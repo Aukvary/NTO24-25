@@ -34,9 +34,13 @@ namespace NTO24
         {
             get
             {
-                Ray ray = new(transform.position, TargetPosition - transform.position);
+                Ray ray = new(transform.position, (TargetPosition + Vector3.up * 0.5f) - transform.position);
 
-                var hit = Physics.RaycastAll(ray).First(h => h.transform == Target.EntityReference.transform);
+                Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
+
+                var hit = Physics.RaycastAll(ray).FirstOrDefault(h => h.transform == Target.EntityReference.transform);
+                if (hit.transform == null)
+                    return false;
 
                 bool can = Vector3.Distance(transform.position, hit.point) < Range;
 
