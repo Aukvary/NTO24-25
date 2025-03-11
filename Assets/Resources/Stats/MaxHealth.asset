@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MaxHealth
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <Title>k__BackingField: 
-  <Description>k__BackingField: 
+  <Title>k__BackingField: "\u041C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u043E\u0435
+    \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
+  <Description>k__BackingField: "\u041D\u0430\u0438\u0431\u043E\u043B\u044C\u0448\u0435\u0435
+    \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0435 \u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E
+    \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F"
   <Icon>k__BackingField: {fileID: 21300000, guid: f7842c1780143db4894f5e224cb08f7c, type: 3}
