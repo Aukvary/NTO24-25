@@ -14,6 +14,9 @@ namespace NTO24
 
         public bool IsComplete => !Target.IsInteractable(_unit);
 
+        public AnimationController.Animations Animation
+            => _unit.CanInteract ? AnimationController.Animations.Punch : AnimationController.Animations.Move;
+
         public InteractTask(IInteractor unit, IInteractable target)
         {
             _unit = unit;
@@ -39,15 +42,9 @@ namespace NTO24
                 return;
 
             if (_unit.CanInteract)
-            {
-                _animable?.SetAnimation(AnimationController.Animations.Punch);
                 movable.Stop();
-            }
             else
-            {
-                _animable?.SetAnimation(AnimationController.Animations.Move);
                 movable.MoveTo(Target.EntityReference.transform.position);
-            }
 
         }
 

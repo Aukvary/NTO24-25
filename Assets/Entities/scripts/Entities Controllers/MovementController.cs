@@ -35,14 +35,14 @@ namespace NTO24
 
         public bool HasPath => _navMeshAgent.hasPath;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
             _navMeshAgent = GetComponent<NavMeshAgent>();
 
             if (Entity is not IStatsable stats)
                 throw new System.Exception("stats component was missed");
-            _speedStat = stats[StatsNames.Speed];
+            _speedStat = stats[StatNames.Speed];
             _navMeshAgent.speed = _speedStat.StatValue;
 
             _speedStat.AddOnLevelChangeAction(()=> _navMeshAgent.speed = _speedStat.StatValue);

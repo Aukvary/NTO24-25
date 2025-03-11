@@ -15,12 +15,11 @@ namespace NTO24
         {
             if (other.TryGetComponent<Entity>(out var entity))
                 OnEntityEnter.Invoke(entity);
-
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent<Entity>(out var entity))
+           if (other.TryGetComponent<Entity>(out var entity))
                 OnEntityExit.Invoke(entity);
         }
     }

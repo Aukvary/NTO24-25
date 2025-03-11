@@ -9,8 +9,6 @@ namespace NTO24
 
         public IEnumerable<EntityStat> Stats => StatsController.Stats;
 
-        public EntityStat this[StatsNames name]
-            => StatsController[name];
-
+        public EntityStat this[StatNames name] => StatsController[name];
     }
 }

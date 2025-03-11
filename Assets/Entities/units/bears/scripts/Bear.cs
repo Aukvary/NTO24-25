@@ -22,22 +22,18 @@ namespace NTO24
         {
             base.Awake();
 
+            HealthController.OnDeathEvent.AddListener(entity =>
+            {
+                RestoreController.StartRestoring();
+            });
+
             AttackController = GetComponent<AttackController>();
             Inventory = GetComponent<Inventory>();
-            Inventory.Initialize(6, (int)StatsController[StatsNames.CellCapacity].StatValue);
+            Inventory.Initialize(6, (int)StatsController[StatNames.CellCapacity].StatValue);
 
 
             RestoreController = GetComponent<RestoreController>();
             InteractingController = GetComponent<InteractingController>();
-        }
-
-        protected override void HealthInitialize()
-        {
-            base.HealthInitialize();
-            HealthController.OnDeathEvent.AddListener( entity =>
-            {
-                RestoreController.StartRestoring();
-            });
         }
     }
 }

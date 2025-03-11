@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1632998778357366359}
   - component: {fileID: 6595313466823906387}
+  - component: {fileID: 2970987113492273144}
   m_Layer: 6
   m_Name: path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1632998778357366359
 Transform:
@@ -55,6 +56,18 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
+--- !u!114 &2970987113492273144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7255401124603972863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa50d9b758ca1041b03c96d3bb9a89e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4652826680760213359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +116,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: f49f4237eb590b5488e9adacd2e439e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 77c8ff34c2d2a5b40b35264572e935c4, type: 2}
     - target: {fileID: 919132149155446097, guid: f49f4237eb590b5488e9adacd2e439e2, type: 3}
       propertyPath: m_Name
       value: path_plane
@@ -113,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f49f4237eb590b5488e9adacd2e439e2, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: f49f4237eb590b5488e9adacd2e439e2, type: 3}
       propertyPath: m_Layer
@@ -121,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: f49f4237eb590b5488e9adacd2e439e2, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

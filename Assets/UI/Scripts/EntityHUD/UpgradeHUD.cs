@@ -86,6 +86,7 @@ namespace NTO24.UI
 
                 _buttons[i].OnClick.AddListener(() =>
                 {
+                    print("penis");
                     foreach (var button in _buttons)
                         button.IsSelected(false);
 

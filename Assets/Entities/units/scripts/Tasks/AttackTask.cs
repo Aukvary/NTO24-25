@@ -15,6 +15,9 @@ namespace NTO24
         public bool IsComplete
             => !Target.Alive || (!_unit.CanAttack && Entity is not IMovable);
 
+        public AnimationController.Animations Animation
+            => _unit.CanAttack ? AnimationController.Animations.Punch : AnimationController.Animations.Move;
+
         public AttackTask(IAttacker unit, IHealthable target)
         {
             _unit = unit;
@@ -25,7 +28,6 @@ namespace NTO24
         public void Enter()
         {
             _unit.Target = Target;
-            _animable?.SetAnimation(AnimationController.Animations.Punch);
             _animable?.OnAttackEvent.AddListener(Attack);
         }
 
@@ -41,15 +43,9 @@ namespace NTO24
                 return;
 
             if (_unit.CanAttack)
-            {
-                _animable?.SetAnimation(AnimationController.Animations.Punch);
                 movable.Stop();
-            }
             else
-            {
-                _animable?.SetAnimation(AnimationController.Animations.Move);
                 movable.MoveTo(Target.EntityReference.transform.position);
-            }
         }
 
         public void Rotate()

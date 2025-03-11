@@ -1,6 +1,6 @@
 namespace NTO24
 {
-    public enum StatsNames
+    public enum StatNames
     {
         Damage,
         MaxHealth,

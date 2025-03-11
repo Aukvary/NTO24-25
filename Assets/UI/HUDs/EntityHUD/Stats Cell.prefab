@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7046603493391045281}
   - component: {fileID: 3873213134370980158}
   - component: {fileID: 2571346482506716732}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Stats Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.4
+  m_PixelsPerUnitMultiplier: 40
 --- !u!114 &2571346482506716732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4920508800108297558}
   - component: {fileID: 6100759283820123326}
   - component: {fileID: 8980923669842655987}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Discription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.3
+  m_PixelsPerUnitMultiplier: 30
 --- !u!114 &8980923669842655987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 8027267418251121495}
   - component: {fileID: 3869829735126150034}
   - component: {fileID: 6117023810159976222}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 2132808425362524535}
   - component: {fileID: 7201403611594088334}
   - component: {fileID: 5658416285047290167}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 1966105610973820730}
   - component: {fileID: 8340359374599861303}
   - component: {fileID: 3283393803725783339}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 5967993768326810133}
   - component: {fileID: 4874863947460612444}
   - component: {fileID: 6538918105651844095}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.3
+  m_PixelsPerUnitMultiplier: 30
 --- !u!1 &7765213859224001815
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 1973525231381095179}
   - component: {fileID: 5632807770817091473}
   - component: {fileID: 40394887036728250}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

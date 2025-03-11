@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace NTO24
 {
     public abstract class Unit : Entity, IHealthable, IMovable, IStatsable, ITaskSolver, IAnimationable
@@ -17,24 +19,13 @@ namespace NTO24
 
         protected override void Awake()
         {
-            base.Awake();
-
-            HealthInitialize();
-            MovementInitialize();
-
+            HealthController = GetComponent<EntityHealth>();
+            MovementController = GetComponent<MovementController>();
             StatsController = GetComponent<StatsController>();
             TaskController = GetComponent<TaskController>();
             AnimationController = GetComponentInChildren<AnimationController>();
-        }
 
-        protected virtual void HealthInitialize()
-        {
-            HealthController = GetComponent<EntityHealth>();
-        }
-
-        protected virtual void MovementInitialize()
-        {
-            MovementController = GetComponent<MovementController>();
+            base.Awake();
         }
     }
 }

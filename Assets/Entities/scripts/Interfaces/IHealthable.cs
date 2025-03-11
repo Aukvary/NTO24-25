@@ -15,8 +15,7 @@ namespace NTO24
         UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent
             => HealthController.OnHealthChangeEvent;
 
-        UnityEvent<Entity> OnDeathEvent
-            => HealthController.OnDeathEvent;
+        UnityEvent<Entity> OnDeathEvent => HealthController.OnDeathEvent;
 
         UnityEvent<bool> OnAliveChangeEvent
             => HealthController.OnAliveChangeEvent;

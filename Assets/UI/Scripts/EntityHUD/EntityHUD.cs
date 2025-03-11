@@ -19,6 +19,14 @@ namespace NTO24.UI
 
         private IRestoreable _restoreable;
 
+        private readonly StatNames[] _displayStats =
+        {
+            StatNames.Damage,
+            StatNames.Speed,
+            StatNames.InteractPower,
+            StatNames.CellCapacity
+        };
+
         protected override void Awake()
         {
             base.Awake();
@@ -67,10 +75,14 @@ namespace NTO24.UI
 
             if (entity is IStatsable statsable)
             {
-                _statCells[0].Stat = statsable[StatsNames.Speed];
-                _statCells[1].Stat = statsable[StatsNames.Damage];
-                _statCells[2].Stat = statsable[StatsNames.InteractPower];
-                _statCells[3].Stat = statsable[StatsNames.CellCapacity];
+                for (int i = 0; i < _statCells.Length; i++)
+                {
+                    try
+                    {
+                        _statCells[i].Stat = statsable[_displayStats[i]];
+                    }
+                    catch { _statCells[i].Stat = null; }
+                }
             }
             else
             {
@@ -80,14 +92,14 @@ namespace NTO24.UI
 
             if (entity is IRestoreable resotorable)
             {
-                _restoreable?.OnTimeChange.RemoveListener(UpdateTimer);
-                resotorable.OnTimeChange.AddListener(UpdateTimer);
+                _restoreable?.OnTimeChangeEvent.RemoveListener(UpdateTimer);
+                resotorable.OnTimeChangeEvent.AddListener(UpdateTimer);
                 _restoreable = resotorable;
                 UpdateTimer();
             }
             else
             {
-                _restoreable?.OnTimeChange.RemoveListener(UpdateTimer);
+                _restoreable?.OnTimeChangeEvent.RemoveListener(UpdateTimer);
                 _restoreTimer.text = "";
             }
         }

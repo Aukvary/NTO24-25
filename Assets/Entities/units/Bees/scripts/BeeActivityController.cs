@@ -6,15 +6,16 @@ namespace NTO24
 {
     public class BeeActivityController : MonoBehaviour
     {
-        private Bee _bee;
-
+        [SerializeField]
         private EntityTrigger _trigger;
+
+        private Bee _bee;
 
         private IHealthable _target;
 
         private IHealthable _burov;
 
-        private List<IHealthable> _enemies;
+        private List<IHealthable> _enemies = new();
 
         public Bee Bee => _bee;
 
@@ -33,38 +34,38 @@ namespace NTO24
 
         public Bee Spawn(Vector3 position, IHealthable burov)
         {
-            Bee bee = Instantiate(_bee, position, Quaternion.identity);
+            BeeActivityController bee = Instantiate(this, position, Quaternion.identity);
 
-            _burov = burov;
+            bee._burov = burov;
 
-            return bee;
+            return bee._bee;
         }
 
         private void Awake()
         {
             _bee = GetComponent<Bee>();
-            _trigger = GetComponentInChildren<EntityTrigger>();
 
             _trigger.OnEntityEnter.AddListener(e =>
             {
-                if (e.EntityType == _bee.EntityType || e is not IHealthable health)
+                if (e.EntityType == _bee.EntityType || e is not Unit unit)
                     return;
 
-                _enemies.Add(health);
+                _enemies.Add(unit);
+
                 SetTarget();
 
-                health.OnDeathEvent.AddListener(e => _enemies.Remove(health));
+                unit.HealthController.OnDeathEvent.AddListener(e => _enemies.Remove(unit));
             });
 
             _trigger.OnEntityExit.AddListener(e =>
             {
-                if (e is not IHealthable health || e.EntityType != _bee.EntityType)
+                if (e.EntityType == _bee.EntityType || e is not Unit unit)
                     return;
 
-                if (_enemies.Contains(health))
-                    _enemies.Remove(health);
+                if (_enemies.Contains(unit))
+                    _enemies.Remove(unit);
 
-                if (health == Target)
+                if (unit as IHealthable == Target)
                 {
                     Target = null;
                     SetTarget();
@@ -80,9 +81,16 @@ namespace NTO24
         private void SetTarget(Entity e = null)
         {
             if (_enemies.Any() && (Target == _burov || Target == null))
-                (_bee as ITaskSolver).SetTask(new AttackTask(_bee, _enemies.First()));
+            {
+                var target = _enemies.First();
+                (_bee as ITaskSolver).SetTask(new AttackTask(_bee, target));
+                Target = target;
+            }
             else if (Target != _burov)
+            {
                 (_bee as ITaskSolver).SetTask(new AttackTask(_bee, _burov));
+                Target = _burov;
+            }
         }
     }
 }

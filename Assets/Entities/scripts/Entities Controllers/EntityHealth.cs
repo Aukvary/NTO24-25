@@ -53,12 +53,7 @@ namespace NTO24
                     OnHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
                     OnRevivalEvent.Invoke();
                 }
-            }
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
+            } 
         }
 
         protected override void Start()
@@ -66,8 +61,13 @@ namespace NTO24
             if (Entity is not IStatsable stats)
                 throw new System.Exception("Stats component was missed");
 
-            _maxHealth = stats[StatsNames.MaxHealth];
-            _regeneration = stats[StatsNames.Regeneration];
+            _maxHealth = stats[StatNames.MaxHealth];
+            try
+            {
+                _regeneration = stats[StatNames.Regeneration];
+            }
+            catch (StatMissedException) { _regeneration = null; }
+            
 
             _maxHealth.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);
             _regeneration?.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);

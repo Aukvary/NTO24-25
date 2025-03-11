@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NTO24
 {
-    public static class StringParser
+    public static class Parser
     {
         private static readonly StatInfo[] _stats;
 
@@ -14,7 +14,7 @@ namespace NTO24
 
         public static IEnumerable<string> ResourceNames => _names;
 
-        static StringParser()
+        static Parser()
         {
             _stats = Resources.LoadAll<StatInfo>("Stats");
 
@@ -25,7 +25,7 @@ namespace NTO24
             _names = resources.Select(r => r.ResourceName);
         }
 
-        public static StatInfo ToStat(this StatsNames type)
+        public static StatInfo ToStat(this StatNames type)
             => _stats.FirstOrDefault(s => s.Type == type);
 
         public static Resource ToResource(this string str)

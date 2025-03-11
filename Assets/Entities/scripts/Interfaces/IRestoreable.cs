@@ -9,7 +9,7 @@ namespace NTO24
 
         public int Time => RestoreController.Time;
 
-        public UnityEvent OnTimeChange => RestoreController.OnTimeChange;
+        public UnityEvent OnTimeChangeEvent => RestoreController.OnTimeChangeEvent;
 
         Coroutine StartRestoring() 
             => RestoreController.StartRestoring();

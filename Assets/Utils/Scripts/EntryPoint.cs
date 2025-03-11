@@ -70,14 +70,7 @@ namespace NTO24
 
         private void InitializeSpawners()
         {
-            _bearSpawner.OnSpawnEvent.AddListener(Entity.Add);
             _bearSpawner.Spawn();
-
-            _beeSpawners.ForEach(s =>
-            {
-                s.OnSpawnEvent.AddListener(Entity.Add);
-                s.Spawn(_burov as IHealthable);
-            });
         }
 
         private void InitializeStorage()

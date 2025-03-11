@@ -10,8 +10,6 @@ namespace NTO24
         public UnityEvent<Entity> OnEntitySelecteEvent { get; private set; } = new();
         public UnityEvent<Entity> OnRepeatSelectEvent { get; private set; } = new(); 
 
-        private EntryPoint _entryPoint;
-
         private Entity _selectedEntity;
 
         private bool UIRayCast => EventSystem.current.IsPointerOverGameObject();
@@ -19,7 +17,6 @@ namespace NTO24
 
         private void Awake()
         {
-            _entryPoint = GetComponent<EntryPoint>();
             OnEntitySelecteEvent.AddListener(e => {
                 if (e == _selectedEntity)
                     OnRepeatSelectEvent.Invoke(e);
@@ -39,16 +36,18 @@ namespace NTO24
             if (UIRayCast || !Input.GetKeyDown(KeyCode.Mouse0))
                 return;
 
-            if (!Physics.Raycast(Direction, out var hit))
-                return;
+            var hits = Physics.RaycastAll(Direction);
 
-            if (!hit.transform.TryGetComponent<Entity>(out var entity))
+            foreach(var hit in hits)
             {
-                OnEntitySelecteEvent.Invoke(null);
+                if (!hit.transform.TryGetComponent<Entity>(out var entity))
+                    continue;
+                
+                OnEntitySelecteEvent.Invoke(entity);
                 return;
             }
+            OnEntitySelecteEvent.Invoke(null);
 
-                OnEntitySelecteEvent.Invoke(entity);
         }
 
         private void HotKeySelect() 

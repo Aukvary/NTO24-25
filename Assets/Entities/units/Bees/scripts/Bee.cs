@@ -8,8 +8,6 @@ namespace NTO24
         [SerializeField]
         private List<Pair<Resource, int>> _dropableItems;
 
-        private IHealthable _durov;
-
         public IEnumerable<Pair<Resource, int>> DropableItems => _dropableItems;
 
         public AttackController AttackController { get; private set; }
@@ -18,11 +16,7 @@ namespace NTO24
         {
             base.Awake();
             AttackController = GetComponent<AttackController>();
-        }
 
-        protected override void HealthInitialize()
-        {
-            base.HealthInitialize();
             HealthController.OnDeathEvent.AddListener(entity =>
             {
                 if (entity is IInventoriable inventory)

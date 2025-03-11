@@ -38,7 +38,7 @@ namespace NTO24
                 if (Target == null)
                     return false;
 
-                Ray ray = new(transform.position, TargetPosition - transform.position);
+                Ray ray = new(transform.position, (TargetPosition + Vector3.up * 0.5f) - transform.position);
 
                 var hit = Physics.RaycastAll(ray)
                     .FirstOrDefault(h => h.transform == Target.EntityReference.transform);
@@ -57,14 +57,13 @@ namespace NTO24
         public Vector3 TargetPosition => Target.EntityReference.transform.position;
 
 
-
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
             if (Entity is IStatsable stats)
             {
-                _rangeStat = stats[StatsNames.AttackRange];
-                _damageStat = stats[StatsNames.Damage];
+                _rangeStat = stats[StatNames.AttackRange];
+                _damageStat = stats[StatNames.Damage];
             }
             else throw new System.Exception("stats component was missed");
         }

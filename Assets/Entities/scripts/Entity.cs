@@ -36,9 +36,7 @@ namespace NTO24
             => _entities.Clear();
 
         protected virtual void Awake()
-        {
-            Add(this);
-        }
+            => Add(this);
 
         protected virtual void Start() { }
 

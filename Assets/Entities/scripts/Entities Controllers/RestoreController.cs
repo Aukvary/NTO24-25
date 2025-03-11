@@ -9,7 +9,7 @@ namespace NTO24
         private float _restoreTime;
 
         [HideInInspector]
-        public UnityEvent OnTimeChange { get; private set; } = new();
+        public UnityEvent OnTimeChangeEvent { get; private set; } = new();
 
         private EntityHealth _healthController;
 
@@ -46,11 +46,11 @@ namespace NTO24
             Time = (int)_restoreTime;
             while(Time > 0)
             {
-                OnTimeChange.Invoke();
+                OnTimeChangeEvent.Invoke();
                 Time -= 1;
                 yield return new WaitForSeconds(1);
             }
-            OnTimeChange.Invoke();
+            OnTimeChangeEvent.Invoke();
         }
     }
 }

@@ -5,6 +5,8 @@ namespace NTO24
         bool IsComplete { get; }
         Entity Entity { get; }
 
+        AnimationController.Animations Animation { get; }
+
         void Enter() { }
         void Update() { }
         void FixedUpdate() { }

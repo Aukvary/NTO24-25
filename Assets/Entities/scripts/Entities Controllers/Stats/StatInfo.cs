@@ -6,7 +6,7 @@ namespace NTO24
     public class StatInfo : ScriptableObject
     {
         [field: SerializeField]
-        public StatsNames Type { get; private set; }
+        public StatNames Type { get; private set; }
 
         [field: SerializeField]
         public string Title { get; private set; }

@@ -44,6 +44,11 @@ namespace NTO24
 
         protected override void FixedUpdate()
         {
+            if (CurrentTask != null)
+                _animable?.SetAnimation(CurrentTask.Animation);
+            else
+                _animable?.SetAnimation(AnimationController.Animations.Idle);
+
             CurrentTask?.FixedUpdate();
         }
 
@@ -97,7 +102,6 @@ namespace NTO24
             else
             {
                 CurrentTask = null;
-                _animable?.SetAnimation(AnimationController.Animations.Idle);
             }
 
             return task;

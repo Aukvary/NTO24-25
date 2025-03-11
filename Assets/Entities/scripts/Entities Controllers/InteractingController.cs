@@ -50,12 +50,12 @@ namespace NTO24
 
         public float Range => _rangeStat.StatValue;
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
             if (Entity is IStatsable stats)
             {
-                _rangeStat = stats[StatsNames.InteractRange];
+                _rangeStat = stats[StatNames.InteractRange];
             }
             else throw new System.Exception("stats component was missed");
         }

@@ -53,7 +53,7 @@ namespace NTO24
                 !SelectedUnits.Any()|| 
                 UIRayCast)
                 return;
-
+            
             if (!Physics.Raycast(_direction, out var actionHit))
                 return;
 

@@ -64,7 +64,7 @@ namespace NTO24.UI
                 sequence.Join(text.DOFade(1, _appearDuration));
 
             foreach (Image iamge in _images)
-                iamge.raycastTarget = false;
+                iamge.raycastTarget = true;
 
             sequence.SetDelay(_appearDelay);
             return sequence;

@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: palette
-    second: {fileID: -876546973899608171, guid: 0e56c61b86fe06c46a4f56e8bd482b54, type: 3}
+    second: {fileID: 2100000, guid: 0033469225bd21348ab04f9fb8b3b715, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: palette.001
-    second: {fileID: -876546973899608171, guid: 0e56c61b86fe06c46a4f56e8bd482b54, type: 3}
+    second: {fileID: 2100000, guid: 0033469225bd21348ab04f9fb8b3b715, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: palette.002
-    second: {fileID: -876546973899608171, guid: 0e56c61b86fe06c46a4f56e8bd482b54, type: 3}
+    second: {fileID: 2100000, guid: 0033469225bd21348ab04f9fb8b3b715, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: palette.003
-    second: {fileID: -876546973899608171, guid: 0e56c61b86fe06c46a4f56e8bd482b54, type: 3}
+    second: {fileID: 2100000, guid: 0033469225bd21348ab04f9fb8b3b715, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -11,7 +11,13 @@ namespace NTO24
 
         public IEnumerable<EntityStat> Stats => _stats;
 
-        public EntityStat this[StatsNames statsType]
-            => _stats.FirstOrDefault(s => s.StatInfo == statsType.ToStat());
+        public EntityStat this[StatNames statsType]
+        {
+            get
+            {
+                var stat = _stats.FirstOrDefault(s => s.StatInfo == statsType.ToStat());
+                return stat != null ? stat : throw new StatMissedException(Entity as IStatsable, statsType);
+            }
+        }
     }
 }

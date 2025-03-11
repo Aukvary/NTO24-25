@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1030690568727346066}
   - component: {fileID: 5385006622447500843}
   - component: {fileID: 5019146400171974763}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,10 +85,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1785406102794324679}
   - component: {fileID: 6706115283638316936}
-  - component: {fileID: 1321331102106810805}
-  - component: {fileID: 1504878061863717740}
+  - component: {fileID: 1801817503330965108}
+  - component: {fileID: 6698113116907411936}
   - component: {fileID: 5954244888104513915}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Upgrade Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8686588733658901511}
   m_CullTransparentMesh: 1
---- !u!114 &1321331102106810805
+--- !u!114 &1801817503330965108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.3
---- !u!114 &1504878061863717740
+  m_PixelsPerUnitMultiplier: 30
+--- !u!114 &6698113116907411936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,7 +193,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1321331102106810805}
+  m_TargetGraphic: {fileID: 1801817503330965108}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

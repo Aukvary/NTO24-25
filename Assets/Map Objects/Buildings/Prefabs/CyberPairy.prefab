@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4769862635863517165
 Transform:
@@ -45,12 +45,13 @@ GameObject:
   - component: {fileID: 8031516064420502575}
   - component: {fileID: 3186790121559596145}
   - component: {fileID: 8292631920938578786}
+  - component: {fileID: 6304682008483965142}
   m_Layer: 0
   m_Name: CyberPairy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3135353524473315946
 Transform:
@@ -106,8 +107,9 @@ MonoBehaviour:
   <OnSpawnEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _bee: {fileID: 0}
-  _spawnPosition: {fileID: 0}
+  _bee: {fileID: 5129343818359597769, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
+  _spawnPosition: {fileID: 4769862635863517165}
+  _spawnCooldown: 0
 --- !u!114 &8031516064420502575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +170,22 @@ MonoBehaviour:
   <OnUpgadeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!208 &6304682008483965142
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008882655769009211}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 4, z: 2.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &825014518816689348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,11 +240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

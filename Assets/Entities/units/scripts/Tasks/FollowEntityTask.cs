@@ -11,8 +11,11 @@ namespace NTO24
         public Entity Entity => _unit.EntityReference;
 
         public bool IsComplete => false;
-        
-        
+
+        public AnimationController.Animations Animation
+            => AnimationController.Animations.Move;
+
+
         private bool _needToStop{
             get
             {

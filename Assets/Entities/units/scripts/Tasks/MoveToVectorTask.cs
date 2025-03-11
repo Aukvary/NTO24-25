@@ -15,6 +15,9 @@ namespace NTO24
 
         public bool IsComplete => !_unit.HasPath && _startMove;
 
+        public AnimationController.Animations Animation
+            => AnimationController.Animations.Move;
+
         public Vector3 Destination {  get; private set; }
 
         public MoveToVectorTask(IMovable unit, Vector3 destination)
@@ -37,9 +40,6 @@ namespace NTO24
         {
             _unit.MoveTo(Destination);
             _startMoveAwaiter = Entity.StartCoroutine(StartMove());
-
-            if (Entity is IAnimationable animationable)
-                animationable.SetAnimation(AnimationController.Animations.Move);
         }
 
         public void Exit()
