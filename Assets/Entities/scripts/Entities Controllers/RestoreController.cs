@@ -1,9 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class RestoreController : EntityComponent
+    public class RestoreController : EntityComponent, ISavableComponent
     {
         [SerializeField]
         private float _restoreTime;
@@ -11,11 +14,16 @@ namespace NTO24
         [HideInInspector]
         public UnityEvent OnTimeChangeEvent { get; private set; } = new();
 
+        public UnityEvent OnDataChangeEvent { get; private set; } = new();
+
         private EntityHealth _healthController;
 
         private Vector3 _spawnPosition;
 
-        public int Time { get; private set; }
+        public int Time { get; private set; } = 0;
+
+        public string Name => "Restore";
+        public string[] Data => new string[] { Time.ToString()};
 
         protected override void Awake()
         {
@@ -28,22 +36,32 @@ namespace NTO24
             _healthController.OnDeathEvent.AddListener(alive =>
             {
                 transform.position = _spawnPosition;
+                StartRestoring();
             });
         }
 
-        public Coroutine StartRestoring()
-            => StartCoroutine(Restore());
-        
-        private System.Collections.IEnumerator Restore()
+        public void ServerInitialize(IEnumerable<string> data)
         {
-            StartCoroutine(StartTimer());
-            yield return new WaitForSeconds(_restoreTime);
-            _healthController.Alive = true;
+            float time = float.Parse(data.ElementAt(0));
+            if (time == 0)
+                return;
+            StartCoroutine(Restore(time));
         }
 
-        private System.Collections.IEnumerator StartTimer()
+        public Coroutine StartRestoring()
+            => StartCoroutine(Restore(_restoreTime));
+        
+        private IEnumerator Restore(float time)
         {
-            Time = (int)_restoreTime;
+            StartCoroutine(StartTimer(time));
+            yield return new WaitForSeconds(time);
+            _healthController.Alive = true;
+            Time = 0;
+        }
+
+        private IEnumerator StartTimer(float time)
+        {
+            Time = (int)time;
             while(Time > 0)
             {
                 OnTimeChangeEvent.Invoke();

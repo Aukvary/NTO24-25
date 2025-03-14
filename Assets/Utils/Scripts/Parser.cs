@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using JetBrains.Annotations;
+using NTO24.Net;
+using Newtonsoft.Json;
 
 namespace NTO24
 {
@@ -25,8 +28,18 @@ namespace NTO24
             _names = resources.Select(r => r.ResourceName);
         }
 
-        public static StatInfo ToStat(this StatNames type)
+        public static StatInfo ToStatInfo(this StatNames type)
             => _stats.FirstOrDefault(s => s.Type == type);
+
+        public static Pair<StatInfo, int> ToStats(this string str)
+        {
+            string[] pair = str.Split(":");
+
+            StatInfo stat = _stats.First(s => s.Type.ToString() == pair[0]);
+            int count = int.Parse(pair[1]);
+
+            return new(stat, count);
+        }
 
         public static Resource ToResource(this string str)
             => _stringResourcePairs[str];
@@ -40,5 +53,11 @@ namespace NTO24
 
             return new(resource, count);
         }
+
+        public static User ToUser(this string str)
+            => JsonConvert.DeserializeObject<User>(str);
+
+        public static List<T> ToList<T>(this string str)
+            => JsonConvert.DeserializeObject<List<T>>(str);
     }
 }

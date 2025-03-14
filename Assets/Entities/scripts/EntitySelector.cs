@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +9,10 @@ namespace NTO24
     public class EntitySelector : MonoBehaviour
     {
         public UnityEvent<Entity> OnEntitySelecteEvent { get; private set; } = new();
-        public UnityEvent<Entity> OnRepeatSelectEvent { get; private set; } = new(); 
+        public UnityEvent<Entity> OnHotKeySelect { get; private set; } = new();
+        public UnityEvent<Entity> OnRepeatSelectEvent { get; private set; } = new();
+
+        private IEnumerable<Bear> _bears;
 
         private Entity _selectedEntity;
 
@@ -23,6 +27,11 @@ namespace NTO24
 
                 _selectedEntity = e;
             });
+        }
+
+        private void Start()
+        {
+            _bears = Entity.GetEntites<Bear>();
         }
 
         private void Update()
@@ -54,11 +63,12 @@ namespace NTO24
         {
             KeyCode key = KeyCode.Alpha1;
 
-            var bears = Entity.GetEntites<Bear>();
-
-            for (int i = 0; i < bears.Count(); i++, key++)
+            for (int i = 0; i < _bears.Count(); i++, key++)
                 if (Input.GetKeyDown(key))
-                    OnEntitySelecteEvent.Invoke(bears.ElementAt(i));
+                {
+                    OnEntitySelecteEvent.Invoke(_bears.ElementAt(i));
+                    OnHotKeySelect.Invoke(_bears.ElementAt(i));
+                }
         }
     }
 }

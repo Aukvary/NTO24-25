@@ -5,18 +5,35 @@ using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class Inventory : EntityComponent
+    public class Inventory : EntityComponent, ISavableComponent
     {
         private int _cellCapacity;
 
         [field: SerializeField]
         public UnityEvent OnItemsChangeEvent { get; private set; }
 
+        public UnityEvent OnDataChangeEvent { get; private set; } = new();
+
         private Pair<Resource, int>[] _items;
 
         public IEnumerable<Pair<Resource, int>> Items => _items;
 
         public bool HasItems => _items.Any(p => p.Value1 != null);
+
+        public string Name => "Inventory";
+
+        public string[] Data
+        {
+            get
+            {
+                string[] data = new string[_items.Count(p => p.Value1 != null)];
+
+                for (int i = 0; i < data.Length; i++)
+                    data[i] = _items[i].ToString();
+
+                return data;
+            }
+        }
 
         public int this[Resource res]
             => _items.Sum(p => p.Value1 == res ? p.Value2 : 0);
@@ -26,6 +43,18 @@ namespace NTO24
         {
             _items = new Pair<Resource, int>[cellCount];
             _cellCapacity = cellCapacity;
+        }
+
+        public void ServerInitialize(IEnumerable<string> data)
+        {
+            for (int i = 0; i < _items.Length; i++)
+            {
+                if (i < data.Count())
+                    _items[i] = data.ElementAt(i).ToResources();
+                else
+                    _items[i] = new(null, 0);
+            }
+            OnItemsChangeEvent.Invoke();
         }
 
         public bool TryAddItems(Pair<Resource, int> items, out Pair<Resource, int> overflowItems)
@@ -64,6 +93,7 @@ namespace NTO24
 
             overflowItems = new(items.Value1, count);
             OnItemsChangeEvent.Invoke();
+            OnDataChangeEvent.Invoke();
             return overflowItems.Value2 == 0;
         }
 

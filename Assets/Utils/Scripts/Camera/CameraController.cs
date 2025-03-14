@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NTO24
 {
@@ -24,16 +25,28 @@ namespace NTO24
         [SerializeField]
         private float _hotkeyChangeZCameraPosition;
 
+        [field: HideInInspector]
+        public UnityEvent OnMouseMove { get; private set; } = new();
+
+        [field: HideInInspector]
+        public UnityEvent OnKeyBoardMove { get; private set; } = new();
+
         private EntitySelector _selector;
 
         private bool _follow;
         private Entity _target;
 
+        public static CameraController Instance { get; private set; }
+
+        private void Awake()
+        {
+            Instance = this;
+            _selector = GetComponent<EntitySelector>();
+        }
+
         private void Start()
         {
-            _selector = GetComponent<EntitySelector>();
-
-            _selector.OnRepeatSelectEvent.AddListener(e => 
+            _selector.OnRepeatSelectEvent.AddListener(e =>
             {
                 if (e == null)
                     return;
@@ -58,6 +71,8 @@ namespace NTO24
             if (Input.GetKey(KeyCode.Mouse2))
                 return;
             Move(Input.GetAxis(Stuff.HORIZONTAL), Input.GetAxis(Stuff.VERTICAL));
+            if (Input.GetAxis(Stuff.HORIZONTAL) + Input.GetAxis(Stuff.VERTICAL) > 0)
+                OnKeyBoardMove.Invoke();
         }
 
         private void MouseMove()
@@ -66,6 +81,7 @@ namespace NTO24
                 return;
 
             Move(-Input.GetAxis(Stuff.MOUSEX), -Input.GetAxis(Stuff.MOUSEY));
+            OnMouseMove.Invoke();
         }
 
         private void Follow()

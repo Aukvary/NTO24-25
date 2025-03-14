@@ -24,7 +24,7 @@ namespace NTO24
         [SerializeField]
         private bool _change;
 
-        private EntryPoint _enterPoint;
+        private Main _enterPoint;
 
         private bool _fightNow = false;
 

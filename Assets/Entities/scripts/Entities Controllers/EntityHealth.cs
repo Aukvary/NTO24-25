@@ -1,10 +1,21 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class EntityHealth : EntityComponent
+    public enum DamageType
     {
+        Damage,
+        Extract
+    }
+
+    public class EntityHealth : EntityComponent, ISavableComponent
+    {
+        [field: SerializeField]
+        public DamageType DamageBy { get; private set; }
+
         [field: SerializeField]
         public  UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent { get; private set; }
 
@@ -19,6 +30,8 @@ namespace NTO24
 
         [field: SerializeField]
         public UnityEvent OnUpgadeEvent { get; private set; }
+
+        public UnityEvent OnDataChangeEvent { get; private set; } = new();
 
         private float _currentHealth;
 
@@ -56,9 +69,13 @@ namespace NTO24
             } 
         }
 
-        protected override void Start()
+        public string Name => "Entity Health";
+
+        public string[] Data => new string[] { Health.ToString() , Alive.ToString()};
+
+        protected override void Awake()
         {
-            if (Entity is not IStatsable stats)
+            if (!TryGetComponent<StatsController>(out var stats))
                 throw new System.Exception("Stats component was missed");
 
             _maxHealth = stats[StatNames.MaxHealth];
@@ -67,12 +84,22 @@ namespace NTO24
                 _regeneration = stats[StatNames.Regeneration];
             }
             catch (StatMissedException) { _regeneration = null; }
-            
+
 
             _maxHealth.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);
             _regeneration?.AddOnLevelChangeAction(OnUpgadeEvent.Invoke);
 
             Health = _maxHealth.StatValue;
+        }
+
+        public void ServerInitialize(IEnumerable<string> data)
+        {
+            Health = float.Parse(data.ElementAt(0));
+
+            bool alive = bool.Parse(data.ElementAt(1));
+
+            if (!alive)
+                Alive = alive;
         }
 
         protected override void Update()

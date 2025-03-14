@@ -16,5 +16,8 @@ namespace NTO24
 
         [field: SerializeField]
         public Sprite Icon { get; private set; }
+
+        public override string ToString()
+            => Type.ToString();
     }
 }

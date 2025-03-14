@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 3186790121559596145}
   - component: {fileID: 8292631920938578786}
   - component: {fileID: 6304682008483965142}
+  - component: {fileID: 4110867846666379152}
   m_Layer: 0
   m_Name: CyberPairy
   m_TagString: Untagged
@@ -107,6 +108,7 @@ MonoBehaviour:
   <OnSpawnEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <Name>k__BackingField: 
   _bee: {fileID: 5129343818359597769, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
   _spawnPosition: {fileID: 4769862635863517165}
   _spawnCooldown: 0
@@ -155,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -186,6 +189,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &4110867846666379152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008882655769009211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b0edd559d4990419cb9efccd44ee40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: 
 --- !u!1001 &825014518816689348
 PrefabInstance:
   m_ObjectHideFlags: 0

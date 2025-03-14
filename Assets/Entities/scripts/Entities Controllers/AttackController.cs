@@ -19,6 +19,7 @@ namespace NTO24
 
         private EntityStat _rangeStat;
         private EntityStat _damageStat;
+        private EntityStat _extractPowerStat;
 
         public IHealthable Target
         {
@@ -56,16 +57,23 @@ namespace NTO24
         public float Damage => _damageStat.StatValue;
         public Vector3 TargetPosition => Target.EntityReference.transform.position;
 
-
         protected override void Start()
         {
             base.Start();
-            if (Entity is IStatsable stats)
-            {
-                _rangeStat = stats[StatNames.AttackRange];
-                _damageStat = stats[StatNames.Damage];
-            }
-            else throw new System.Exception("stats component was missed");
+            if (Entity is not IStatsable stats)
+                throw new System.Exception("stats component was missed");
+
+            _rangeStat = stats[StatNames.AttackRange];
+            _damageStat = stats[StatNames.Damage];
+
+            try { _extractPowerStat = stats[StatNames.InteractPower]; }
+            catch(StatMissedException) { _extractPowerStat = null; }
+            
+
         }
+
+        public float GetDamage(DamageType type)
+            => type == DamageType.Damage ? _damageStat.StatValue : _extractPowerStat.StatValue;
+
     }
 }

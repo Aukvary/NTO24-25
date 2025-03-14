@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6138309989425705496}
   - component: {fileID: 4111759100751308488}
   - component: {fileID: 1137434410433837420}
+  - component: {fileID: 6352264232754380015}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -69,16 +70,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bearSpawner: {fileID: 0}
-  _beeSpawners: []
+  _beeSpawners:
+  - {fileID: 0}
   Storage: {fileID: 0}
   _burov: {fileID: 0}
   _entityHUD: {fileID: 0}
   _storageHUD: {fileID: 0}
   _upgradeHUD: {fileID: 0}
-  _preinitializeEvent:
+  <PreinitializeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  _postinitializeEvent:
+  <PostinitializeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &6138309989425705496
@@ -118,6 +120,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f4e568be093596458f3223e68f19824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6352264232754380015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4487495759130449247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c355bd5c7546149ba409b998e24bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5366019900066478683

@@ -22,11 +22,6 @@ namespace NTO24
         {
             base.Awake();
 
-            HealthController.OnDeathEvent.AddListener(entity =>
-            {
-                RestoreController.StartRestoring();
-            });
-
             AttackController = GetComponent<AttackController>();
             Inventory = GetComponent<Inventory>();
             Inventory.Initialize(6, (int)StatsController[StatNames.CellCapacity].StatValue);
