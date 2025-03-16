@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Health
   m_EditorClassIdentifier: 
   <Name>k__BackingField: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
-  <Description>k__BackingField: 
+  <Description>k__BackingField: "\u041E\u0442\u0432\u0435\u0447\u0430\u0435\u0442
+    \u0437\u0430 \u0441\u0442\u043E\u0439\u043A\u043E\u0441\u0442\u044C \u043C\u0435\u0434\u0432\u0435\u0434\u044F
+    \u0432 \u0431\u0438\u0442\u0432\u0430\u0445"
   <Icon>k__BackingField: {fileID: 21300000, guid: f7842c1780143db4894f5e224cb08f7c, type: 3}
   _statsType: 0100000002000000
   _materials:
