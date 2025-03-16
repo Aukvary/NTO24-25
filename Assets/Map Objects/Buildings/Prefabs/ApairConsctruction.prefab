@@ -375,6 +375,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 3c530578025e36d419c6e3391ee566c3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a20e9a27c7b9c5343b88083a480f3c91, type: 2}
     - target: {fileID: 919132149155446097, guid: 3c530578025e36d419c6e3391ee566c3, type: 3}
       propertyPath: m_Name
       value: apiaryBroken

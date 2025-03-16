@@ -108,7 +108,6 @@ MonoBehaviour:
   <OnSpawnEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  <Name>k__BackingField: 
   _bee: {fileID: 5129343818359597769, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
   _spawnPosition: {fileID: 4769862635863517165}
   _spawnCooldown: 0
@@ -125,7 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
-  _dropableResources: []
 --- !u!114 &3186790121559596145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +248,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4efb312eba744fa4788253db872f755c, type: 2}
     - target: {fileID: 919132149155446097, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
       propertyPath: m_Name
       value: kiberapiary

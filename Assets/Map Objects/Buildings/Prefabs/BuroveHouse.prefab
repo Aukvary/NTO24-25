@@ -71,7 +71,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
-  _dropableResources: []
 --- !u!114 &1533308532277679525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -150,6 +150,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1910111068425008638, guid: 6735d4bf71ef4c04d822214484b36f44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 795060faa97c83c4db9c61a8f5f0bbfd, type: 2}
     - target: {fileID: 2205537333547130144, guid: 6735d4bf71ef4c04d822214484b36f44, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -214,6 +218,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8781771367066325957, guid: 6735d4bf71ef4c04d822214484b36f44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a256dbe03fead71489c0f0d6d9e6b2cf, type: 2}
     - target: {fileID: 9063118108312255259, guid: 6735d4bf71ef4c04d822214484b36f44, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0

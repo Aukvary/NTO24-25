@@ -72,9 +72,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 1
-  _dropableResources:
-  - <Value1>k__BackingField: {fileID: 11400000, guid: 8786c50fb02e1a64f8136339d17b3ea7, type: 2}
-    <Value2>k__BackingField: 10
 --- !u!114 &5205902330217797682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -231,7 +229,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 2e2057fe07c508a41a63bfe03655dcf1, type: 3}
+  - {fileID: 2100000, guid: dc57c0a81a5eefd4ea672692a54e648b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -306,7 +304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 9bea6578a6c0e9b4a826835e68083037, type: 3}
+  - {fileID: 2100000, guid: dc57c0a81a5eefd4ea672692a54e648b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
