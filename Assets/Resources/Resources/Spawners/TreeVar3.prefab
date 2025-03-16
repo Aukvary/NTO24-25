@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2736273452728562394}
   - component: {fileID: 3558654823515894327}
   - component: {fileID: 624817909756634678}
+  - component: {fileID: 1064794727974176906}
   m_Layer: 0
   m_Name: TreeVar3
   m_TagString: Untagged
@@ -36,6 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9134729522318892426}
+  - {fileID: 6654904710239270143}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &5861722965593634765
@@ -48,11 +50,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.7, y: 14.27, z: 1.5}
+  m_Extents: {x: 2.58, y: 14.27, z: 3.165}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0.9, y: 14.1, z: -0.95}
+  m_Center: {x: 0.54, y: 14.1, z: 0.32}
   m_TimeToStationary: 0.5
 --- !u!136 &4046522705989393965
 CapsuleCollider:
@@ -90,9 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 2
-  _dropableResources:
-  - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    <Value2>k__BackingField: 5
 --- !u!114 &2736273452728562394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -164,6 +164,55 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1064794727974176906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 75314276347659148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1366e234a89d74f9403a2348e47575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _items:
+  - <Value1>k__BackingField: {fileID: 9135493864978317070, guid: ef284aab59051e046abf45dbe9619f09, type: 3}
+    <Value2>k__BackingField: 10
+  _dropPosition: {fileID: 6654904710239270143}
+  _radius: 3
+  _strength: 2
+--- !u!1 &7870158394583874122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6654904710239270143}
+  m_Layer: 0
+  m_Name: Drop position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6654904710239270143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870158394583874122}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9123255250278860003}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8741396060576561761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +264,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2d1b82ab1bf20ea4d9aa7be2d671c0c6, type: 3}
       propertyPath: m_Name
       value: DarkTreeVar2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167145054725427935, guid: 2d1b82ab1bf20ea4d9aa7be2d671c0c6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

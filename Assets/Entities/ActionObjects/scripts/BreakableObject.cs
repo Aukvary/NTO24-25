@@ -5,22 +5,20 @@ namespace NTO24
 {
     public class BreakableObject : Entity, IHealthable, IDropable, IStatsable, IRestoreable
     {
-        [SerializeField]
-        private List<Pair<Resource, int>> _dropableResources;
-
         public EntityHealth HealthController { get; private set; }
+
+        public DropController DropController { get; private set; }
 
         public StatsController StatsController { get; private set; }
 
         public RestoreController RestoreController { get; private set; }
-
-        public IEnumerable<Pair<Resource, int>> DropableItems => _dropableResources;
 
         protected override void Awake()
         {
             base.Awake();
             InitializeHealth();
             StatsController = GetComponent<StatsController>();
+            DropController = GetComponent<DropController>();
             RestoreController = GetComponent<RestoreController>();
         }
 
@@ -31,7 +29,7 @@ namespace NTO24
             HealthController.OnDeathEvent.AddListener(entity =>
             {
                 if (entity is IInventoriable inventory)
-                    (this as IDropable).Drop(inventory);
+                    DropController.Drop();
 
                 RestoreController?.StartRestoring();
             });

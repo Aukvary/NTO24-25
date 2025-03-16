@@ -57,7 +57,7 @@ namespace NTO24
             OnItemsChangeEvent.Invoke();
         }
 
-        public bool TryAddItems(Pair<Resource, int> items, out Pair<Resource, int> overflowItems)
+        public bool TryAddItems(Pair<Resource, int> items, out int overflowItems)
         {
             int count = items.Value2;
             for (int i = 0; i < _items.Length; i++)
@@ -73,7 +73,8 @@ namespace NTO24
                         count -= _cellCapacity;
                         continue;
                     }
-                    else break;
+                    count = 0;
+                    break;
                 }
 
                 else if (_items[i].Value1 == items.Value1)
@@ -90,11 +91,10 @@ namespace NTO24
                 }
             }
 
-
-            overflowItems = new(items.Value1, count);
+            overflowItems = count;
             OnItemsChangeEvent.Invoke();
             OnDataChangeEvent.Invoke();
-            return overflowItems.Value2 == 0;
+            return count == 0;
         }
 
         public IEnumerable<Pair<Resource, int>> GetItems()
@@ -130,7 +130,7 @@ namespace NTO24
                     break;
             }
 
-
+            OnDataChangeEvent.Invoke();
             OnItemsChangeEvent.Invoke();
         }
     }

@@ -67,7 +67,8 @@ namespace NTO24.UI
             _uiAnimator.Show();
 
             _inventoryHUD.SetEntity(entity is IInventoriable inventory ? inventory : null);
-            _inventoryHUD.SetEntity(entity is IDropable dropable ? dropable : null);
+            if (_inventoryHUD.Inventory == null)
+                _inventoryHUD.SetEntity(entity is IDropable dropable ? dropable : null);
 
             _iconHUD.Entity = entity is IIconable icon ? icon : null;
 

@@ -77,14 +77,31 @@ namespace NTO24
 
         public void AddTask(IUnitTask task)
         {
-            _tasks.Enqueue(task);
             OnAddEvent.Invoke(task);
+            _tasks.Enqueue(task);
         }
 
         public void AddTask(IEnumerable<IUnitTask> tasks)
         {
-            foreach (var task in tasks)
-                _tasks.Enqueue(task);
+            if (tasks.Count() == 0)
+                return;
+
+            if (_tasks.Count > 0)
+                foreach (var task in tasks)
+                {
+                    OnAddEvent.Invoke(task);
+                    _tasks.Enqueue(task);
+                }
+            else
+            {
+                SetTask(tasks.First());
+
+                foreach (var task in tasks.Skip(1))
+                {
+                    OnAddEvent.Invoke(task);
+                    _tasks.Enqueue(task);
+                }
+            }
         }
 
         private IUnitTask NextTask()

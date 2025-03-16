@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -291,7 +292,7 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 10000
+    - 100
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []

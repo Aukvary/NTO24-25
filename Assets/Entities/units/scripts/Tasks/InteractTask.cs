@@ -12,7 +12,8 @@ namespace NTO24
 
         public Entity Entity => _unit.EntityReference;
 
-        public bool IsComplete => !Target.IsInteractable(_unit);
+        public bool IsComplete 
+            => !Target.IsInteractable(_unit) && _unit.CanInteract;
 
         public AnimationController.Animations Animation
             => _unit.CanInteract ? AnimationController.Animations.Punch : AnimationController.Animations.Move;

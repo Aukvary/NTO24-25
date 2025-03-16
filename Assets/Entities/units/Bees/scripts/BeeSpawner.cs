@@ -19,7 +19,7 @@ namespace NTO24
 
         private IHealthable _burov;
 
-        private bool _startSpawning;
+        private bool _startSpawning = false;
 
         private int _level;
 
@@ -46,7 +46,8 @@ namespace NTO24
             _time = int.Parse(data.ElementAt(1));
             _level = int.Parse(data.ElementAt(2));
 
-            StartCoroutine(Spawn(_time));
+            if (_startSpawning)
+                StartCoroutine(Spawn(_time));
         }
 
         public void StartSpawn()
@@ -61,7 +62,6 @@ namespace NTO24
             _startSpawning = true;
             while (true)
             {
-                yield return new WaitForSeconds(time);
                 time = _spawnCooldown;
 
 
@@ -72,13 +72,14 @@ namespace NTO24
 
                 _level++;
 
-                StartCoroutine(StartTimer());
+                StartCoroutine(StartTimer(time));
+                yield return new WaitForSeconds(time);
             }
         }
 
-        private IEnumerator StartTimer()
+        private IEnumerator StartTimer(float time)
         {
-            _time = (int)_spawnCooldown;
+            _time = (int)time;
 
             while (_time > 0)
             {

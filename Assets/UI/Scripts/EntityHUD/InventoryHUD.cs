@@ -51,8 +51,9 @@ namespace NTO24.UI
                 return;
             }
 
-            for (int i = 0; i < _itemCells.Length && i < Dropable.DropableItems.Count(); i++)
-                _itemCells[i].Source = Dropable.DropableItems.ElementAt(i);
+            for (int i = 0; i < _itemCells.Length && i < Dropable.Resources.Count(); i++)
+                _itemCells[i].Source = Dropable.Resources
+                    .Select(p => new Pair<Resource, int>((Resource)p.Value1, p.Value2)).ElementAt(i);
         }
 
         private void UpdateEntity()

@@ -1,7 +1,10 @@
+using NTO24.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,18 +13,26 @@ namespace NTO24
     public class TutorialController : MonoBehaviour, ISavableComponent
     {
         [Serializable]
-        class Advice
+        private class Advice
         {
+            [field: SerializeField]
+            public string Title { get; private set; }
+
             [field: SerializeField, TextArea]
             public string Text { get; private set; }
         }
 
         [SerializeField]
+        private TextMeshProUGUI _title;
+
+        [SerializeField]
+        private TextMeshProUGUI _text;
+
+        [SerializeField]
         private List<Advice> _advices;
 
-        [field: SerializeField]
-        public UnityEvent OnTutorialEndEvent { get; private set; }
-        public UnityEvent OnAdviceSetEvent { get; private set; } = new();
+        [SerializeField]
+        private float _timeToClose;
 
         private Advice _currentAdvice;
 
@@ -34,6 +45,7 @@ namespace NTO24
         public string[] Data => new string[] { _step.ToString() };
         public UnityEvent OnDataChangeEvent { get; private set; } = new();
 
+        public string AdviceTitle => _currentAdvice?.Title;
         public string AdviceText => _currentAdvice?.Text;
 
         private IEnumerator[] _conditions;
@@ -48,24 +60,29 @@ namespace NTO24
             _conditions = new IEnumerator[]
             {
                 AwaitCameraMove(),
+                AwaitSelectPlayer(),
                 AwaitPlayerMove(),
                 AwaitExtract(),
+                AwaitTaskQueue(),
                 AwaitLayOut(),
-
+                AwaitBuilt(),
+                AwaitUpgrade()
             };
 
             _selector = selector;
             _upgradeController = upgradeController;
 
-            for (; _step < _advices.Count; _step++)
+            for (; _step < _conditions.Length; _step++)
             {
                 _currentAdvice = _advices[_step];
-                OnAdviceSetEvent.Invoke();
+
+                _title.text = AdviceTitle;
+                _text.text = AdviceText;
 
                 yield return _conditions[_step];
             }
-            _currentAdvice = null;
-            OnTutorialEndEvent.Invoke();
+            _currentAdvice = _advices.Last();
+            StartCoroutine(AttackWarning());
         }
 
         private IEnumerator AwaitCameraMove()
@@ -117,6 +134,19 @@ namespace NTO24
 
             yield return new WaitUntil(() => extract);
         }
+        
+        private IEnumerator AwaitTaskQueue()
+        {
+            var bears = Entity.Entities
+                .Where(e => e is Bear).Select(b => b as ITaskSolver);
+
+            bool add = false;
+
+            foreach (var bear in bears)
+                bear.OnAddEvent.AddListener(t => add = true);
+
+            yield return new WaitUntil(() => add);
+        }
 
         private IEnumerator AwaitLayOut()
         {
@@ -139,7 +169,7 @@ namespace NTO24
             bool upgrade = false;
 
             foreach (var apire in apires)
-                apire.OnBuiltEvent.AddListener(() => upgrade = false);
+                apire.OnBuiltEvent.AddListener(() => upgrade = true);
 
             yield return new WaitUntil(() => upgrade);
         }
@@ -152,6 +182,14 @@ namespace NTO24
                 .OnUpgradeEvent.AddListener(() => upgrade = true);
 
             yield return new WaitUntil(() => upgrade);
+        }
+
+        private IEnumerator AttackWarning()
+        {
+            _title.text = AdviceTitle;
+            _text.text = AdviceText;
+            yield return new WaitForSeconds(_timeToClose);
+            GetComponent<AnimatedUI>().Hide();
         }
     }
 }

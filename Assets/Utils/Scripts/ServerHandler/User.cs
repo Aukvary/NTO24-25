@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace NTO24.Net
 {
@@ -10,16 +11,21 @@ namespace NTO24.Net
         public string Name { get; set; }
 
         [JsonProperty("resources")]
-        public Dictionary<string, string[]> Resources { get; set; }
+        public Dictionary<string, string[]> Data { get; set; }
 
         public string[] this[string dataName]
         {
-            get => Resources[dataName];
+            get => Data[dataName];
 
             set
             {
                 var oldValue = this[dataName];
-                Resources[dataName] = value;
+                Data[dataName] = value;
+
+                PlayerPrefs.SetString($"{Name}_{dataName}", JsonConvert.SerializeObject(value));
+
+                if (!ServerHandler.HasConnection)
+                    return;
 
                 ServerCoroutineManager
                     .Current.StartCoroutine(ServerHandler.UpdateUser(this));
@@ -43,10 +49,10 @@ namespace NTO24.Net
         {
             Name = name;
 
-            Resources = data;
+            Data = data;
         }
 
         public string ToJson(bool onlyResources = false)
-             => JsonConvert.SerializeObject(onlyResources ? Resources : this, Formatting.Indented);
+             => JsonConvert.SerializeObject(onlyResources ? Data : this, Formatting.Indented);
     }
 }

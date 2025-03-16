@@ -14,6 +14,7 @@ namespace NTO24.Net
     public static class ServerHandler
     {
         private const string UUID = "99226043-2b2e-420c-a919-ab41b53e6fb2"/*"8114e8ed-83f9-4033-a2eb-8f6c6635fe8d"*/;
+        private const string URL = "http://127.0.0.1:8000/";
 
         private static readonly string _usersURL;
         private static readonly string _logsURL;
@@ -21,6 +22,8 @@ namespace NTO24.Net
         private static List<User> _localUsers;
 
         public static string ID { get; private set; }
+
+        public static bool HasConnection { get; private set; }
 
         public static IEnumerable<User> LocalUsers => _localUsers;
 
@@ -33,9 +36,10 @@ namespace NTO24.Net
             _logsURL = $"http://127.0.0.1:8000/api/games/{UUID}/logs/";
         }
 
-        private static void PreInitialize()
+        private static IEnumerator PreInitialize()
         {
             ID = PlayerPrefs.GetString(nameof(User));
+            yield return CheckConnection(c => HasConnection = c);
         }
 
         public static IEnumerator GetServerUsers(UnityAction<List<User>> callBack)
@@ -70,7 +74,7 @@ namespace NTO24.Net
                 yield break;
             }
 
-            User newUser = new(name, baseData.ToDictionary(p => p.Key, p => p.Value));
+            User newUser = new(name, baseData ?? new Dictionary<string, string[]>());
 
             using (UnityWebRequest request = new UnityWebRequest(_usersURL, "POST"))
             {
@@ -82,11 +86,13 @@ namespace NTO24.Net
 
                 yield return request.SendWebRequest();
 
-                if (request.result != UnityWebRequest.Result.Success)
-                    throw new Exception(request.error);
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    callBack.Invoke(newUser);
+                    yield break;
+                }
             }
-
-            callBack.Invoke(newUser);
+            callBack.Invoke(null);
         }
 
         public static IEnumerator GetUser(string name, UnityAction<User> callBack)
@@ -110,7 +116,6 @@ namespace NTO24.Net
         public static IEnumerator UpdateUser(User user)
         {
             string data = "{\"resources\":" + user.ToJson(true) + "}";
-            Debug.Log(data);
 
             using (UnityWebRequest request = UnityWebRequest.Put($"{_usersURL}{user.Name}/", data))
             {
@@ -140,6 +145,13 @@ namespace NTO24.Net
 
         public static IEnumerator DeleteSave(string id)
         {
+            var connection = false;
+
+            yield return CheckConnection(c => connection = c);
+
+            if (!connection)
+                yield break;
+
             IEnumerable<User> users = null;
             yield return GetServerUsers(us => users = us.Where(u => u.Name.Split("_")[0] == id));
 
@@ -159,7 +171,7 @@ namespace NTO24.Net
                 foreach (var user in users)
                     yield return DeleteUser(user);
             else
-                Debug.LogWarning("server has no users");            
+                Debug.LogWarning("server has no users");
         }
 
         public static IEnumerator Log(string comment, User user, Pair<string, string[]> changes)
@@ -186,6 +198,15 @@ namespace NTO24.Net
 
                 if (request.result != UnityWebRequest.Result.Success)
                     throw new Exception(request.error);
+            }
+        }
+
+        public static IEnumerator CheckConnection(UnityAction<bool> connect—allback)
+        {
+            using (UnityWebRequest request = UnityWebRequest.Get(_usersURL))
+            {
+                yield return request.SendWebRequest();
+                connect—allback?.Invoke(request.result == UnityWebRequest.Result.Success);
             }
         }
     }

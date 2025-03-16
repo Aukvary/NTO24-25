@@ -7,9 +7,6 @@ namespace NTO24
         IInteractor
     {
         [field: SerializeField]
-        public string Name { get; private set; }
-
-        [field: SerializeField]
         public Sprite[] Icon { get; private set; }
 
         public AttackController AttackController { get; private set; }

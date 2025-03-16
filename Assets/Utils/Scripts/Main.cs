@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using System.Reflection;
 using System;
 using System.Collections;
+using NTO24.Net;
 
 namespace NTO24
 {
@@ -74,7 +75,7 @@ namespace NTO24
 
         private IEnumerator Initialize()
         {
-            CallInitializeDepending<PreInitializeAttribute>();
+            yield return CallInitializeDepending<PreInitializeAttribute>();
             PreinitializeEvent.Invoke();
 
             InitializeSpawners();
@@ -88,13 +89,13 @@ namespace NTO24
             PostinitializeEvent.Invoke();
 
             yield return SendServerRequest();
-            CallInitializeDepending<PostInitializeAttribute>();
+            yield return CallInitializeDepending<PostInitializeAttribute>();
 
             yield return _tutorial.StartAdvicing(_entitySelector, _upgradeController);
             _beeSpawners.ForEach(s => s.StartSpawn());
         }
 
-        private void CallInitializeDepending<T>() where T : InitializeAttribute
+        private IEnumerator CallInitializeDepending<T>() where T : InitializeAttribute
         {
             IEnumerable<Type> types = Assembly.GetAssembly(typeof(T))
                 .GetTypes().Where(t => t.GetCustomAttribute<T>() != null);
@@ -103,7 +104,8 @@ namespace NTO24
             {
                 var attribute = type.GetCustomAttribute<T>();
 
-                type.GetMethod(attribute.MethodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                yield return (IEnumerator)type
+                    .GetMethod(attribute.MethodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
                     .Invoke(null, null);
             }
         }

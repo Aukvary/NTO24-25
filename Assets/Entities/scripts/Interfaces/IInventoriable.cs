@@ -15,11 +15,8 @@ namespace NTO24
 
         int this[Resource resource] => Inventory[resource];
 
-        void TryAddItems(Pair<Resource, int> resources)
-        {
-            if (Inventory.TryAddItems(resources, out var items))
-                return;
-        }
+        bool TryAddItems(Pair<Resource, int> resources, out int overflowItems)
+            => Inventory.TryAddItems(resources, out overflowItems);
 
         void RemoveResources(Resource resource, int count)
             => Inventory.RemoveResources(resource, count);

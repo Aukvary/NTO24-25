@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -6,6 +6,9 @@ namespace NTO24
 {
     public class MusicController : MonoBehaviour
     {
+        [SerializeField]
+        private AudioMixer _musicMixer;
+
         [SerializeField]
         private AudioSource _calmMusic;
 
@@ -15,64 +18,76 @@ namespace NTO24
         [SerializeField]
         private float _changeSpeed;
 
-        [SerializeField]
-        private AudioMixerGroup _soundMixer;
+        private int _beeCount = 0;
 
-        [SerializeField]
-        private AudioMixerGroup _musicMixer;
+        private Coroutine _increaseCoroutine;
+        private Coroutine _decreaseCoroutine;
 
-        [SerializeField]
-        private bool _change;
-
-        private Main _enterPoint;
-
-        private bool _fightNow = false;
-
-        private bool _fight => Entity.GetEntites<Bee>().Any();
-
-        private void Start()
+        private void Awake()
         {
-            _soundMixer.audioMixer.SetFloat("SoundVolume", PlayerPrefs.GetFloat("SoundVolume"));
-            _musicMixer.audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
+            Entity.OnAddEntity.AddListener(e =>
+            {
+                if (e is not Bee)
+                    return;
+
+                _beeCount++;
+
+                if (_beeCount != 1)
+                    return;
+
+                if (_increaseCoroutine != null)
+                {
+                    StopCoroutine(_increaseCoroutine);
+                    StopCoroutine(_decreaseCoroutine);
+                }
+
+
+                _increaseCoroutine = StartCoroutine(Set("Fight", true));
+                _decreaseCoroutine = StartCoroutine(Set("Calm", false));
+            });
+
+            Entity.OnRemoveEntity.AddListener(e =>
+            {
+                if (e is not Bee)
+                    return;
+
+                _beeCount--;
+
+                if (_beeCount != 0)
+                    return;
+
+                if (_increaseCoroutine != null)
+                {
+                    StopCoroutine(_increaseCoroutine);
+                    StopCoroutine(_decreaseCoroutine);
+                }
+
+
+                _increaseCoroutine = StartCoroutine(Set("Calm", true));
+                _decreaseCoroutine = StartCoroutine(Set("Fight", false));
+            });
         }
 
-        private void Update()
+        private IEnumerator Set(string name, bool increase)
         {
-            if (!_change)
-                return;
+            if (name == "Fight")
+                _fightMusic.Play();
+            else
+                _calmMusic.Play();
 
-            if (_fight && !_fightNow)
+                _musicMixer.GetFloat(name, out var current);
+
+            var volume = increase ? 1f : 0.0001f;
+
+            volume = Mathf.Log10(volume) * 20;
+
+            while (current != volume)
             {
-                StopCoroutine(Swap());
-                StartCoroutine(Swap());
-                _fightNow = true;
-            }
-            else if (!_fight && _fightNow)
-            {
-                StopCoroutine(Swap());
-                StartCoroutine(Swap());
-                _fightNow = false;
-            }
-        }
-
-        private System.Collections.IEnumerator Swap()
-        {
-            float calm = _fightMusic.volume;
-            float fight = _calmMusic.volume;
-
-            if (calm > 0) _calmMusic.Play();
-            else _fightMusic.Play();
-
-            while (Mathf.Abs(_calmMusic.volume - calm) > 0.1 || Mathf.Abs(_fightMusic.volume - fight) > 0.1)
-            {
-                _calmMusic.volume = Mathf.Lerp(_calmMusic.volume, calm, Time.deltaTime * _changeSpeed);
-                _fightMusic.volume = Mathf.Lerp(_fightMusic.volume, fight, Time.deltaTime * _changeSpeed);
-
+                current = Mathf.Lerp(current, volume, Time.deltaTime * _changeSpeed);
+                _musicMixer.SetFloat(name, current);
                 yield return null;
-            }
 
-            if (calm > 0) _fightMusic.Stop();
-            else _calmMusic.Stop();
+            }
         }
     }
 }

@@ -1,11 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NTO24
 {
     public abstract class Entity : MonoBehaviour
     {
+        public static UnityEvent<Entity> OnAddEntity { get; private set; } = new();
+
+        public static UnityEvent<Entity> OnRemoveEntity { get; private set; } = new();
+
         [field: SerializeField]
         public EntityType EntityType { get; private set; }
 
@@ -29,7 +34,12 @@ namespace NTO24
             _entities.Add(entity);
 
             if (entity is IHealthable health && entity is not IRestoreable)
-                health.OnDeathEvent.AddListener(e => _entities.Remove(entity));
+                health.OnDeathEvent.AddListener(e => {
+                    _entities.Remove(entity);
+                    OnRemoveEntity.Invoke(entity);
+                    });
+
+            OnAddEntity.Invoke(entity);
         }
 
         public static void Clear()
