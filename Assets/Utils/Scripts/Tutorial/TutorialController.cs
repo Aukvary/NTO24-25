@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,13 +35,13 @@ namespace NTO24
 
         private Advice _currentAdvice;
 
-        private int _step = 0;
+        private bool _finished;
 
         private EntitySelector _selector;
         private UpgradeController _upgradeController;
 
         public string Name => "Tutorial";
-        public string[] Data => new string[] { _step.ToString() };
+        public string[] Data => new string[] { _finished.ToString() };
         public UnityEvent OnDataChangeEvent { get; private set; } = new();
 
         public string AdviceTitle => _currentAdvice?.Title;
@@ -52,11 +51,17 @@ namespace NTO24
 
         public void ServerInitialize(IEnumerable<string> data)
         {
-            _step = int.Parse(data.ElementAt(0));
+            _finished = bool.Parse(data.ElementAt(0));
         }
 
         public IEnumerator StartAdvicing(EntitySelector selector, UpgradeController upgradeController)
         {
+            if (_finished)
+            {
+                gameObject.SetActive(false);
+                yield break;
+            }
+
             _conditions = new IEnumerator[]
             {
                 AwaitCameraMove(),
@@ -72,16 +77,18 @@ namespace NTO24
             _selector = selector;
             _upgradeController = upgradeController;
 
-            for (; _step < _conditions.Length; _step++)
+            for (int i = 0; i < _conditions.Length; i++)
             {
-                _currentAdvice = _advices[_step];
+                _currentAdvice = _advices[i];
 
                 _title.text = AdviceTitle;
                 _text.text = AdviceText;
 
-                yield return _conditions[_step];
+                yield return _conditions[i];
             }
             _currentAdvice = _advices.Last();
+            _finished = true;
+            OnDataChangeEvent.Invoke();
             StartCoroutine(AttackWarning());
         }
 
@@ -134,7 +141,7 @@ namespace NTO24
 
             yield return new WaitUntil(() => extract);
         }
-        
+
         private IEnumerator AwaitTaskQueue()
         {
             var bears = Entity.Entities

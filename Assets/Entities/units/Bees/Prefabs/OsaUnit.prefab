@@ -72,6 +72,37 @@ MonoBehaviour:
   <OnEntityExit>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1332077084820492915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5377083142800442407}
+  m_Layer: 0
+  m_Name: Drop positopn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5377083142800442407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332077084820492915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8298230468964353042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2569323056179923504
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +121,7 @@ GameObject:
   - component: {fileID: 3181435200121725420}
   - component: {fileID: 5129343818359597769}
   - component: {fileID: 1253498422923229119}
+  - component: {fileID: 8263545044439281698}
   m_Layer: 0
   m_Name: OsaUnit
   m_TagString: Untagged
@@ -112,6 +144,7 @@ Transform:
   m_Children:
   - {fileID: 1739405807608629596}
   - {fileID: 165566978370081963}
+  - {fileID: 5377083142800442407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &2152176601619605877
@@ -172,7 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <EntityType>k__BackingField: 0
-  _dropableItems: []
 --- !u!114 &110090099756755036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +253,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DamageBy>k__BackingField: 0
   <OnHealthChangeEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnDamageEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   <OnDeathEvent>k__BackingField:
@@ -292,7 +327,7 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 100
+    - 10
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -339,6 +374,24 @@ MonoBehaviour:
   <OnExitEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8263545044439281698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2569323056179923504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1366e234a89d74f9403a2348e47575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _items:
+  - <Value1>k__BackingField: {fileID: 350175208682212050, guid: ba303a142bcf0d946930714921833b2f, type: 3}
+    <Value2>k__BackingField: 10
+  _dropPosition: {fileID: 5377083142800442407}
+  _radius: 2
+  _strength: 2
 --- !u!1001 &2717668153105798277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -391,17 +444,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: OsaModel
       objectReference: {fileID: 0}
-    - target: {fileID: 7320686698324921332, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7354919078251178786, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.81
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7320686698324921332, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8bef224ecc76274d9febd287ba7884c, type: 3}

@@ -22,7 +22,7 @@ namespace NTO24.Net
                 var oldValue = this[dataName];
                 Data[dataName] = value;
 
-                PlayerPrefs.SetString($"{Name}_{dataName}", JsonConvert.SerializeObject(value));
+                PlayerPrefs.SetString(Name, JsonConvert.SerializeObject(Data));
 
                 if (!ServerHandler.HasConnection)
                     return;

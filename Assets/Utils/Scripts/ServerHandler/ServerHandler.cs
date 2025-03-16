@@ -23,7 +23,7 @@ namespace NTO24.Net
 
         public static string ID { get; private set; }
 
-        public static bool HasConnection { get; private set; }
+        public static bool HasConnection { get; set; }
 
         public static IEnumerable<User> LocalUsers => _localUsers;
 
@@ -39,7 +39,7 @@ namespace NTO24.Net
         private static IEnumerator PreInitialize()
         {
             ID = PlayerPrefs.GetString(nameof(User));
-            yield return CheckConnection(c => HasConnection = c);
+            yield return null;
         }
 
         public static IEnumerator GetServerUsers(UnityAction<List<User>> callBack)

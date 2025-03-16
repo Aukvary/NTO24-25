@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3160560450572209004}
   - component: {fileID: 4470412302590585749}
   - component: {fileID: 7031950514941490368}
-  - component: {fileID: 530337689046840060}
   - component: {fileID: 8994117921252018316}
   - component: {fileID: -4106054093792155009}
+  - component: {fileID: 372129538058716240}
   m_Layer: 0
   m_Name: Droped stone
   m_TagString: Untagged
@@ -86,28 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &530337689046840060
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523426198886319494}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 54457b719d377164a8ed20b26c2bef03, type: 3}
 --- !u!114 &8994117921252018316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,3 +115,24 @@ MonoBehaviour:
   <OnInteractEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &372129538058716240
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523426198886319494}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.22, z: 0.70000005}
+  m_Center: {x: 0, y: 0.39, z: -0.049999997}

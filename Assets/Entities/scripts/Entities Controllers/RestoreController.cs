@@ -38,6 +38,8 @@ namespace NTO24
                 transform.position = _spawnPosition;
                 StartRestoring();
             });
+
+            StartCoroutine(UpdateServerInfo());
         }
 
         public void ServerInitialize(IEnumerable<string> data)
@@ -69,6 +71,15 @@ namespace NTO24
                 yield return new WaitForSeconds(1);
             }
             OnTimeChangeEvent.Invoke();
+        }
+
+        private IEnumerator UpdateServerInfo()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(60);
+                OnDataChangeEvent.Invoke();
+            }
         }
     }
 }

@@ -38,7 +38,10 @@ namespace NTO24
             };
 
         public void Initialize(IHealthable burov)
-            => _burov = burov;
+        {
+            _burov = burov;
+            StartCoroutine(UpdateServerInfo());
+        }
 
         public void ServerInitialize(IEnumerable<string> data)
         {
@@ -47,24 +50,28 @@ namespace NTO24
             _level = int.Parse(data.ElementAt(2));
 
             if (_startSpawning)
-                StartCoroutine(Spawn(_time));
+                StartCoroutine(ServerSpawn(_time));
         }
 
         public void StartSpawn()
         {
             if (_startSpawning)
                 return;
-            StartCoroutine(Spawn(_spawnCooldown));
+            StartCoroutine(Spawn());
         }
 
-        private IEnumerator Spawn(float time)
+        private IEnumerator ServerSpawn(float time)
+        {
+            StartCoroutine(StartTimer(time));
+            yield return new WaitForSeconds(time);
+            StartCoroutine(Spawn());
+        }
+
+        private IEnumerator Spawn()
         {
             _startSpawning = true;
             while (true)
             {
-                time = _spawnCooldown;
-
-
                 IStatsable bee = _bee.Spawn(_spawnPosition.position, _burov);
 
                 foreach (var stat in bee.Stats)
@@ -72,8 +79,8 @@ namespace NTO24
 
                 _level++;
 
-                StartCoroutine(StartTimer(time));
-                yield return new WaitForSeconds(time);
+                StartCoroutine(StartTimer(_spawnCooldown));
+                yield return new WaitForSeconds(_spawnCooldown);
             }
         }
 
@@ -85,6 +92,15 @@ namespace NTO24
             {
                 _time--;
                 yield return new WaitForSeconds(1);
+            }
+        }
+
+        private IEnumerator UpdateServerInfo()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(60);
+                OnDataChangeEvent.Invoke();
             }
         }
     }

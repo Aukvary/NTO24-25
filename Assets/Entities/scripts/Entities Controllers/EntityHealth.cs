@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 
 namespace NTO24
 {
@@ -18,6 +20,9 @@ namespace NTO24
 
         [field: SerializeField]
         public  UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent { get; private set; }
+
+        [field: SerializeField]
+        public UnityEvent OnDamageEvent { get; private set; }
 
         [field: SerializeField]
         public UnityEvent<Entity> OnDeathEvent { get; private set; }
@@ -102,9 +107,14 @@ namespace NTO24
                 Alive = alive;
         }
 
+        protected override void Start()
+        {
+            StartCoroutine(UpdateServerInfo());
+        }
+
         protected override void Update()
         {
-            if (!Alive)
+            if (!Alive || Regeneration == 0)
                 return;
             ChangeHealth(Regeneration * Time.deltaTime, HealthChangeType.Heal);
         }
@@ -114,6 +124,8 @@ namespace NTO24
             Health = Mathf.Clamp(Health + deltaHealth * (type == HealthChangeType.Heal ? 1 : -1), 0, MaxHealth);
 
             OnHealthChangeEvent.Invoke(by, type);
+            if (type == HealthChangeType.Damage)
+                OnDamageEvent.Invoke();
 
             if (Health > 0)
                 return;
@@ -121,6 +133,15 @@ namespace NTO24
             Alive = false;
 
             OnDeathEvent.Invoke(by);
+        }
+
+        private IEnumerator UpdateServerInfo()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(60);
+                OnDataChangeEvent.Invoke();
+            }
         }
     }
 }

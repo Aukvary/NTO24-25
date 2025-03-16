@@ -23,17 +23,11 @@ namespace NTO24
             _loadScreen.Hide(onCompleteCallBack: () =>
             {
                 Destroy(transform.parent.gameObject);
-                Instance = null;
             });
         }
 
         private void Awake()
         {
-            if (Instance != null)
-            {
-                Destroy(transform.parent.gameObject);
-                return;
-            }
             Instance = this;
             DontDestroyOnLoad(transform.parent.gameObject);
         }

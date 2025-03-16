@@ -58,7 +58,7 @@ namespace NTO24
 
             _errorContinueButton.onClick.AddListener(() =>
             {
-                SetDate(DateTime.Now, false);
+                SetDate(false);
                 SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
             });
         }
@@ -89,22 +89,26 @@ namespace NTO24
                 {
                     if (_serverDate != _localDate)
                     {
+                        _differenceWindow.gameObject.SetActive(true);
+
                         _differenceField.text = _differenceField.text.Replace("SDate", _serverDate);
                         _differenceField.text = _differenceField.text.Replace("LDate", _localDate);
 
                         _serverContinue.onClick.AddListener(() =>
                         {
-                            SetDate(DateTime.UtcNow);
+                            SetDate();
                             SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
                         });
 
                         _localContinue.onClick.AddListener(() =>
                         {
                             InitializeFrom = InitializeFrom.Local;
-                            SetDate(DateTime.UtcNow);
+                            SetDate();
                             SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
                         });
                     }
+                    else
+                        SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
                 }));
             });
         }
@@ -161,7 +165,7 @@ namespace NTO24
 
                 StartCoroutine(TryConnect(onSuccses:() =>
                 {
-                    SetDate(DateTime.UtcNow);
+                    SetDate();
                     SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
                 }));
             });
@@ -172,7 +176,7 @@ namespace NTO24
             _localDate = PlayerPrefs.GetString("Date");
 
             yield return ServerHandler.InitializeUser(
-                $"{ServerHandler.ID}_Date",
+                $"{_currentID}_Date",
                 new Dictionary<string, string[]>() { { "Date", new string[] { _localDate } } },
                 u =>
                 {
@@ -187,7 +191,11 @@ namespace NTO24
         {
             var connection = false;
 
-            yield return ServerHandler.CheckConnection(c => connection = c);
+            yield return ServerHandler.CheckConnection(c =>
+            {
+                connection = c;
+                ServerHandler.HasConnection = c;
+            });
 
             if (connection)
             {
@@ -198,14 +206,14 @@ namespace NTO24
             _errorWindow.gameObject.SetActive(true);
         }
 
-        private void SetDate(DateTime date, bool updateServer = true)
+        private void SetDate(bool updateServer = true)
         {
-            string strDate = date.ToString("f");
+            string strDate = DateTime.UtcNow.ToString("f");
             PlayerPrefs.SetString("Date", strDate);
 
             if (!updateServer || _dateUser == null)
                 return;
-
+            
             _dateUser["Date"] = new string[] { strDate };
         }
     }

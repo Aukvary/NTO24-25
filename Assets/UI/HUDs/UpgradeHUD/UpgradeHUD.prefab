@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.57254905, g: 0.7254902, b: 0.6901961, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1555,7 +1555,7 @@ PrefabInstance:
     - target: {fileID: 6698113116907411936, guid: 54a74e79076a579468a1fc51b6275450, type: 3}
       propertyPath: m_TargetGraphic
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 998338850054861237}
     - target: {fileID: 8686588733658901511, guid: 54a74e79076a579468a1fc51b6275450, type: 3}
       propertyPath: m_Name
       value: Upgrade Button
@@ -1574,6 +1574,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1785406102794324679, guid: 54a74e79076a579468a1fc51b6275450, type: 3}
   m_PrefabInstance: {fileID: 1502962696556013505}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &998338850054861237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1801817503330965108, guid: 54a74e79076a579468a1fc51b6275450, type: 3}
+  m_PrefabInstance: {fileID: 1502962696556013505}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3395972969392850742
 PrefabInstance:
   m_ObjectHideFlags: 0

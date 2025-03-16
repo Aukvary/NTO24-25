@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8005761482018339476}
   - component: {fileID: 455823073735466174}
   m_Layer: 5
-  m_Name: Settings HUD
+  m_Name: ScreenChanger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
