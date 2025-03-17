@@ -114,7 +114,7 @@ namespace NTO24
 
         protected override void Update()
         {
-            if (!Alive || Regeneration == 0)
+            if (!Alive)
                 return;
             ChangeHealth(Regeneration * Time.deltaTime, HealthChangeType.Heal);
         }

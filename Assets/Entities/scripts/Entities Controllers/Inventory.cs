@@ -103,6 +103,7 @@ namespace NTO24
             for (int i = 0; i < _items.Length; i++)
                 _items[i] = new(null, 0);
             OnItemsChangeEvent.Invoke();
+            OnDataChangeEvent.Invoke();
             return items;
         }
 

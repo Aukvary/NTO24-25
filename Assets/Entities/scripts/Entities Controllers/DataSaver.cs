@@ -39,6 +39,7 @@ namespace NTO24
                 _components.ToDictionary(p => p.Value.Name, p => p.Value.Data),
                 u => _user = u
                 );
+
             foreach (var pair in _user.Data)
             {
                 _components[pair.Key].ServerInitialize(_user[pair.Key]);
