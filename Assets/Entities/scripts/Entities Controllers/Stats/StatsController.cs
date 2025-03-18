@@ -41,6 +41,9 @@ namespace NTO24
 
         public void ServerInitialize(IEnumerable<string> data)
         {
+            foreach (var stat in _stats)
+                stat.OnUpgradeEvent.AddListener(OnDataChangeEvent.Invoke);
+
             for (int i = 0; i < _stats.Count; i++)
             {
                 var pair = data.ElementAt(i).ToStats();

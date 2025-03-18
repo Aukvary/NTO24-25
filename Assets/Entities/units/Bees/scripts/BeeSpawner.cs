@@ -49,6 +49,7 @@ namespace NTO24
             _time = int.Parse(data.ElementAt(1));
             _level = int.Parse(data.ElementAt(2));
 
+
             if (_startSpawning)
                 StartCoroutine(ServerSpawn(_time));
         }
@@ -57,6 +58,7 @@ namespace NTO24
         {
             if (_startSpawning)
                 return;
+            
             StartCoroutine(Spawn());
         }
 
@@ -80,6 +82,7 @@ namespace NTO24
                 _level++;
 
                 StartCoroutine(StartTimer(_spawnCooldown));
+                OnDataChangeEvent?.Invoke();
                 yield return new WaitForSeconds(_spawnCooldown);
             }
         }

@@ -17,6 +17,9 @@ namespace NTO24
         [SerializeField]
         private UnityEvent _onLevelChangeEvent;
 
+        [field: SerializeField]
+        public UnityEvent OnUpgradeEvent { get; private set; } 
+
         private int _currentLevel;
 
         public float StatValue => _statValues[CurrentLevel];
@@ -32,8 +35,11 @@ namespace NTO24
 
             set
             {
+                if (value != _currentLevel)
+                    OnUpgradeEvent.Invoke();
                 _currentLevel = Mathf.Clamp(value, 0, MaxLevel);
                 _onLevelChangeEvent.Invoke();
+
             }
         }
 

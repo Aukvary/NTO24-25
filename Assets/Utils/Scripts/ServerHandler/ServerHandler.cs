@@ -145,6 +145,9 @@ namespace NTO24.Net
 
         public static IEnumerator DeleteSave(string id)
         {
+            if (id == PlayerPrefs.GetString(nameof(User)))
+                PlayerPrefs.SetString(nameof(User), null);
+
             var connection = false;
 
             yield return CheckConnection(c => connection = c);

@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using NTO24.UI;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using UnityEngine.Events;
 
 namespace NTO24
 {
-    public class ConstructionObject : Entity, IInteractable
+    public class ConstructionObject : Entity, IInteractable, ISavableComponent
     {
         [field: SerializeField]
         public UnityEvent OnBuiltEvent { get; private set; }
@@ -15,11 +16,23 @@ namespace NTO24
         [SerializeField]
         private List<Pair<Resource, int>> _materials;
 
+        public UnityEvent OnDataChangeEvent { get; private set; } = new();
+
         public Interactable Interactable { get; private set; }
 
         private ItemCellUI[] _itemCells;
 
+        private bool _wasBuilt;
+
         public IEnumerable<Pair<Resource, int>> Materials => _materials;
+
+        public string Name => "Construction";
+
+        public string[] Data
+            => new string[] {
+                JsonConvert.SerializeObject(_materials),
+                _wasBuilt.ToString()
+            };
 
         public bool IsInteractable(IInteractor interactor)
         {
@@ -34,6 +47,9 @@ namespace NTO24
             });
 
             bool wasBuild = _materials.All(pair => pair.Value2 == 0);
+
+            if (!containsResources)
+                OnDataChangeEvent.Invoke();
 
             return containsResources && !wasBuild;
         }
@@ -53,6 +69,15 @@ namespace NTO24
             UpdateUI();
         }
 
+        public void ServerInitialize(IEnumerable<string> data)
+        {
+            _materials = JsonConvert.DeserializeObject<List<Pair<Resource, int>>>(data.ElementAt(0));
+            _wasBuilt = bool.Parse(data.ElementAt(1));
+
+            if (_wasBuilt)
+                OnBuiltEvent.Invoke();
+        }
+
         private void Interact(IInteractor interactor)
         {
             for (int i = 0; i < _materials.Count; i++)
@@ -68,7 +93,11 @@ namespace NTO24
             }
 
             if (_materials.All(p => p.Value2 == 0))
+            {
+                _wasBuilt = true;
+                OnDataChangeEvent.Invoke();
                 OnBuiltEvent.Invoke();
+            }
 
             UpdateUI();
         }
