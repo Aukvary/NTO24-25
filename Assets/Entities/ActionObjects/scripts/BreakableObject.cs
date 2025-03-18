@@ -28,8 +28,7 @@ namespace NTO24
 
             HealthController.OnDeathEvent.AddListener(entity =>
             {
-                if (entity is IInventoriable inventory)
-                    DropController.Drop();
+                DropController?.Drop();
 
                 RestoreController?.StartRestoring();
             });

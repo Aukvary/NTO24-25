@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using Unity.VisualScripting;
 
 namespace NTO24
 {
@@ -19,7 +17,7 @@ namespace NTO24
         public DamageType DamageBy { get; private set; }
 
         [field: SerializeField]
-        public  UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent { get; private set; }
+        public UnityEvent<Entity, HealthChangeType> OnHealthChangeEvent { get; private set; }
 
         [field: SerializeField]
         public UnityEvent OnDamageEvent { get; private set; }
@@ -56,7 +54,7 @@ namespace NTO24
 
         public float MaxHealth => _maxHealth.StatValue;
 
-        public bool Alive 
+        public bool Alive
         {
             get => _alive;
 
@@ -64,6 +62,7 @@ namespace NTO24
             {
                 _alive = value;
                 OnAliveChangeEvent.Invoke(value);
+                OnDataChangeEvent?.Invoke();
 
                 if (value)
                 {
@@ -71,12 +70,12 @@ namespace NTO24
                     OnHealthChangeEvent.Invoke(Entity, HealthChangeType.Heal);
                     OnRevivalEvent.Invoke();
                 }
-            } 
+            }
         }
 
         public string Name => "Entity Health";
 
-        public string[] Data => new string[] { Health.ToString() , Alive.ToString()};
+        public string[] Data => new string[] { Health.ToString(), Alive.ToString() };
 
         protected override void Awake()
         {
@@ -104,12 +103,7 @@ namespace NTO24
             bool alive = bool.Parse(data.ElementAt(1));
 
             if (!alive)
-                Alive = alive;
-        }
-
-        protected override void Start()
-        {
-            StartCoroutine(UpdateServerInfo());
+                OnAliveChangeEvent.Invoke(alive);
         }
 
         protected override void Update()
@@ -133,15 +127,6 @@ namespace NTO24
             Alive = false;
 
             OnDeathEvent.Invoke(by);
-        }
-
-        private IEnumerator UpdateServerInfo()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(60);
-                OnDataChangeEvent.Invoke();
-            }
         }
     }
 }

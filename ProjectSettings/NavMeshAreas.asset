@@ -12,7 +12,7 @@ NavMeshProjectSettings:
   - name: Jump
     cost: 2
   - name: Bear Area
-    cost: 0
+    cost: 1
   - name: Bee Area
     cost: 1
   - name: 

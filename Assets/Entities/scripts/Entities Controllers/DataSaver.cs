@@ -1,9 +1,10 @@
+using Newtonsoft.Json;
 using NTO24.Net;
+using NTO24.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace NTO24
 {
@@ -22,6 +23,9 @@ namespace NTO24
             _components = GetComponents<ISavableComponent>().ToDictionary(c => c.Name, c => c);
 
             Main.AddServerRequest(Initialize());
+
+            /*foreach (var pair in _components)
+                print(pair.Key);*/
         }
 
         public IEnumerator Initialize()
@@ -40,9 +44,11 @@ namespace NTO24
                 u => _user = u
                 );
 
+            GameMenu.AddOnExitAction(_user.Update);
             foreach (var pair in _user.Data)
             {
                 _components[pair.Key].ServerInitialize(_user[pair.Key]);
+                GameMenu.AddOnExitAction(() => LocalUpdate(pair.Key));
                 _components[pair.Key].OnDataChangeEvent.AddListener(() =>
                 {
                     string dataName = pair.Key;
@@ -67,12 +73,35 @@ namespace NTO24
             foreach (var pair in _user.Data)
             {
                 _components[pair.Key].ServerInitialize(_user[pair.Key]);
+
+                GameMenu.AddOnExitAction(() => LocalUpdate(pair.Key));
+
                 _components[pair.Key].OnDataChangeEvent.AddListener(() =>
                 {
                     string dataName = pair.Key;
                     _user[pair.Key] = _components[dataName].Data;
                 });
             }
+        }
+
+        private IEnumerator LocalUpdate(string key)
+        {
+                _components[key].OnDataChangeEvent.Invoke();
+                return null;
+        }
+
+        private IEnumerator UpdateLocalInfo()
+        {
+            yield return new WaitForSeconds(60);
+            foreach (var component in _components.Values)
+                component.OnDataChangeEvent.Invoke();
+        }
+
+        private IEnumerator UpdateServerInfo()
+        {
+            yield return new WaitForSeconds(600);
+
+            _user.Update();
         }
     }
 }

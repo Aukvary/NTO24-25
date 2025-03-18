@@ -1,4 +1,8 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace NTO24.UI
@@ -10,6 +14,8 @@ namespace NTO24.UI
 
         [SerializeField]
         private Image _settingsWindow;
+
+        private static List<Func<IEnumerator>> _onExitEvents = new();
 
         private bool _active = false;
 
@@ -37,6 +43,21 @@ namespace NTO24.UI
             _active = false;
             Time.timeScale = 1f;
             _animatedUI.gameObject.SetActive(false);
+        }
+
+        public void Exit()
+        {
+            SceneChanger.Instance.LoadScene((int)Scenes.MainMenu,
+                PreLoadCallBack: OnExitInvoke);
+        }
+
+        public static void AddOnExitAction(Func<IEnumerator> method)
+            => _onExitEvents.Add(method);
+
+        private IEnumerator OnExitInvoke()
+        {
+            foreach (var method in _onExitEvents)
+                yield return method.Invoke();
         }
 
         public void OnDisable()

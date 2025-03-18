@@ -23,6 +23,9 @@ namespace NTO24
 
         public void Drop()
         {
+            if (_items == null || _items.Count == 0)
+                return;
+
             for (int i = 0; i < _items.Count; i++)
                 _items[i].Value1.Drop(
                     _items[i].Value2,

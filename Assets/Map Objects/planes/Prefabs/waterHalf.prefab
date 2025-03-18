@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7576445635465343971}
+  - component: {fileID: 5465138475442290266}
+  - component: {fileID: 8938283856169293501}
   m_Layer: 6
   m_Name: waterHalf
   m_TagString: Untagged
@@ -33,6 +35,39 @@ Transform:
   - {fileID: 6532158656263465281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5465138475442290266
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521374384571316748}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.9406059, y: 0.8713125, z: 4}
+  m_Center: {x: -0.02969706, y: -0.2920214, z: 0}
+--- !u!114 &8938283856169293501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521374384571316748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa50d9b758ca1041b03c96d3bb9a89e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1106472456221314347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 38de3fb16f776034ea9fafa18c2c7ea3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 38de3fb16f776034ea9fafa18c2c7ea3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -166,6 +201,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 38de3fb16f776034ea9fafa18c2c7ea3, type: 3}
       propertyPath: m_Name
       value: WaterGrassHalf
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 38de3fb16f776034ea9fafa18c2c7ea3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 38de3fb16f776034ea9fafa18c2c7ea3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

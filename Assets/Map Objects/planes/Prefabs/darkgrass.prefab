@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5590337377331878192}
-  - component: {fileID: 3358901079872310021}
+  - component: {fileID: 2029327563024476405}
+  - component: {fileID: 4881786766445610813}
   m_Layer: 6
   m_Name: darkgrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5590337377331878192
 Transform:
@@ -33,8 +34,8 @@ Transform:
   - {fileID: 696086873984277556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &3358901079872310021
-MeshCollider:
+--- !u!65 &2029327563024476405
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -51,10 +52,21 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 4, y: 0.13347459, z: 4}
+  m_Center: {x: 0, y: 0.05390823, z: 0}
+--- !u!114 &4881786766445610813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931900970926067370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa50d9b758ca1041b03c96d3bb9a89e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1018453635934747615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
       propertyPath: m_Layer
@@ -121,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 4fe8c1d9ef5a7184a827867417ce46bf, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

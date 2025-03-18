@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 4110867846666379152}
   - component: {fileID: 2139443297024837489}
   - component: {fileID: 757324937775101307}
+  - component: {fileID: 7329581962817050330}
   m_Layer: 0
   m_Name: CyberPairy
   m_TagString: Untagged
@@ -146,6 +147,9 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+    <OnUpgradeEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &8292631920938578786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +189,55 @@ MonoBehaviour:
       m_Calls: []
   <OnAliveChangeEvent>k__BackingField:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1415594598519812094}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6304682008483965142}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 554615125199745429}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3499176098511704524}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   <OnUpgadeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -217,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b0edd559d4990419cb9efccd44ee40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: 
+  _name: Cyber Apire
 --- !u!114 &2139443297024837489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +384,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7329581962817050330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008882655769009211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 975a793b8d6d9bf44a05831054d3a7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _restoreTime: 10
 --- !u!1 &4158905674091642901
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +497,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
+--- !u!1 &554615125199745429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}
+  m_PrefabInstance: {fileID: 825014518816689348}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &934975382273567535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e55ee98838b4f645b2def3663b12db5, type: 3}

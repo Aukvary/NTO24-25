@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using NTO24.UI;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -30,20 +31,15 @@ namespace NTO24
 
         public string[] Data
             => new string[] {
-                JsonConvert.SerializeObject(_materials),
+                JsonConvert.SerializeObject(_materials.Select(p => p.ToString()).ToArray()),
                 _wasBuilt.ToString()
             };
 
         public bool IsInteractable(IInteractor interactor)
         {
-            if (interactor is not IInventoriable inventory)
-                return false;
-
             bool containsResources = _materials.Any(pair =>
             {
-                if (pair.Value2 == 0)
-                    return true;
-                return Storage.Resources[pair.Value1] > 0;
+                return Storage.Resources[pair.Value1] > 0 && pair.Value2 != 0;
             });
 
             bool wasBuild = _materials.All(pair => pair.Value2 == 0);
@@ -71,7 +67,8 @@ namespace NTO24
 
         public void ServerInitialize(IEnumerable<string> data)
         {
-            _materials = JsonConvert.DeserializeObject<List<Pair<Resource, int>>>(data.ElementAt(0));
+            _materials = JsonConvert.DeserializeObject<string[]>(data.ElementAt(0))
+                .Select(s => s.ToResources()).ToList();
             _wasBuilt = bool.Parse(data.ElementAt(1));
 
             if (_wasBuilt)

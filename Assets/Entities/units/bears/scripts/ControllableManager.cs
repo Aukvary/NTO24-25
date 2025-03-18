@@ -7,16 +7,6 @@ namespace NTO24
 {
     public class ControllableManager : MonoBehaviour
     {
-        [Header("Unit Selection")]
-        [SerializeField]
-        private Color _selectingAreaColor;
-
-        [SerializeField]
-        private float _areaAlpha;
-
-        [SerializeField]
-        private float _areaBorderThickness;
-
         private List<Unit> _selectedUnits;
 
         private Vector3 _startMousePosition;

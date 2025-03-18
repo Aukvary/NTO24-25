@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3985977593415764931, guid: 7f3ffff31ecba6345bd4be6421bc0227, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5257967312189127793, guid: 7f3ffff31ecba6345bd4be6421bc0227, type: 3}
       propertyPath: m_Name
@@ -351,7 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5257967312189127793, guid: 7f3ffff31ecba6345bd4be6421bc0227, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6797885592454368842, guid: 7f3ffff31ecba6345bd4be6421bc0227, type: 3}
       propertyPath: m_LocalPosition.x
@@ -551,6 +551,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83e2612cb8f883347bc0496ccedaa28f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3964285806932996140}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 83e2612cb8f883347bc0496ccedaa28f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3501922273685392126}
   m_SourcePrefab: {fileID: 100100000, guid: 83e2612cb8f883347bc0496ccedaa28f, type: 3}
 --- !u!1 &8541836094944349165 stripped
 GameObject:
@@ -664,6 +667,19 @@ MonoBehaviour:
   <OnInteractEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3501922273685392126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541836094944349165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b0edd559d4990419cb9efccd44ee40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: Drill
 --- !u!4 &9061631709102264663 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 83e2612cb8f883347bc0496ccedaa28f, type: 3}

@@ -29,7 +29,7 @@ namespace NTO24
                 string[] data = new string[_items.Count(p => p.Value1 != null)];
 
                 for (int i = 0; i < data.Length; i++)
-                    data[i] = _items[i].ToString();
+                    data[i] = _items.Where(p => p.Value1 != null).ElementAt(i).ToString();
 
                 return data;
             }

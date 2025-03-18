@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1533308532277679525}
   - component: {fileID: 2011112114158820661}
   - component: {fileID: 5970999666352064382}
+  - component: {fileID: 5959973236092296157}
   m_Layer: 0
   m_Name: BuroveHouse
   m_TagString: Untagged
@@ -90,6 +91,9 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+    <OnUpgradeEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &2011112114158820661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +110,21 @@ MonoBehaviour:
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnDamageEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5959973236092296157}
+        m_TargetAssemblyTypeName: NTO24.GameEnder, Assembly-CSharp
+        m_MethodName: GoToBadEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   <OnDeathEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -134,6 +153,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &5959973236092296157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3162881108372861342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bedfd8d644fb32342bf02aa1d3edfb07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &673393257561049197
 PrefabInstance:
   m_ObjectHideFlags: 0
