@@ -65,9 +65,9 @@ namespace NTO24
             while (Time > 0)
             {
                 OnTimeChangeEvent.Invoke();
-                Time -= 1;
+                Time -= (int)(1 * UnityEngine.Time.deltaTime);
                 OnTimeChangeEvent.Invoke();
-                yield return new WaitForSeconds(1);
+                yield return null;
             }
             OnTimeChangeEvent.Invoke();
         }
