@@ -340,11 +340,11 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 15
-    - 20
-    - 25
-    - 30
-    - 45
+    - 40
+    - 60
+    - 80
+    - 100
+    - 150
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
