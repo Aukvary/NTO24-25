@@ -20,17 +20,18 @@ MonoBehaviour:
   _statsType: 00000000
   _materials:
   - _materials:
-    - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-      <Value2>k__BackingField: 1
-    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
-      <Value2>k__BackingField: 1
+    - <Value1>k__BackingField: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
+      <Value2>k__BackingField: 6
   - _materials:
-    - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-      <Value2>k__BackingField: 2
-    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
-      <Value2>k__BackingField: 2
+    - <Value1>k__BackingField: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
+      <Value2>k__BackingField: 8
   - _materials:
-    - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-      <Value2>k__BackingField: 3
-    - <Value1>k__BackingField: {fileID: 11400000, guid: 8b25036170a62324eb8accb781e63ee5, type: 2}
-      <Value2>k__BackingField: 3
+    - <Value1>k__BackingField: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
+      <Value2>k__BackingField: 10
+    - <Value1>k__BackingField: {fileID: 11400000, guid: 1dbb8394f4ad7e445aa87334eb1a7ba2, type: 2}
+      <Value2>k__BackingField: 10
+  - _materials:
+    - <Value1>k__BackingField: {fileID: 11400000, guid: fc2f84c3b8b28fd4ba88546754309e70, type: 2}
+      <Value2>k__BackingField: 12
+    - <Value1>k__BackingField: {fileID: 11400000, guid: 1dbb8394f4ad7e445aa87334eb1a7ba2, type: 2}
+      <Value2>k__BackingField: 20
