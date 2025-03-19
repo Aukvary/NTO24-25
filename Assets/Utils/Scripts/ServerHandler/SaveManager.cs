@@ -59,7 +59,7 @@ namespace NTO24
             _errorContinueButton.onClick.AddListener(() =>
             {
                 SetDate(false);
-                SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
+                SceneChanger.Instance.LoadScene((int)Scenes.Map);
             });
         }
 
@@ -97,18 +97,18 @@ namespace NTO24
                         _serverContinue.onClick.AddListener(() =>
                         {
                             SetDate();
-                            SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
+                            SceneChanger.Instance.LoadScene((int)Scenes.Map);
                         });
 
                         _localContinue.onClick.AddListener(() =>
                         {
                             InitializeFrom = InitializeFrom.Local;
                             SetDate();
-                            SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
+                            SceneChanger.Instance.LoadScene((int)Scenes.Map);
                         });
                     }
                     else
-                        SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
+                        SceneChanger.Instance.LoadScene((int)Scenes.Map);
                 }));
             });
         }
@@ -166,7 +166,7 @@ namespace NTO24
                 StartCoroutine(TryConnect(onSuccses:() =>
                 {
                     SetDate();
-                    SceneChanger.Instance.LoadScene((int)Scenes.SampleScene);
+                    SceneChanger.Instance.LoadScene((int)Scenes.Map);
                 }));
             });
         }

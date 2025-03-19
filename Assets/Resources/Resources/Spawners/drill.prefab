@@ -715,7 +715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - <Value1>k__BackingField: {fileID: 2769323872022300524, guid: 07269b9b930a0eb47a9d4c1160b672eb, type: 3}
-    <Value2>k__BackingField: 10
+    <Value2>k__BackingField: 1
   _dropPosition: {fileID: 1562407845839104326}
   _radius: 2
   _strength: 2
@@ -734,7 +734,7 @@ MonoBehaviour:
   _stats:
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 10
+    - 4
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []

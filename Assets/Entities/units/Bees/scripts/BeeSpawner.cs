@@ -74,17 +74,20 @@ namespace NTO24
             _startSpawning = true;
             while (true)
             {
-                IStatsable bee = _bee.Spawn(_spawnPosition.position, _burov);
-
-                foreach (var stat in bee.Stats)
-                    stat.CurrentLevel = _level;
-
+                SpawnBee();
                 _level++;
 
                 StartCoroutine(StartTimer(_spawnCooldown));
                 OnDataChangeEvent?.Invoke();
                 yield return new WaitForSeconds(_spawnCooldown);
             }
+        }
+
+        public void SpawnBee()
+        {
+            IStatsable bee = _bee.Spawn(_spawnPosition.position, _burov);
+            foreach (var stat in bee.Stats)
+                stat.CurrentLevel = _level;
         }
 
         private IEnumerator StartTimer(float time)
@@ -105,6 +108,12 @@ namespace NTO24
                 yield return new WaitForSeconds(60);
                 OnDataChangeEvent.Invoke();
             }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+                SpawnBee();
         }
     }
 }

@@ -463,7 +463,9 @@ MonoBehaviour:
         m_CallState: 2
   _materials:
   - <Value1>k__BackingField: {fileID: 11400000, guid: c40b962598e6fbd4db0f55e0d3c66a18, type: 2}
-    <Value2>k__BackingField: 1
+    <Value2>k__BackingField: 15
+  - <Value1>k__BackingField: {fileID: 11400000, guid: 61d4c864021d2014696f1b362cced4ef, type: 2}
+    <Value2>k__BackingField: 10
 --- !u!114 &6994592174117135451
 MonoBehaviour:
   m_ObjectHideFlags: 0

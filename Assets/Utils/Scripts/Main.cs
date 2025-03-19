@@ -113,6 +113,8 @@ namespace NTO24
         private void InitializeSpawners()
         {
             _bearSpawner.Spawn();
+
+            _beeSpawners.ForEach(s => s.Initialize(_burov as IHealthable));
         }
 
         private void InitializeStorage()

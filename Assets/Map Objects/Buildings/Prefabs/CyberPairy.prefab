@@ -143,7 +143,7 @@ MonoBehaviour:
   _stats:
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 10
+    - 80
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a37bd5d15650444b081581e2d2c94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <DamageBy>k__BackingField: 0
+  <DamageBy>k__BackingField: 1
   <OnHealthChangeEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -172,6 +172,18 @@ MonoBehaviour:
       - m_Target: {fileID: 757324937775101307}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3499176098511704524}
+        m_TargetAssemblyTypeName: NTO24.BeeSpawner, Assembly-CSharp
+        m_MethodName: SpawnBee
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -284,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - <Value1>k__BackingField: {fileID: 9105196221166459191, guid: 0c59d35a8967d6a4282622a766478286, type: 3}
-    <Value2>k__BackingField: 10
+    <Value2>k__BackingField: 3
   _dropPosition: {fileID: 7016481758150005108}
   _radius: 3
   _strength: 2

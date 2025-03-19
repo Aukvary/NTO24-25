@@ -47,6 +47,7 @@ namespace NTO24.UI
 
         public void Exit()
         {
+            Time.timeScale = 1f;
             SceneChanger.Instance.LoadScene((int)Scenes.MainMenu,
                 PreLoadCallBack: OnExitInvoke);
         }

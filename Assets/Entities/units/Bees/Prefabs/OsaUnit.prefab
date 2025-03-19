@@ -318,7 +318,11 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: d13ea8e56b46c274bb9dfa00a9e03b46, type: 2}
     _statValues:
-    - 1
+    - 15
+    - 20
+    - 25
+    - 30
+    - 45
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -336,7 +340,11 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 10
+    - 15
+    - 20
+    - 25
+    - 30
+    - 45
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -403,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - <Value1>k__BackingField: {fileID: 350175208682212050, guid: ba303a142bcf0d946930714921833b2f, type: 3}
-    <Value2>k__BackingField: 10
+    <Value2>k__BackingField: 1
   _dropPosition: {fileID: 5377083142800442407}
   _radius: 2
   _strength: 2

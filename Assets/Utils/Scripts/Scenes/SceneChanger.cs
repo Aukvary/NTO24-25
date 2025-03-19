@@ -29,11 +29,12 @@ namespace NTO24
             Func<IEnumerator> PreLoadCallBack = null,
             Func<IEnumerator> PostLoadCallBack = null)
         {
-            yield return PreLoadCallBack.Invoke();
+            yield return PreLoadCallBack?.Invoke();
             yield return SceneManager.LoadSceneAsync(index);
             _loadScreen.Hide(onCompleteCallBack: () =>
             {
                 Destroy(transform.parent.gameObject);
+                PostLoadCallBack?.Invoke();
             });
         }
 

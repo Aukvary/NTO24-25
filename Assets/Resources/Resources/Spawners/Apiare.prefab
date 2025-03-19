@@ -93,6 +93,9 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+    <OnUpgradeEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &5413810764228406143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - <Value1>k__BackingField: {fileID: 6652759491110800218, guid: 928b8142e06eedc40b9276d61e1e02ce, type: 3}
-    <Value2>k__BackingField: 10
+    <Value2>k__BackingField: 1
   _dropPosition: {fileID: 8521055341321707451}
   _radius: 3
   _strength: 2

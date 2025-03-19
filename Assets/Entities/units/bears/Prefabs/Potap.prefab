@@ -254,10 +254,11 @@ MonoBehaviour:
   _stats:
   - _stat: {fileID: 11400000, guid: d13ea8e56b46c274bb9dfa00a9e03b46, type: 2}
     _statValues:
-    - 10
-    - 20
-    - 30
-    - 40
+    - 35
+    - 45
+    - 55
+    - 65
+    - 100
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -293,9 +294,10 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
+    - 70
+    - 80
+    - 90
     - 100
-    - 110
-    - 120
     - 130
     _onLevelChangeEvent:
       m_PersistentCalls:
@@ -306,9 +308,10 @@ MonoBehaviour:
   - _stat: {fileID: 11400000, guid: f26da9e967697a64999433f9583a526a, type: 2}
     _statValues:
     - 1
-    - 2
-    - 3
-    - 4
+    - 1.25
+    - 1.5
+    - 1.75
+    - 2.25
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -329,10 +332,11 @@ MonoBehaviour:
         m_Calls: []
   - _stat: {fileID: 11400000, guid: 15df4e9091ae630459e81db121a40253, type: 2}
     _statValues:
-    - 15
-    - 20
-    - 25
-    - 30
+    - 2
+    - 2.5
+    - 3
+    - 3.5
+    - 5
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
