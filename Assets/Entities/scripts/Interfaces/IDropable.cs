@@ -7,7 +7,7 @@ namespace NTO24
         DropController DropController { get; }
 
         IEnumerable<Pair<PickableObject, int>> Resources
-            => DropController.Resources;
+            => DropController?.Resources;
 
         void Drop()
             => DropController.Drop();

@@ -44,7 +44,7 @@ namespace NTO24.UI
 
             _dropable = dropable;
 
-            if (_dropable == null)
+            if (_dropable == null || _dropable?.Resources == null)
             {
                 foreach (var cell in _itemCells)
                     cell.Source = null;

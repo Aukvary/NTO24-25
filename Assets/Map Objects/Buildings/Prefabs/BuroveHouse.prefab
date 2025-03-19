@@ -87,7 +87,7 @@ MonoBehaviour:
   _stats:
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 100
+    - 1000
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []

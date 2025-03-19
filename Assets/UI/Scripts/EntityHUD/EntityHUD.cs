@@ -93,8 +93,8 @@ namespace NTO24.UI
 
             if (entity is IRestoreable resotorable)
             {
-                _restoreable?.OnTimeChangeEvent.RemoveListener(UpdateTimer);
-                resotorable.OnTimeChangeEvent.AddListener(UpdateTimer);
+                _restoreable?.OnTimeChangeEvent?.RemoveListener(UpdateTimer);
+                resotorable.OnTimeChangeEvent?.AddListener(UpdateTimer);
                 _restoreable = resotorable;
                 UpdateTimer();
             }
