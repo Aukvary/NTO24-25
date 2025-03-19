@@ -1,4 +1,5 @@
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 namespace NTO24
 {
@@ -23,5 +24,8 @@ namespace NTO24
         float AttackRange => AttackController.Range;
 
         float Damage => AttackController.Damage;
+
+        float GetDamage(DamageType type)
+            => AttackController.GetDamage(type);
     }
 }

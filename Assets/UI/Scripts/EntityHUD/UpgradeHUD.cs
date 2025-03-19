@@ -156,7 +156,7 @@ namespace NTO24.UI
         private void InitializeChangeFields()
         {
             _upgradeController.OnEntityChangeEvent.AddListener(UpdateChangesFields);
-            _upgradeController.OnEntityChangeEvent.AddListener(UpdateChangesFields);
+            _upgradeController.OnChangeTypeEvent.AddListener(UpdateChangesFields);
             _upgradeController.OnUpgradeEvent.AddListener(UpdateChangesFields);
 
             UpdateChangesFields();

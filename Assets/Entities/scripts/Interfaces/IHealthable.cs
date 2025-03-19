@@ -7,6 +7,8 @@ namespace NTO24
     {
         EntityHealth HealthController { get; }
 
+        DamageType DamageBy => HealthController.DamageBy;
+
         float Health => HealthController.Health;
         float MaxHealth => HealthController.MaxHealth;
         float Regeneration => HealthController.Regeneration;

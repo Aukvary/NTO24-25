@@ -70,7 +70,7 @@ namespace NTO24
 
         private void Attack()
         {
-            Target?.Damage(_unit.Damage, _unit.EntityReference);
+            Target?.Damage(_unit.GetDamage(Target.DamageBy), _unit.EntityReference);
         }
 
         public void Exit()
