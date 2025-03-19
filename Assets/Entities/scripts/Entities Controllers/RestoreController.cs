@@ -23,7 +23,7 @@ namespace NTO24
         public int Time { get; private set; } = 0;
 
         public string Name => "Restore";
-        public string[] Data => new string[] { Time.ToString()};
+        public string[] Data => new string[] { Time.ToString() };
 
         protected override void Awake()
         {
@@ -38,8 +38,6 @@ namespace NTO24
                 transform.position = _spawnPosition;
                 StartRestoring();
             });
-
-            StartCoroutine(UpdateServerInfo());
         }
 
         public void ServerInitialize(IEnumerable<string> data)
@@ -52,7 +50,7 @@ namespace NTO24
 
         public Coroutine StartRestoring()
             => StartCoroutine(Restore(_restoreTime));
-        
+
         private IEnumerator Restore(float time)
         {
             StartCoroutine(StartTimer(time));
@@ -64,22 +62,14 @@ namespace NTO24
         private IEnumerator StartTimer(float time)
         {
             Time = (int)time;
-            while(Time > 0)
+            while (Time > 0)
             {
                 OnTimeChangeEvent.Invoke();
                 Time -= 1;
+                OnTimeChangeEvent.Invoke();
                 yield return new WaitForSeconds(1);
             }
             OnTimeChangeEvent.Invoke();
-        }
-
-        private IEnumerator UpdateServerInfo()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(60);
-                OnDataChangeEvent.Invoke();
-            }
         }
     }
 }

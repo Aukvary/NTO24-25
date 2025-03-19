@@ -87,7 +87,11 @@ namespace NTO24
                         count -= cellCapacity;
                         continue;
                     }
-                    else break;
+                    else
+                    {
+                        count = 0;
+                        break;
+                    }
                 }
             }
 

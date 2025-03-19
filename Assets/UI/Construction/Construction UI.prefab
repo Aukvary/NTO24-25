@@ -197,32 +197,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 8583316809679179172}
     m_Modifications:
     - target: {fileID: 53766633128627429, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_fontSize
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 53766633128627429, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_fontSizeBase
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 53766633128627429, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1209472103089115307, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_Color.b
-      value: 0.26666668
-      objectReference: {fileID: 0}
-    - target: {fileID: 1209472103089115307, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_Color.g
-      value: 0.45098042
-      objectReference: {fileID: 0}
-    - target: {fileID: 1209472103089115307, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_Color.r
-      value: 0.5647059
-      objectReference: {fileID: 0}
-    - target: {fileID: 1209472103089115307, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
-      propertyPath: m_PixelsPerUnitMultiplier
-      value: 40
+      propertyPath: m_text
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1878927607818730182, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Name
