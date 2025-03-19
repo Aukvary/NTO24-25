@@ -192,6 +192,9 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+    <OnUpgradeEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &7864806652560437490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,10 +388,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 529502223205368177, guid: b19367c62bf8236438b923109af60c48, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 837032f3b6f0b2b468a2a6cd96ba89e5, type: 2}
     - target: {fileID: 919132149155446097, guid: b19367c62bf8236438b923109af60c48, type: 3}
       propertyPath: m_Name
       value: FirVar2
       objectReference: {fileID: 0}
+    - target: {fileID: 926470145987209140, guid: b19367c62bf8236438b923109af60c48, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 837032f3b6f0b2b468a2a6cd96ba89e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

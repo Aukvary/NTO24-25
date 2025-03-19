@@ -192,6 +192,9 @@ MonoBehaviour:
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
+    <OnUpgradeEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &1064794727974176906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +388,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4340491187321497380, guid: 2d1b82ab1bf20ea4d9aa7be2d671c0c6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 837032f3b6f0b2b468a2a6cd96ba89e5, type: 2}
     - target: {fileID: 919132149155446097, guid: 2d1b82ab1bf20ea4d9aa7be2d671c0c6, type: 3}
       propertyPath: m_Name
       value: DarkTreeVar2
@@ -393,6 +400,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8049030512556126168, guid: 2d1b82ab1bf20ea4d9aa7be2d671c0c6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 837032f3b6f0b2b468a2a6cd96ba89e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
