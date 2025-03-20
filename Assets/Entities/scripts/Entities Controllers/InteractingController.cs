@@ -34,6 +34,8 @@ namespace NTO24
         {
             get
             {
+                if (Target == null)
+                    return false;
                 Ray ray = new(transform.position, (TargetPosition + Vector3.up * 0.5f) - transform.position);
 
                 var hit = Physics.RaycastAll(ray).FirstOrDefault(h => h.transform == Target.EntityReference.transform);

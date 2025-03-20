@@ -13,7 +13,7 @@ namespace NTO24
         public Entity Entity => _unit.EntityReference;
 
         public bool IsComplete
-            => !Target.Alive || (!_unit.CanAttack && Entity is not IMovable);
+            => !Target?.Alive ?? true || (!_unit.CanAttack && Entity is not IMovable);
 
         public AnimationController.Animations Animation
             => _unit.CanAttack ? AnimationController.Animations.Punch : AnimationController.Animations.Move;
