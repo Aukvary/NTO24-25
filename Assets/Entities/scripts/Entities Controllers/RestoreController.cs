@@ -11,7 +11,6 @@ namespace NTO24
         [SerializeField]
         private float _restoreTime;
 
-        [HideInInspector]
         public UnityEvent OnTimeChangeEvent { get; private set; } = new();
 
         public UnityEvent OnDataChangeEvent { get; private set; } = new();
@@ -64,10 +63,9 @@ namespace NTO24
             Time = (int)time;
             while (Time > 0)
             {
+                yield return new WaitForSeconds(1f);
+                Time -= 1;
                 OnTimeChangeEvent.Invoke();
-                Time -= (int)(1 * UnityEngine.Time.deltaTime);
-                OnTimeChangeEvent.Invoke();
-                yield return null;
             }
             OnTimeChangeEvent.Invoke();
         }

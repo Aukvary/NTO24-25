@@ -112,6 +112,9 @@ MonoBehaviour:
       m_Calls: []
   <OnDamageEvent>k__BackingField:
     m_PersistentCalls:
+      m_Calls: []
+  <OnDeathEvent>k__BackingField:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5959973236092296157}
         m_TargetAssemblyTypeName: NTO24.GameEnder, Assembly-CSharp
@@ -125,9 +128,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  <OnDeathEvent>k__BackingField:
-    m_PersistentCalls:
-      m_Calls: []
   <OnRevivalEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
