@@ -63,9 +63,9 @@ namespace NTO24
             Time = (int)time;
             while (Time > 0)
             {
-                OnTimeChangeEvent.Invoke();
+                yield return new WaitForSeconds(1f);
                 Time -= 1;
-                yield return new WaitForSeconds(0.5f);
+                OnTimeChangeEvent.Invoke();
             }
             OnTimeChangeEvent.Invoke();
         }

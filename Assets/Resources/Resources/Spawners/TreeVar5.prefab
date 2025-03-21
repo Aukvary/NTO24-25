@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975a793b8d6d9bf44a05831054d3a7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _restoreTime: 10
+  _restoreTime: 300
 --- !u!114 &774761212951631505
 MonoBehaviour:
   m_ObjectHideFlags: 0
