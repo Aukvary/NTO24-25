@@ -67,6 +67,7 @@ namespace NTO24
         {
             if (string.IsNullOrEmpty(_currentID))
             {
+                _continueButton.enabled = false;
                 var image = _continueButton.GetComponent<Image>();
 
                 Color color = image.color;
@@ -127,8 +128,10 @@ namespace NTO24
             textColor.a = 0.5f;
             text.color = textColor;
 
+            _createGameButton.enabled = !string.IsNullOrEmpty(_saveNameField.text);
             _saveNameField.onValueChanged.AddListener(s =>
             {
+                _createGameButton.enabled = !string.IsNullOrEmpty(s);
                 if (string.IsNullOrEmpty(s))
                 {
                     var iamgeColor = image.color;

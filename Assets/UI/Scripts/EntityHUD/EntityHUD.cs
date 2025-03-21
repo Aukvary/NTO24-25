@@ -106,6 +106,6 @@ namespace NTO24.UI
         }
 
         private void UpdateTimer()
-            => _restoreTimer.text = _restoreable.Time == 0 ? "" : _restoreable.Time.ToString();
+            => _restoreTimer.text = _restoreable.Time < 0 ? "" : _restoreable.Time.ToString();
     }
 }
