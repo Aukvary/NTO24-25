@@ -53,7 +53,7 @@ namespace NTO24
                 Vector3 position = e.transform.position;
                 _follow = true;
                 _target = e;
-                transform.position = new(position.x, transform.position.y, position.z + _hotkeyChangeZCameraPosition);
+                transform.position = new(position.x, transform.position.y, position.z);
             });
         }
 

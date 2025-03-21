@@ -57,7 +57,7 @@ MonoBehaviour:
   _changeFOVSpeed: 1000
   _minFOV: 10
   _maxFOV: 60
-  _hotkeyChangeZCameraPosition: -6
+  _hotkeyChangeZCameraPosition: 6
 --- !u!114 &5510439700086312377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +73,15 @@ MonoBehaviour:
   _tutorial: {fileID: 0}
   _bearSpawner: {fileID: 0}
   _beeSpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   Storage: {fileID: 0}
   _burov: {fileID: 0}
@@ -97,9 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32443d85fe5a954d9d54740bddd5d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectingAreaColor: {r: 0.24227944, g: 0.8113208, b: 0.21048418, a: 1}
-  _areaAlpha: 128
-  _areaBorderThickness: 2
 --- !u!114 &4111759100751308488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 5366019900066478683}
   serializedVersion: 2
   m_LocalRotation: {x: 0.45764118, y: 0, z: 0, w: 0.88913697}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

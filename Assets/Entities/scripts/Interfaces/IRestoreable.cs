@@ -7,7 +7,7 @@ namespace NTO24
     {
         public RestoreController RestoreController { get; }
 
-        public int Time => RestoreController?.Time ?? 0;
+        public float Time => RestoreController?.Time ?? 0;
 
         public UnityEvent OnTimeChangeEvent => RestoreController?.OnTimeChangeEvent;
 

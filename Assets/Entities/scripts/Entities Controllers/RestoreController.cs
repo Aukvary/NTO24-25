@@ -19,7 +19,7 @@ namespace NTO24
 
         private Vector3 _spawnPosition;
 
-        public int Time { get; private set; } = 0;
+        public float Time { get; private set; } = 0;
 
         public string Name => "Restore";
         public string[] Data => new string[] { Time.ToString() };
@@ -65,7 +65,7 @@ namespace NTO24
             {
                 OnTimeChangeEvent.Invoke();
                 yield return new WaitForSeconds(1f);
-                Time -= 1;
+                Time -= 0.5f;
                 OnTimeChangeEvent.Invoke();
             }
             OnTimeChangeEvent.Invoke();
