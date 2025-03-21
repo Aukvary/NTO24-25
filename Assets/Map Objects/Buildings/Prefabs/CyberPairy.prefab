@@ -114,7 +114,7 @@ MonoBehaviour:
       m_Calls: []
   _bee: {fileID: 5129343818359597769, guid: d838a0d689997bc4eace126ff63b9e74, type: 3}
   _spawnPosition: {fileID: 4769862635863517165}
-  _spawnCooldown: 1000
+  _spawnCooldown: 600
 --- !u!114 &8031516064420502575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   _stats:
   - _stat: {fileID: 11400000, guid: 3ca91bd177f3d87438c6c1e8ba474d76, type: 2}
     _statValues:
-    - 80
+    - 40
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975a793b8d6d9bf44a05831054d3a7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _restoreTime: 120
+  _restoreTime: 240
 --- !u!1 &4158905674091642901
 GameObject:
   m_ObjectHideFlags: 0
