@@ -411,7 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items:
   - <Value1>k__BackingField: {fileID: 8994117921252018316, guid: 3a92b0f64414a1b47bdade7f44eb55f3, type: 3}
-    <Value2>k__BackingField: 2
+    <Value2>k__BackingField: 3
   _dropPosition: {fileID: 1434006295049956475}
   _radius: 3
   _strength: 4

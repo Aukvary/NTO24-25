@@ -264,8 +264,8 @@ MonoBehaviour:
     - 20
     - 25
     - 30
-    - 35
-    - 45
+    - 40
+    - 60
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -303,9 +303,9 @@ MonoBehaviour:
     _statValues:
     - 100
     - 120
-    - 140
-    - 160
+    - 150
     - 200
+    - 250
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -340,10 +340,10 @@ MonoBehaviour:
   - _stat: {fileID: 11400000, guid: 15df4e9091ae630459e81db121a40253, type: 2}
     _statValues:
     - 1
-    - 1.25
     - 1.5
-    - 1.75
-    - 2.5
+    - 2
+    - 3
+    - 5
     _onLevelChangeEvent:
       m_PersistentCalls:
         m_Calls: []
