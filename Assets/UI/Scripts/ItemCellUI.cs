@@ -17,6 +17,8 @@ namespace NTO24.UI
             set
             {
                 _resourceImage.enabled = value?.Value1 != null;
+                if (_countText == null)
+                    print(transform.parent.parent.name);
                 _countText.enabled = value?.Value1 != null;
                 if (value?.Value1 == null)
                     return;
