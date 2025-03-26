@@ -33,6 +33,9 @@ namespace NTO24
         [SerializeField]
         private float _timeToClose;
 
+        [SerializeField]
+        private UnityEvent _onCompleteEvent;
+
         private Advice _currentAdvice;
 
         private bool _finished;
@@ -85,7 +88,10 @@ namespace NTO24
                 _text.text = AdviceText;
 
                 yield return _conditions[i];
+                _onCompleteEvent.Invoke();
             }
+                
+            _onCompleteEvent.Invoke();
             _currentAdvice = _advices.Last();
             _finished = true;
             OnDataChangeEvent.Invoke();
