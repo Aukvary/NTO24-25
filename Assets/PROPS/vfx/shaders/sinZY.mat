@@ -133,10 +133,10 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 0, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TextureColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TextureColor: {r: 0.66072613, g: 0.6657459, b: 0.7132075, a: 0}
     - _Tiling: {r: 100, g: 100, b: 0, a: 0}
     - _offset: {r: 0, g: 0, b: 0, a: 0}
-    - _voronoi: {r: 0.19320033, g: 0.5324527, b: 0.7584905, a: 0}
+    - _voronoi: {r: 0.108145185, g: 0.46002448, b: 0.690566, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2431456011335358007
 MonoBehaviour:
