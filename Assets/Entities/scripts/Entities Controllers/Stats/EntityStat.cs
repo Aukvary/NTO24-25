@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,13 +13,13 @@ namespace NTO24
         private StatInfo _stat;
 
         [SerializeField]
-        private List<float> _statValues;
+        public List<float> _statValues;
 
         [SerializeField]
-        private UnityEvent _onLevelChangeEvent;
+        private UnityEvent _onLevelChangeEvent = new();
 
         [field: SerializeField]
-        public UnityEvent OnUpgradeEvent { get; private set; } 
+        public UnityEvent OnUpgradeEvent { get; private set; } = new();
 
         private int _currentLevel;
 
@@ -44,6 +45,12 @@ namespace NTO24
         }
 
         public bool CanUpgrade => _currentLevel < MaxLevel;
+
+        public EntityStat(StatInfo source, float[] stats)
+        {
+            _stat = source;
+            _statValues = stats.ToList();
+        }
 
         public void AddOnLevelChangeAction(UnityAction action)
             => _onLevelChangeEvent.AddListener(action);

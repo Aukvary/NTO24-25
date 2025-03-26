@@ -36,7 +36,21 @@ namespace NTO24.UI
             }
         }
 
-        public Sprite[] Icon => _entity?.Icon;
+        public Sprite[] Icon
+        {
+            get => _frames;
+
+            set
+            {
+                _icon.enabled = value != null;
+                if (_frameChanger != null)
+                    StopCoroutine(_frameChanger);
+                if (value == null)
+                    return;
+                _frames = value;
+                _frameChanger = StartCoroutine(Change());
+            }
+        }
 
         private IEnumerator Change()
         {

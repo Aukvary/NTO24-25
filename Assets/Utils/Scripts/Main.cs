@@ -7,6 +7,8 @@ using System.Reflection;
 using System;
 using System.Collections;
 using NTO24.Net;
+using System.IO;
+using UnityEngine.Networking;
 
 namespace NTO24
 {

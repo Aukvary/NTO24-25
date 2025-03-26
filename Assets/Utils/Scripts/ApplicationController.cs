@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace NTO24
 {
     public class ApplicationController : MonoBehaviour
     {
-        private void Awake()
+        private void Start()
         {
             var types = Assembly.GetAssembly(typeof(GlobalEventListnerAttribute)).GetTypes()
                 .Where(t => t.GetCustomAttribute<GlobalEventListnerAttribute>() != null);
@@ -18,7 +19,9 @@ namespace NTO24
                     type.GetMethod("OnAppStart", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                         .Invoke(null, null);
                 }
-                catch { print($"{type.Name} has no static method OnAppStart"); }
+                catch (Exception ex){
+                    print(ex.TargetSite.Name);
+                    print($"{type.Name} has no static method OnAppStart"); }
             }
         }
     }

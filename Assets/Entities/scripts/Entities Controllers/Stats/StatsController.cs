@@ -9,7 +9,7 @@ namespace NTO24
     public class StatsController : EntityComponent, ISavableComponent
     {
         [SerializeField]
-        private List<EntityStat> _stats;
+        public List<EntityStat> _stats;
 
         public UnityEvent OnDataChangeEvent { get; private set; } = new();
 
