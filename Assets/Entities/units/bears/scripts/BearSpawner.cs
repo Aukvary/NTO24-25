@@ -14,6 +14,8 @@ namespace NTO24
             for (int i = 0; i < _bears.Count; i++)
             {
                 bears[i] = Instantiate(_bears[i].Value1, _bears[i].Value2.position, Quaternion.identity);
+                Debug.Log(BearInfo.bearInfos.Count);
+                bears[i].Init(BearInfo.Bears[i]);
             }
 
             return bears;

@@ -31,6 +31,9 @@ namespace NTO24
         public static StatInfo ToStatInfo(this StatNames type)
             => _stats.FirstOrDefault(s => s.Type == type);
 
+        public static StatInfo ToStatInfo(this string name)
+            => _stats.FirstOrDefault(s => s.Type.ToString() == name);
+
         public static Pair<StatInfo, int> ToStats(this string str)
         {
             string[] pair = str.Split(":");
