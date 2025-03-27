@@ -28,7 +28,7 @@ namespace NTO24
         private Entity _burov;
 
         [SerializeField]
-        private List<ResourceCluster> _resourceClusters;
+        private GameObject _clusterParrent;
 
         [SerializeField]
         private List<Pair<Resource, int>> _clusterCounts;
@@ -61,6 +61,8 @@ namespace NTO24
         private EntitySelector _entitySelector;
 
         private UpgradeController _upgradeController;
+
+        private ResourceCluster[] _resourceClusters;
 
         public IEnumerable<BeeSpawner> BeeSpawners => _beeSpawners;
 
@@ -159,6 +161,8 @@ namespace NTO24
 
         private void InitializeClusters()
         {
+            var _resourceClusters = _clusterParrent.GetComponentsInChildren<ResourceCluster>();
+
             var strSeed = SaveManager.Seed.ToString();
 
 
@@ -167,7 +171,7 @@ namespace NTO24
             List<Resource> deniedResources = new();
 
             System.Random random = new System.Random(SaveManager.Seed);
-            for (int i = 0, j = 1; i < _resourceClusters.Count; i++, j++)
+            for (int i = 0, j = 1; i < _resourceClusters.Length; i++, j++)
             {
                 Resource resourse = null;
 
