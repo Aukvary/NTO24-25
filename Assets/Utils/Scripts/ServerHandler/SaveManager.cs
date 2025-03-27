@@ -50,7 +50,7 @@ namespace NTO24
         private int _serverSeed;
 
         public static InitializeFrom InitializeFrom { get; private set; }
-        public static int Seed { get; private set; } = 134;
+        public static int Seed { get; private set; } = 934_234_682;
 
         private void Start()
         {
@@ -69,7 +69,7 @@ namespace NTO24
             _errorContinueButton.onClick.AddListener(() =>
             {
                 SetDate(false);
-                SceneChanger.Instance.LoadScene(2);
+                SceneChanger.Instance.LoadScene((int)Scenes.Map);
             });
         }
 

@@ -106,7 +106,7 @@ namespace NTO24
             CameraController.Instance.OnMouseMove.AddListener(() => mouseMove = true);
             CameraController.Instance.OnKeyBoardMove.AddListener(() => keyboardMove = true);
 
-            yield return new WaitUntil(() => mouseMove && keyboardMove);
+            yield return new WaitUntil(() => (mouseMove && keyboardMove) || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitSelectPlayer()
@@ -119,7 +119,7 @@ namespace NTO24
             _selector.OnHotKeySelect.AddListener(e => hotKeySelect = true);
             _selector.OnRepeatSelectEvent.AddListener(e => repeatSelect = true);
 
-            yield return new WaitUntil(() => mouseSelect && hotKeySelect && repeatSelect);
+            yield return new WaitUntil(() => (mouseSelect && hotKeySelect && repeatSelect) || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitPlayerMove()
@@ -132,7 +132,7 @@ namespace NTO24
             foreach (var bear in bears)
                 bear.OnDestinationChangedEvent.AddListener(v => startMove = true);
 
-            yield return new WaitUntil(() => startMove);
+            yield return new WaitUntil(() => startMove || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitExtract()
@@ -145,7 +145,7 @@ namespace NTO24
             foreach (var bear in bears)
                 bear.OnItemsChangeEvent.AddListener(() => extract = true);
 
-            yield return new WaitUntil(() => extract);
+            yield return new WaitUntil(() => extract || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitTaskQueue()
@@ -158,7 +158,7 @@ namespace NTO24
             foreach (var bear in bears)
                 bear.OnAddEvent.AddListener(t => add = true);
 
-            yield return new WaitUntil(() => add);
+            yield return new WaitUntil(() => add || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitLayOut()
@@ -170,7 +170,7 @@ namespace NTO24
             (storage as IInventoriable).OnItemsChangeEvent
                 .AddListener(() => layOut = true);
 
-            yield return new WaitUntil(() => layOut);
+            yield return new WaitUntil(() => layOut || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitBuilt()
@@ -184,7 +184,7 @@ namespace NTO24
             foreach (var apire in apires)
                 apire.OnBuiltEvent.AddListener(() => upgrade = true);
 
-            yield return new WaitUntil(() => upgrade);
+            yield return new WaitUntil(() => upgrade || Input.GetKeyDown(KeyCode.E));
         }
 
         private IEnumerator AwaitUpgrade()
@@ -194,7 +194,7 @@ namespace NTO24
             _upgradeController
                 .OnUpgradeEvent.AddListener(() => upgrade = true);
 
-            yield return new WaitUntil(() => upgrade);
+            yield return new WaitUntil(() => upgrade || Input.GetKeyDown(KeyCode.E) );
         }
 
         private IEnumerator AttackWarning()
