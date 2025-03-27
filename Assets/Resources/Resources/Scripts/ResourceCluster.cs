@@ -17,7 +17,6 @@ namespace NTO24
         private void Awake()
         {
             _spawners = _objects.Select(x => x.GetComponentInChildren<DropController>(true)).ToList();
-            print(_spawners.Count);
         }
 
         public Resource Spawn(int seed, int pos, int circleCount,
@@ -43,19 +42,18 @@ namespace NTO24
                     var zPos = transform.position.z + Mathf.Sin(random.Next(0, 360)) * _range * i;
 
                     Quaternion angle = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-                    DropController resource = null;
+
                     Instantiate(spawner, new(xPos, transform.position.y, zPos), angle);
                     if (spawner.gameObject.activeSelf)
                     {
                         var s = Instantiate(spawner, new(xPos, transform.position.y, zPos), angle);
-                        resource.transform.parent = transform;
+                        s.transform.parent = transform;
                     }
                     else
                     {
                         var s = Instantiate(spawner.transform.parent, new(xPos, transform.position.y, zPos), angle);
                         s.parent = transform;
                     }
-                    //resource.transform.parent = transform;
                 }
             }
             return (Resource)spawner.Resources.First().Value1;

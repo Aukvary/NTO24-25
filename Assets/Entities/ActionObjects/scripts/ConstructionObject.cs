@@ -44,10 +44,20 @@ namespace NTO24
 
             bool wasBuild = _materials.All(pair => pair.Value2 == 0);
 
+            bool playerHas = false;
+
+            if (interactor.EntityReference is IInventoriable inventory)
+            {
+                playerHas = _materials.Any(pair =>
+                {
+                    return inventory[pair.Value1] > 0 && pair.Value2 != 0;
+                });
+            }
+
             if (!containsResources)
                 OnDataChangeEvent.Invoke();
 
-            return containsResources && !wasBuild;
+            return (containsResources || playerHas) && !wasBuild;
         }
 
         protected override void Awake()
@@ -79,14 +89,16 @@ namespace NTO24
         {
             for (int i = 0; i < _materials.Count; i++)
             {
-                if (Storage.Resources[_materials[i].Value1] == 0)
-                    continue;
-
                 if (_materials[i].Value2 == 0)
                     continue;
 
-                Storage.Resources.RemoveResources(_materials[i].Value1, 1);
-                _materials[i] = new(_materials[i].Value1, _materials[i].Value2 - 1);
+                if (interactor.EntityReference is IInventoriable inventory)
+                {
+                    if (InventoryBuild(inventory, _materials[i].Value1))
+                        continue;
+                }
+                else
+                    InventoryBuild(Storage.Resources, _materials[i].Value1);
             }
 
             if (_materials.All(p => p.Value2 == 0))
@@ -97,6 +109,15 @@ namespace NTO24
             }
 
             UpdateUI();
+        }
+
+        private bool InventoryBuild(IInventoriable inventory, Resource resource)
+        {
+            if (inventory[resource] == 0)
+                return false;
+
+            inventory.RemoveResources(resource, 1);
+            return true;
         }
 
         private void UpdateUI()

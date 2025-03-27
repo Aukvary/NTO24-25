@@ -52,6 +52,11 @@ namespace NTO24
         public static InitializeFrom InitializeFrom { get; private set; }
         public static int Seed { get; private set; } = 134;
 
+        private void Start()
+        {
+            StartCoroutine(Initialize());
+        }
+
         public IEnumerator Initialize()
         {
             InitializeFrom = InitializeFrom.Server;
@@ -64,7 +69,7 @@ namespace NTO24
             _errorContinueButton.onClick.AddListener(() =>
             {
                 SetDate(false);
-                SceneChanger.Instance.LoadScene(GetMap());
+                SceneChanger.Instance.LoadScene(2);
             });
         }
 
@@ -134,6 +139,7 @@ namespace NTO24
             text.color = textColor;
 
             _createGameButton.enabled = !string.IsNullOrEmpty(_saveNameField.text);
+
             _saveNameField.onValueChanged.AddListener(s =>
             {
                 _createGameButton.enabled = !string.IsNullOrEmpty(s);
