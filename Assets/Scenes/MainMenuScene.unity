@@ -9644,7 +9644,6 @@ MonoBehaviour:
   _serverContinue: {fileID: 2124914639}
   _localContinue: {fileID: 1487990535}
   _differenceField: {fileID: 824291732}
-  _seedField: {fileID: 0}
 --- !u!1001 &1465413546
 PrefabInstance:
   m_ObjectHideFlags: 0
