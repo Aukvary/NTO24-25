@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace NTO24.UI
@@ -30,7 +29,7 @@ namespace NTO24.UI
                 return;
 
             _settingsWindow.gameObject.SetActive(false);
-            
+
             _active = !_active;
 
             Time.timeScale = _active ? 0f : 1f;
@@ -47,9 +46,14 @@ namespace NTO24.UI
 
         public void Exit()
         {
+            StartCoroutine(StartExit());
+        }
+
+        private IEnumerator StartExit()
+        {
             Time.timeScale = 1f;
-            SceneChanger.Instance.LoadScene((int)Scenes.MainMenu,
-                PreLoadCallBack: OnExitInvoke);
+            yield return OnExitInvoke();
+            SceneChanger.Instance.LoadScene((int)Scenes.MainMenu);
         }
 
         public static void AddOnExitAction(Func<IEnumerator> method)

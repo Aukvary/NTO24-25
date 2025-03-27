@@ -26,6 +26,7 @@ namespace NTO24
                 Directory.CreateDirectory(path);
             else
             {
+                Debug.Log(path);
                 var dir = new DirectoryInfo(path);
 
                 foreach (var bear in dir.GetDirectories())

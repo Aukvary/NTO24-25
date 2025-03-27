@@ -1,9 +1,7 @@
-using Newtonsoft.Json;
-using NTO24.UI;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using Newtonsoft.Json;
+using NTO24.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -77,12 +75,12 @@ namespace NTO24
 
         public void ServerInitialize(IEnumerable<string> data)
         {
-            _materials = JsonConvert.DeserializeObject<string[]>(data.ElementAt(0))
-                .Select(s => s.ToResources()).ToList();
-            _wasBuilt = bool.Parse(data.ElementAt(1));
+            /*            _materials = JsonConvert.DeserializeObject<string[]>(data.ElementAt(0))
+                            .Select(s => s.ToResources()).ToList();
+                        _wasBuilt = bool.Parse(data.ElementAt(1));
 
-            if (_wasBuilt)
-                OnBuiltEvent.Invoke();
+                        if (_wasBuilt)
+                            OnBuiltEvent.Invoke();*/
         }
 
         private void Interact(IInteractor interactor)
@@ -95,10 +93,16 @@ namespace NTO24
                 if (interactor.EntityReference is IInventoriable inventory)
                 {
                     if (InventoryBuild(inventory, _materials[i].Value1))
+                    {
+                        _materials[i] = new(_materials[i].Value1, _materials[i].Value2 - 1);
                         continue;
+                    }
                 }
-                else
-                    InventoryBuild(Storage.Resources, _materials[i].Value1);
+
+                if (InventoryBuild(Storage.Resources, _materials[i].Value1))
+                    _materials[i] = new(_materials[i].Value1, _materials[i].Value2 - 1);
+
+
             }
 
             if (_materials.All(p => p.Value2 == 0))
@@ -117,6 +121,7 @@ namespace NTO24
                 return false;
 
             inventory.RemoveResources(resource, 1);
+
             return true;
         }
 
