@@ -83,6 +83,8 @@ namespace NTO24
             yield return CallInitializeDepending<PreInitializeAttribute>();
             PreinitializeEvent.Invoke();
 
+            InitializeClusters();
+
             InitializeSpawners();
             InitializeStorage();
             _upgradeController.Initialize(_entitySelector, Storage, Entity.GetEntites<Bear>().First());
@@ -164,22 +166,29 @@ namespace NTO24
                 count = (strSeed[0] % 4) + 1;
 
             List<Resource> deniedResources = new();
-            for (int i = 0, j = 1; i < _resourceClusters.Count; i++)
+            for (int i = 0, j = 1; i < _resourceClusters.Count; i++, j++)
             {
                 Resource resourse = null;
 
                 if (int.TryParse(strSeed[j].ToString(), out var clusterId))
                     resourse = _resourceClusters[i].Spawn(SaveManager.Seed, clusterId, count, deniedResources);
+
                 else
                     resourse = _resourceClusters[i].Spawn(SaveManager.Seed, strSeed[j] % 4, count, deniedResources);
 
-                for (int j = 0; j < _clusterCounts.Count; j++)
+                for (int k = 0; k < _clusterCounts.Count; k++)
                 {
-                    if (_clusterCounts[j].Value1 == resourse)
-                        _clusterCounts[j] = new(resourse, _clusterCounts[j].Value2 - 1);
+                    if (_clusterCounts[k].Value1 == resourse)
+                    {
+                        _clusterCounts[k] = new(resourse, _clusterCounts[k].Value2 - 1);
+                        break;
+                    }
 
-                    if (_clusterCounts[j].Value2 == 0)
-                        deniedResources.Add(_clusterCounts[j].Value1);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                    if (_clusterCounts[k].Value2 == 0)
+                    {
+
+                        deniedResources.Add(_clusterCounts[k].Value1);
+                    }
                 }
             }
         }
