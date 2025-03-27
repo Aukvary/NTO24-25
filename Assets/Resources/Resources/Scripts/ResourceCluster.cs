@@ -7,19 +7,34 @@ namespace NTO24
     public class ResourceCluster : MonoBehaviour
     {
         [SerializeField]
-        private List<DropController> _spawners;
+        private List<GameObject> _objects;
 
         [SerializeField]
         private float _range;
 
-        public Resource Spawn(int seed, int pos, int circleCount, List<Resource> deniedResources)
+        private List<DropController> _spawners;
+
+        private void Awake()
+        {
+            _spawners = _objects.Select(x => x.GetComponentInChildren<DropController>(true)).ToList();
+            print(_spawners.Count);
+        }
+
+        public Resource Spawn(int seed, int pos, int circleCount,
+            List<Resource> deniedResources, System.Random random)
         {
             foreach (var res in deniedResources)
-                foreach (var s in _spawners.Where(s => s.Resources.Any(r => r.Value1 == res)))
-                    _spawners.Remove(s);
+            {
+                var s = _spawners.Where(s => s.Resources.Any(r => (Resource)r.Value1 == res));
+                for (int i = s.Count() - 1; i >= 0; i--)
+                {
+                    _spawners.Remove(s.ElementAt(i));
+                }
+            }
 
+            if (_spawners.Count == 0)
+                return null;
             var spawner = _spawners[(seed / pos) % _spawners.Count];
-            var random = new System.Random(seed);
             for (int i = 1, j = 4; i <= circleCount; i++, j--)
             {
                 for (int k = 0; k < j; k++)
@@ -28,12 +43,22 @@ namespace NTO24
                     var zPos = transform.position.z + Mathf.Sin(random.Next(0, 360)) * _range * i;
 
                     Quaternion angle = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
-
-                    var resource = Instantiate(spawner, new(xPos, transform.position.y, zPos), angle);
-                    resource.transform.parent = transform;
+                    DropController resource = null;
+                    Instantiate(spawner, new(xPos, transform.position.y, zPos), angle);
+                    if (spawner.gameObject.activeSelf)
+                    {
+                        var s = Instantiate(spawner, new(xPos, transform.position.y, zPos), angle);
+                        resource.transform.parent = transform;
+                    }
+                    else
+                    {
+                        var s = Instantiate(spawner.transform.parent, new(xPos, transform.position.y, zPos), angle);
+                        s.parent = transform;
+                    }
+                    //resource.transform.parent = transform;
                 }
             }
-            return (Resource)spawner.GetComponent<DropController>().Resources.First().Value1;
+            return (Resource)spawner.Resources.First().Value1;
         }
     }
 }
