@@ -83,7 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &7109448371419355012
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +203,18 @@ PrefabInstance:
     - target: {fileID: 1878927607818730182, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Name
       value: Cell
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7333561195449882220, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Pivot.x
@@ -334,6 +346,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7333561195449882220, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -464,6 +484,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7333561195449882220, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -593,6 +621,14 @@ PrefabInstance:
     - target: {fileID: 1878927607818730182, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Name
       value: Cell (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018237568118666260, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7333561195449882220, guid: d98b2bb7ef199844abb06549af7e4275, type: 3}
       propertyPath: m_Pivot.x

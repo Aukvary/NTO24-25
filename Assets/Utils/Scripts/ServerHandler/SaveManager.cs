@@ -38,6 +38,8 @@ namespace NTO24
         [SerializeField]
         private TextMeshProUGUI _differenceField;
 
+        [SerializeField]
+        private TMP_InputField _seedField;
 
         private User _dateUser;
         private string _serverDate;
@@ -45,21 +47,24 @@ namespace NTO24
 
         private string _currentID;
 
-        public static InitializeFrom InitializeFrom { get; private set; } 
+        private string _serverSeed;
 
-        private void Awake()
+        public static InitializeFrom InitializeFrom { get; private set; } 
+        public static int Seed { get; private set; }
+
+        public IEnumerator Initialize()
         {
             InitializeFrom = InitializeFrom.Server;
             _currentID = PlayerPrefs.GetString(nameof(User), null);
+            yield return InitializeDate();
 
             InitializeContinueButton();
             InitializeInputField();
-            StartCoroutine(InitializeDate());
 
             _errorContinueButton.onClick.AddListener(() =>
             {
                 SetDate(false);
-                SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                SceneChanger.Instance.LoadScene(GetMap());
             });
         }
 
@@ -98,18 +103,18 @@ namespace NTO24
                         _serverContinue.onClick.AddListener(() =>
                         {
                             SetDate();
-                            SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                            SceneChanger.Instance.LoadScene(GetMap());
                         });
 
                         _localContinue.onClick.AddListener(() =>
                         {
                             InitializeFrom = InitializeFrom.Local;
                             SetDate();
-                            SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                            SceneChanger.Instance.LoadScene(GetMap());
                         });
                     }
                     else
-                        SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                        SceneChanger.Instance.LoadScene(GetMap());
                 }));
             });
         }
@@ -168,8 +173,18 @@ namespace NTO24
 
                 StartCoroutine(TryConnect(onSuccses:() =>
                 {
+                    int seed = 0;
+                    if (string.IsNullOrEmpty(_seedField.text))
+                    {
+                        seed = UnityEngine.Random.Range(1000, 10_000);
+                    }
+                    else if (!int.TryParse(_seedField.text, out seed))
+                        seed = UnityEngine.Random.Range(1000, 10_000);
+
+                    PlayerPrefs.SetInt("seed", seed);
+
                     SetDate();
-                    SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                    SceneChanger.Instance.LoadScene(GetMap());
                 }));
             });
         }
@@ -180,13 +195,15 @@ namespace NTO24
 
             yield return ServerHandler.InitializeUser(
                 $"{_currentID}_Date",
-                new Dictionary<string, string[]>() { { "Date", new string[] { _localDate } } },
+                new Dictionary<string, string[]>() { { "Date", new string[] { _localDate } },
+                    { "Seed", new string[] { PlayerPrefs.GetInt("seed").ToString() } } },
                 u =>
                 {
                     if (u == null)
                         return;
                     _dateUser = u;
                     _serverDate = u["Date"][0];
+                    _serverSeed = u["seed"][0];
                 });
         }
 
@@ -218,6 +235,12 @@ namespace NTO24
                 return;
             
             _dateUser["Date"] = new string[] { strDate };
+            _dateUser["seed"] = new string[] { PlayerPrefs.GetInt("seed").ToString() };
+        }
+
+        private int GetMap()
+        {
+            return ((int)Scenes.Island1) + PlayerPrefs.GetInt("seed") % 3;
         }
     }
 }

@@ -1,14 +1,11 @@
-using NTO24.UI;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Events;
-using System.Reflection;
 using System;
 using System.Collections;
-using NTO24.Net;
-using System.IO;
-using UnityEngine.Networking;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using NTO24.UI;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace NTO24
 {
@@ -30,6 +27,12 @@ namespace NTO24
         [SerializeField]
         private Entity _burov;
 
+        [SerializeField]
+        private List<ResourceCluster> _resourceClusters;
+
+        [SerializeField]
+        private List<Pair<Resource, int>> _clusterCounts;
+
         [Header("UI")]
         [SerializeField]
         private EntityHUD _entityHUD;
@@ -45,7 +48,7 @@ namespace NTO24
         public UnityEvent PreinitializeEvent { get; private set; }
 
         [field: SerializeField]
-        public UnityEvent PostinitializeEvent {get; private set;}
+        public UnityEvent PostinitializeEvent { get; private set; }
 
         [HideInInspector]
         public static Main Instance { get; private set; }
@@ -150,6 +153,35 @@ namespace NTO24
             _currentRequestCount++;
             yield return request;
             _currentRequestCount--;
+        }
+
+        private void InitializeClusters()
+        {
+            var strSeed = SaveManager.Seed.ToString();
+
+            int count = 0;
+            if (!int.TryParse(strSeed[0].ToString(), out count))
+                count = (strSeed[0] % 4) + 1;
+
+            List<Resource> deniedResources = new();
+            for (int i = 0, j = 1; i < _resourceClusters.Count; i++)
+            {
+                Resource resourse = null;
+
+                if (int.TryParse(strSeed[j].ToString(), out var clusterId))
+                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, clusterId, count, deniedResources);
+                else
+                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, strSeed[j] % 4, count, deniedResources);
+
+                for (int j = 0; j < _clusterCounts.Count; j++)
+                {
+                    if (_clusterCounts[j].Value1 == resourse)
+                        _clusterCounts[j] = new(resourse, _clusterCounts[j].Value2 - 1);
+
+                    if (_clusterCounts[j].Value2 == 0)
+                        deniedResources.Add(_clusterCounts[j].Value1);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                }
+            }
         }
 
         private void OnDestroy()

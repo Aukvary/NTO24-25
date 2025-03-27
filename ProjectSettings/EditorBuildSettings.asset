@@ -8,9 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 1688b19fecb852c4ea39ac80d14da540
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/map.unity
     guid: 6605d13dd540f444dade3112754c13c8
+  - enabled: 1
+    path: Assets/Scenes/island.unity
+    guid: 4e87dfb9280fac84aaf36eecc1da0635
+  - enabled: 1
+    path: Assets/Scenes/island2.unity
+    guid: 8f287bcbc780a4249a1239eb614ca134
+  - enabled: 1
+    path: Assets/Scenes/island3.unity
+    guid: f97ff7d3905ea4b4da56887540ab4e94
   - enabled: 1
     path: Assets/Scenes/Happy End.unity
     guid: b55575323e81364488bea4da1da5ef5f
