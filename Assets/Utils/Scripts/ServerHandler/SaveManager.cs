@@ -47,10 +47,10 @@ namespace NTO24
 
         private string _currentID;
 
-        private string _serverSeed;
+        private int _serverSeed;
 
-        public static InitializeFrom InitializeFrom { get; private set; } 
-        public static int Seed { get; private set; }
+        public static InitializeFrom InitializeFrom { get; private set; }
+        public static int Seed { get; private set; } = 12;
 
         public IEnumerator Initialize()
         {
@@ -196,14 +196,14 @@ namespace NTO24
             yield return ServerHandler.InitializeUser(
                 $"{_currentID}_Date",
                 new Dictionary<string, string[]>() { { "Date", new string[] { _localDate } },
-                    { "Seed", new string[] { PlayerPrefs.GetInt("seed").ToString() } } },
+                    { "Seed", new string[] { PlayerPrefs.GetInt("seed", 0).ToString() } } },
                 u =>
                 {
                     if (u == null)
                         return;
                     _dateUser = u;
                     _serverDate = u["Date"][0];
-                    _serverSeed = u["seed"][0];
+                    _serverSeed = int.Parse(u["seed"][0]);
                 });
         }
 
@@ -220,6 +220,8 @@ namespace NTO24
             if (connection)
             {
                 onSuccses?.Invoke();
+                if (PlayerPrefs.GetInt("seed", 0) == 0)
+                    Seed = _serverSeed;
                 yield break;
             }
             OnFailed?.Invoke();
@@ -230,6 +232,7 @@ namespace NTO24
         {
             string strDate = DateTime.UtcNow.ToString("f");
             PlayerPrefs.SetString("Date", strDate);
+            Seed = PlayerPrefs.GetInt("seed");
 
             if (!updateServer || _dateUser == null)
                 return;
