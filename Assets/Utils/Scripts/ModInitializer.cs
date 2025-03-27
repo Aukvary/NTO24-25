@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.Rendering;
-using Directory = UnityEngine.Windows.Directory;
 
 namespace NTO24
 {
