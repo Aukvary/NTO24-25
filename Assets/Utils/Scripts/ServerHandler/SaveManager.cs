@@ -50,7 +50,7 @@ namespace NTO24
         private int _serverSeed;
 
         public static InitializeFrom InitializeFrom { get; private set; }
-        public static int Seed { get; private set; } = 12;
+        public static int Seed { get; private set; } = 134;
 
         public IEnumerator Initialize()
         {

@@ -166,29 +166,26 @@ namespace NTO24
                 count = (strSeed[0] % 4) + 1;
 
             List<Resource> deniedResources = new();
+
+            System.Random random = new System.Random(SaveManager.Seed);
             for (int i = 0, j = 1; i < _resourceClusters.Count; i++, j++)
             {
                 Resource resourse = null;
 
                 if (int.TryParse(strSeed[j].ToString(), out var clusterId))
-                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, clusterId, count, deniedResources);
-
+                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, clusterId, count, deniedResources, random);
                 else
-                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, strSeed[j] % 4, count, deniedResources);
+                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, strSeed[j] % 4, count, deniedResources, random);
 
                 for (int k = 0; k < _clusterCounts.Count; k++)
                 {
                     if (_clusterCounts[k].Value1 == resourse)
                     {
                         _clusterCounts[k] = new(resourse, _clusterCounts[k].Value2 - 1);
-                        break;
                     }
 
                     if (_clusterCounts[k].Value2 == 0)
-                    {
-
                         deniedResources.Add(_clusterCounts[k].Value1);
-                    }
                 }
             }
         }
