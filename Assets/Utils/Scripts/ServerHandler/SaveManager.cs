@@ -50,7 +50,7 @@ namespace NTO24
         private int _serverSeed;
 
         public static InitializeFrom InitializeFrom { get; private set; }
-        public static int Seed { get; private set; } = 994320754;
+        public static int Seed { get; private set; }
 
         private void Start()
         {
@@ -248,7 +248,7 @@ namespace NTO24
 
         private int GetMap()
         {
-            return ((int)Scenes.Island1) + PlayerPrefs.GetInt("seed") % 3;
+            return ((int)Scenes.Island1);
         }
     }
 }
