@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -40,6 +41,8 @@ namespace NTO24
 
         public static void Add(Texture2D texture, Texture2D icon, string name, string data)
         {
+            if (bearInfos.Any(i => i.Name == name))
+                return;
             var info = new BearInfo(texture, icon, name, data);
             bearInfos.Add(info);
         }

@@ -48,7 +48,7 @@ namespace NTO24.UI
                 if (value == null)
                     return;
                 _frames = value;
-                _frameChanger = StartCoroutine(Change());
+                _icon.sprite = _frames[0];
             }
         }
 

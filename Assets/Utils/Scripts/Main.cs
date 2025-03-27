@@ -163,7 +163,6 @@ namespace NTO24
 
 
             int count = (strSeed[0] % 4) + 1;
-            print(strSeed);
 
             List<Resource> deniedResources = new();
 

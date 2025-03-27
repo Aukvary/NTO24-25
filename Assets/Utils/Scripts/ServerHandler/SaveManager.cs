@@ -1,4 +1,5 @@
 using NTO24.Net;
+using NTO24.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,6 +53,12 @@ namespace NTO24
         public static InitializeFrom InitializeFrom { get; private set; }
         public static int Seed { get; private set; }
 
+        private void Awake()
+        {
+            foreach (var list in GetComponentsInChildren<ChangeBearMenu>(true))
+                list.Add();
+        }
+
         private void Start()
         {
             StartCoroutine(Initialize());
@@ -69,9 +76,7 @@ namespace NTO24
             _errorContinueButton.onClick.AddListener(() =>
             {
 
-                Seed = int.Parse(_seedField.text);
-                print(Seed);
-                PlayerPrefs.SetInt("seed", Seed);
+                Seed = PlayerPrefs.GetInt("seed", Seed);
                 SetDate(false);
                 SceneChanger.Instance.LoadScene(GetMap());
             });
@@ -197,6 +202,7 @@ namespace NTO24
         private IEnumerator InitializeDate()
         {
             _localDate = PlayerPrefs.GetString("Date");
+            Seed = PlayerPrefs.GetInt("seed");
 
             yield return ServerHandler.InitializeUser(
                 $"{_currentID}_Date",

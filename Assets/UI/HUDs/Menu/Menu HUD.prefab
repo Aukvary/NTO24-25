@@ -323,7 +323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -331,6 +331,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
@@ -350,6 +354,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Play
       objectReference: {fileID: 0}
@@ -359,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Exit
+      value: Continue
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -367,6 +375,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: NTO24.UI.GameMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: NTO24.UI.GameMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2356396577591904139, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
@@ -467,7 +479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_fontSize
-      value: 45.3
+      value: 38.35
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_fontSizeBase
@@ -633,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_fontSize
-      value: 35.95
+      value: 29.9
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_fontStyle
@@ -1009,7 +1021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_fontSize
-      value: 43.2
+      value: 35.75
       objectReference: {fileID: 0}
     - target: {fileID: 8716142940313255883, guid: 341b72068ad026b43841a5bde72b8313, type: 3}
       propertyPath: m_enableAutoSizing

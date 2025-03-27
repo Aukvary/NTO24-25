@@ -24,6 +24,13 @@ namespace NTO24
                 );
         }
 
+        public void LoadScene(int index)
+        {
+            _loadScreen.Show(onCompleteCallBack:
+                    () => StartCoroutine(Load(index))
+                );
+        }
+
         private IEnumerator Load(
             int index,
             Func<IEnumerator> PreLoadCallBack = null,
