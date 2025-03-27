@@ -161,9 +161,9 @@ namespace NTO24
         {
             var strSeed = SaveManager.Seed.ToString();
 
-            int count = 0;
-            if (!int.TryParse(strSeed[0].ToString(), out count))
-                count = (strSeed[0] % 4) + 1;
+
+            int count = (strSeed[0] % 4) + 1;
+            print(strSeed);
 
             List<Resource> deniedResources = new();
 
@@ -172,10 +172,7 @@ namespace NTO24
             {
                 Resource resourse = null;
 
-                if (int.TryParse(strSeed[j].ToString(), out var clusterId))
-                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, clusterId, count, deniedResources, random);
-                else
-                    resourse = _resourceClusters[i].Spawn(SaveManager.Seed, strSeed[j] % 4, count, deniedResources, random);
+                resourse = _resourceClusters[i].Spawn(SaveManager.Seed, j, count, deniedResources, random);
 
                 for (int k = 0; k < _clusterCounts.Count; k++)
                 {
