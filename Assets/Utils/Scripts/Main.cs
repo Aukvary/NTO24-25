@@ -161,9 +161,9 @@ namespace NTO24
         {
             var strSeed = SaveManager.Seed.ToString();
 
-            int count = 0;
-            if (!int.TryParse(strSeed[0].ToString(), out count))
-                count = (strSeed[0] % 4) + 1;
+
+            int count = (strSeed[0] % 4) + 1;
+            print(strSeed);
 
             List<Resource> deniedResources = new();
 

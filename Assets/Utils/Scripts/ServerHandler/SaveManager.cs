@@ -50,7 +50,7 @@ namespace NTO24
         private int _serverSeed;
 
         public static InitializeFrom InitializeFrom { get; private set; }
-        public static int Seed { get; private set; } = 934_234_682;
+        public static int Seed { get; private set; } = 994320754;
 
         private void Start()
         {
@@ -68,8 +68,12 @@ namespace NTO24
 
             _errorContinueButton.onClick.AddListener(() =>
             {
+
+                Seed = int.Parse(_seedField.text);
+                print(Seed);
+                PlayerPrefs.SetInt("seed", Seed);
                 SetDate(false);
-                SceneChanger.Instance.LoadScene((int)Scenes.Map);
+                SceneChanger.Instance.LoadScene(GetMap());
             });
         }
 
@@ -179,15 +183,10 @@ namespace NTO24
 
                 StartCoroutine(TryConnect(onSuccses:() =>
                 {
-                    int seed = 0;
-                    if (string.IsNullOrEmpty(_seedField.text))
-                    {
-                        seed = UnityEngine.Random.Range(1000, 10_000);
-                    }
-                    else if (!int.TryParse(_seedField.text, out seed))
-                        seed = UnityEngine.Random.Range(1000, 10_000);
 
-                    PlayerPrefs.SetInt("seed", seed);
+                    Seed = int.Parse(_seedField.text);
+                    print(Seed);
+                    PlayerPrefs.SetInt("seed", Seed);
 
                     SetDate();
                     SceneChanger.Instance.LoadScene(GetMap());
