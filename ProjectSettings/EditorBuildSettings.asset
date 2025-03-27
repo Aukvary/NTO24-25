@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/zastavka.unity
     guid: eb73d30d0e4a3af428d16fbf7a489730
   - enabled: 1
